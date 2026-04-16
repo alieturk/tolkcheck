@@ -1,0 +1,39 @@
+# ── Node / Next.js ──────────────────────────────────────────
+node_modules/
+.next/
+.pnpm-store/
+pnpm-debug.log*
+
+# ── Python ──────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.uv/
+dist/
+*.egg-info/
+.ruff_cache/
+
+# ── Env files ───────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+
+# ── AI model weights (large, never commit) ──────────────────
+backend/models/
+*.pt
+*.bin
+*.gguf
+*.safetensors
+
+# ── Uploads (runtime, never commit) ─────────────────────────
+backend/uploads/
+
+# ── OS ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── IDE ─────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
