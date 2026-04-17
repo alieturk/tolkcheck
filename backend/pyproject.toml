@@ -50,6 +50,11 @@ dev = [
 
 [tool.uv]
 package = false
+# torchcodec (pulled in by torchaudio/speechbrain) has no linux/aarch64 wheel.
+# Override to skip it on ARM64 Linux so Docker builds succeed on M-series Macs.
+override-dependencies = [
+    "torchcodec; sys_platform != 'linux' or platform_machine != 'aarch64'",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]

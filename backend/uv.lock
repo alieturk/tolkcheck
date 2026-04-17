@@ -10,6 +10,9 @@ resolution-markers = [
     "python_full_version < '3.13' and sys_platform != 'emscripten' and sys_platform != 'win32'",
 ]
 
+[manifest]
+overrides = [{ name = "torchcodec", marker = "platform_machine != 'aarch64' or sys_platform != 'linux'" }]
+
 [[package]]
 name = "aiofiles"
 version = "25.1.0"
@@ -1868,7 +1871,7 @@ dependencies = [
     { name = "torch" },
     { name = "torch-audiomentations" },
     { name = "torchaudio" },
-    { name = "torchcodec" },
+    { name = "torchcodec", marker = "platform_machine != 'aarch64' or sys_platform != 'linux'" },
     { name = "torchmetrics" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/20/05/6b2d4829ab00f2933b8966035cc8da5e27f81dc9c8c3c9eb58419ffa51e8/pyannote_audio-4.0.4.tar.gz", hash = "sha256:dee724dc3cff17dac9ea5afd36053f373ab7839f7b3044e617ff51e099deb131", size = 13960474, upload-time = "2026-02-07T09:56:27.776Z" }
@@ -3021,7 +3024,7 @@ dependencies = [
     { name = "pyannote-audio" },
     { name = "torch" },
     { name = "torchaudio" },
-    { name = "torchcodec", marker = "(platform_machine == 'x86_64' and sys_platform == 'linux') or sys_platform == 'darwin' or sys_platform == 'win32'" },
+    { name = "torchcodec", marker = "platform_machine != 'aarch64' or sys_platform != 'linux'" },
     { name = "torchvision" },
     { name = "transformers" },
     { name = "triton", marker = "platform_machine == 'x86_64' and sys_platform == 'linux'" },
