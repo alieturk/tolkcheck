@@ -26,6 +26,9 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     llm_model: str = "claude-sonnet-4-6"
 
+    # Redis / ARQ
+    redis_url: str = "redis://redis:6379"
+
     # Auth
     secret_key: str = "changeme"
     algorithm: str = "HS256"

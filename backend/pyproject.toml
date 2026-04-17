@@ -30,6 +30,9 @@ dependencies = [
     # AI – LLM feedback (Anthropic SDK with prompt caching)
     "anthropic>=0.40.0",
 
+    # Task queue
+    "arq>=0.26.0",
+
     # Utilities
     "httpx>=0.27.0",
     "aiofiles>=24.0.0",
