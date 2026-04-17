@@ -29,14 +29,14 @@ export async function uploadSession(
   form.append("language", language);
   if (caseId) form.append("case_id", caseId);
 
-  return request<UploadResponse>("/sessions/", { method: "POST", body: form });
+  return request<UploadResponse>("/sessions", { method: "POST", body: form });
 }
 
 export async function listSessions(
   limit = 50,
   offset = 0,
 ): Promise<Session[]> {
-  return request<Session[]>(`/sessions/?limit=${limit}&offset=${offset}`);
+  return request<Session[]>(`/sessions?limit=${limit}&offset=${offset}`);
 }
 
 export async function getSession(id: string): Promise<Session> {

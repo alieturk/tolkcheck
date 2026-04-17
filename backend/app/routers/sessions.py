@@ -37,7 +37,7 @@ async def _arq_pool():
 
 # ── Upload ─────────────────────────────────────────────────────────────────────
 
-@router.post("/", status_code=status.HTTP_202_ACCEPTED)
+@router.post("", status_code=status.HTTP_202_ACCEPTED)
 async def create_session(
     audio: UploadFile = File(...),
     language: str = Form("nl"),
@@ -79,7 +79,7 @@ async def create_session(
 
 # ── List ───────────────────────────────────────────────────────────────────────
 
-@router.get("/")
+@router.get("")
 async def list_sessions(
     db: AsyncSession = Depends(get_session),
     limit: int = 50,
