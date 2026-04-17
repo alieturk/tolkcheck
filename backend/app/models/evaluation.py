@@ -1,7 +1,9 @@
+from __future__ import annotations
+
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Float, ForeignKey, JSON, Text, func
+from sqlalchemy import DateTime, Float, ForeignKey, JSON, String, Text, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -21,7 +23,11 @@ class Evaluation(Base):
         index=True,
     )
 
-    # Scores — 0 to 100
+    # Speaker role assignment — set by the user at the confirmation step
+    interpreter_speaker: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    client_speaker: Mapped[str | None] = mapped_column(String(32), nullable=True)
+
+    # Scores — 0 to 100 (null until Phase B of the pipeline completes)
     overall_score: Mapped[float | None] = mapped_column(Float, nullable=True)
     accuracy_score: Mapped[float | None] = mapped_column(Float, nullable=True)
     completeness_score: Mapped[float | None] = mapped_column(Float, nullable=True)
@@ -29,7 +35,8 @@ class Evaluation(Base):
     fluency_score: Mapped[float | None] = mapped_column(Float, nullable=True)
 
     # AI pipeline outputs
-    transcript: Mapped[dict | None] = mapped_column(JSON, nullable=True)
+    # transcript: list of {start, end, speaker, text} — stored after diarisation
+    transcript: Mapped[list | None] = mapped_column(JSON, nullable=True)
     semantic_similarity_scores: Mapped[list | None] = mapped_column(JSON, nullable=True)
     llm_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
 

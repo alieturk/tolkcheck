@@ -27,13 +27,45 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - uploads_data:/app/uploads
     env_file:
       - ./backend/.env
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/tolkcheck
+      - REDIS_URL=redis://redis:6379
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  # ── ARQ worker ────────────────────────────────────────────
+  worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    command: uv run arq app.worker.WorkerSettings
+    volumes:
+      - ./backend:/app
+      - uploads_data:/app/uploads
+    env_file:
+      - ./backend/.env
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/tolkcheck
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
+
+  # ── Redis (ARQ task queue) ─────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
     restart: unless-stopped
 
   # ── PostgreSQL ─────────────────────────────────────────────
@@ -56,3 +88,4 @@ services:
 
 volumes:
   postgres_data:
+  uploads_data:
