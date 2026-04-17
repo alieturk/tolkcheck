@@ -27,6 +27,7 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - backend_venv:/app/.venv   # keep the Linux venv built in the image
       - uploads_data:/app/uploads
     env_file:
       - ./backend/.env
@@ -48,6 +49,7 @@ services:
     command: uv run arq app.worker.WorkerSettings
     volumes:
       - ./backend:/app
+      - backend_venv:/app/.venv   # same Linux venv as backend
       - uploads_data:/app/uploads
     env_file:
       - ./backend/.env
@@ -89,3 +91,4 @@ services:
 volumes:
   postgres_data:
   uploads_data:
+  backend_venv:    # Linux venv built during `docker build`; shared by backend + worker
