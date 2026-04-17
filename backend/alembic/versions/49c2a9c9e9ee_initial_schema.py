@@ -28,6 +28,7 @@ session_status = postgresql.ENUM(
     "completed",
     "failed",
     name="sessionstatus",
+    create_type=False,  # explicit .create(checkfirst=True) below handles creation
 )
 
 
