@@ -27,14 +27,20 @@ def _diarize_sync(audio_path: Path, num_speakers: int | None) -> list[dict]:
 
     pipeline = Pipeline.from_pretrained(
         "pyannote/speaker-diarization-3.1",
-        use_auth_token=settings.hf_token,
+        token=settings.hf_token,
     )
 
     kwargs: dict = {}
     if num_speakers is not None:
         kwargs["num_speakers"] = num_speakers
 
-    annotation = pipeline(str(audio_path), **kwargs)
+    # Pre-load audio as a waveform dict to avoid torchcodec dependency
+    # (torchcodec has no linux/aarch64 wheel; torchaudio is always available)
+    import torchaudio
+    waveform, sample_rate = torchaudio.load(str(audio_path))
+    audio_input = {"waveform": waveform, "sample_rate": sample_rate}
+
+    annotation = pipeline(audio_input, **kwargs)
 
     return [
         {"start": turn.start, "end": turn.end, "speaker": speaker}
