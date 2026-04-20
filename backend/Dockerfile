@@ -6,7 +6,12 @@ WORKDIR /app
 # ffmpeg is required by faster-whisper / pyannote for audio decoding
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
+    libsox-dev \
+    libsox-fmt-all \
+    pkg-config \
+    build-essential \
     && rm -rf /var/lib/apt/lists/*
+
 
 RUN pip install uv
 
