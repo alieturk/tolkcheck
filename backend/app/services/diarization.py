@@ -24,29 +24,42 @@ async def diarize(audio_path: Path, num_speakers: int | None = None) -> list[dic
 
 def _diarize_sync(audio_path: Path, num_speakers: int | None) -> list[dict]:
     from pyannote.audio import Pipeline
+    import torchaudio
 
     pipeline = Pipeline.from_pretrained(
         "pyannote/speaker-diarization-3.1",
-        token=settings.hf_token,
+        token=settings.hf_token, # Soms is 'use_auth_token' nodig ipv 'token'
     )
+
+    # Zorg dat de pipeline op de CPU draait (of GPU indien beschikbaar)
+    # Voor een MacBook Air (Docker) is CPU het veiligst
+    import torch
+    pipeline.to(torch.device("cpu"))
 
     kwargs: dict = {}
     if num_speakers is not None:
         kwargs["num_speakers"] = num_speakers
 
-    # Pre-load audio as a waveform dict to avoid torchcodec dependency
-    # (torchcodec has no linux/aarch64 wheel; torchaudio is always available)
-    import torchaudio
+    # Audio laden via torchaudio (zoals je al deed, dit is goed voor MP3 nu)
     waveform, sample_rate = torchaudio.load(str(audio_path))
     audio_input = {"waveform": waveform, "sample_rate": sample_rate}
 
-    annotation = pipeline(audio_input, **kwargs)
+    # Uitvoeren van de pipeline
+    result = pipeline(audio_input, **kwargs)
+    # In pyannote >= 3.3 the pipeline returns DiarizeOutput; the Annotation
+    # lives under .speaker_diarization.  Older versions returned the Annotation
+    # directly — handle both.
+    annotation = getattr(result, "speaker_diarization", result)
 
-    return [
-        {"start": turn.start, "end": turn.end, "speaker": speaker}
-        for turn, _, speaker in annotation.itertracks(yield_label=True)
-    ]
+    turns = []
+    for segment, track, speaker in annotation.itertracks(yield_label=True):
+        turns.append({
+            "start": float(segment.start),
+            "end": float(segment.end),
+            "speaker": str(speaker)
+        })
 
+    return turns
 
 def merge_transcript_with_diarization(
     transcript_segments: list[dict],

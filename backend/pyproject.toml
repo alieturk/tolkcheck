@@ -4,6 +4,9 @@ version = "0.1.0"
 description = "AI-powered interpreter quality evaluation for IND sessions"
 requires-python = ">=3.12, <3.14"
 dependencies = [
+    "soundfile>=0.12.1",
+    "ffmpeg-python>=0.2.0",
+    
     # Web
     "fastapi>=0.115.0",
     "uvicorn[standard]>=0.32.0",
