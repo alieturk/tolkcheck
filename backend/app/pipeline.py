@@ -80,7 +80,12 @@ def _split_by_speaker(
 # ── Phase A ───────────────────────────────────────────────────────────────────
 
 async def run_pipeline(session_id: str) -> None:
-    """Phase A: transcribe + diarise, then pause for role confirmation."""
+    """Phase A: diarise → transcribe per turn → merge → AWAITING_ROLE_CONFIRMATION.
+
+    Diarising first lets each speaker-turn chunk be transcribed independently,
+    so Whisper detects language per chunk rather than locking to the dominant
+    language of the whole file.
+    """
     sid = uuid.UUID(session_id)
 
     async with AsyncSessionLocal() as db:
@@ -89,15 +94,7 @@ async def run_pipeline(session_id: str) -> None:
         language = session.language
 
         try:
-            # 1. Transcribe
-            await _set_status(db, session, SessionStatus.TRANSCRIBING)
-            try:
-                transcript_data = await transcription.transcribe(audio_path, language)
-            except Exception as exc:
-                await _set_failed(db, session, ERR_TRANSCRIPTION_FAILED, str(exc))
-                return
-
-            # 2. Diarise
+            # 1. Diarise (language-agnostic — operates on raw audio signal)
             await _set_status(db, session, SessionStatus.DIARISING)
             try:
                 turns = await diarization.diarize(audio_path)
@@ -105,13 +102,69 @@ async def run_pipeline(session_id: str) -> None:
                 await _set_failed(db, session, ERR_DIARISATION_FAILED, str(exc))
                 return
 
-            # 3. Merge transcript segments with speaker labels
-            merged = diarization.merge_transcript_with_diarization(
-                transcript_data["segments"], turns
-            )
+            # 2. Transcribe once per speaker (compact concat, not zero-masking)
+            # Concatenate only actual speech chunks per speaker with 100ms silence
+            # gaps, run Whisper once on the compact audio, remap timestamps back.
+            await _set_status(db, session, SessionStatus.TRANSCRIBING)
+            try:
+                import torch
+                import torchaudio
+                waveform, sr = torchaudio.load(str(audio_path))
+                speakers = sorted({t["speaker"] for t in turns})
 
-            # 4. Save transcript to Evaluation row; update session duration
-            session.duration_seconds = transcript_data.get("duration")
+                all_segments: list[dict] = []
+                GAP_S = 0.1
+                gap = torch.zeros(waveform.shape[0], int(GAP_S * sr))
+
+                for speaker in speakers:
+                    chunks = []
+                    offsets = []  # (compact_start_s, original_start_s)
+                    cursor = 0.0
+
+                    for turn in turns:
+                        if turn["speaker"] != speaker:
+                            continue
+                        s = int(turn["start"] * sr)
+                        e = int(turn["end"] * sr)
+                        chunk = waveform[:, s:e]
+                        if chunk.shape[-1] < 800:
+                            continue
+                        offsets.append((cursor, turn["start"]))
+                        chunks.append(chunk)
+                        cursor += chunk.shape[-1] / sr + GAP_S
+
+                    if not chunks:
+                        continue
+
+                    parts = []
+                    for i, chunk in enumerate(chunks):
+                        parts.append(chunk)
+                        if i < len(chunks) - 1:
+                            parts.append(gap)
+                    compact = torch.cat(parts, dim=1)
+
+                    segs = await transcription.transcribe_chunk(compact, sr, language)
+
+                    for seg in segs:
+                        for i, (c_start, o_start) in enumerate(offsets):
+                            c_end = offsets[i + 1][0] if i + 1 < len(offsets) else cursor
+                            if c_start <= seg["start"] < c_end:
+                                shift = o_start - c_start
+                                seg["start"] += shift
+                                seg["end"]   += shift
+                                break
+                        seg["speaker"] = speaker
+
+                    all_segments.extend(segs)
+            except Exception as exc:
+                await _set_failed(db, session, ERR_TRANSCRIPTION_FAILED, str(exc))
+                return
+
+            # 3. Sort by time, filter hallucinations, save
+            all_segments.sort(key=lambda s: s["start"])
+            merged = _filter_hallucinations(all_segments)
+
+            session.duration_seconds = turns[-1]["end"] if turns else None
             eval_row = Evaluation(session_id=sid, transcript=merged)
             db.add(eval_row)
             await _set_status(db, session, SessionStatus.AWAITING_ROLE_CONFIRMATION)
@@ -134,7 +187,7 @@ async def resume_scoring(session_id: str) -> None:
             select(Evaluation).where(Evaluation.session_id == sid)
         )
         eval_row = result.scalar_one_or_none()
-        if eval_row is None or eval_row.interpreter_speaker is None:
+        if eval_row is None or eval_row.interpreter_speaker is None or eval_row.client_speaker is None:
             await _set_failed(
                 db, session,
                 ERR_SCORING_FAILED,
@@ -144,11 +197,12 @@ async def resume_scoring(session_id: str) -> None:
 
         transcript: list[dict] = eval_row.transcript or []
         interpreter_speaker = eval_row.interpreter_speaker
+        client_speaker = eval_row.client_speaker
 
         try:
             # 5. Score
             await _set_status(db, session, SessionStatus.SCORING)
-            interp_texts, client_texts = _split_by_speaker(transcript, interpreter_speaker)
+            interp_texts, client_texts = _align_turns(transcript, interpreter_speaker, client_speaker)
 
             if not interp_texts or not client_texts:
                 await _set_failed(
