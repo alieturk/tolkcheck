@@ -61,20 +61,55 @@ async def _set_failed(
     await db.commit()
 
 
-def _split_by_speaker(
+def _align_turns(
     segments: list[dict],
     interpreter_speaker: str,
+    client_speaker: str,
 ) -> tuple[list[str], list[str]]:
-    """Return (interpreter_texts, client_texts) split by the confirmed speaker ID.
+    """Pair each interpreter turn with the nearest preceding client turn.
 
-    Segments are paired positionally: interpreter segment i is scored against
-    the nearest client segment. For now we split and truncate to the shorter list
-    so score_segments always receives equal-length inputs.
+    Groups consecutive same-speaker segments into turns, then for every
+    interpreter turn searches backwards for the most recent client turn.
+    This matches consecutive interpretation's structure: client speaks,
+    interpreter translates, rather than naively pairing by array index.
     """
-    interp = [s["text"] for s in segments if s.get("speaker") == interpreter_speaker]
-    client = [s["text"] for s in segments if s.get("speaker") != interpreter_speaker]
-    min_len = min(len(interp), len(client))
-    return interp[:min_len], client[:min_len]
+    turns: list[dict] = []
+    for seg in segments:
+        if turns and turns[-1]["speaker"] == seg["speaker"]:
+            turns[-1]["text"] += " " + seg["text"]
+            turns[-1]["end"] = seg["end"]
+        else:
+            turns.append({
+                "speaker": seg["speaker"],
+                "start": seg["start"],
+                "end": seg["end"],
+                "text": seg["text"],
+            })
+
+    paired_interp: list[str] = []
+    paired_client: list[str] = []
+    for i, turn in enumerate(turns):
+        if turn["speaker"] != interpreter_speaker:
+            continue
+        for j in range(i - 1, -1, -1):
+            if turns[j]["speaker"] == client_speaker:
+                paired_client.append(turns[j]["text"])
+                paired_interp.append(turn["text"])
+                break
+
+    return paired_interp, paired_client
+
+
+def _filter_hallucinations(segments: list[dict]) -> list[dict]:
+    """Remove degenerate Whisper loops (same text repeated 3+ consecutive times)."""
+    result: list[dict] = []
+    for i, seg in enumerate(segments):
+        if (i >= 2
+                and seg["text"] == segments[i - 1]["text"]
+                and seg["text"] == segments[i - 2]["text"]):
+            continue
+        result.append(seg)
+    return result
 
 
 # ── Phase A ───────────────────────────────────────────────────────────────────
