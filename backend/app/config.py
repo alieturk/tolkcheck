@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     cors_origins: list[str] = ["http://localhost:3000"]
 
     # Whisper
-    whisper_model: str = "large-v3"
+    whisper_model: str = "medium"
     whisper_device: str = "cpu"
     whisper_compute_type: str = "int8"
 
