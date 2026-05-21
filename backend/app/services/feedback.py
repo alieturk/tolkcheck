@@ -1,9 +1,11 @@
-"""LLM feedback generation using the Anthropic API.
+"""LLM feedback generation via Anthropic Message Batches API (50% cost reduction).
 
-The system prompt is sent with cache_control=ephemeral so it is cached
-across requests — reducing latency and token cost for every evaluation call.
+Submits a single-request batch, polls with exponential back-off until the batch
+ends, then returns the result. Interface is unchanged — callers receive a string.
 """
 from __future__ import annotations
+
+import asyncio
 
 import anthropic
 
@@ -42,31 +44,51 @@ async def generate_feedback(
     transcript: dict,
     similarity_scores: list[float],
 ) -> str:
-    """Call the LLM and return structured Dutch feedback as plain text."""
+    """Submit a batch request, poll until complete, return feedback as plain text."""
     client = _get_client()
 
     mean_score = sum(similarity_scores) / len(similarity_scores) if similarity_scores else 0.0
-
     user_content = (
         f"Gemiddelde semantische gelijkenis: {mean_score:.2f}\n\n"
         f"Transcript:\n{_format_transcript(transcript)}"
     )
 
-    message = await client.messages.create(
-        model=settings.llm_model,
-        max_tokens=2048,
-        system=[
+    batch = await client.beta.messages.batches.create(
+        requests=[
             {
-                "type": "text",
-                "text": _SYSTEM_PROMPT,
-                # Cache the system prompt — it never changes between requests
-                "cache_control": {"type": "ephemeral"},
+                "custom_id": "feedback",
+                "params": {
+                    "model": settings.llm_model,
+                    "max_tokens": 2048,
+                    "system": [
+                        {
+                            "type": "text",
+                            "text": _SYSTEM_PROMPT,
+                            "cache_control": {"type": "ephemeral"},
+                        }
+                    ],
+                    "messages": [{"role": "user", "content": user_content}],
+                },
             }
-        ],
-        messages=[{"role": "user", "content": user_content}],
+        ]
     )
 
-    return message.content[0].text  # type: ignore[index]
+    # Exponential back-off: 5s → 10s → 20s → 40s → 60s (cap)
+    delay = 5
+    while batch.processing_status != "ended":
+        await asyncio.sleep(delay)
+        batch = await client.beta.messages.batches.retrieve(batch.id)
+        delay = min(delay * 2, 60)
+
+    async for result in await client.beta.messages.batches.results(batch.id):
+        if result.result.type == "succeeded":
+            return result.result.message.content[0].text  # type: ignore[index]
+        raise RuntimeError(
+            f"Batch request failed ({result.result.type}): "
+            f"{getattr(result.result, 'error', '')}"
+        )
+
+    raise RuntimeError("Batch completed but returned no results")
 
 
 def _format_transcript(transcript: dict) -> str:
