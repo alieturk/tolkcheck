@@ -114,7 +114,7 @@ def _filter_hallucinations(segments: list[dict]) -> list[dict]:
 
 # ── Phase A ───────────────────────────────────────────────────────────────────
 
-async def run_pipeline(session_id: str) -> None:
+async def run_pipeline(ctx: dict, session_id: str) -> None:
     """Phase A: diarise → transcribe per turn → merge → AWAITING_ROLE_CONFIRMATION.
 
     Diarising first lets each speaker-turn chunk be transcribed independently,
@@ -126,7 +126,11 @@ async def run_pipeline(session_id: str) -> None:
     async with AsyncSessionLocal() as db:
         session = await _get_session(db, sid)
         audio_path = Path(session.audio_path)
-        language = session.language
+        # Always use language=None so Whisper auto-detects each speaker's language
+        # independently. The session.language field is metadata only — passing it
+        # to Whisper would force every speaker (incl. the Dutch IND officer) to be
+        # decoded as the client's source language.
+        language = None
 
         try:
             # 1. Diarise (language-agnostic — operates on raw audio signal)
@@ -210,7 +214,7 @@ async def run_pipeline(session_id: str) -> None:
 
 # ── Phase B ───────────────────────────────────────────────────────────────────
 
-async def resume_scoring(session_id: str) -> None:
+async def resume_scoring(ctx: dict, session_id: str) -> None:
     """Phase B: score + LLM feedback after the user has confirmed speaker roles."""
     sid = uuid.UUID(session_id)
 
@@ -233,8 +237,63 @@ async def resume_scoring(session_id: str) -> None:
         transcript: list[dict] = eval_row.transcript or []
         interpreter_speaker = eval_row.interpreter_speaker
         client_speaker = eval_row.client_speaker
+        client_lang: str = session.language or "nl"
 
         try:
+            # 5a. Re-transcribe client speaker with forced language (if non-Dutch)
+            # Phase A used language=None (auto-detect) for all speakers. For languages like
+            # Dari/Farsi, Whisper auto-detect produces very poor results. Now that we know
+            # which speaker is the client and what language they speak, we re-transcribe only
+            # their audio chunks with the correct language hint before scoring.
+            if client_lang != "nl" and Path(session.audio_path).exists():
+                try:
+                    import torch
+                    import torchaudio
+                    waveform, sr = torchaudio.load(str(session.audio_path))
+                    GAP_S = 0.1
+                    gap = torch.zeros(waveform.shape[0], int(GAP_S * sr))
+
+                    client_segs = [s for s in transcript if s["speaker"] == client_speaker]
+                    chunks: list = []
+                    offsets: list = []
+                    cursor = 0.0
+                    for seg in client_segs:
+                        s_i = int(seg["start"] * sr)
+                        e_i = int(seg["end"] * sr)
+                        chunk = waveform[:, s_i:e_i]
+                        if chunk.shape[-1] < 800:
+                            continue
+                        offsets.append((cursor, seg["start"]))
+                        chunks.append(chunk)
+                        cursor += chunk.shape[-1] / sr + GAP_S
+
+                    if chunks:
+                        parts = []
+                        for i, chunk in enumerate(chunks):
+                            parts.append(chunk)
+                            if i < len(chunks) - 1:
+                                parts.append(gap)
+                        compact = torch.cat(parts, dim=1)
+
+                        new_segs = await transcription.transcribe_chunk(compact, sr, client_lang)
+
+                        for seg in new_segs:
+                            for i, (c_start, o_start) in enumerate(offsets):
+                                c_end = offsets[i + 1][0] if i + 1 < len(offsets) else cursor
+                                if c_start <= seg["start"] < c_end:
+                                    shift = o_start - c_start
+                                    seg["start"] += shift
+                                    seg["end"]   += shift
+                                    break
+                            seg["speaker"] = client_speaker
+
+                        non_client = [s for s in transcript if s["speaker"] != client_speaker]
+                        transcript = sorted(non_client + new_segs, key=lambda s: s["start"])
+                        transcript = _filter_hallucinations(transcript)
+                        eval_row.transcript = transcript
+                except Exception:
+                    pass  # keep original transcript; scoring will still proceed
+
             # 5. Score
             await _set_status(db, session, SessionStatus.SCORING)
             interp_texts, client_texts = _align_turns(transcript, interpreter_speaker, client_speaker)
@@ -247,8 +306,19 @@ async def resume_scoring(session_id: str) -> None:
                 )
                 return
 
+            # 5b. Translate client utterances to Dutch so scoring and LLM feedback
+            # are Dutch↔Dutch. Dutch evaluators can then read both sides and trust the scores.
+            if client_lang != "nl":
+                try:
+                    scoring_texts = await feedback.translate_to_dutch(client_texts, client_lang)
+                    eval_row.client_translations = scoring_texts
+                except Exception:
+                    scoring_texts = client_texts  # fall back to original on translation failure
+            else:
+                scoring_texts = client_texts
+
             try:
-                scores = await scoring.score_segments(client_texts, interp_texts)
+                scores = await scoring.score_segments(scoring_texts, interp_texts)
             except Exception as exc:
                 await _set_failed(db, session, ERR_SCORING_FAILED, str(exc))
                 return
@@ -263,17 +333,18 @@ async def resume_scoring(session_id: str) -> None:
             eval_row.fluency_score        = overall        # placeholder — specialised model TBD
             eval_row.semantic_similarity_scores = scores
 
-            # 6. Generate LLM feedback
+            # 6. Generate LLM feedback (pass Dutch translations so feedback is in Dutch context)
             await _set_status(db, session, SessionStatus.GENERATING)
             try:
-                feedback_text = await feedback.generate_feedback(
-                    {"segments": transcript}, scores
+                feedback_result = await feedback.generate_feedback(
+                    scoring_texts, interp_texts, scores
                 )
             except Exception as exc:
                 await _set_failed(db, session, ERR_LLM_ERROR, str(exc))
                 return
 
-            eval_row.llm_feedback = feedback_text
+            eval_row.llm_feedback      = feedback_result["overall_feedback"]
+            eval_row.structured_issues = feedback_result["structured_issues"]
             await _set_status(db, session, SessionStatus.COMPLETED)
 
         except Exception as exc:
