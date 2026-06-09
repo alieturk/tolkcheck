@@ -11,6 +11,7 @@ frontend stepper always reflects the current state.
 """
 from __future__ import annotations
 
+import logging
 import uuid
 from pathlib import Path
 
@@ -21,6 +22,8 @@ from app.database import AsyncSessionLocal
 from app.models.evaluation import Evaluation
 from app.models.session import Session, SessionStatus
 from app.services import diarization, feedback, scoring, transcription
+
+log = logging.getLogger(__name__)
 
 # ── Error codes (maps to Dutch UI messages in the frontend) ──────────────────
 ERR_UNSUPPORTED_FORMAT   = "UNSUPPORTED_FORMAT"
@@ -61,17 +64,18 @@ async def _set_failed(
     await db.commit()
 
 
-def _align_turns(
+def _align_blocks(
     segments: list[dict],
     interpreter_speaker: str,
     client_speaker: str,
 ) -> tuple[list[str], list[str]]:
-    """Pair each interpreter turn with the nearest preceding client turn.
+    """Pair each client speaking block with the full interpreter translation block.
 
-    Groups consecutive same-speaker segments into turns, then for every
-    interpreter turn searches backwards for the most recent client turn.
-    This matches consecutive interpretation's structure: client speaks,
-    interpreter translates, rather than naively pairing by array index.
+    IND sessions follow consecutive interpretation: the client speaks for 30–60
+    seconds, then the interpreter translates the entire block. One client block maps
+    to one interpreter block, not one interpreter segment. Grouping at block level
+    avoids the repeated-source problem where the same short (often garbled) client
+    fragment is compared against many different interpreter sentences.
     """
     turns: list[dict] = []
     for seg in segments:
@@ -86,16 +90,29 @@ def _align_turns(
                 "text": seg["text"],
             })
 
-    paired_interp: list[str] = []
     paired_client: list[str] = []
-    for i, turn in enumerate(turns):
-        if turn["speaker"] != interpreter_speaker:
-            continue
-        for j in range(i - 1, -1, -1):
-            if turns[j]["speaker"] == client_speaker:
-                paired_client.append(turns[j]["text"])
-                paired_interp.append(turn["text"])
-                break
+    paired_interp: list[str] = []
+    current_client: str | None = None
+    current_interp: str | None = None
+
+    for turn in turns:
+        if turn["speaker"] == client_speaker:
+            if current_client and current_interp:
+                paired_client.append(current_client)
+                paired_interp.append(current_interp)
+            current_client = turn["text"]
+            current_interp = None
+        elif turn["speaker"] == interpreter_speaker and current_client is not None:
+            current_interp = (
+                (current_interp + " " + turn["text"]).strip()
+                if current_interp
+                else turn["text"]
+            )
+        # Officer/other speaker turns do not affect pairing
+
+    if current_client and current_interp:
+        paired_client.append(current_client)
+        paired_interp.append(current_interp)
 
     return paired_interp, paired_client
 
@@ -133,6 +150,9 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
         language = None
 
         try:
+            log.info("[A] session=%s  file=%s  source_lang=%s",
+                     sid, audio_path.name, session.language)
+
             # 1. Diarise (language-agnostic — operates on raw audio signal)
             await _set_status(db, session, SessionStatus.DIARISING)
             try:
@@ -140,6 +160,17 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
             except Exception as exc:
                 await _set_failed(db, session, ERR_DIARISATION_FAILED, str(exc))
                 return
+
+            # Log diarization summary: turns per speaker and their time spans
+            speaker_turns: dict[str, list[dict]] = {}
+            for t in turns:
+                speaker_turns.setdefault(t["speaker"], []).append(t)
+            for spk, spk_turns in sorted(speaker_turns.items()):
+                spans = " ".join(
+                    f"{t['start']:.1f}–{t['end']:.1f}s" for t in spk_turns
+                )
+                log.info("[A] diarization  speaker=%-12s  turns=%d  spans=[%s]",
+                         spk, len(spk_turns), spans)
 
             # 2. Transcribe once per speaker (compact concat, not zero-masking)
             # Concatenate only actual speech chunks per speaker with 100ms silence
@@ -173,14 +204,20 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                         cursor += chunk.shape[-1] / sr + GAP_S
 
                     if not chunks:
+                        log.warning("[A] transcribe  speaker=%-12s  SKIPPED (no usable chunks)", speaker)
                         continue
 
+                    compact_dur = compact.shape[-1] / sr if chunks else 0.0
                     parts = []
                     for i, chunk in enumerate(chunks):
                         parts.append(chunk)
                         if i < len(chunks) - 1:
                             parts.append(gap)
                     compact = torch.cat(parts, dim=1)
+                    compact_dur = compact.shape[-1] / sr
+
+                    log.info("[A] transcribe  speaker=%-12s  chunks=%d  compact=%.1fs",
+                             speaker, len(chunks), compact_dur)
 
                     segs = await transcription.transcribe_chunk(compact, sr, language)
 
@@ -194,6 +231,17 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                                 break
                         seg["speaker"] = speaker
 
+                    for seg in segs:
+                        preview = seg["text"][:80].replace("\n", " ")
+                        log.debug("[A] segment  speaker=%-12s  lang=%-4s  %.1f–%.1fs  %r",
+                                  speaker, seg.get("language", "?"),
+                                  seg["start"], seg["end"], preview)
+
+                    log.info("[A] transcribe  speaker=%-12s  segments_out=%d  "
+                             "detected_lang=%s",
+                             speaker, len(segs),
+                             segs[0].get("language", "?") if segs else "none")
+
                     all_segments.extend(segs)
             except Exception as exc:
                 await _set_failed(db, session, ERR_TRANSCRIPTION_FAILED, str(exc))
@@ -201,11 +249,16 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
 
             # 3. Sort by time, filter hallucinations, save
             all_segments.sort(key=lambda s: s["start"])
+            before_filter = len(all_segments)
             merged = _filter_hallucinations(all_segments)
+            log.info("[A] filter_hallucinations  before=%d  after=%d  removed=%d",
+                     before_filter, len(merged), before_filter - len(merged))
 
             session.duration_seconds = turns[-1]["end"] if turns else None
             eval_row = Evaluation(session_id=sid, transcript=merged)
             db.add(eval_row)
+            log.info("[A] DONE  total_segments=%d  duration=%.1fs → AWAITING_ROLE_CONFIRMATION",
+                     len(merged), session.duration_seconds or 0)
             await _set_status(db, session, SessionStatus.AWAITING_ROLE_CONFIRMATION)
 
         except Exception as exc:
@@ -239,13 +292,19 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
         client_speaker = eval_row.client_speaker
         client_lang: str = session.language or "nl"
 
+        log.info("[B] session=%s  client=%s  interpreter=%s  client_lang=%s  transcript_segs=%d",
+                 sid, client_speaker, interpreter_speaker, client_lang, len(transcript))
+
         try:
             # 5a. Re-transcribe client speaker with forced language (if non-Dutch)
-            # Phase A used language=None (auto-detect) for all speakers. For languages like
-            # Dari/Farsi, Whisper auto-detect produces very poor results. Now that we know
-            # which speaker is the client and what language they speak, we re-transcribe only
-            # their audio chunks with the correct language hint before scoring.
             if client_lang != "nl" and Path(session.audio_path).exists():
+                client_segs_before = [s for s in transcript if s["speaker"] == client_speaker]
+                log.info("[B] retranscribe  client_segs_before=%d  lang=%s",
+                         len(client_segs_before), client_lang)
+                for s in client_segs_before:
+                    log.debug("[B] retranscribe  BEFORE  %.1f–%.1fs  lang=%-4s  %r",
+                              s["start"], s["end"], s.get("language", "?"),
+                              s["text"][:80].replace("\n", " "))
                 try:
                     import torch
                     import torchaudio
@@ -253,11 +312,10 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                     GAP_S = 0.1
                     gap = torch.zeros(waveform.shape[0], int(GAP_S * sr))
 
-                    client_segs = [s for s in transcript if s["speaker"] == client_speaker]
                     chunks: list = []
                     offsets: list = []
                     cursor = 0.0
-                    for seg in client_segs:
+                    for seg in client_segs_before:
                         s_i = int(seg["start"] * sr)
                         e_i = int(seg["end"] * sr)
                         chunk = waveform[:, s_i:e_i]
@@ -274,6 +332,9 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                             if i < len(chunks) - 1:
                                 parts.append(gap)
                         compact = torch.cat(parts, dim=1)
+                        compact_dur = compact.shape[-1] / sr
+                        log.info("[B] retranscribe  chunks=%d  compact=%.1fs  forced_lang=%s",
+                                 len(chunks), compact_dur, client_lang)
 
                         new_segs = await transcription.transcribe_chunk(compact, sr, client_lang)
 
@@ -287,16 +348,29 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                                     break
                             seg["speaker"] = client_speaker
 
+                        log.info("[B] retranscribe  new_segs=%d", len(new_segs))
+                        for s in new_segs:
+                            log.debug("[B] retranscribe  AFTER   %.1f–%.1fs  lang=%-4s  %r",
+                                      s["start"], s["end"], s.get("language", "?"),
+                                      s["text"][:80].replace("\n", " "))
+
                         non_client = [s for s in transcript if s["speaker"] != client_speaker]
                         transcript = sorted(non_client + new_segs, key=lambda s: s["start"])
                         transcript = _filter_hallucinations(transcript)
                         eval_row.transcript = transcript
-                except Exception:
-                    pass  # keep original transcript; scoring will still proceed
+                    else:
+                        log.warning("[B] retranscribe  SKIPPED — no usable client audio chunks")
+                except Exception as exc:
+                    log.warning("[B] retranscribe  FAILED (%s) — keeping Phase A transcript", exc)
 
-            # 5. Score
+            # 5. Align into client/interpreter block pairs
             await _set_status(db, session, SessionStatus.SCORING)
-            interp_texts, client_texts = _align_turns(transcript, interpreter_speaker, client_speaker)
+            interp_texts, client_texts = _align_blocks(transcript, interpreter_speaker, client_speaker)
+
+            log.info("[B] align_blocks  pairs=%d", len(client_texts))
+            for i, (src, tgt) in enumerate(zip(client_texts, interp_texts)):
+                log.info("[B] pair[%d]  source=%r", i, src[:100].replace("\n", " "))
+                log.info("[B] pair[%d]  target=%r", i, tgt[:100].replace("\n", " "))
 
             if not interp_texts or not client_texts:
                 await _set_failed(
@@ -306,14 +380,20 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                 )
                 return
 
-            # 5b. Translate client utterances to Dutch so scoring and LLM feedback
-            # are Dutch↔Dutch. Dutch evaluators can then read both sides and trust the scores.
+            # 5b. Translate client utterances to Dutch for Dutch↔Dutch scoring
             if client_lang != "nl":
+                log.info("[B] translate  %d texts from %s → nl", len(client_texts), client_lang)
                 try:
                     scoring_texts = await feedback.translate_to_dutch(client_texts, client_lang)
                     eval_row.client_translations = scoring_texts
-                except Exception:
-                    scoring_texts = client_texts  # fall back to original on translation failure
+                    for i, (orig, trans) in enumerate(zip(client_texts, scoring_texts)):
+                        log.info("[B] translate[%d]  %r → %r",
+                                 i,
+                                 orig[:60].replace("\n", " "),
+                                 trans[:60].replace("\n", " "))
+                except Exception as exc:
+                    log.warning("[B] translate  FAILED (%s) — scoring with original text", exc)
+                    scoring_texts = client_texts
             else:
                 scoring_texts = client_texts
 
@@ -323,18 +403,31 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                 await _set_failed(db, session, ERR_SCORING_FAILED, str(exc))
                 return
 
+            for i, sc in enumerate(scores):
+                log.info("[B] score[%d]  %.4f  src=%r  tgt=%r",
+                         i, sc,
+                         scoring_texts[i][:60].replace("\n", " "),
+                         interp_texts[i][:60].replace("\n", " "))
+
             agg = scoring.aggregate_scores(scores)
-            # Map mean cosine similarity (0–1) to a 0–100 scale
             overall = round(agg["mean"] * 100, 1)
+            log.info("[B] scores  mean=%.3f  min=%.3f  max=%.3f  overall=%.1f/100",
+                     agg["mean"], agg["min"], agg["max"], overall)
+
             eval_row.overall_score        = overall
-            eval_row.accuracy_score       = overall        # same source until model-specific scoring
-            eval_row.completeness_score   = round(min(len(interp_texts) / max(len(client_texts), 1), 1.0) * 100, 1)
-            eval_row.terminology_score    = overall        # placeholder — specialised model TBD
-            eval_row.fluency_score        = overall        # placeholder — specialised model TBD
+            eval_row.accuracy_score       = overall
+            total_src_words   = sum(len(t.split()) for t in scoring_texts)
+            total_interp_words = sum(len(t.split()) for t in interp_texts)
+            eval_row.completeness_score = round(
+                min(total_interp_words / max(total_src_words, 1), 1.0) * 100, 1
+            )
+            eval_row.terminology_score    = overall
+            eval_row.fluency_score        = overall
             eval_row.semantic_similarity_scores = scores
 
-            # 6. Generate LLM feedback (pass Dutch translations so feedback is in Dutch context)
+            # 6. Generate LLM feedback
             await _set_status(db, session, SessionStatus.GENERATING)
+            log.info("[B] llm_feedback  requesting…")
             try:
                 feedback_result = await feedback.generate_feedback(
                     scoring_texts, interp_texts, scores
@@ -343,9 +436,18 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                 await _set_failed(db, session, ERR_LLM_ERROR, str(exc))
                 return
 
+            issues_count = sum(
+                len(p.get("issues", [])) for p in (feedback_result.get("structured_issues") or [])
+            )
+            log.info("[B] llm_feedback  pairs_reviewed=%d  issues_found=%d",
+                     len(scores), issues_count)
+
             eval_row.llm_feedback      = feedback_result["overall_feedback"]
             eval_row.structured_issues = feedback_result["structured_issues"]
+            log.info("[B] DONE  overall=%.1f  completeness=%.1f → COMPLETED",
+                     overall, eval_row.completeness_score)
             await _set_status(db, session, SessionStatus.COMPLETED)
 
         except Exception as exc:
+            log.exception("[B] UNHANDLED ERROR: %s", exc)
             await _set_failed(db, session, ERR_SCORING_FAILED, str(exc))

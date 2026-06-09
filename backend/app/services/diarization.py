@@ -11,9 +11,12 @@ Requires:
 from __future__ import annotations
 
 import asyncio
+import logging
 from pathlib import Path
 
 from app.config import settings
+
+log = logging.getLogger(__name__)
 
 
 async def diarize(audio_path: Path, num_speakers: int | None = None) -> list[dict]:
@@ -58,6 +61,16 @@ def _diarize_sync(audio_path: Path, num_speakers: int | None) -> list[dict]:
             "end": float(segment.end),
             "speaker": str(speaker)
         })
+
+    # Summarise diarization output so misassignments are immediately visible
+    from collections import Counter
+    counts = Counter(t["speaker"] for t in turns)
+    log.info("diarize  file=%s  total_turns=%d  speakers=%s",
+             audio_path.name, len(turns),
+             {spk: cnt for spk, cnt in sorted(counts.items())})
+    for turn in turns:
+        log.debug("diarize  turn  speaker=%-12s  %.2f–%.2fs",
+                  turn["speaker"], turn["start"], turn["end"])
 
     return turns
 
