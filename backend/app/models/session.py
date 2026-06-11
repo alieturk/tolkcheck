@@ -33,7 +33,8 @@ class Session(Base):
     language: Mapped[str] = mapped_column(String(10), default="nl")
     ind_case_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
     status: Mapped[SessionStatus] = mapped_column(
-        Enum(SessionStatus), default=SessionStatus.PENDING
+        Enum(SessionStatus, values_callable=lambda x: [e.value for e in x]),
+        default=SessionStatus.PENDING,
     )
     duration_seconds: Mapped[float | None] = mapped_column(Float, nullable=True)
     # Machine-readable code shown to the user as a localised Dutch message

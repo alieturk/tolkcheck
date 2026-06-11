@@ -87,8 +87,8 @@ async def main(
     interpreter_speaker_arg: str | None,
     client_speaker_arg: str | None,
 ) -> None:
-    from app.services import diarization, feedback, scoring, transcription
-    from app.pipeline import _align_turns, _filter_hallucinations
+    from app.services import alignment, diarization, feedback, scoring, transcription
+    from app.pipeline import _filter_hallucinations
 
     total = 7
 
@@ -97,69 +97,43 @@ async def main(
 
     # ── 1. Diarise ────────────────────────────────────────────────────────────
     t0 = _step(1, total, "Diarising (pyannote) — language-agnostic first pass")
-    turns = await diarization.diarize(audio_path)
+    turns = await diarization.diarize(audio_path, num_speakers=3)
     _done(t0)
     speakers_found = sorted({t["speaker"] for t in turns})
     print(f"  speakers={len(speakers_found)}  turns={len(turns)}  "
           f"labels={', '.join(speakers_found)}")
 
-    # ── 2. Transcribe once per speaker (compact concat, not zero-masking) ───────
-    # Concatenate only actual speech chunks per speaker with 100ms silence gaps,
-    # then run Whisper once on the compact audio and remap timestamps back.
-    t0 = _step(2, total, "Transcribing per speaker (Whisper — language auto-detected per speaker)")
+    # ── 2. Transcribe each diarization turn individually ──────────────────────
+    # Per-turn (not per-speaker) so each short utterance gets its own language
+    # detection. The interpreter speaks both Dutch and the client's language;
+    # compacting per-speaker locks Whisper to Dutch and garbles the relay turns.
+    t0 = _step(2, total, "Transcribing per turn (Whisper — language auto-detected per turn)")
     import torchaudio
-    import torch
     waveform, sr = torchaudio.load(str(audio_path))
     all_segments: list[dict] = []
     lang_counts: dict[str, int] = {}
 
-    GAP_S = 0.1  # 100ms silence between chunks — explicit boundary for Whisper's VAD
-    gap = torch.zeros(waveform.shape[0], int(GAP_S * sr))
-
-    for speaker in speakers_found:
-        chunks = []
-        offsets = []  # (compact_start_s, original_start_s) per chunk
-        cursor = 0.0
-
-        for turn in turns:
-            if turn["speaker"] != speaker:
-                continue
-            s = int(turn["start"] * sr)
-            e = int(turn["end"] * sr)
-            chunk = waveform[:, s:e]
-            if chunk.shape[-1] < 800:   # skip slivers < ~50 ms
-                continue
-            offsets.append((cursor, turn["start"]))
-            chunks.append(chunk)
-            cursor += chunk.shape[-1] / sr + GAP_S
-
-        if not chunks:
-            print(f"  {speaker}: 0 segments  (no audio)", flush=True)
+    for turn in sorted(turns, key=lambda t: t["start"]):
+        s = int(turn["start"] * sr)
+        e = int(turn["end"] * sr)
+        chunk = waveform[:, s:e]
+        if chunk.shape[-1] < 800:  # skip slivers < ~50 ms
             continue
 
-        parts = []
-        for i, chunk in enumerate(chunks):
-            parts.append(chunk)
-            if i < len(chunks) - 1:
-                parts.append(gap)
-        compact = torch.cat(parts, dim=1)
-
-        segs = await transcription.transcribe_chunk(compact, sr, language)
+        segs = await transcription.transcribe_chunk(chunk, sr, language)
 
         for seg in segs:
-            for i, (c_start, o_start) in enumerate(offsets):
-                c_end = offsets[i + 1][0] if i + 1 < len(offsets) else cursor
-                if c_start <= seg["start"] < c_end:
-                    shift = o_start - c_start
-                    seg["start"] += shift
-                    seg["end"]   += shift
-                    break
-            seg["speaker"] = speaker
-            lang_counts[seg["language"]] = lang_counts.get(seg["language"], 0) + 1
+            seg["start"] += turn["start"]
+            seg["end"]   += turn["start"]
+            seg["speaker"] = turn["speaker"]
+            lang_counts[seg.get("language", "?")] = (
+                lang_counts.get(seg.get("language", "?"), 0) + 1
+            )
 
         all_segments.extend(segs)
-        print(f"  {speaker}: {len(segs)} segments  "
-              f"lang={segs[0]['language'] if segs else '?'}", flush=True)
+        if segs:
+            print(f"  {turn['speaker']}  {_fmt_time(turn['start'])}–{_fmt_time(turn['end'])}"
+                  f"  lang={segs[0].get('language', '?')}  segs={len(segs)}", flush=True)
     _done(t0)
     lang_summary = "  ".join(f"{lang}={n}" for lang, n in sorted(lang_counts.items()))
     print(f"  total segments={len(all_segments)}  languages: {lang_summary}")
@@ -203,32 +177,74 @@ async def main(
             print(f"  client      → {client_speaker}")
             print(f"  tip: use --interpreter-speaker / --client-speaker to override")
 
-    # ── 5. Align turns by preceding client turn ───────────────────────────────
-    print(f"\n[5/{total}] Aligning interpreter turns with preceding client turns")
-    interp_texts, client_texts = _align_turns(merged, interpreter_speaker, client_speaker)
-    print(f"  interpreter turns={len(interp_texts)}  client turns={len(client_texts)}")
-    if not interp_texts or not client_texts:
-        print("  ERROR: not enough segments to score. Exiting.")
+    # ── 5. Build speaker blocks and classify interpreter direction ────────────
+    print(f"\n[5/{total}] Building speaker blocks and classifying interpreter direction")
+    blocks = alignment.build_blocks(merged, interpreter_speaker, client_speaker)
+    alignment.classify_directions(blocks)
+    c2o_pairs, o2c_pairs = alignment.extract_pairs(blocks)
+
+    for b in blocks:
+        direction_str = (f"  direction={b['direction']}" if b["role"] == "interpreter" else "")
+        print(f"  [BLOCK] {_fmt_time(b['start'])}–{_fmt_time(b['end'])}"
+              f"  {b['role']:<11}  {b['language']:<4}{direction_str}"
+              f"  {b['text'][:60]!r}")
+    print(f"\n  client_to_officer pairs: {len(c2o_pairs)}")
+    print(f"  officer_to_client pairs: {len(o2c_pairs)}")
+
+    if not c2o_pairs:
+        print("  ERROR: no client→officer pairs found after block alignment. Exiting.")
         return
+
+    c2o_client_texts = [p["source_block"]["text"] for p in c2o_pairs]
+    c2o_interp_texts  = [p["interp_block"]["text"]  for p in c2o_pairs]
+    o2c_officer_texts = [p["source_block"]["text"] for p in o2c_pairs]
+    o2c_interp_texts  = [p["interp_block"]["text"]  for p in o2c_pairs]
 
     # ── 6. Score ───────────────────────────────────────────────────────────────
     t0 = _step(6, total, "Scoring (LaBSE semantic similarity)")
-    scores = await scoring.score_segments(client_texts, interp_texts)
+    c2o_scores = await scoring.score_segments(c2o_client_texts, c2o_interp_texts)
+    o2c_scores = (
+        await scoring.score_segments(o2c_officer_texts, o2c_interp_texts)
+        if o2c_pairs else []
+    )
     _done(t0)
-    agg = scoring.aggregate_scores(scores)
-    print(f"  mean={agg['mean']:.3f}  min={agg['min']:.3f}  max={agg['max']:.3f}  "
-          f"pairs={len(scores)}")
+    agg = scoring.aggregate_scores(c2o_scores)
+    print(f"  c2o  mean={agg['mean']:.3f}  min={agg['min']:.3f}  max={agg['max']:.3f}"
+          f"  pairs={len(c2o_scores)}")
+    if o2c_scores:
+        agg_o2c = scoring.aggregate_scores(o2c_scores)
+        print(f"  o2c  mean={agg_o2c['mean']:.3f}  min={agg_o2c['min']:.3f}"
+              f"  max={agg_o2c['max']:.3f}  pairs={len(o2c_scores)}")
+
+    # Embed scoring texts (no translation in smoke test — use originals)
+    for pair in c2o_pairs:
+        pair["scoring_text"] = pair["source_block"]["text"]
 
     # ── 7. LLM feedback ────────────────────────────────────────────────────────
     t0 = _step(7, total, "Generating LLM feedback (Anthropic)")
-    feedback_text = await feedback.generate_feedback({"segments": merged}, scores)
+    feedback_result = await feedback.generate_feedback(
+        c2o_pairs=c2o_pairs,
+        c2o_scores=c2o_scores,
+        o2c_pairs=o2c_pairs,
+        o2c_scores=o2c_scores,
+    )
     _done(t0)
 
     print("\n" + "═" * 60)
     print("FEEDBACK")
     print("═" * 60)
-    print(feedback_text)
+    print(feedback_result["overall_feedback"])
     print("═" * 60)
+
+    issues = feedback_result.get("structured_issues", [])
+    if issues:
+        print(f"\n{len(issues)} paar(en) geanalyseerd:")
+        for pair in issues:
+            pair_issues = pair.get("issues", [])
+            if pair_issues:
+                print(f"  Paar {pair['pair_index']}: {len(pair_issues)} probleem/problemen")
+                for iss in pair_issues:
+                    print(f"    [{iss['severity'].upper()}] {iss['type']}: {iss['description']}")
 
 
 if __name__ == "__main__":

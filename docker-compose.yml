@@ -70,6 +70,15 @@ services:
       - "6379:6379"
     restart: unless-stopped
 
+  # ── Adminer — web UI for the database (http://localhost:8080) ────────────
+  adminer:
+    image: adminer:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
+
   # ── PostgreSQL ─────────────────────────────────────────────
   db:
     image: postgres:16-alpine

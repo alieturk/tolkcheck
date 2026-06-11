@@ -7,7 +7,7 @@ from app.config import settings
 from app.logging_config import configure_logging
 from app.routers import evaluations, sessions
 
-configure_logging()
+configure_logging(settings.log_level)
 
 
 @asynccontextmanager

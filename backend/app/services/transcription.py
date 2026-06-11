@@ -2,10 +2,13 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 from app.config import settings
+
+log = logging.getLogger(__name__)
 
 if TYPE_CHECKING:
     from faster_whisper import WhisperModel
@@ -40,19 +43,23 @@ def _transcribe_sync(audio_path: Path, language: str | None) -> dict:
         kwargs["language"] = language
     segments, info = model.transcribe(str(audio_path), **kwargs)
     detected = info.language
+    seg_list = [
+        {
+            "start": seg.start,
+            "end": seg.end,
+            "text": seg.text.strip(),
+            "language": language or detected,
+        }
+        for seg in segments
+    ]
+    log.info("transcribe  file=%s  forced_lang=%s  detected=%s  prob=%.2f  segments=%d",
+             audio_path.name, language or "auto", detected,
+             info.language_probability, len(seg_list))
     return {
         "language": detected,
         "language_probability": info.language_probability,
         "duration": info.duration,
-        "segments": [
-            {
-                "start": seg.start,
-                "end": seg.end,
-                "text": seg.text.strip(),
-                "language": language or detected,
-            }
-            for seg in segments
-        ],
+        "segments": seg_list,
     }
 
 
@@ -89,13 +96,15 @@ def _transcribe_chunk_sync(
         audio = F.resample(audio, sample_rate, 16000)
     audio_np: np.ndarray = audio.numpy().astype(np.float32)
 
-    kwargs: dict = {"beam_size": 5, "vad_filter": True}
+    # vad_filter=False: the compact waveform is already speaker-isolated speech,
+    # so Silero VAD would only discard real speech at artificial gap boundaries.
+    kwargs: dict = {"beam_size": 5, "vad_filter": False}
     if language:
         kwargs["language"] = language
 
     segments, info = model.transcribe(audio_np, **kwargs)
     detected = info.language
-    return [
+    result = [
         {
             "start": seg.start,
             "end": seg.end,
@@ -105,3 +114,9 @@ def _transcribe_chunk_sync(
         for seg in segments
         if seg.text.strip()
     ]
+    log.info("transcribe_chunk  forced_lang=%s  detected=%s  prob=%.2f  segments=%d",
+             language or "auto", detected, info.language_probability, len(result))
+    for seg in result:
+        log.debug("transcribe_chunk  %.2f–%.2fs  %r",
+                  seg["start"], seg["end"], seg["text"][:80].replace("\n", " "))
+    return result

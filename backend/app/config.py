@@ -15,7 +15,7 @@ class Settings(BaseSettings):
     cors_origins: list[str] = ["http://localhost:3000"]
 
     # Whisper
-    whisper_model: str = "medium"
+    whisper_model: str = "turbo"
     whisper_device: str = "cpu"
     whisper_compute_type: str = "int8"
 
@@ -33,6 +33,9 @@ class Settings(BaseSettings):
     secret_key: str = "changeme"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60 * 24 * 7  # 7 days
+
+    # Logging
+    log_level: str = "INFO"
 
 
 settings = Settings()

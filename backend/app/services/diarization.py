@@ -72,26 +72,17 @@ def _diarize_sync(audio_path: Path, num_speakers: int | None) -> list[dict]:
         log.debug("diarize  turn  speaker=%-12s  %.2f–%.2fs",
                   turn["speaker"], turn["start"], turn["end"])
 
+    # Warn about overlapping turns (indicates diarization confusion)
+    sorted_turns = sorted(turns, key=lambda t: t["start"])
+    for i in range(1, len(sorted_turns)):
+        prev, curr = sorted_turns[i - 1], sorted_turns[i]
+        overlap = prev["end"] - curr["start"]
+        if overlap > 0.1:
+            log.warning(
+                "diarize  OVERLAP  %s %.2f–%.2fs  overlaps  %s %.2f–%.2fs  by %.2fs",
+                prev["speaker"], prev["start"], prev["end"],
+                curr["speaker"], curr["start"], curr["end"],
+                overlap,
+            )
+
     return turns
-
-def merge_transcript_with_diarization(
-    transcript_segments: list[dict],
-    diarization_segments: list[dict],
-) -> list[dict]:
-    """Assign a speaker label to each Whisper segment by overlap with diarization."""
-    merged = []
-    for seg in transcript_segments:
-        speaker = _find_dominant_speaker(seg["start"], seg["end"], diarization_segments)
-        merged.append({**seg, "speaker": speaker})
-    return merged
-
-
-def _find_dominant_speaker(
-    start: float, end: float, diarization: list[dict]
-) -> str:
-    overlap: dict[str, float] = {}
-    for d in diarization:
-        o = min(end, d["end"]) - max(start, d["start"])
-        if o > 0:
-            overlap[d["speaker"]] = overlap.get(d["speaker"], 0.0) + o
-    return max(overlap, key=overlap.get) if overlap else "UNKNOWN"  # type: ignore[arg-type]

@@ -3,8 +3,8 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Float, ForeignKey, JSON, String, Text, func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import DateTime, Float, ForeignKey, String, Text, func
+from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.database import Base
@@ -36,10 +36,17 @@ class Evaluation(Base):
 
     # AI pipeline outputs
     # transcript: list of {start, end, speaker, text} — stored after diarisation
-    transcript: Mapped[list | None] = mapped_column(JSON, nullable=True)
-    semantic_similarity_scores: Mapped[list | None] = mapped_column(JSON, nullable=True)
+    transcript: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    # aligned_blocks: full block sequence with direction classification — stored after Phase B alignment
+    aligned_blocks: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    semantic_similarity_scores: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    client_translations: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     llm_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
+    structured_issues: Mapped[list | None] = mapped_column(JSONB, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
+    )
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now()
     )

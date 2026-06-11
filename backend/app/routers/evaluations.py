@@ -6,11 +6,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.database import get_session
 from app.models.evaluation import Evaluation
+from app.schemas.evaluation import EvaluationOut
 
 router = APIRouter()
 
 
-@router.get("/{session_id}")
+@router.get("/{session_id}", response_model=EvaluationOut)
 async def get_evaluation(session_id: uuid.UUID, db: AsyncSession = Depends(get_session)):
     """Return the evaluation result for a completed session."""
     result = await db.execute(

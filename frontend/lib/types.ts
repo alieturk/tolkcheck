@@ -27,6 +27,20 @@ export interface TranscriptSegment {
   end: number;
   speaker: string;
   text: string;
+  language?: string;
+}
+
+export interface IssueItem {
+  type: "omission" | "addition" | "mistranslation" | "false-negative";
+  severity: "critical" | "high" | "medium" | "low";
+  description: string;
+  originalPhrase?: string;
+  translatedPhrase?: string;
+}
+
+export interface PairIssues {
+  pair_index: number;
+  issues: IssueItem[];
 }
 
 export interface Evaluation {
@@ -41,7 +55,9 @@ export interface Evaluation {
   terminology_score: number | null;
   fluency_score: number | null;
   semantic_similarity_scores: number[] | null;
+  client_translations: string[] | null;
   llm_feedback: string | null;
+  structured_issues: PairIssues[] | null;
   created_at: string;
   updated_at: string;
 }

@@ -65,7 +65,7 @@ export default function UploadPage() {
     if (f) pickFile(f);
   }, []);
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (!file) return;
 
@@ -133,7 +133,8 @@ export default function UploadPage() {
           {/* Language select */}
           <div>
             <label htmlFor="language" className="block text-sm font-medium text-gray-700 mb-1">
-              Taal van de cliënt
+              Brontaal van de cliënt
+              <span className="ml-1 text-xs font-normal text-gray-400">(verbetert transcriptie & scoring)</span>
             </label>
             <div className="relative">
               <select
@@ -153,6 +154,9 @@ export default function UploadPage() {
                 </svg>
               </span>
             </div>
+            <p className="mt-1 text-xs text-gray-400">
+              Selecteer de taal van de cliënt voor nauwkeurigere transcriptie en scoring.
+            </p>
             {language === "ti" && (
               <p className="mt-1 text-xs text-amber-600">
                 Tigrinya heeft lagere Whisper-nauwkeurigheid. Controleer de transcriptie extra zorgvuldig.

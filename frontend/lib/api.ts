@@ -47,6 +47,10 @@ export async function getEvaluation(id: string): Promise<Evaluation> {
   return request<Evaluation>(`/evaluations/${id}`);
 }
 
+export async function startPipeline(sessionId: string): Promise<{ session_id: string; status: string }> {
+  return request(`/sessions/${sessionId}/start`, { method: "POST" });
+}
+
 export async function confirmRoles(
   sessionId: string,
   interpreterSpeaker: string,

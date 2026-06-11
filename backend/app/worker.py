@@ -7,15 +7,38 @@ The worker shares the same DB + uploads volume as the backend service.
 """
 from __future__ import annotations
 
+import asyncio
+import logging
+
 from arq import ArqRedis
 from arq.connections import RedisSettings
 
 from app.config import settings
+from app.logging_config import configure_logging
 from app.pipeline import resume_scoring, run_pipeline
+
+configure_logging(settings.log_level)
+log = logging.getLogger(__name__)
 
 
 async def startup(ctx: dict) -> None:
-    """Called once when the worker process starts."""
+    """Pre-load heavy ML models so they are warm before the first job arrives.
+
+    LaBSE and Whisper both take several minutes to initialise on CPU. Loading
+    them here (no job timeout applies) avoids the risk of the first job timing
+    out while the model is being loaded into memory.
+    """
+    loop = asyncio.get_event_loop()
+
+    log.info("Pre-loading LaBSE model…")
+    from app.services.scoring import _get_model as _get_labse
+    await loop.run_in_executor(None, _get_labse)
+    log.info("LaBSE ready.")
+
+    log.info("Pre-loading Whisper model…")
+    from app.services.transcription import _get_model as _get_whisper
+    await loop.run_in_executor(None, _get_whisper)
+    log.info("Whisper ready.")
 
 
 async def shutdown(ctx: dict) -> None:

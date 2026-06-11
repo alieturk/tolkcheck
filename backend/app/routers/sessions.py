@@ -11,9 +11,10 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.config import settings
-from app.database import get_session
+from app.database import get_session as get_db   # aliased to avoid shadowing by the route handler below
 from app.models.evaluation import Evaluation
 from app.models.session import Session, SessionStatus
+from app.schemas.session import SessionOut
 
 router = APIRouter()
 
@@ -42,9 +43,9 @@ async def create_session(
     audio: UploadFile = File(...),
     language: str = Form("nl"),
     case_id: str | None = Form(None),
-    db: AsyncSession = Depends(get_session),
+    db: AsyncSession = Depends(get_db),
 ):
-    """Upload an audio file and queue Phase A of the evaluation pipeline."""
+    """Upload an audio file. Pipeline is NOT started automatically — use POST /start."""
     if audio.content_type not in ALLOWED_CONTENT_TYPES:
         raise HTTPException(
             status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
@@ -70,18 +71,14 @@ async def create_session(
     await db.commit()
     await db.refresh(session)
 
-    arq = await _arq_pool()
-    await arq.enqueue_job("run_pipeline", str(session_id))
-    await arq.aclose()
-
     return {"session_id": str(session_id), "status": session.status}
 
 
 # ── List ───────────────────────────────────────────────────────────────────────
 
-@router.get("")
+@router.get("", response_model=list[SessionOut])
 async def list_sessions(
-    db: AsyncSession = Depends(get_session),
+    db: AsyncSession = Depends(get_db),
     limit: int = 50,
     offset: int = 0,
 ):
@@ -97,8 +94,8 @@ async def list_sessions(
 
 # ── Get one ────────────────────────────────────────────────────────────────────
 
-@router.get("/{session_id}")
-async def get_session(session_id: uuid.UUID, db: AsyncSession = Depends(get_session)):
+@router.get("/{session_id}", response_model=SessionOut)
+async def get_session(session_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
     """Return session metadata and pipeline status."""
     result = await db.execute(select(Session).where(Session.id == session_id))
     session = result.scalar_one_or_none()
@@ -118,7 +115,7 @@ class ConfirmRolesRequest(BaseModel):
 async def confirm_roles(
     session_id: uuid.UUID,
     body: ConfirmRolesRequest,
-    db: AsyncSession = Depends(get_session),
+    db: AsyncSession = Depends(get_db),
 ):
     """Save speaker role assignment and enqueue Phase B (scoring + LLM feedback)."""
     result = await db.execute(select(Session).where(Session.id == session_id))
@@ -132,7 +129,6 @@ async def confirm_roles(
             detail=f"Session is in status '{session.status}', not awaiting role confirmation.",
         )
 
-    # Write speaker roles to the Evaluation row
     eval_result = await db.execute(
         select(Evaluation).where(Evaluation.session_id == session_id)
     )
@@ -152,3 +148,29 @@ async def confirm_roles(
     await arq.aclose()
 
     return {"session_id": str(session_id), "status": SessionStatus.SCORING}
+
+
+# ── Start pipeline (manual trigger) ───────────────────────────────────────────
+
+@router.post("/{session_id}/start", status_code=status.HTTP_202_ACCEPTED)
+async def start_pipeline(
+    session_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+):
+    """Manually start Phase A of the pipeline for a PENDING session."""
+    result = await db.execute(select(Session).where(Session.id == session_id))
+    session = result.scalar_one_or_none()
+    if not session:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
+
+    if session.status != SessionStatus.PENDING:
+        raise HTTPException(
+            status_code=status.HTTP_409_CONFLICT,
+            detail=f"Session is already in status '{session.status}', not pending.",
+        )
+
+    arq = await _arq_pool()
+    await arq.enqueue_job("run_pipeline", str(session_id))
+    await arq.aclose()
+
+    return {"session_id": str(session_id), "status": session.status}

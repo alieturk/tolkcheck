@@ -3,16 +3,17 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { confirmRoles, getEvaluation, getSession } from "../../../lib/api";
+import { confirmRoles, getEvaluation, getSession, startPipeline } from "../../../lib/api";
 import { getErrorMessage } from "../../../lib/errors";
 import type { Evaluation, Session, SessionStatus } from "../../../lib/types";
+import EvaluationView from "./EvaluationView";
 
 // ── Stepper config ─────────────────────────────────────────────────────────
 
 const STEPS: { label: string; statuses: SessionStatus[] }[] = [
   { label: "Uploaden",                  statuses: ["pending"] },
-  { label: "Transcriberen",             statuses: ["transcribing"] },
   { label: "Sprekers identificeren",    statuses: ["diarising"] },
+  { label: "Transcriberen",             statuses: ["transcribing"] },
   { label: "Rollen bevestigen",         statuses: ["awaiting_role_confirmation"] },
   { label: "Beoordelen",                statuses: ["scoring"] },
   { label: "Feedback genereren",        statuses: ["generating"] },
@@ -183,88 +184,6 @@ function RoleConfirmation({ sessionId, evaluation, onConfirmed }: RoleConfirmati
   );
 }
 
-// ── Evaluation results ─────────────────────────────────────────────────────
-
-function ScoreRing({ score }: { score: number }) {
-  const color = score >= 80 ? "text-green-600" : score >= 60 ? "text-amber-500" : "text-red-500";
-  return (
-    <span className={`text-2xl font-bold tabular-nums ${color}`}>{score.toFixed(1)}</span>
-  );
-}
-
-function EvaluationResults({ evaluation, session }: { evaluation: Evaluation; session: Session }) {
-  const scores = [
-    { label: "Overall",       value: evaluation.overall_score },
-    { label: "Nauwkeurigheid", value: evaluation.accuracy_score },
-    { label: "Volledigheid",  value: evaluation.completeness_score },
-    { label: "Terminologie",  value: evaluation.terminology_score },
-    { label: "Vloeiendheid",  value: evaluation.fluency_score },
-  ];
-
-  const interp = evaluation.interpreter_speaker;
-
-  return (
-    <div className="space-y-6">
-      {/* Score grid */}
-      <div>
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Beoordelingsscores</h2>
-        <div className="grid grid-cols-5 gap-3">
-          {scores.map(({ label, value }) => (
-            <div key={label} className="flex flex-col items-center rounded-xl border border-gray-200 bg-white p-3 gap-1">
-              {value != null ? <ScoreRing score={value} /> : <span className="text-gray-400 text-sm">—</span>}
-              <span className="text-xs text-gray-500 text-center">{label}</span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* LLM feedback */}
-      {evaluation.llm_feedback && (
-        <div>
-          <h2 className="text-base font-semibold text-gray-900 mb-3">Feedback</h2>
-          <div className="relative rounded-xl border border-gray-200 bg-gray-50 p-4">
-            <pre className="text-sm text-gray-800 whitespace-pre-wrap font-sans leading-relaxed">
-              {evaluation.llm_feedback}
-            </pre>
-            <button
-              onClick={() => navigator.clipboard.writeText(evaluation.llm_feedback!)}
-              className="absolute top-3 right-3 rounded-md bg-white border border-gray-200 px-2 py-1 text-xs text-gray-500 hover:text-gray-700 transition-colors"
-            >
-              Kopieer
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Transcript */}
-      {evaluation.transcript && evaluation.transcript.length > 0 && (
-        <div>
-          <h2 className="text-base font-semibold text-gray-900 mb-3">Transcriptie</h2>
-          <div className="rounded-xl border border-gray-200 bg-gray-50 divide-y divide-gray-100 max-h-96 overflow-y-auto">
-            {evaluation.transcript.map((seg, i) => {
-              const isInterp = seg.speaker === interp;
-              return (
-                <div key={i} className="flex gap-3 px-4 py-2.5">
-                  <span className="shrink-0 text-xs font-mono text-gray-400 w-10 pt-0.5">
-                    {formatTime(seg.start)}
-                  </span>
-                  <span className={`shrink-0 rounded px-1.5 py-0.5 text-xs font-medium self-start
-                    ${isInterp ? "bg-blue-100 text-blue-700" : "bg-orange-100 text-orange-700"}`}>
-                    {isInterp ? "Tolk" : "Cliënt"}
-                  </span>
-                  <p className="text-sm text-gray-800 leading-relaxed">{seg.text}</p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ── Utility ────────────────────────────────────────────────────────────────
-
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = Math.floor(seconds % 60);
@@ -274,7 +193,7 @@ function formatTime(seconds: number): string {
 // ── Page ───────────────────────────────────────────────────────────────────
 
 const PROCESSING_STATUSES: SessionStatus[] = [
-  "pending", "transcribing", "diarising", "scoring", "generating",
+  "transcribing", "diarising", "scoring", "generating",
 ];
 
 export default function SessionPage() {
@@ -283,6 +202,7 @@ export default function SessionPage() {
   const [session,    setSession]    = useState<Session | null>(null);
   const [evaluation, setEvaluation] = useState<Evaluation | null>(null);
   const [loadError,  setLoadError]  = useState<string | null>(null);
+  const [starting,   setStarting]   = useState(false);
 
   const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -310,6 +230,16 @@ export default function SessionPage() {
       setLoadError(err instanceof Error ? err.message : "Kon sessie niet laden.");
     }
   }, [id, fetchEvaluation]);
+
+  async function handleStart() {
+    setStarting(true);
+    try {
+      await startPipeline(id);
+      await fetchSession();
+    } catch {
+      setStarting(false);
+    }
+  }
 
   useEffect(() => {
     fetchSession();
@@ -369,12 +299,39 @@ export default function SessionPage() {
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
           <Stepper status={session.status} />
 
-          {/* In-progress indicator */}
+          {/* Pending — manual start or waiting for worker pickup */}
+          {session.status === "pending" && (
+            <div className="mt-6">
+              {starting ? (
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <SpinnerIcon />
+                  <span>Pipeline wordt gestart, even wachten...</span>
+                </div>
+              ) : (
+                <div className="flex flex-col items-start gap-3">
+                  <p className="text-sm text-gray-500">
+                    Het audiobestand is geüpload en klaar om te verwerken. Klik op Start om de evaluatie te beginnen.
+                  </p>
+                  <button
+                    onClick={handleStart}
+                    className="flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white
+                               hover:bg-blue-700 transition-colors"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M2 10a8 8 0 1116 0A8 8 0 012 10zm6.39-2.908c.229-.199.573-.13.789.097l3 3a.75.75 0 010 1.022l-3 3c-.216.227-.56.296-.789.097A.75.75 0 018 13.5v-7a.75.75 0 01.39-.408z" clipRule="evenodd" />
+                    </svg>
+                    Start evaluatie
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Active pipeline step indicator */}
           {PROCESSING_STATUSES.includes(session.status) && (
             <div className="mt-6 flex items-center gap-2 text-sm text-gray-500">
               <SpinnerIcon />
               <span>
-                {session.status === "pending"       && "Wachten op verwerking..."}
                 {session.status === "transcribing"  && "Audio wordt getranscribeerd..."}
                 {session.status === "diarising"     && "Sprekers worden geïdentificeerd..."}
                 {session.status === "scoring"       && "Kwaliteit wordt berekend..."}
@@ -411,9 +368,7 @@ export default function SessionPage() {
 
         {/* Completed results */}
         {session.status === "completed" && evaluation && (
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-            <EvaluationResults evaluation={evaluation} session={session} />
-          </div>
+          <EvaluationView evaluation={evaluation} />
         )}
       </div>
     </main>
