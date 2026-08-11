@@ -30,9 +30,13 @@ class Settings(BaseSettings):
     redis_url: str = "redis://redis:6379"
 
     # Auth
-    secret_key: str = "changeme"
+    secret_key: str  # required — no default; app must fail to start if unset
     algorithm: str = "HS256"
-    access_token_expire_minutes: int = 60 * 24 * 7  # 7 days
+    access_token_expire_minutes: int = 60 * 10  # 10 hours
+    # Cookies must be sent over HTTPS in production. Default safe (True);
+    # on-prem deployments without internal HTTPS must set COOKIE_SECURE=false
+    # explicitly in .env, or the login cookie will silently fail to persist.
+    cookie_secure: bool = True
 
     # Logging
     log_level: str = "INFO"
