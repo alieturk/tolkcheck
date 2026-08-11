@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import UserBar from "./UserBar";
 
 export const metadata: Metadata = {
   title: "Tolkcheck",
@@ -11,7 +12,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="nl">
-      <body suppressHydrationWarning>{children}</body>
+      <body suppressHydrationWarning>
+        <UserBar />
+        {children}
+      </body>
     </html>
   );
 }

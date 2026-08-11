@@ -1,6 +1,7 @@
 import type {
   ConfirmRolesResponse,
   Evaluation,
+  Me,
   Session,
   UploadResponse,
 } from "./types";
@@ -11,12 +12,33 @@ async function request<T>(
   path: string,
   init?: RequestInit,
 ): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, init);
+  const res = await fetch(`${BASE}${path}`, { credentials: "include", ...init });
+  if (res.status === 401 && path !== "/auth/login" && typeof window !== "undefined") {
+    window.location.href = "/login";
+  }
   if (!res.ok) {
     const text = await res.text().catch(() => res.statusText);
     throw new Error(`${res.status} ${res.statusText}: ${text}`);
   }
   return res.json() as Promise<T>;
+}
+
+// ── Auth ───────────────────────────────────────────────────────────────────
+
+export async function login(email: string, password: string): Promise<void> {
+  await request<{ ok: true }>("/auth/login", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, password }),
+  });
+}
+
+export async function logout(): Promise<void> {
+  await request<{ ok: true }>("/auth/logout", { method: "POST" });
+}
+
+export async function getMe(): Promise<Me> {
+  return request<Me>("/auth/me");
 }
 
 export async function uploadSession(

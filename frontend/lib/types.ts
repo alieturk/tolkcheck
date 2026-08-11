@@ -71,3 +71,8 @@ export interface ConfirmRolesResponse {
   session_id: string;
   status: SessionStatus;
 }
+
+export interface Me {
+  id: string;
+  email: string;
+}
