@@ -16,6 +16,7 @@ from app.database import Base
 # Import models so their tables are registered on Base.metadata.
 import app.models.session      # noqa: F401
 import app.models.evaluation   # noqa: F401
+import app.models.user         # noqa: F401
 
 # ── Alembic Config ────────────────────────────────────────────────────────────
 config = context.config
