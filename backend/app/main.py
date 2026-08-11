@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.logging_config import configure_logging
-from app.routers import evaluations, sessions
+from app.routers import auth, evaluations, sessions
 
 configure_logging(settings.log_level)
 
@@ -32,6 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(sessions.router, prefix="/sessions", tags=["sessions"])
 app.include_router(evaluations.router, prefix="/evaluations", tags=["evaluations"])
 

@@ -41,6 +41,12 @@ dependencies = [
     "aiofiles>=24.0.0",
     "python-jose[cryptography]>=3.3.0",
     "passlib[bcrypt]>=1.7.4",
+    # passlib's bcrypt backend does version detection against bcrypt.__about__,
+    # which bcrypt>=4.1 removed — that broken detection path then trips over
+    # bcrypt's newer strict 72-byte check, raising on every hash() call.
+    # Pin below the break until passlib (unmaintained since ~2020) is replaced
+    # or patched. See: https://github.com/pyca/bcrypt/issues/684
+    "bcrypt<4.1",
 ]
 
 [dependency-groups]

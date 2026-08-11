@@ -83,7 +83,12 @@ services:
   db:
     image: postgres:16-alpine
     ports:
-      - "5432:5432"
+      # Host-side port only — internal services reach this via the Docker
+      # network hostname "db:5432" regardless of what's published here.
+      # Remapped off 5432 because Windows/Hyper-V's WinNAT reserves that
+      # port on this machine (bind fails with a permissions error); if you
+      # fix that at the OS level, feel free to change this back to 5432:5432.
+      - "5433:5432"
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

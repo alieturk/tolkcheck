@@ -14,7 +14,9 @@ from app.config import settings
 from app.database import get_session as get_db   # aliased to avoid shadowing by the route handler below
 from app.models.evaluation import Evaluation
 from app.models.session import Session, SessionStatus
+from app.models.user import User
 from app.schemas.session import SessionOut
+from app.security import get_current_user
 
 router = APIRouter()
 
@@ -44,6 +46,7 @@ async def create_session(
     language: str = Form("nl"),
     case_id: str | None = Form(None),
     db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Upload an audio file. Pipeline is NOT started automatically — use POST /start."""
     if audio.content_type not in ALLOWED_CONTENT_TYPES:
@@ -61,6 +64,7 @@ async def create_session(
 
     session = Session(
         id=session_id,
+        owner_id=current_user.id,
         filename=audio.filename or "audio",
         audio_path=str(audio_path),
         language=language,
@@ -79,12 +83,14 @@ async def create_session(
 @router.get("", response_model=list[SessionOut])
 async def list_sessions(
     db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
     limit: int = 50,
     offset: int = 0,
 ):
-    """Return sessions ordered by creation date descending (for the dashboard)."""
+    """Return the current user's own sessions, ordered by creation date descending."""
     result = await db.execute(
         select(Session)
+        .where(Session.owner_id == current_user.id)
         .order_by(Session.created_at.desc())
         .limit(limit)
         .offset(offset)
@@ -95,9 +101,17 @@ async def list_sessions(
 # ── Get one ────────────────────────────────────────────────────────────────────
 
 @router.get("/{session_id}", response_model=SessionOut)
-async def get_session(session_id: uuid.UUID, db: AsyncSession = Depends(get_db)):
+async def get_session(
+    session_id: uuid.UUID,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
     """Return session metadata and pipeline status."""
-    result = await db.execute(select(Session).where(Session.id == session_id))
+    result = await db.execute(
+        select(Session).where(
+            Session.id == session_id, Session.owner_id == current_user.id
+        )
+    )
     session = result.scalar_one_or_none()
     if not session:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
@@ -116,9 +130,14 @@ async def confirm_roles(
     session_id: uuid.UUID,
     body: ConfirmRolesRequest,
     db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Save speaker role assignment and enqueue Phase B (scoring + LLM feedback)."""
-    result = await db.execute(select(Session).where(Session.id == session_id))
+    result = await db.execute(
+        select(Session).where(
+            Session.id == session_id, Session.owner_id == current_user.id
+        )
+    )
     session = result.scalar_one_or_none()
     if not session:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
@@ -156,9 +175,14 @@ async def confirm_roles(
 async def start_pipeline(
     session_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Manually start Phase A of the pipeline for a PENDING session."""
-    result = await db.execute(select(Session).where(Session.id == session_id))
+    result = await db.execute(
+        select(Session).where(
+            Session.id == session_id, Session.owner_id == current_user.id
+        )
+    )
     session = result.scalar_one_or_none()
     if not session:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
