@@ -5,8 +5,8 @@ Usage (inside the worker container):
 
 Steps:
     0. File info (name, size, sha256 fingerprint, audio properties)
-    1. Transcribe (Whisper large-v3)
-    2. Diarise (whisperx / pyannote)
+    1. Transcribe (Whisper — settings.whisper_model, default large-v3)
+    2. Diarise (pyannote/speaker-diarization-3.1)
     3. Merge transcript with speaker turns
     4. Assign interpreter / client roles
     5. Split segments by role
