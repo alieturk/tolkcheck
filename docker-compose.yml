@@ -81,7 +81,27 @@ services:
 
   # ── PostgreSQL ─────────────────────────────────────────────
   db:
-    image: postgres:16-alpine
+    # pgvector/pgvector:pg16 = postgres:16-bookworm (Debian/glibc — pgvector
+    # ships no -alpine build) plus the pgvector extension compiled in. Needed
+    # for the knowledge_chunks table backing RAG feedback retrieval (see
+    # backend/app/models/knowledge.py, alembic revision d7f4b2c91a3e).
+    #
+    # NOT a drop-in swap on top of the existing postgres_data volume: the
+    # previous image (postgres:16-alpine) is musl/Alpine, this one is
+    # glibc/Debian. Postgres text indexes (e.g. ix_users_email) are built
+    # against the OS collation library, and musl vs glibc do not sort text
+    # identically — reusing the old data directory under the new image risks
+    # silently corrupt indexes, not just a compatibility error. Since this is
+    # local/dev data (synthetic Turkish–Dutch test sessions, see project
+    # scope notes), the simple safe path is to drop the old volume and let
+    # migrations recreate the schema from scratch:
+    #   docker compose down
+    #   docker volume rm tolkcheck_postgres_data   # confirm the real volume name via `docker volume ls`
+    #   docker compose up -d db
+    #   (inside backend) uv run alembic upgrade head
+    # If real accounts/sessions must be preserved, pg_dump/pg_restore across
+    # the swap instead of reusing the volume directly.
+    image: pgvector/pgvector:pg16
     ports:
       # Host-side port only — internal services reach this via the Docker
       # network hostname "db:5432" regardless of what's published here.

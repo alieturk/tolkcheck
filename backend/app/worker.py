@@ -31,7 +31,11 @@ async def startup(ctx: dict) -> None:
     loop = asyncio.get_event_loop()
 
     log.info("Pre-loading LaBSE model…")
-    from app.services.scoring import _get_model as _get_labse
+    # LaBSE loading lives in embeddings.py (shared with RAG retrieval, see
+    # app/services/retrieval.py); scoring.py just re-imports get_model() from
+    # there rather than defining its own — import from the real source here
+    # so this doesn't silently break again if scoring.py's import style changes.
+    from app.services.embeddings import get_model as _get_labse
     await loop.run_in_executor(None, _get_labse)
     log.info("LaBSE ready.")
 

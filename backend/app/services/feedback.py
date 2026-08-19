@@ -3,10 +3,15 @@ from __future__ import annotations
 
 import json as _json
 import logging
+from typing import TYPE_CHECKING
 
 import anthropic
 
 from app.config import settings
+from app.services import retrieval
+
+if TYPE_CHECKING:
+    from sqlalchemy.ext.asyncio import AsyncSession
 
 log = logging.getLogger(__name__)
 _client: anthropic.AsyncAnthropic | None = None
@@ -42,6 +47,14 @@ BELANGRIJK — Automatische transcriptie heeft beperkingen:
   * Score < 0.50 → waarschijnlijk een vertaalprobleem
 
 Markeer NOOIT een vertaling als "addition" als de score ≥ 0.65.
+
+Als het gebruikersbericht een sectie "ACHTERGRONDINFORMATIE" bevat: dit zijn fragmenten uit een \
+gecureerde kennisbank (foutentypologie, IND-werkinstructies, gedocumenteerde taalkundige \
+bevindingen over tolken bij asielgehoren), opgehaald omdat ze mogelijk relevant zijn voor de \
+paren hieronder. Gebruik ze uitsluitend ter ondersteuning en duiding van je beoordeling — ze \
+overschrijven NOOIT de semantische gelijkenisscore als primair bewijs. Citeer een bron uit deze \
+sectie alleen met de exacte bronvermelding die erachter staat; verzin nooit een bron die niet in \
+deze sectie staat.
 
 Retourneer ALTIJD geldig JSON in exact dit formaat — niets anders, geen uitleg erbuiten:
 {
@@ -118,11 +131,18 @@ async def generate_feedback(
     c2o_scores: list[float],
     o2c_pairs: list[dict] | None = None,
     o2c_scores: list[float] | None = None,
+    db: AsyncSession | None = None,
 ) -> dict:
     """Call the Messages API and return structured directional feedback.
 
     Each c2o pair must have a ``scoring_text`` key with the Dutch translation of
     the client's utterance (set by pipeline.py before calling this function).
+
+    If ``db`` is given, pairs scoring below retrieval.RETRIEVAL_SCORE_CEILING are
+    used to pull relevant background material from the knowledge base (see
+    app/services/retrieval.py) and it is added to the prompt as supporting
+    context. This is best-effort: any retrieval failure is logged and feedback
+    generation proceeds exactly as it would with ``db=None``.
 
     Returns ``{"overall_feedback": str, "structured_issues": list[dict]}``.
     Falls back gracefully if JSON parsing fails.
@@ -159,6 +179,21 @@ async def generate_feedback(
             lines.append(f"  Ambtenaar: {source_text}")
             lines.append(f"  Tolk:      {interp_text}")
             lines.append("")
+
+    # ── RAG context — best-effort, never blocks feedback generation ─────────────
+    if db is not None:
+        try:
+            all_pairs = list(c2o_pairs) + list(o2c_pairs)
+            all_scores = list(c2o_scores) + list(o2c_scores)
+            chunks = await retrieval.retrieve_for_pairs(db, all_pairs, all_scores)
+            context_block = retrieval.format_context_block(chunks)
+            if chunks:
+                log.info("generate_feedback  retrieved %d knowledge chunk(s): %s",
+                         len(chunks), [c.source_id for c in chunks])
+                lines.append(context_block)
+        except Exception:
+            log.warning("generate_feedback  retrieval failed — continuing without context",
+                        exc_info=True)
 
     user_content = "\n".join(lines)
 

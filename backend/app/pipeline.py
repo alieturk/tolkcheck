@@ -371,7 +371,10 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
             eval_row.semantic_similarity_scores = c2o_scores
             eval_row.aligned_blocks = blocks
 
-            # 6. Generate LLM feedback
+            # 6. Generate LLM feedback (grounded with knowledge-base context — see
+            # app/services/retrieval.py; passing db lets generate_feedback pull
+            # relevant background material for pairs the score already flags as
+            # uncertain or wrong)
             await _set_status(db, session, SessionStatus.GENERATING)
             log.info("[B] llm_feedback  requesting…")
             try:
@@ -380,6 +383,7 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                     c2o_scores=c2o_scores,
                     o2c_pairs=o2c_pairs,
                     o2c_scores=o2c_scores,
+                    db=db,
                 )
             except Exception as exc:
                 await _set_failed(db, session, ERR_LLM_ERROR, str(exc))

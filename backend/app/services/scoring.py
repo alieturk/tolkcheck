@@ -2,25 +2,16 @@
 
 LaBSE encodes sentences from any language into a shared embedding space,
 making it ideal for comparing source (e.g. Arabic) with interpreted (Dutch) segments.
+
+The model itself is loaded once by app.services.embeddings and shared with the
+retrieval module (app/services/retrieval.py) — see that module's docstring for
+why scoring and retrieval deliberately use the same model instance.
 """
 from __future__ import annotations
 
 import asyncio
-from typing import TYPE_CHECKING
 
-if TYPE_CHECKING:
-    from sentence_transformers import SentenceTransformer
-
-_model: SentenceTransformer | None = None
-
-
-def _get_model() -> SentenceTransformer:
-    global _model
-    if _model is None:
-        from sentence_transformers import SentenceTransformer
-
-        _model = SentenceTransformer("LaBSE")
-    return _model
+from app.services.embeddings import get_model
 
 
 async def score_segments(
@@ -35,7 +26,7 @@ async def score_segments(
 def _score_sync(sources: list[str], targets: list[str]) -> list[float]:
     import numpy as np
 
-    model = _get_model()
+    model = get_model()
     src_emb = model.encode(sources, normalize_embeddings=True, show_progress_bar=False)
     tgt_emb = model.encode(targets, normalize_embeddings=True, show_progress_bar=False)
     # Cosine similarity = dot product of L2-normalised vectors

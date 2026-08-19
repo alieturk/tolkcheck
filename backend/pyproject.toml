@@ -36,6 +36,11 @@ dependencies = [
     # AI – LLM feedback (Anthropic SDK with prompt caching)
     "anthropic>=0.40.0",
 
+    # AI – retrieval (RAG knowledge base: pgvector column type + comparator
+    # support for the SQLAlchemy models in app/models/knowledge.py). Embeddings
+    # reuse sentence-transformers/LaBSE above — no separate embedding model.
+    "pgvector>=0.3.6",
+
     # Task queue
     "arq>=0.26.0",
 
