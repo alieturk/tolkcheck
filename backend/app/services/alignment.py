@@ -27,8 +27,19 @@ def build_blocks(
 ) -> list[dict]:
     """Merge consecutive same-speaker segments into speaker blocks.
 
-    A new block starts when the speaker changes OR the gap between the end of
-    the previous segment and the start of the next exceeds gap_s seconds.
+    A new block starts when the speaker changes, the detected language
+    changes, OR the gap between the end of the previous segment and the start
+    of the next exceeds gap_s seconds.
+
+    The language check matters because two diarization turns from the same
+    speaker within gap_s of each other are transcribed independently (see
+    pipeline.py's per-turn loop) and can genuinely disagree on detected
+    language — e.g. the interpreter says something bilingual across a short
+    pause, or one of the two turns was simply misdetected. Without this
+    check they'd merge into one block carrying only the first turn's
+    language tag (see below), and classify_directions — which reads that tag
+    as its primary signal — would silently misclassify whichever part of the
+    merged text didn't match it.
 
     Block shape::
 
@@ -49,6 +60,7 @@ def build_blocks(
 
         if (blocks
                 and blocks[-1]["speaker"] == seg["speaker"]
+                and blocks[-1]["language"] == seg.get("language", "?")
                 and seg["start"] - blocks[-1]["end"] <= gap_s):
             blocks[-1]["text"] += " " + seg["text"]
             blocks[-1]["end"] = seg["end"]
@@ -76,19 +88,33 @@ def build_blocks(
     return blocks
 
 
-def classify_directions(blocks: list[dict]) -> list[dict]:
+def classify_directions(blocks: list[dict], client_lang: str) -> list[dict]:
     """Annotate each interpreter block with its translation direction.
 
-    Direction is determined by looking at the first non-interpreter block that
-    follows the interpreter block:
+    Primary signal: the block's own detected language (see build_blocks —
+    every block carries the language Whisper detected for it).
+
+    * language == client_lang → direction = "to_client"
+      (interpreter switched into the client's language — relaying the
+      officer's Dutch question so the client can respond)
+
+    * language == "nl"        → direction = "to_officer"
+      (interpreter switched into Dutch — translating the client's answer for
+      the officer, the legally decisive direction)
+
+    This is what the interpreter's own speech was detected as, not an
+    inference from surrounding structure, so it survives diarization mistakes
+    that the previous role-order-only heuristic did not (see
+    TestClassifyDirections.test_language_overrides_next_role_heuristic for a
+    concrete case this fixes).
+
+    Fallback — used only when a block's language matches neither client_lang
+    nor "nl" (a misdetected or unrecognised language): direction is inferred
+    from the first non-interpreter block that follows, same as before this
+    function took client_lang:
 
     * next role == "client"  → direction = "to_client"
-      (interpreter just rendered the officer's Dutch question into the client's
-      language so the client can respond — relay turn)
-
     * next role == "officer" or no next → direction = "to_officer"
-      (interpreter just rendered the client's answer into Dutch for the officer
-      — the legally decisive translation)
 
     Mutates and returns the same list.
     """
@@ -96,15 +122,26 @@ def classify_directions(blocks: list[dict]) -> list[dict]:
         if block["role"] != "interpreter":
             continue
 
-        next_role: str | None = None
-        for j in range(i + 1, len(blocks)):
-            if blocks[j]["role"] != "interpreter":
-                next_role = blocks[j]["role"]
-                break
+        lang = block["language"]
+        if lang == client_lang:
+            block["direction"] = "to_client"
+        elif lang == "nl":
+            block["direction"] = "to_officer"
+        else:
+            next_role: str | None = None
+            for j in range(i + 1, len(blocks)):
+                if blocks[j]["role"] != "interpreter":
+                    next_role = blocks[j]["role"]
+                    break
+            block["direction"] = "to_client" if next_role == "client" else "to_officer"
+            log.warning(
+                "classify_directions  interpreter  %.1f–%.1fs  language=%r matches neither "
+                "client_lang=%r nor 'nl' — falling back to next-role heuristic (result=%s)",
+                block["start"], block["end"], lang, client_lang, block["direction"],
+            )
 
-        block["direction"] = "to_client" if next_role == "client" else "to_officer"
-        log.info("classify_directions  interpreter  %.1f–%.1fs  direction=%s",
-                 block["start"], block["end"], block["direction"])
+        log.info("classify_directions  interpreter  %.1f–%.1fs  language=%s  direction=%s",
+                 block["start"], block["end"], lang, block["direction"])
 
     return blocks
 

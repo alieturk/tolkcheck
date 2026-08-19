@@ -294,7 +294,7 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
             # 5. Build speaker blocks, classify interpreter direction, extract pairs
             await _set_status(db, session, SessionStatus.SCORING)
             blocks = alignment.build_blocks(transcript, interpreter_speaker, client_speaker)
-            alignment.classify_directions(blocks)
+            alignment.classify_directions(blocks, client_lang)
             c2o_pairs, o2c_pairs = alignment.extract_pairs(blocks)
 
             log.info("[B] blocks  total=%d  c2o_pairs=%d  o2c_pairs=%d",
