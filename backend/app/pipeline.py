@@ -198,7 +198,57 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
 # ── Phase B ───────────────────────────────────────────────────────────────────
 
 async def resume_scoring(ctx: dict, session_id: str) -> None:
-    """Phase B: score + LLM feedback after the user has confirmed speaker roles."""
+    """Phase B: score + LLM feedback after the user has confirmed speaker roles.
+
+    ── The two directions are scored by DIFFERENT METHODS ────────────────────
+    This asymmetry is deliberate but has not yet been validated. Be aware of it
+    before drawing conclusions from either score.
+
+    officer→client (o2c, "doorleidkwaliteit"):
+        scoring.score_segments(officer_dutch, interpreter_source_lang)
+        → genuinely reference-free, cross-lingual LaBSE: two different languages
+          embedded into LaBSE's shared space and compared directly. No reference
+          translation and no other model is involved.
+
+    client→officer (c2o, "juridisch beslissend"):
+        feedback.translate_to_dutch(client_source_lang)  ← Claude API call
+        then scoring.score_segments(claude_dutch, interpreter_dutch)
+        → NOT reference-free cross-lingual comparison. Claude produces a
+          pseudo-reference translation and LaBSE then does a *monolingual*
+          Dutch–Dutch similarity. Two models contribute to the number, and
+          Claude's translation error is folded into the score indistinguishably
+          from the interpreter's error.
+
+    Why the legally decisive direction is the one using the indirect method is
+    the awkward part. The working hypothesis is that LaBSE's cross-lingual
+    alignment is weaker for Turkish–Dutch (morphologically rich, lower-resource
+    on LaBSE's training mix) than its monolingual Dutch similarity, so routing
+    through Dutch buys accuracy at the cost of method purity.
+
+    THAT WAS A HYPOTHESIS, AND THE FIRST MEASUREMENT DOES NOT SUPPORT IT.
+    evaluation/scoring_check.py runs the same labelled pairs down both paths.
+    On its 20-pair set (see evaluation/results/ for the dated report) the Claude
+    hop raises correct and deviant scores by nearly the same amount, so the gap
+    between them — the only thing a threshold can act on — does not widen. It
+    shifts the whole distribution upward instead of improving discrimination.
+
+    So the current reading is that the c2o hop buys no separation while adding an
+    API dependency, latency, cost, and a second error source on the legally
+    decisive direction. The burden of proof is on keeping it. Do not treat that as
+    settled either: n is 20 hand-written pairs that no native Turkish speaker has
+    validated. Re-run scoring_check.py against better data before acting; if it
+    holds, drop translate_to_dutch here and score c2o cross-lingually like o2c.
+
+    Separately, and more seriously than the choice between the two paths: on that
+    same set, 8 of 10 labelled deviations score above the 0.70 "semantically
+    correct" cut-off on BOTH paths — including a flipped negation and a swapped
+    date. Neither path detects same-length meaning reversals. See the report and
+    the TODO(DV4) in services/feedback.py before relying on either score.
+
+    Note _score_sync / translate_to_dutch are mocked in every test under tests/;
+    the real numeric behaviour of this path is only exercised by
+    evaluation/scoring_check.py.
+    """
     sid = uuid.UUID(session_id)
 
     async with AsyncSessionLocal() as db:
@@ -317,7 +367,12 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
             o2c_officer_texts = [p["source_block"]["text"] for p in o2c_pairs]
             o2c_interp_texts  = [p["interp_block"]["text"]  for p in o2c_pairs]
 
-            # 5b. Translate client utterances to Dutch for Dutch↔Dutch c2o scoring
+            # 5b. Translate client utterances to Dutch for Dutch↔Dutch c2o scoring.
+            # This is the pseudo-reference hop described in this function's docstring —
+            # it makes c2o scoring monolingual and NOT reference-free. Note the
+            # `except` below silently falls back to scoring the untranslated source
+            # cross-lingually, so a failed API call switches c2o to the o2c method
+            # mid-session and the stored score is no longer method-comparable.
             scoring_texts = c2o_client_texts
             if client_lang != "nl":
                 log.info("[B] translate  %d texts from %s → nl", len(c2o_client_texts), client_lang)

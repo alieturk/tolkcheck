@@ -1,0 +1,11 @@
+﻿item_id,source_tr,claude_translation_nl,reference_nl,chrf,labse_vs_reference,reviewer_verdict_correct_or_not,reviewer_notes
+t01,Gazeteci olarak çalıştığım için tutuklandım.,Ik werd gearresteerd omdat ik als journalist werkte.,Ik ben gearresteerd omdat ik als journalist werkte.,89.0,0.9926,,
+t02,Ailem hâlâ Türkiye'de yaşıyor.,Mijn familie woont nog steeds in Turkije.,Mijn familie woont nog in Turkije.,86.2,0.9965,,
+t03,Üç gün karakolda tutuldum ve sorguya çekildim.,Ik werd drie dagen op het politiebureau vastgehouden en verhoord.,Ik ben drie dagen op het politiebureau vastgehouden en verhoord.,91.3,0.9943,,
+t04,Pasaportumu sınırda kaybettim.,Ik verloor mijn paspoort aan de grens.,Ik ben mijn paspoort bij de grens verloren.,53.1,0.9943,,
+t05,Eşim ve iki çocuğum İstanbul'da kaldı.,Mijn echtgenoot en twee kinderen bleven in Istanbul.,Mijn vrouw en mijn twee kinderen zijn in Istanbul gebleven.,53.9,0.9689,,
+t06,Üç gün karakolda tutuldum ve işkence gördüm.,Ik werd drie dagen op het politiebureau vastgehouden en gefolterd.,Ik ben drie dagen op het politiebureau vastgehouden en ik ben gemarteld.,72.0,0.9716,,
+t07,Sanırım ağustos ayında oldu.,Ik denk dat het in augustus gebeurde.,Ik denk dat het in augustus gebeurde.,100.0,1.0000,,
+t08,Kardeşim Diyarbakır'da tutuklandı.,Mijn broer/zus werd gearresteerd in Diyarbakır.,Mijn broer is in Diyarbakir gearresteerd.,68.5,0.9345,,
+t09,Hiçbir siyasi partiye üye değildim.,Ik was geen lid van een politieke partij.,Ik was nooit lid van een politieke partij.,77.5,0.9657,,
+t10,"Ülkeden çıkmak için önce İstanbul'a gittim, sonra otobüsle sınırı geçtim.","Om het land te verlaten ging ik eerst naar Istanbul, daarna stak ik de grens over met de bus.",Om het land te verlaten ben ik eerst naar Istanbul gegaan en daarna met de bus de grens overgestoken.,65.6,0.9917,,

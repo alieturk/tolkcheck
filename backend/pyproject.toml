@@ -6,7 +6,7 @@ requires-python = ">=3.12, <3.14"
 dependencies = [
     "soundfile>=0.12.1",
     "ffmpeg-python>=0.2.0",
-    
+
     # Web
     "fastapi>=0.115.0",
     "uvicorn[standard]>=0.32.0",
@@ -55,6 +55,18 @@ dependencies = [
     # Pin below the break until passlib (unmaintained since ~2020) is replaced
     # or patched. See: https://github.com/pyca/bcrypt/issues/684
     "bcrypt<4.1",
+]
+
+[project.optional-dependencies]
+# Slow, data-dependent evaluation harness under evaluation/ — see
+# evaluation/README.md. Deliberately optional so the default install and CI stay
+# fast and don't gain flaky, model-weight-dependent surface area.
+#   uv pip install -e '.[eval]'
+eval = [
+    "jiwer>=3.0.0",          # WER/CER          — evaluation/wer_check.py
+    "pyannote.metrics>=3.2", # DER              — evaluation/diarization_check.py
+    "sacrebleu>=2.4.0",      # chrF             — evaluation/translation_check.py
+    "edge-tts>=7.0.0",       # gold-clip TTS    — evaluation/make_fixtures.py
 ]
 
 [dependency-groups]

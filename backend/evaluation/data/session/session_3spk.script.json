@@ -1,0 +1,103 @@
+{
+  "sample_rate": 16000,
+  "total_duration": 28.74,
+  "gap_between_turns_s": 0.35,
+  "overlap_region": {
+    "start": 10.64,
+    "end": 11.84,
+    "speakers": [
+      "client",
+      "interpreter"
+    ],
+    "note": "Deliberate overlap: the interpreter starts rendering before the client has finished. Real hearings do this constantly; the rest of this session is artificially clean turn-taking."
+  },
+  "voices": {
+    "officer": "nl-NL-MaartenNeural",
+    "interpreter": "tr-TR-EmelNeural",
+    "client": "tr-TR-AhmetNeural"
+  },
+  "synthetic": true,
+  "tts_engine": "edge-tts (Microsoft Edge neural TTS)",
+  "turns": [
+    {
+      "index": 0,
+      "role": "officer",
+      "language": "nl",
+      "voice": "nl-NL-MaartenNeural",
+      "start": 0.0,
+      "end": 2.84,
+      "duration": 2.84,
+      "text": "Kunt u mij vertellen waarom u Turkije heeft verlaten?"
+    },
+    {
+      "index": 1,
+      "role": "interpreter",
+      "language": "tr",
+      "voice": "tr-TR-EmelNeural",
+      "start": 3.19,
+      "end": 6.27,
+      "duration": 3.08,
+      "text": "Türkiye'yi neden terk ettiğinizi bana anlatabilir misiniz?"
+    },
+    {
+      "index": 2,
+      "role": "client",
+      "language": "tr",
+      "voice": "tr-TR-AhmetNeural",
+      "start": 6.62,
+      "end": 11.84,
+      "duration": 5.22,
+      "text": "Gazeteci olarak çalıştığım için tutuklandım. Üç gün karakolda kaldım."
+    },
+    {
+      "index": 3,
+      "role": "interpreter",
+      "language": "nl",
+      "voice": "tr-TR-EmelNeural",
+      "start": 10.64,
+      "end": 17.9,
+      "duration": 7.26,
+      "text": "Ik ben gearresteerd omdat ik als journalist werkte. Ik heb drie dagen op het politiebureau gezeten."
+    },
+    {
+      "index": 4,
+      "role": "officer",
+      "language": "nl",
+      "voice": "nl-NL-MaartenNeural",
+      "start": 18.25,
+      "end": 20.05,
+      "duration": 1.8,
+      "text": "Weet u nog wanneer dat gebeurde?"
+    },
+    {
+      "index": 5,
+      "role": "interpreter",
+      "language": "tr",
+      "voice": "tr-TR-EmelNeural",
+      "start": 20.4,
+      "end": 22.7,
+      "duration": 2.3,
+      "text": "Bunun ne zaman olduğunu hatırlıyor musunuz?"
+    },
+    {
+      "index": 6,
+      "role": "client",
+      "language": "tr",
+      "voice": "tr-TR-AhmetNeural",
+      "start": 23.05,
+      "end": 25.41,
+      "duration": 2.36,
+      "text": "Yaz aylarıydı, ağustos ayında oldu."
+    },
+    {
+      "index": 7,
+      "role": "interpreter",
+      "language": "nl",
+      "voice": "tr-TR-EmelNeural",
+      "start": 25.76,
+      "end": 28.74,
+      "duration": 2.98,
+      "text": "Het was in de zomer, het gebeurde in augustus."
+    }
+  ]
+}

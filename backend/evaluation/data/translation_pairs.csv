@@ -1,0 +1,11 @@
+item_id,source_lang,source_text,reference_nl,human_verified
+t01,tr,"Gazeteci olarak çalıştığım için tutuklandım.","Ik ben gearresteerd omdat ik als journalist werkte.",no
+t02,tr,"Ailem hâlâ Türkiye'de yaşıyor.","Mijn familie woont nog in Turkije.",no
+t03,tr,"Üç gün karakolda tutuldum ve sorguya çekildim.","Ik ben drie dagen op het politiebureau vastgehouden en verhoord.",no
+t04,tr,"Pasaportumu sınırda kaybettim.","Ik ben mijn paspoort bij de grens verloren.",no
+t05,tr,"Eşim ve iki çocuğum İstanbul'da kaldı.","Mijn vrouw en mijn twee kinderen zijn in Istanbul gebleven.",no
+t06,tr,"Üç gün karakolda tutuldum ve işkence gördüm.","Ik ben drie dagen op het politiebureau vastgehouden en ik ben gemarteld.",no
+t07,tr,"Sanırım ağustos ayında oldu.","Ik denk dat het in augustus gebeurde.",no
+t08,tr,"Kardeşim Diyarbakır'da tutuklandı.","Mijn broer is in Diyarbakir gearresteerd.",no
+t09,tr,"Hiçbir siyasi partiye üye değildim.","Ik was nooit lid van een politieke partij.",no
+t10,tr,"Ülkeden çıkmak için önce İstanbul'a gittim, sonra otobüsle sınırı geçtim.","Om het land te verlaten ben ik eerst naar Istanbul gegaan en daarna met de bus de grens overgestoken.",no

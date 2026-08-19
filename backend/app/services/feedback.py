@@ -16,6 +16,19 @@ if TYPE_CHECKING:
 log = logging.getLogger(__name__)
 _client: anthropic.AsyncAnthropic | None = None
 
+# TODO(DV4): the four numeric thresholds in _SYSTEM_PROMPT below (0.70 / 0.50 /
+# 0.65) are hand-picked, not calibrated. Nothing tests them and no precision or
+# recall figure backs them. DV4 has to calibrate them against labelled data.
+#
+# Calibration inputs live at:  evaluation/data/pairs.csv
+# Current classification behaviour: evaluation/scoring_check.py reports, per
+#   labelled pair, whether these cut-offs put it in the right bucket — run that
+#   before touching the numbers, and re-run it after.
+#
+# Do NOT tune these by eye against a single session; the thresholds decide what a
+# reviewing IND officer is shown as "probably fine" versus "probably wrong", so
+# moving them trades false reassurance against false alarms. Any change needs the
+# precision/recall pair that motivated it recorded in the report.
 _SYSTEM_PROMPT = """\
 Je bent een expert-beoordelaar van interpretaties van professionele tolken bij IND-gehoren \
 (Immigratie- en Naturalisatiedienst).

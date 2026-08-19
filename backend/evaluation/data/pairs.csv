@@ -1,0 +1,21 @@
+pair_id,direction,category,source_lang,target_lang,source_text,interpreter_text,error_note,human_verified
+c01,tr2nl,correct,tr,nl,"Gazeteci olarak çalıştığım için tutuklandım.","Ik ben gearresteerd omdat ik als journalist werkte.","",no
+c02,tr2nl,correct,tr,nl,"Ailem hâlâ Türkiye'de yaşıyor.","Mijn familie woont nog in Turkije.","",no
+c03,tr2nl,correct,tr,nl,"Üç gün karakolda tutuldum ve sorguya çekildim.","Ik ben drie dagen op het politiebureau vastgehouden en verhoord.","",no
+c04,tr2nl,correct,tr,nl,"Pasaportumu sınırda kaybettim.","Ik ben mijn paspoort bij de grens verloren.","",no
+c05,tr2nl,correct,tr,nl,"Eşim ve iki çocuğum İstanbul'da kaldı.","Mijn vrouw en mijn twee kinderen zijn in Istanbul gebleven.","",no
+c06,nl2tr,correct,nl,tr,"Kunt u mij vertellen waarom u Turkije heeft verlaten?","Türkiye'yi neden terk ettiğinizi bana anlatabilir misiniz?","",no
+c07,nl2tr,correct,nl,tr,"Weet u nog op welke datum u bent aangehouden?","Hangi tarihte gözaltına alındığınızı hatırlıyor musunuz?","",no
+c08,nl2tr,correct,nl,tr,"Alles wat u hier vertelt is vertrouwelijk.","Burada anlattığınız her şey gizlidir.","",no
+c09,nl2tr,correct,nl,tr,"Heeft u documenten die uw verhaal kunnen ondersteunen?","Anlattıklarınızı destekleyebilecek belgeleriniz var mı?","",no
+c10,nl2tr,correct,nl,tr,"Neemt u rustig de tijd om te antwoorden.","Cevap vermek için acele etmeyin, zamanınızı alın.","",no
+d01,tr2nl,omissie,tr,nl,"Üç gün karakolda tutuldum ve işkence gördüm.","Ik ben drie dagen op het politiebureau vastgehouden.","Bron vermeldt marteling (işkence gördüm); vertaling laat dit volledig weg. Juridisch zwaarwegend.",no
+d02,tr2nl,toevoeging,tr,nl,"Beni sorguya çektiler.","Ze hebben mij verhoord en daarbij met de dood bedreigd.","Doodsbedreiging staat niet in de bron; tolk voegt toe.",no
+d03,tr2nl,betekenisverschuiving,tr,nl,"Sanırım ağustos ayında oldu.","Het gebeurde in augustus.","Bron hedget (sanırım = ik denk); vertaling maakt er een zekerheid van. Verschuiving in toegeschreven zekerheid.",no
+d04,tr2nl,entiteitsfout,tr,nl,"Kardeşim Diyarbakır'da tutuklandı.","Mijn broer is in Ankara gearresteerd.","Plaatsnaam Diyarbakır vervangen door Ankara.",no
+d05,tr2nl,ontkenning,tr,nl,"Hiçbir siyasi partiye üye değildim.","Ik was lid van een politieke partij.","Ontkenning omgedraaid: nooit lid -> wel lid. Keert de betekenis volledig om.",no
+d06,nl2tr,omissie,nl,tr,"U moet de waarheid vertellen; als u liegt kan dat gevolgen hebben voor uw aanvraag.","Doğruyu söylemelisiniz.","Waarschuwing over gevolgen voor de aanvraag valt weg.",no
+d07,nl2tr,toevoeging,nl,tr,"Kunt u dat toelichten?","Bunu açıklayabilir misiniz? Yoksa ifadenize inanmıyoruz.","Tolk voegt toe dat de verklaring niet geloofd wordt; niet in de bron.",no
+d08,nl2tr,betekenisverschuiving,nl,tr,"Het is mogelijk dat uw aanvraag wordt afgewezen.","Başvurunuz reddedilecek.","Mogelijkheid wordt gepresenteerd als vaststaand feit.",no
+d09,nl2tr,entiteitsfout,nl,tr,"U heeft verklaard dat u op twaalf maart bent aangehouden.","On iki Mayıs'ta gözaltına alındığınızı beyan ettiniz.","Maand maart vervangen door Mayıs (mei).",no
+d10,nl2tr,ontkenning,nl,tr,"De tolk mag geen eigen mening geven.","Tercüman kendi görüşünü belirtebilir.","Verbod omgezet in toestemming; ontkenning verdwenen.",no
