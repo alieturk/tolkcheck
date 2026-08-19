@@ -16,6 +16,7 @@ class SessionOut(BaseModel):
     audio_path: str
     language: str
     ind_case_id: str | None
+    known_terms: str | None
     status: SessionStatus
     duration_seconds: float | None
     error_code: str | None

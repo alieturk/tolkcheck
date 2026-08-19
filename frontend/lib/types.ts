@@ -14,6 +14,7 @@ export interface Session {
   audio_path: string;
   language: string;
   ind_case_id: string | null;
+  known_terms: string | null;
   status: SessionStatus;
   duration_seconds: number | null;
   error_code: string | null;

@@ -1,4 +1,10 @@
-"""Whisper large-v3 transcription via faster-whisper (lazy-loaded, thread-pool)."""
+"""Whisper transcription via faster-whisper (lazy-loaded, thread-pool).
+
+Model is whatever ``settings.whisper_model`` names (default ``large-v3`` — see
+config.py for why that default rather than ``turbo``). faster-whisper is used
+directly; WhisperX is not involved in this module, so no forced phoneme
+alignment happens here and segment timestamps are Whisper's own.
+"""
 from __future__ import annotations
 
 import asyncio
@@ -30,17 +36,29 @@ def _get_model() -> WhisperModel:
     return _model
 
 
-async def transcribe(audio_path: Path, language: str | None = None) -> dict:
+async def transcribe(
+    audio_path: Path,
+    language: str | None = None,
+    initial_prompt: str | None = None,
+) -> dict:
     """Async wrapper — offloads CPU-bound work to the default thread pool."""
     loop = asyncio.get_event_loop()
-    return await loop.run_in_executor(None, _transcribe_sync, audio_path, language)
+    return await loop.run_in_executor(
+        None, _transcribe_sync, audio_path, language, initial_prompt
+    )
 
 
-def _transcribe_sync(audio_path: Path, language: str | None) -> dict:
+def _transcribe_sync(
+    audio_path: Path,
+    language: str | None,
+    initial_prompt: str | None = None,
+) -> dict:
     model = _get_model()
     kwargs: dict = {"beam_size": 5, "vad_filter": True}
     if language:
         kwargs["language"] = language
+    if initial_prompt:
+        kwargs["initial_prompt"] = initial_prompt
     segments, info = model.transcribe(str(audio_path), **kwargs)
     detected = info.language
     seg_list = [
@@ -67,8 +85,18 @@ async def transcribe_chunk(
     waveform: "torch.Tensor",
     sample_rate: int,
     language: str | None = None,
+    initial_prompt: str | None = None,
 ) -> list[dict]:
     """Transcribe a pre-loaded waveform slice (e.g. one speaker turn).
+
+    initial_prompt, when given, biases Whisper's decode toward the text it
+    contains — used to pass a per-session glossary (client name, place names,
+    case-specific terms; see Session.known_terms) so proper nouns are less
+    likely to be mis-transcribed into something that looks like a translation
+    error downstream. Because transcription here is per diarization turn (not
+    one call over the whole file), the prompt is freshly re-applied on every
+    turn rather than decaying over a long recording the way a single
+    whole-file initial_prompt would.
 
     Returns a list of segment dicts with start/end/text/language.
     Timestamps are relative to the start of the chunk — callers must
@@ -76,7 +104,7 @@ async def transcribe_chunk(
     """
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(
-        None, _transcribe_chunk_sync, waveform, sample_rate, language
+        None, _transcribe_chunk_sync, waveform, sample_rate, language, initial_prompt
     )
 
 
@@ -84,6 +112,7 @@ def _transcribe_chunk_sync(
     waveform: "torch.Tensor",
     sample_rate: int,
     language: str | None,
+    initial_prompt: str | None = None,
 ) -> list[dict]:
     import numpy as np
     import torchaudio.functional as F
@@ -101,6 +130,8 @@ def _transcribe_chunk_sync(
     kwargs: dict = {"beam_size": 5, "vad_filter": False}
     if language:
         kwargs["language"] = language
+    if initial_prompt:
+        kwargs["initial_prompt"] = initial_prompt
 
     segments, info = model.transcribe(audio_np, **kwargs)
     detected = info.language

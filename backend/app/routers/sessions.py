@@ -45,6 +45,7 @@ async def create_session(
     audio: UploadFile = File(...),
     language: str = Form("nl"),
     case_id: str | None = Form(None),
+    known_terms: str | None = Form(None),
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
@@ -69,6 +70,7 @@ async def create_session(
         audio_path=str(audio_path),
         language=language,
         ind_case_id=case_id,
+        known_terms=known_terms,
         status=SessionStatus.PENDING,
     )
     db.add(session)

@@ -45,11 +45,13 @@ export async function uploadSession(
   file: File,
   language: string,
   caseId?: string,
+  knownTerms?: string,
 ): Promise<UploadResponse> {
   const form = new FormData();
   form.append("audio", file);
   form.append("language", language);
   if (caseId) form.append("case_id", caseId);
+  if (knownTerms) form.append("known_terms", knownTerms);
 
   return request<UploadResponse>("/sessions", { method: "POST", body: form });
 }

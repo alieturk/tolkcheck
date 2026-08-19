@@ -33,6 +33,7 @@ export default function UploadPage() {
   const [file, setFile] = useState<File | null>(null);
   const [language, setLanguage] = useState("nl");
   const [caseId, setCaseId] = useState("");
+  const [knownTerms, setKnownTerms] = useState("");
   const [dragging, setDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
@@ -72,7 +73,7 @@ export default function UploadPage() {
     setUploading(true);
     setError(null);
     try {
-      const res = await uploadSession(file, language, caseId || undefined);
+      const res = await uploadSession(file, language, caseId || undefined, knownTerms || undefined);
       router.push(`/sessions/${res.session_id}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Upload mislukt. Probeer het opnieuw.");
@@ -178,6 +179,27 @@ export default function UploadPage() {
               className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm
                          focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             />
+          </div>
+
+          {/* Known terms / glossary */}
+          <div>
+            <label htmlFor="known_terms" className="block text-sm font-medium text-gray-700 mb-1">
+              Namen &amp; specifieke termen <span className="text-gray-400 font-normal">(optioneel)</span>
+            </label>
+            <textarea
+              id="known_terms"
+              value={knownTerms}
+              onChange={(e) => setKnownTerms(e.target.value)}
+              rows={2}
+              placeholder="bijv. namen van cliënt en ambtenaar, plaatsnamen, specifieke termen — één per regel of gescheiden door komma's"
+              className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm resize-none
+                         focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
+            <p className="mt-1 text-xs text-gray-400">
+              Helpt Whisper eigennamen correct te transcriberen — bijv. de naam van de cliënt wordt
+              anders makkelijk verkeerd verstaan, wat als vertaalfout kan worden aangemerkt terwijl
+              het een transcriptiefout is.
+            </p>
           </div>
 
           {/* Error */}

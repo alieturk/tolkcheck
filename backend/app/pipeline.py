@@ -143,7 +143,9 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                                   turn["speaker"], turn["start"], turn["end"])
                         continue
 
-                    segs = await transcription.transcribe_chunk(chunk, sr, language)
+                    segs = await transcription.transcribe_chunk(
+                        chunk, sr, language, initial_prompt=session.known_terms
+                    )
 
                     for seg in segs:
                         seg["start"] += turn["start"]
@@ -264,7 +266,9 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                         log.info("[B] retranscribe  chunks=%d  compact=%.1fs  forced_lang=%s",
                                  len(chunks), compact_dur, client_lang)
 
-                        new_segs = await transcription.transcribe_chunk(compact, sr, client_lang)
+                        new_segs = await transcription.transcribe_chunk(
+                            compact, sr, client_lang, initial_prompt=session.known_terms
+                        )
 
                         for seg in new_segs:
                             for i, (c_start, o_start) in enumerate(offsets):

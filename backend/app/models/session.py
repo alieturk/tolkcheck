@@ -35,6 +35,12 @@ class Session(Base):
     audio_path: Mapped[str] = mapped_column(String(512))
     language: Mapped[str] = mapped_column(String(10), default="nl")
     ind_case_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    # Optional free-text glossary (client name, place names, case-specific
+    # terms) supplied by IND staff at upload time. Passed to Whisper as
+    # `initial_prompt` on every transcribe_chunk() call in pipeline.py — see
+    # app/services/transcription.py. Purely a transcription-quality aid: never
+    # shown to the LLM feedback step, never scored.
+    known_terms: Mapped[str | None] = mapped_column(Text, nullable=True)
     status: Mapped[SessionStatus] = mapped_column(
         Enum(SessionStatus, values_callable=lambda x: [e.value for e in x]),
         default=SessionStatus.PENDING,
