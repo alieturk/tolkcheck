@@ -24,8 +24,11 @@ dependencies = [
     # AI – transcription
     "faster-whisper>=1.1.0",
 
-    # AI – diarization (requires HF token; wraps pyannote internally)
-    "whisperx>=3.1.0",
+    # AI – diarization (requires HF token for pyannote/speaker-diarization-3.1)
+    # Depended on directly rather than transitively via whisperx: whisperx was
+    # only ever supplying pyannote, and none of its own features (DiarizationPipeline,
+    # forced phoneme alignment, VAD Cut & Merge) are used. See services/diarization.py.
+    "pyannote.audio>=3.1.0",
 
     # AI – semantic scoring
     "sentence-transformers>=3.0.0",

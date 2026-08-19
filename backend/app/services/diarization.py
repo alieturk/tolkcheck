@@ -1,12 +1,34 @@
 """Speaker diarization via pyannote.audio Pipeline.
 
-Uses pyannote/speaker-diarization-3.1 directly (whisperx pulls it in as a
-dependency but no longer exposes DiarizationPipeline at its public API).
+Uses pyannote/speaker-diarization-3.1 directly.
+
+NOTE ON WHISPERX: this pipeline does not use WhisperX at any stage. Earlier
+revisions depended on it, and this module's docstring implied its diarization
+wrapper was in play — it was not (whisperx no longer exposes
+DiarizationPipeline publicly), and neither was its forced phoneme alignment
+(`whisperx.align`) or its VAD Cut & Merge. WhisperX has been dropped as a
+dependency in favour of pyannote.audio directly.
+
+To be fair to the alternative: language coverage was NOT the obstacle. WhisperX's
+`DEFAULT_ALIGN_MODELS_HF` map carries wav2vec2 alignment models for 35 languages
+including both `tr` and `nl`, so forced alignment for this language pair was
+available. (Only the smaller `DEFAULT_ALIGN_MODELS_TORCH` map is limited, to
+de/en/es/fr/it.) The reason it is not wired in is simpler:
+
+  Nothing downstream consumes word-level timestamps. alignment.py merges segments
+  into speaker blocks with a 3 s gap threshold, and scoring.py compares block
+  *text*. Sub-second timestamp precision changes no score anywhere in the
+  pipeline, so alignment would add a second wav2vec2 model per language on CPU
+  for no measurable effect on any output.
+
+Revisit this if word-level timing acquires a consumer — the obvious one being a
+UI that jumps a reviewer to the exact moment of a flagged deviation, which would
+make precise word boundaries worth their cost.
 
 Requires:
   - HF_TOKEN set in .env (accept the model license at
     https://hf.co/pyannote/speaker-diarization-3.1)
-  - pip: whisperx (brings in pyannote.audio + torch)
+  - pip: pyannote.audio (brings in torch)
 """
 from __future__ import annotations
 
