@@ -270,7 +270,24 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
         transcript: list[dict] = eval_row.transcript or []
         interpreter_speaker = eval_row.interpreter_speaker
         client_speaker = eval_row.client_speaker
-        client_lang: str = session.language or "nl"
+
+        # Detect client language from transcript segments (most common language among
+        # client's utterances). Falls back to session.language only if no client segments
+        # are found, then to "nl" as last resort.
+        client_segments = [s for s in transcript if s.get("speaker") == client_speaker]
+        if client_segments:
+            lang_counts: dict[str, int] = {}
+            for seg in client_segments:
+                lang = seg.get("language", "?")
+                lang_counts[lang] = lang_counts.get(lang, 0) + 1
+            detected_lang = max(lang_counts, key=lang_counts.get)
+            client_lang = detected_lang if detected_lang != "?" else (session.language or "nl")
+            log.info("[B] detect_client_lang  from_transcript  distribution=%s  chosen=%s",
+                     dict(lang_counts), client_lang)
+        else:
+            client_lang = session.language or "nl"
+            log.warning("[B] detect_client_lang  no_client_segments  falling_back_to=%s",
+                        client_lang)
 
         log.info("[B] session=%s  client=%s  interpreter=%s  client_lang=%s  transcript_segs=%d",
                  sid, client_speaker, interpreter_speaker, client_lang, len(transcript))
