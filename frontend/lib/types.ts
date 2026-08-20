@@ -77,11 +77,33 @@ export interface BlockAsr {
   reasons: string[];
 }
 
+export interface RoleWarning {
+  code: string;
+  severity: "high" | "medium";
+  speaker: string | null;
+  message: string;
+}
+
+export interface SpeakerLanguages {
+  role: "client" | "interpreter" | "officer";
+  total: number;
+  langs: Record<string, number>;
+}
+
+/** Output of the backend's role-consistency check (services/role_check.py). */
+export interface RoleWarnings {
+  ok: boolean;
+  client_lang: string;
+  distribution: Record<string, SpeakerLanguages>;
+  warnings: RoleWarning[];
+}
+
 export interface Evaluation {
   id: string;
   session_id: string;
   transcript: TranscriptSegment[] | null;
   aligned_blocks: AlignedBlock[] | null;
+  role_warnings: RoleWarnings | null;
   interpreter_speaker: string | null;
   client_speaker: string | null;
   overall_score: number | null;

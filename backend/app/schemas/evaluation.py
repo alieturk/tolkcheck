@@ -26,6 +26,10 @@ class EvaluationOut(BaseModel):
     # and any divergence between the two implementations shows up as source text
     # paired with the wrong translation.
     aligned_blocks: list[Any] | None
+    # Language distribution per speaker + any contradiction with the confirmed
+    # role assignment (services/role_check.py). Surfaced in the UI so scores are
+    # read alongside the evidence that the speakers may have been mixed up.
+    role_warnings: dict[str, Any] | None
     semantic_similarity_scores: list[Any] | None
     client_translations: list[Any] | None
     llm_feedback: str | None

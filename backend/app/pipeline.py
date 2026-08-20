@@ -21,7 +21,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.database import AsyncSessionLocal
 from app.models.evaluation import Evaluation
 from app.models.session import Session, SessionStatus
-from app.services import alignment, diarization, feedback, scoring, transcription
+from app.services import (
+    alignment,
+    diarization,
+    feedback,
+    role_check,
+    scoring,
+    transcription,
+)
 
 log = logging.getLogger(__name__)
 
@@ -447,6 +454,20 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                         log.warning("[B] retranscribe  SKIPPED — no usable client audio chunks")
                 except Exception as exc:
                     log.warning("[B] retranscribe  FAILED (%s) — keeping Phase A transcript", exc)
+
+            # 4b. Check the confirmed roles against the languages actually detected.
+            # Runs on the post-re-transcription transcript and before any scoring, so
+            # a hearing whose speakers were mixed up is recorded as such rather than
+            # scored as if nothing were wrong. Reports only — see role_check for why
+            # it does not reassign turns.
+            roles = role_check.check_roles(
+                transcript, interpreter_speaker, client_speaker, client_lang
+            )
+            eval_row.role_warnings = roles
+            if not roles["ok"]:
+                log.warning("[B] role_check  %d warning(s) — scores from this session "
+                            "should be read with the speaker assignment in mind",
+                            len(roles["warnings"]))
 
             # 5. Build speaker blocks, classify interpreter direction, extract pairs
             await _set_status(db, session, SessionStatus.SCORING)

@@ -39,6 +39,11 @@ class Evaluation(Base):
     transcript: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     # aligned_blocks: full block sequence with direction classification — stored after Phase B alignment
     aligned_blocks: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    # role_warnings: output of services/role_check.py — language distribution per
+    # speaker plus any warning that the confirmed role assignment contradicts it.
+    # Written before scoring so a hearing whose speakers were mixed up is visible
+    # as such rather than silently producing ordinary-looking numbers.
+    role_warnings: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     semantic_similarity_scores: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     client_translations: Mapped[list | None] = mapped_column(JSONB, nullable=True)
     llm_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)

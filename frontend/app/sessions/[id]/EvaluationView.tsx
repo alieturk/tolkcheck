@@ -53,6 +53,8 @@ interface DisplaySegment {
   /** Transcription of this turn (or its translation) failed Whisper's own decode
    *  checks, so no score is shown — it would measure the decoder, not the interpreter. */
   asrUnreliable?: boolean;
+  /** Interpreter turn no source block could be matched to, so it is shown alone. */
+  unpaired?: boolean;
   issues?: IssueItem[];
 }
 
@@ -109,8 +111,23 @@ function buildDisplaySegments(evaluation: Evaluation): DisplaySegment[] {
   const display: DisplaySegment[] = [];
 
   blocks.forEach((block, i) => {
-    // Interpreter blocks are shown on the row of the source they translate.
-    if (block.role === "interpreter") return;
+    if (block.role === "interpreter") {
+      // Paired blocks appear on their source's row. An unpaired one has no source
+      // to compare against — show it on its own rather than dropping it, so the
+      // reviewer sees the turn happened and that nothing was matched to it.
+      if (block.source_index !== undefined) return;
+      display.push({
+        id: String(i),
+        startTime: fmtTime(block.start),
+        endTime:   fmtTime(block.end),
+        speaker:   "interpreter",
+        originalText: block.text,
+        detectedLanguage: block.language,
+        asrUnreliable: block.asr?.unreliable === true,
+        unpaired: true,
+      });
+      return;
+    }
 
     const isClient = block.role === "client";
     const wantDirection = isClient ? "to_officer" : "to_client";
@@ -235,6 +252,14 @@ function TimeSegment({ segment, isExpanded, onToggle, feedback, onFeedback }: Ti
               {segment.accuracy !== undefined && (
                 <span className={`text-xs px-2 py-0.5 rounded ${accuracyColor(segment.accuracy)}`}>
                   {Math.round(segment.accuracy * 100)}% nauwkeurigheid
+                </span>
+              )}
+              {segment.unpaired && (
+                <span
+                  className="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800"
+                  title="Er kon geen bijbehorende bron­uiting worden gevonden binnen het verwachte tijdsbestek. Meestal betekent dit dat de spreker­herkenning de bron aan de verkeerde persoon heeft toegewezen."
+                >
+                  Geen bron gekoppeld
                 </span>
               )}
               {segment.asrUnreliable && (
@@ -436,8 +461,68 @@ export default function EvaluationView({ evaluation }: Props) {
     setFeedbackMap((prev) => ({ ...prev, [id]: fb }));
   }
 
+  const roleWarnings = evaluation.role_warnings;
+
   return (
     <div className="space-y-6">
+      {/* Speaker-assignment warnings. Placed above the scores on purpose: when the
+          roles are wrong the scores below are measuring the wrong comparison, and
+          that has to be read first, not discovered afterwards. */}
+      {roleWarnings && !roleWarnings.ok && (
+        <div className="rounded-xl border border-amber-300 bg-amber-50 p-5">
+          <div className="flex items-start gap-3">
+            <AlertTriangle className="w-5 h-5 shrink-0" />
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold text-amber-900 mb-1">
+                Sprekertoewijzing komt niet overeen met de herkende talen
+              </h3>
+              <p className="text-sm text-amber-800 mb-3">
+                De onderstaande scores zijn berekend op basis van de bevestigde rollen.
+                Controleer die eerst — als sprekers verwisseld zijn, vergelijken de scores
+                de verkeerde fragmenten.
+              </p>
+              <ul className="space-y-1.5">
+                {roleWarnings.warnings.map((w, i) => (
+                  <li key={i} className="text-sm text-amber-900 flex items-start gap-2">
+                    <span
+                      className={`text-xs px-1.5 py-0.5 rounded shrink-0 mt-0.5 ${
+                        w.severity === "high"
+                          ? "bg-amber-200 text-amber-900"
+                          : "bg-amber-100 text-amber-800"
+                      }`}
+                    >
+                      {w.severity === "high" ? "Hoog" : "Gemiddeld"}
+                    </span>
+                    <span>{w.message}</span>
+                  </li>
+                ))}
+              </ul>
+              <details className="mt-3">
+                <summary className="text-xs text-amber-800 cursor-pointer">
+                  Herkende talen per spreker
+                </summary>
+                <table className="mt-2 text-xs text-amber-900">
+                  <tbody>
+                    {Object.entries(roleWarnings.distribution).map(([spk, info]) => (
+                      <tr key={spk}>
+                        <td className="pr-3 font-mono">{spk}</td>
+                        <td className="pr-3">{info.role}</td>
+                        <td className="pr-3">
+                          {Object.entries(info.langs)
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([lang, n]) => `${lang}=${n}`)
+                            .join("  ")}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </details>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Summary cards */}
       <div className="grid grid-cols-3 gap-4">
         {/* Card 1: critical issues */}

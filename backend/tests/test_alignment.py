@@ -471,3 +471,75 @@ class TestBlockPairAnnotation:
         c2o, o2c = alignment.extract_pairs(blocks)
         assert c2o[0]["pair_index"] == o2c[0]["pair_index"] == 0
         assert c2o[0]["interp_block"] is not o2c[0]["interp_block"]
+
+
+# ── Pairing bounds ───────────────────────────────────────────────────────────
+
+class TestPairingBounds:
+    """extract_pairs must decline to pair rather than reach for a distant block.
+
+    When diarization misattributes a source turn, the real source is simply not
+    in the block list any more. Unbounded, _find_preceding then grabs whatever
+    matched the role furthest back — on session f1fae5ce a closing "Hei bedankt
+    u!" was paired with a client answer 33s and eight blocks earlier, and the
+    resulting similarity score was written up as an interpreting failure.
+    """
+
+    def test_pair_within_the_bounds_is_kept(self):
+        segs = [
+            make_seg(CLIENT, "Antwoord.",  0,  6,  language="tr"),
+            make_seg(INTERP, "Vertaling.", 8,  12),
+        ]
+        c2o, _ = pairs(segs)
+        assert texts(c2o) == [("Antwoord.", "Vertaling.")]
+
+    def test_gap_beyond_the_limit_drops_the_pair(self):
+        segs = [
+            make_seg(CLIENT, "Antwoord.",  0,   6,   language="tr"),
+            make_seg(INTERP, "Veel later.", 100, 104),
+        ]
+        c2o, _ = pairs(segs)
+        assert c2o == []
+
+    def test_gap_just_inside_the_limit_is_kept(self):
+        end = alignment.MAX_PAIR_GAP_S - 1
+        segs = [
+            make_seg(CLIENT, "Antwoord.",  0,        6,        language="tr"),
+            make_seg(INTERP, "Vertaling.", 6 + end,  10 + end),
+        ]
+        c2o, _ = pairs(segs)
+        assert len(c2o) == 1
+
+    def test_too_many_intervening_blocks_drops_the_pair(self):
+        """A long stretch of officer/interpreter exchange between the client's
+        answer and a later interpreter turn: that turn is not its translation."""
+        segs = [make_seg(CLIENT, "Ver terug.", 0, 4, language="tr")]
+        t = 5
+        for i in range(4):
+            segs.append(make_seg(OFFICER, f"Vraag {i}.", t, t + 1))
+            segs.append(make_seg(INTERP,  f"Soru {i}.", t + 1, t + 2, language="tr"))
+            t += 3
+        segs.append(make_seg(INTERP, "Losse vertaling.", t, t + 2))
+        c2o, _ = pairs(segs)
+        assert c2o == []
+
+    def test_unpaired_block_keeps_its_direction_but_no_pair_index(self):
+        """It still renders as an interpreter turn; it just has no source."""
+        segs = [
+            make_seg(CLIENT, "Antwoord.",  0,   6,   language="tr"),
+            make_seg(INTERP, "Veel later.", 100, 104),
+        ]
+        blocks = classified(segs)
+        alignment.extract_pairs(blocks)
+        interp = next(b for b in blocks if b["role"] == "interpreter")
+        assert interp["direction"] == "to_officer"
+        assert "pair_index" not in interp
+        assert "source_index" not in interp
+
+    def test_bounds_apply_to_officer_to_client_as_well(self):
+        segs = [
+            make_seg(OFFICER, "Vraag.",  0,   4),
+            make_seg(INTERP,  "Soru.",   100, 104, language="tr"),
+        ]
+        _, o2c = pairs(segs)
+        assert o2c == []

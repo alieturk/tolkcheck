@@ -28,6 +28,19 @@ COMPRESSION_CEILING  = 2.4
 NO_SPEECH_CEILING    = 0.6
 
 
+# ── Pairing bounds ──────────────────────────────────────────────────────
+# In consecutive interpretation the interpreter speaks directly after the turn
+# being interpreted. On a real hearing the observed gap between a source block
+# ending and its interpretation starting is under 3 s, and the source is one or
+# two blocks back. An unbounded search silently produces pairs far outside that:
+# on session f1fae5ce a closing "Hei bedankt u!" was matched to a client answer
+# 33 s and eight blocks earlier, because the true source had been misattributed
+# by diarization and was no longer available. The bounds are set well above
+# normal spacing so only that failure mode trips them.
+MAX_PAIR_GAP_S         = 20.0
+MAX_PAIR_BLOCK_DISTANCE = 6
+
+
 def _block_asr(segments: list[dict]) -> dict:
     """Aggregate per-segment decode signals over a block.
 
@@ -301,8 +314,28 @@ def _role(speaker: str, interpreter_speaker: str, client_speaker: str) -> str:
 
 
 def _find_preceding(blocks: list[dict], from_index: int, role: str) -> int | None:
-    """Return the index of the nearest block before from_index whose role matches."""
+    """Index of the nearest block before from_index with this role, or None.
+
+    Bounded by MAX_PAIR_BLOCK_DISTANCE and MAX_PAIR_GAP_S (see above): a match
+    further back than either is treated as no match at all. Returning nothing is
+    the right answer when the real source is missing — an unpaired interpreter
+    turn is visible as such, whereas a pair built from an unrelated block reads
+    as a confident finding about the interpreter.
+    """
+    interp_start = blocks[from_index]["start"]
+
     for j in range(from_index - 1, -1, -1):
-        if blocks[j]["role"] == role:
-            return j
+        if from_index - j > MAX_PAIR_BLOCK_DISTANCE:
+            return None
+        if blocks[j]["role"] != role:
+            continue
+        gap = interp_start - blocks[j]["end"]
+        if gap > MAX_PAIR_GAP_S:
+            log.warning(
+                "_find_preceding  nearest %s block for the interpreter turn at %.1fs "
+                "ended %.1fs earlier (limit %.1fs) — left unpaired",
+                role, interp_start, gap, MAX_PAIR_GAP_S,
+            )
+            return None
+        return j
     return None
