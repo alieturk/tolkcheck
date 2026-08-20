@@ -39,15 +39,37 @@ export interface IssueItem {
   translatedPhrase?: string;
 }
 
+export type PairDirection = "client_to_officer" | "officer_to_client";
+
 export interface PairIssues {
   pair_index: number;
+  // pair_index is numbered per direction, so a client_to_officer pair and an
+  // officer_to_client pair can both be index 0. Always key on both fields.
+  direction?: PairDirection;
   issues: IssueItem[];
+}
+
+/** One speaker block as produced by the backend's services/alignment.py. */
+export interface AlignedBlock {
+  role: "client" | "interpreter" | "officer";
+  speaker: string;
+  start: number;
+  end: number;
+  text: string;
+  language?: string;
+  /** Interpreter blocks only: which way this block was translating. */
+  direction?: "to_client" | "to_officer" | null;
+  /** Interpreter blocks only, when paired: index within its direction's pair list. */
+  pair_index?: number;
+  /** Interpreter blocks only, when paired: index of the source block in this array. */
+  source_index?: number;
 }
 
 export interface Evaluation {
   id: string;
   session_id: string;
   transcript: TranscriptSegment[] | null;
+  aligned_blocks: AlignedBlock[] | null;
   interpreter_speaker: string | null;
   client_speaker: string | null;
   overall_score: number | null;

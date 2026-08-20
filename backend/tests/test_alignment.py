@@ -406,3 +406,68 @@ class TestExtractPairs:
         c2o, o2c = pairs(segs)
         assert texts(c2o) == [("Antwoord deel 1.", "Vertaling.")]
         assert o2c == []
+
+
+# ── Block annotation (what Evaluation.aligned_blocks carries to the UI) ───────
+
+class TestBlockPairAnnotation:
+    """extract_pairs annotates paired interpreter blocks in place with
+    pair_index + source_index.
+
+    This is what makes the stored block list self-sufficient: the frontend
+    renders from aligned_blocks alone and must not re-derive the pairing rules.
+    An earlier frontend did re-derive them, drifted from these functions, and
+    displayed source text against a translation from a different exchange.
+    """
+
+    def test_paired_interpreter_blocks_carry_index_and_source(self):
+        blocks = classified(FULL_EXCHANGE)
+        alignment.extract_pairs(blocks)
+
+        annotated = [
+            (i, b["direction"], b["pair_index"], b["source_index"])
+            for i, b in enumerate(blocks)
+            if b["role"] == "interpreter"
+        ]
+        # FULL_EXCHANGE: officer(0) interp(1) client(2) interp(3) officer(4) interp(5) client(6) interp(7)
+        assert annotated == [
+            (1, "to_client",  0, 0),   # relays officer block 0
+            (3, "to_officer", 0, 2),   # translates client block 2
+            (5, "to_client",  1, 4),   # relays officer block 4
+            (7, "to_officer", 1, 6),   # translates client block 6
+        ]
+
+    def test_source_index_points_at_the_real_source_block(self):
+        blocks = classified(FULL_EXCHANGE)
+        c2o, o2c = alignment.extract_pairs(blocks)
+        for pair in (*c2o, *o2c):
+            interp = pair["interp_block"]
+            assert blocks[interp["source_index"]] is pair["source_block"]
+
+    def test_pair_index_matches_position_in_its_own_list(self):
+        blocks = classified(FULL_EXCHANGE)
+        c2o, o2c = alignment.extract_pairs(blocks)
+        for lst in (c2o, o2c):
+            for expected, pair in enumerate(lst):
+                assert pair["interp_block"]["pair_index"] == expected
+
+    def test_unpaired_interpreter_block_is_left_unannotated(self):
+        """A to_officer block with no preceding client block is skipped by
+        extract_pairs — it must not carry a stale index the UI would key on."""
+        segs = [
+            make_seg(OFFICER, "Alleen de ambtenaar.", 0, 3),
+            make_seg(INTERP,  "En de tolk.",          4, 8),
+        ]
+        blocks = classified(segs)
+        alignment.extract_pairs(blocks)
+        interp = next(b for b in blocks if b["role"] == "interpreter")
+        assert "pair_index" not in interp
+        assert "source_index" not in interp
+
+    def test_two_directions_reuse_index_zero(self):
+        """pair_index is per-direction, so index 0 exists in both lists. Anything
+        keying on it must key on (direction, pair_index)."""
+        blocks = classified(FULL_EXCHANGE)
+        c2o, o2c = alignment.extract_pairs(blocks)
+        assert c2o[0]["pair_index"] == o2c[0]["pair_index"] == 0
+        assert c2o[0]["interp_block"] is not o2c[0]["interp_block"]

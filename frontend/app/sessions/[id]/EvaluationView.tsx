@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Evaluation, IssueItem } from "../../../lib/types";
+import type { AlignedBlock, Evaluation, IssueItem } from "../../../lib/types";
 
 // Icon components (emoji fallbacks — accept className so JSX props compile)
 const AlertTriangle = ({ className: _ }: { className?: string }) => <span>⚠️</span>;
@@ -47,7 +47,8 @@ interface DisplaySegment {
   originalText: string;
   detectedLanguage?: string;  // actual language Whisper detected for this turn
   machineTranslation?: string; // Dutch machine translation of client speech
-  translatedText?: string;     // what the interpreter actually said in Dutch
+  translatedText?: string;     // what the interpreter actually said for this turn
+  translationLanguage?: string; // language Whisper detected for the interpreter's turn
   accuracy?: number;   // 0–1 LaBSE score
   issues?: IssueItem[];
 }
@@ -67,33 +68,89 @@ function accuracyColor(a: number): string {
   return "bg-red-100 text-red-800";
 }
 
-// Re-implement _align_turns to build display-ready segments from raw transcript.
-// Groups consecutive same-speaker raw segments into turns, then for each client
-// turn finds the next interpreter turn as the translation.
+// Render the alignment the backend already computed (Evaluation.aligned_blocks,
+// produced by services/alignment.py).
+//
+// This deliberately contains no pairing logic of its own. An earlier version
+// re-derived blocks and pairs from `transcript` here, and drifted from the
+// backend: it merged on speaker alone (backend also splits on language and on
+// gaps > 3s), it attached every following interpreter turn to a client turn
+// regardless of translation direction, and it numbered pairs itself. The result
+// was source text displayed against a translation from a different exchange, and
+// scores/translations/issues read at shifted indices. Keep the derivation on one
+// side of the wire.
 function buildDisplaySegments(evaluation: Evaluation): DisplaySegment[] {
+  const blocks = evaluation.aligned_blocks;
+  if (!blocks || blocks.length === 0) return unpairedFallback(evaluation);
+
+  const scores       = evaluation.semantic_similarity_scores ?? [];
+  const translations = evaluation.client_translations ?? [];
+
+  // pair_index is numbered per direction, so key on both. Entries without a
+  // direction are treated as client_to_officer — that was the only direction
+  // the UI showed before, and it keeps rows written by older runs visible.
+  const issueMap = new Map<string, IssueItem[]>();
+  for (const p of evaluation.structured_issues ?? []) {
+    issueMap.set(`${p.direction ?? "client_to_officer"}:${p.pair_index}`, p.issues ?? []);
+  }
+
+  // Interpreter blocks grouped by the source block they were paired with.
+  const interpBySource = new Map<number, AlignedBlock[]>();
+  for (const b of blocks) {
+    if (b.role !== "interpreter" || b.source_index === undefined) continue;
+    const list = interpBySource.get(b.source_index);
+    if (list) list.push(b);
+    else interpBySource.set(b.source_index, [b]);
+  }
+
+  const display: DisplaySegment[] = [];
+
+  blocks.forEach((block, i) => {
+    // Interpreter blocks are shown on the row of the source they translate.
+    if (block.role === "interpreter") return;
+
+    const isClient = block.role === "client";
+    const wantDirection = isClient ? "to_officer" : "to_client";
+    const paired = (interpBySource.get(i) ?? []).filter((b) => b.direction === wantDirection);
+    const idx = paired.length > 0 ? paired[0].pair_index : undefined;
+    const key = isClient ? "client_to_officer" : "officer_to_client";
+
+    display.push({
+      id: String(i),
+      startTime: fmtTime(block.start),
+      endTime:   fmtTime(block.end),
+      speaker:   isClient ? "client" : "interviewer",
+      originalText: block.text,
+      detectedLanguage: block.language,
+      // Only the client→officer direction has a machine pseudo-reference; the
+      // officer→client direction is scored cross-lingually with no translation step.
+      machineTranslation: isClient && idx !== undefined ? translations[idx] : undefined,
+      translatedText: paired.length > 0 ? paired.map((b) => b.text).join(" ") : undefined,
+      translationLanguage: paired.length > 0 ? paired[0].language : undefined,
+      accuracy: idx !== undefined ? scores2(scores, isClient, idx) : undefined,
+      issues: idx !== undefined ? issueMap.get(`${key}:${idx}`) : undefined,
+    });
+  });
+
+  return display;
+}
+
+// semantic_similarity_scores holds the client→officer scores only (pipeline.py
+// stores c2o_scores there). Officer→client rows are shown without a score rather
+// than borrowing a number from the other direction.
+function scores2(scores: number[], isClient: boolean, idx: number): number | undefined {
+  return isClient ? scores[idx] : undefined;
+}
+
+// Shown when alignment has not run yet, or for evaluations stored before
+// aligned_blocks was persisted. Renders the transcript as plain rows: no pairing,
+// no scores, no issues — an honest gap is better than a confident wrong pairing.
+function unpairedFallback(evaluation: Evaluation): DisplaySegment[] {
   const raw = evaluation.transcript ?? [];
   const interpSpeaker = evaluation.interpreter_speaker;
   const clientSpeaker = evaluation.client_speaker;
-  const scores = evaluation.semantic_similarity_scores ?? [];
-  const translations = evaluation.client_translations ?? [];
-  const issuePairs = evaluation.structured_issues ?? [];
 
-  // Build issue map: pair_index → IssueItem[]
-  const issueMap = new Map<number, IssueItem[]>();
-  for (const p of issuePairs) {
-    issueMap.set(p.pair_index, p.issues ?? []);
-  }
-
-  // Group raw segments into turns; keep the first segment's detected language
-  const turns: {
-    speaker: string;
-    role: SpeakerRole;
-    start: number;
-    end: number;
-    text: string;
-    language?: string;
-  }[] = [];
-
+  const display: DisplaySegment[] = [];
   for (const seg of raw) {
     const role: SpeakerRole =
       seg.speaker === interpSpeaker
@@ -102,63 +159,21 @@ function buildDisplaySegments(evaluation: Evaluation): DisplaySegment[] {
         ? "client"
         : "interviewer";
 
-    if (turns.length > 0 && turns[turns.length - 1].speaker === seg.speaker) {
-      turns[turns.length - 1].text += " " + seg.text;
-      turns[turns.length - 1].end = seg.end;
-    } else {
-      turns.push({ speaker: seg.speaker, role, start: seg.start, end: seg.end, text: seg.text, language: seg.language });
-    }
-  }
-
-  // Block-level pairing: mirrors _align_blocks in the backend.
-  // For each client block, collect ALL following interpreter turns (until the next
-  // client block) into one translatedText. This prevents the same short source
-  // fragment from being compared against many different interpreter segments.
-  const display: DisplaySegment[] = [];
-  let pairIndex = 0;
-
-  for (let i = 0; i < turns.length; i++) {
-    const turn = turns[i];
-
-    if (turn.role === "interpreter") {
-      // Absorbed into the preceding client block's translatedText below.
+    const prev = display[display.length - 1];
+    if (prev && prev.speaker === role && prev.detectedLanguage === seg.language) {
+      prev.originalText += " " + seg.text;
+      prev.endTime = fmtTime(seg.end);
       continue;
     }
-
-    if (turn.role === "client") {
-      // Collect ALL following interpreter turns until the next client turn.
-      const interpParts: string[] = [];
-      for (let j = i + 1; j < turns.length; j++) {
-        if (turns[j].role === "client") break;
-        if (turns[j].role === "interpreter") interpParts.push(turns[j].text);
-      }
-      const translatedText = interpParts.length > 0 ? interpParts.join(" ") : undefined;
-
-      const idx = pairIndex++;
-      display.push({
-        id: String(i),
-        startTime: fmtTime(turn.start),
-        endTime:   fmtTime(turn.end),
-        speaker:   "client",
-        originalText: turn.text,
-        detectedLanguage: turn.language,
-        machineTranslation: translations[idx],
-        translatedText,
-        accuracy: scores[idx] !== undefined ? scores[idx] : undefined,
-        issues: issueMap.get(idx),
-      });
-    } else {
-      // IND officer turn — standalone row.
-      display.push({
-        id: String(i),
-        startTime:    fmtTime(turn.start),
-        endTime:      fmtTime(turn.end),
-        speaker:      "interviewer",
-        originalText: turn.text,
-      });
-    }
+    display.push({
+      id: String(display.length),
+      startTime: fmtTime(seg.start),
+      endTime:   fmtTime(seg.end),
+      speaker:   role,
+      originalText: seg.text,
+      detectedLanguage: seg.language,
+    });
   }
-
   return display;
 }
 
@@ -227,7 +242,12 @@ function TimeSegment({ segment, isExpanded, onToggle, feedback, onFeedback }: Ti
 
             {/* Text */}
             <div className="space-y-2">
-              {segment.speaker === "client" && (
+              {/* A bare row when there is nothing to compare against: interpreter
+                  turns in the unpaired fallback, and officer turns whose relay to
+                  the client was not captured. */}
+              {segment.speaker === "interpreter" || !segment.translatedText ? (
+                <p className="text-sm text-gray-900 leading-relaxed">{segment.originalText}</p>
+              ) : (
                 <>
                   <div>
                     <p className="text-xs text-gray-500 mb-1">
@@ -241,16 +261,16 @@ function TimeSegment({ segment, isExpanded, onToggle, feedback, onFeedback }: Ti
                       <p className="text-sm text-gray-700 leading-relaxed italic">{segment.machineTranslation}</p>
                     </div>
                   )}
-                  {segment.translatedText && (
-                    <div>
-                      <p className="text-xs text-gray-500 mb-1">Vertaling tolk (NL):</p>
-                      <p className="text-sm text-gray-900 leading-relaxed">{segment.translatedText}</p>
-                    </div>
-                  )}
+                  <div>
+                    {/* Label the language the interpreter actually spoke rather than
+                        assuming Dutch — this row is the officer→client relay when the
+                        source is the officer, which is in the client's language. */}
+                    <p className="text-xs text-gray-500 mb-1">
+                      Vertaling tolk ({segment.translationLanguage?.toUpperCase() ?? "?"}):
+                    </p>
+                    <p className="text-sm text-gray-900 leading-relaxed">{segment.translatedText}</p>
+                  </div>
                 </>
-              )}
-              {segment.speaker !== "client" && (
-                <p className="text-sm text-gray-900 leading-relaxed">{segment.originalText}</p>
               )}
             </div>
           </div>

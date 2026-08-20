@@ -64,6 +64,59 @@ async def _set_failed(
     await db.commit()
 
 
+def _remap_compact_segment(
+    seg: dict,
+    spans: list[tuple[float, float, float, float]],
+) -> None:
+    """Map one segment's timestamps from compact-waveform time back to original time.
+
+    ``spans`` holds ``(compact_start, compact_end, orig_start, orig_end)`` for each
+    chunk that went into the compact waveform, in order.
+
+    Whisper re-segments the concatenated audio on its own boundaries, which do not
+    line up with the chunk boundaries. Attributing a segment by its start alone —
+    and then shifting both endpoints by that chunk's offset without bounding them —
+    lets a segment that straddles two chunks keep its compact-space duration and
+    land anywhere in original time, including on top of another speaker's turn.
+    That produced overlapping and zero-length turns downstream.
+
+    So: pick the chunk this segment *overlaps most*, shift by that chunk's offset,
+    then clamp into the chunk's original span. A remapped segment can therefore
+    never escape the client turn it came from. Mutates ``seg`` in place.
+    """
+    if not spans:
+        return
+
+    best_i, best_overlap = None, 0.0
+    for i, (c0, c1, _o0, _o1) in enumerate(spans):
+        overlap = min(seg["end"], c1) - max(seg["start"], c0)
+        if overlap > best_overlap:
+            best_i, best_overlap = i, overlap
+
+    if best_i is None:
+        # Lies entirely inside an inter-chunk gap — attribute to the nearest chunk.
+        best_i = min(
+            range(len(spans)),
+            key=lambda i: min(abs(seg["start"] - spans[i][0]), abs(seg["start"] - spans[i][1])),
+        )
+        log.warning("[B] remap  segment %.2f–%.2fs fell in a gap — nearest chunk=%d  %r",
+                    seg["start"], seg["end"], best_i, seg["text"][:60].replace("\n", " "))
+    elif best_overlap < (seg["end"] - seg["start"]) - 0.05:
+        # Straddles a boundary: its text may mix two client turns. Cannot be split
+        # without word-level timestamps, so it is attributed whole to the dominant
+        # chunk — worth logging as a residual source of text/turn misattribution.
+        log.warning("[B] remap  segment %.2f–%.2fs straddles chunks (overlap=%.2fs of %.2fs) "
+                    "— attributed to chunk %d  %r",
+                    seg["start"], seg["end"], best_overlap, seg["end"] - seg["start"],
+                    best_i, seg["text"][:60].replace("\n", " "))
+
+    c0, _c1, o0, o1 = spans[best_i]
+    shift = o0 - c0
+    start = min(max(seg["start"] + shift, o0), o1)
+    end   = min(max(seg["end"]   + shift, start), o1)
+    seg["start"], seg["end"] = start, end
+
+
 def _filter_hallucinations(segments: list[dict]) -> list[dict]:
     """Remove degenerate Whisper loops (same text repeated 3+ consecutive times)."""
     result: list[dict] = []
@@ -309,8 +362,12 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                     GAP_S = 0.1
                     gap = torch.zeros(waveform.shape[0], int(GAP_S * sr))
 
+                    # Per chunk: (compact_start, compact_end, orig_start, orig_end).
+                    # orig_end is derived from the chunk's own sample count rather
+                    # than seg["end"] so the compact and original spans have exactly
+                    # equal duration — that makes the shift below lossless.
                     chunks: list = []
-                    offsets: list = []
+                    spans: list[tuple[float, float, float, float]] = []
                     cursor = 0.0
                     for seg in client_segs_before:
                         s_i = int(seg["start"] * sr)
@@ -318,9 +375,10 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                         chunk = waveform[:, s_i:e_i]
                         if chunk.shape[-1] < 800:
                             continue
-                        offsets.append((cursor, seg["start"]))
+                        dur = chunk.shape[-1] / sr
+                        spans.append((cursor, cursor + dur, seg["start"], seg["start"] + dur))
                         chunks.append(chunk)
-                        cursor += chunk.shape[-1] / sr + GAP_S
+                        cursor += dur + GAP_S
 
                     if chunks:
                         parts = []
@@ -338,13 +396,7 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                         )
 
                         for seg in new_segs:
-                            for i, (c_start, o_start) in enumerate(offsets):
-                                c_end = offsets[i + 1][0] if i + 1 < len(offsets) else cursor
-                                if c_start <= seg["start"] < c_end:
-                                    shift = o_start - c_start
-                                    seg["start"] += shift
-                                    seg["end"]   += shift
-                                    break
+                            _remap_compact_segment(seg, spans)
                             seg["speaker"] = client_speaker
 
                         log.info("[B] retranscribe  new_segs=%d", len(new_segs))

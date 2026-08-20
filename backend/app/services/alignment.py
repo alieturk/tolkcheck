@@ -169,6 +169,17 @@ def extract_pairs(
             "interp_block": dict,
             "pair_index":   int,    # index within its own list
         }
+
+    Note ``pair_index`` is per-direction: a c2o pair and an o2c pair can both
+    carry index 0. Anything keying on it (scores, translations, LLM issues)
+    must key on ``(direction, pair_index)``, never on pair_index alone.
+
+    As a side effect each paired interpreter block is annotated in place with
+    ``pair_index`` and ``source_index`` (the position of its source block in
+    ``blocks``). That makes the block list stored in Evaluation.aligned_blocks
+    self-sufficient: a consumer holding only the blocks can reconstruct every
+    pair without re-deriving the pairing rules. Interpreter blocks that could
+    not be paired keep ``pair_index``/``source_index`` unset.
     """
     c2o_pairs: list[dict] = []
     o2c_pairs: list[dict] = []
@@ -178,11 +189,14 @@ def extract_pairs(
             continue
 
         if block["direction"] == "to_officer":
-            source = _find_preceding(blocks, i, "client")
-            if source is None:
+            src_i = _find_preceding(blocks, i, "client")
+            if src_i is None:
                 log.warning("extract_pairs  to_officer block at %.1fs has no preceding client block — skipped",
                             block["start"])
                 continue
+            source = blocks[src_i]
+            block["pair_index"]   = len(c2o_pairs)
+            block["source_index"] = src_i
             pair: dict = {
                 "direction":    "client_to_officer",
                 "source_block": source,
@@ -196,11 +210,14 @@ def extract_pairs(
                      block["start"],  block["text"][:60].replace("\n", " "))
 
         elif block["direction"] == "to_client":
-            source = _find_preceding(blocks, i, "officer")
-            if source is None:
+            src_i = _find_preceding(blocks, i, "officer")
+            if src_i is None:
                 log.warning("extract_pairs  to_client block at %.1fs has no preceding officer block — skipped",
                             block["start"])
                 continue
+            source = blocks[src_i]
+            block["pair_index"]   = len(o2c_pairs)
+            block["source_index"] = src_i
             pair = {
                 "direction":    "officer_to_client",
                 "source_block": source,
@@ -227,9 +244,9 @@ def _role(speaker: str, interpreter_speaker: str, client_speaker: str) -> str:
     return "officer"
 
 
-def _find_preceding(blocks: list[dict], from_index: int, role: str) -> dict | None:
-    """Return the nearest block before from_index whose role matches."""
+def _find_preceding(blocks: list[dict], from_index: int, role: str) -> int | None:
+    """Return the index of the nearest block before from_index whose role matches."""
     for j in range(from_index - 1, -1, -1):
         if blocks[j]["role"] == role:
-            return blocks[j]
+            return j
     return None

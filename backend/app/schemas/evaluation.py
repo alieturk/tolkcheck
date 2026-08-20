@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from typing import Any
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, field_validator
 
 
 class EvaluationOut(BaseModel):
@@ -20,9 +20,32 @@ class EvaluationOut(BaseModel):
     terminology_score: float | None
     fluency_score: float | None
     transcript: list[Any] | None
+    # Speaker blocks with interpreter direction and pair linkage, as produced by
+    # services/alignment.py. This is what the UI renders from: without it the
+    # client would have to re-derive block merging and pairing from `transcript`,
+    # and any divergence between the two implementations shows up as source text
+    # paired with the wrong translation.
+    aligned_blocks: list[Any] | None
     semantic_similarity_scores: list[Any] | None
     client_translations: list[Any] | None
     llm_feedback: str | None
     structured_issues: list[Any] | None
     created_at: datetime
     updated_at: datetime
+
+    @field_validator("aligned_blocks")
+    @classmethod
+    def _drop_block_segments(cls, blocks: list[Any] | None) -> list[Any] | None:
+        """Strip each block's `segments` list from the response.
+
+        Every raw segment is already sent in full via `transcript`; repeating
+        them nested inside each block roughly doubles the payload for no gain
+        (nothing in the UI reads them). Dropped here rather than at write time
+        so the stored row keeps them for debugging.
+        """
+        if not blocks:
+            return blocks
+        return [
+            {k: v for k, v in b.items() if k != "segments"} if isinstance(b, dict) else b
+            for b in blocks
+        ]
