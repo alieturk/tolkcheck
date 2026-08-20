@@ -19,9 +19,23 @@ def make_seg(
     start: float = 0.0,
     end: float = 1.0,
     language: str = "nl",
+    avg_logprob: float | None = -0.2,
+    compression_ratio: float | None = 1.4,
+    no_speech_prob: float | None = 0.05,
 ) -> dict:
-    """Build a transcript segment dict — the canonical shape used throughout the pipeline."""
-    return {"speaker": speaker, "text": text, "start": start, "end": end, "language": language}
+    """Build a transcript segment dict — the canonical shape used throughout the pipeline.
+
+    The three decode-quality defaults are deliberately healthy values, so segments
+    built without them are treated as reliable; pass bad ones to exercise the
+    unreliable path (see alignment._block_asr).
+    """
+    return {
+        "speaker": speaker, "text": text, "start": start, "end": end,
+        "language": language,
+        "avg_logprob": avg_logprob,
+        "compression_ratio": compression_ratio,
+        "no_speech_prob": no_speech_prob,
+    }
 
 
 # ── DB-backed API test infrastructure ────────────────────────────────────────

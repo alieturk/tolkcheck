@@ -64,6 +64,19 @@ async def _set_failed(
     await db.commit()
 
 
+def _pair_unassessable(pair: dict) -> bool:
+    """True when either side of the pair has ASR the decoder itself distrusts.
+
+    Both sides matter: a garbled interpreter block cannot be judged, and a garbled
+    source block gives nothing valid to judge it against.
+    """
+    for key in ("interp_block", "source_block"):
+        asr = pair.get(key, {}).get("asr")
+        if asr and asr.get("unreliable"):
+            return True
+    return False
+
+
 def _remap_compact_segment(
     seg: dict,
     spans: list[tuple[float, float, float, float]],
@@ -348,9 +361,27 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
         try:
             # 5a. Re-transcribe client speaker with forced language (if non-Dutch)
             if client_lang != "nl" and Path(session.audio_path).exists():
-                client_segs_before = [s for s in transcript if s["speaker"] == client_speaker]
-                log.info("[B] retranscribe  client_segs_before=%d  lang=%s",
-                         len(client_segs_before), client_lang)
+                all_client_segs = [s for s in transcript if s["speaker"] == client_speaker]
+
+                # Segments Phase A already detected as Dutch are almost certainly
+                # the officer's speech misassigned to the client by diarization.
+                # Forcing the client's language onto Dutch audio does not recover
+                # Turkish — Whisper drifts into translating instead, which is where
+                # the English lines in the transcript come from ("What was your job
+                # in Turkey?"), and where Dutch gets mangled into pseudo-Turkish
+                # ("Wanneer merkte" -> "Wanneye merkti"). Leave them on their Phase A
+                # text: still misattributed, but at least not corrupted on top.
+                client_segs_before = [s for s in all_client_segs if s.get("language") != "nl"]
+                skipped_dutch      = [s for s in all_client_segs if s.get("language") == "nl"]
+
+                log.info("[B] retranscribe  client_segs=%d  eligible=%d  skipped_dutch=%d  lang=%s",
+                         len(all_client_segs), len(client_segs_before),
+                         len(skipped_dutch), client_lang)
+                for s in skipped_dutch:
+                    log.warning("[B] retranscribe  SKIP_DUTCH  %.1f–%.1fs  %r  "
+                                "— Dutch audio attributed to the client; "
+                                "check diarization/role assignment",
+                                s["start"], s["end"], s["text"][:70].replace(chr(10), " "))
                 for s in client_segs_before:
                     log.debug("[B] retranscribe  BEFORE  %.1f–%.1fs  lang=%-4s  %r",
                               s["start"], s["end"], s.get("language", "?"),
@@ -406,7 +437,10 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                                       s["text"][:80].replace("\n", " "))
 
                         non_client = [s for s in transcript if s["speaker"] != client_speaker]
-                        transcript = sorted(non_client + new_segs, key=lambda s: s["start"])
+                        # skipped_dutch keeps its Phase A text — it is client-attributed
+                        # but was never re-transcribed, so it must be added back by hand.
+                        transcript = sorted(non_client + skipped_dutch + new_segs,
+                                            key=lambda s: s["start"])
                         transcript = _filter_hallucinations(transcript)
                         eval_row.transcript = transcript
                     else:
@@ -482,17 +516,51 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                          o2c_officer_texts[i][:60].replace("\n", " "),
                          o2c_interp_texts[i][:60].replace("\n", " "))
 
-            agg = scoring.aggregate_scores(c2o_scores)
-            overall = round(agg["mean"] * 100, 1)
-            log.info("[B] c2o_scores  mean=%.3f  min=%.3f  max=%.3f  overall=%.1f/100",
-                     agg["mean"], agg["min"], agg["max"], overall)
+            # Mark pairs whose text Whisper itself decoded badly. A block flagged
+            # here produced nonsense — a hallucinated language, a repetition loop,
+            # text over silence — so its similarity score measures the decoder, not
+            # the interpreter. Scoring those in with the rest turns an ASR failure
+            # into a finding against the interpreter, which on a hearing transcript
+            # is a conclusion nobody should be drawing from this number.
+            for pair in c2o_pairs:
+                pair["unassessable"] = _pair_unassessable(pair)
+            for pair in o2c_pairs:
+                pair["unassessable"] = _pair_unassessable(pair)
+
+            assessable = [sc for sc, pair in zip(c2o_scores, c2o_pairs)
+                          if not pair["unassessable"]]
+            excluded = len(c2o_scores) - len(assessable)
+            if excluded:
+                log.warning("[B] scoring  %d of %d c2o pairs excluded from the aggregate "
+                            "(unreliable ASR)", excluded, len(c2o_scores))
+                for pair, sc in zip(c2o_pairs, c2o_scores):
+                    if pair["unassessable"]:
+                        asr = pair["interp_block"].get("asr") or {}
+                        log.warning("[B] scoring  EXCLUDED c2o[%d]  score=%.3f  reasons=%s  %r",
+                                    pair["pair_index"], sc, asr.get("reasons"),
+                                    pair["interp_block"]["text"][:60].replace(chr(10), " "))
+
+            if assessable:
+                agg = scoring.aggregate_scores(assessable)
+                overall = round(agg["mean"] * 100, 1)
+                log.info("[B] c2o_scores  mean=%.3f  min=%.3f  max=%.3f  overall=%.1f/100  "
+                         "(n=%d assessable, %d excluded)",
+                         agg["mean"], agg["min"], agg["max"], overall, len(assessable), excluded)
+            else:
+                # Every pair was unreliable: report no score rather than a made-up one.
+                overall = None
+                log.error("[B] c2o_scores  no assessable pairs — overall score withheld")
 
             eval_row.overall_score        = overall
             eval_row.accuracy_score       = overall
-            total_src_words    = sum(len(t.split()) for t in scoring_texts)
-            total_interp_words = sum(len(t.split()) for t in c2o_interp_texts)
-            eval_row.completeness_score = round(
-                min(total_interp_words / max(total_src_words, 1), 1.0) * 100, 1
+            # Word counts over assessable pairs only — garbled text has a word count
+            # but carries no content, so counting it inflates completeness.
+            ok_idx = [i for i, pair in enumerate(c2o_pairs) if not pair["unassessable"]]
+            total_src_words    = sum(len(scoring_texts[i].split())    for i in ok_idx)
+            total_interp_words = sum(len(c2o_interp_texts[i].split()) for i in ok_idx)
+            eval_row.completeness_score = (
+                round(min(total_interp_words / total_src_words, 1.0) * 100, 1)
+                if total_src_words else None
             )
             eval_row.terminology_score    = overall
             eval_row.fluency_score        = overall

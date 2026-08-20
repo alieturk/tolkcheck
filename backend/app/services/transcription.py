@@ -36,6 +36,26 @@ def _get_model() -> WhisperModel:
     return _model
 
 
+def _seg_dict(seg, language: str) -> dict:
+    """Segment dict, carrying Whisper's own decode-quality signals.
+
+    avg_logprob, compression_ratio and no_speech_prob are what Whisper itself
+    uses to decide a decode failed; they are the only evidence downstream has
+    for telling "the interpreter said something wrong" apart from "the decoder
+    produced nonsense". Without them a hallucinated segment is scored, and
+    reported, as an interpreting error. See scoring/feedback for the thresholds.
+    """
+    return {
+        "start":             seg.start,
+        "end":               seg.end,
+        "text":              seg.text.strip(),
+        "language":          language,
+        "avg_logprob":       getattr(seg, "avg_logprob", None),
+        "compression_ratio": getattr(seg, "compression_ratio", None),
+        "no_speech_prob":    getattr(seg, "no_speech_prob", None),
+    }
+
+
 async def transcribe(
     audio_path: Path,
     language: str | None = None,
@@ -61,15 +81,7 @@ def _transcribe_sync(
         kwargs["initial_prompt"] = initial_prompt
     segments, info = model.transcribe(str(audio_path), **kwargs)
     detected = info.language
-    seg_list = [
-        {
-            "start": seg.start,
-            "end": seg.end,
-            "text": seg.text.strip(),
-            "language": language or detected,
-        }
-        for seg in segments
-    ]
+    seg_list = [_seg_dict(seg, language or detected) for seg in segments]
     log.info("transcribe  file=%s  forced_lang=%s  detected=%s  prob=%.2f  segments=%d",
              audio_path.name, language or "auto", detected,
              info.language_probability, len(seg_list))
@@ -136,12 +148,7 @@ def _transcribe_chunk_sync(
     segments, info = model.transcribe(audio_np, **kwargs)
     detected = info.language
     result = [
-        {
-            "start": seg.start,
-            "end": seg.end,
-            "text": seg.text.strip(),
-            "language": language or detected,
-        }
+        _seg_dict(seg, language or detected)
         for seg in segments
         if seg.text.strip()
     ]

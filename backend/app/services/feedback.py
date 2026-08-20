@@ -61,6 +61,8 @@ BELANGRIJK — Automatische transcriptie heeft beperkingen:
 
 Markeer NOOIT een vertaling als "addition" als de score ≥ 0.65.
 
+Als bij een paar de melding "LET OP: de spraakherkenning ... onbetrouwbaar" staat, dan is de automatische transcriptie van dat fragment mislukt — de getoonde tolktekst is dan een artefact van de spraakherkenning en NIET wat de tolk zei. Schrijf zo'n paar nooit toe aan de tolk. Gebruik type "false-negative" met severity "low" en vermeld in de description dat het fragment niet beoordeelbaar is wegens transcriptiekwaliteit. Laat zulke paren ook buiten beschouwing bij je eindoordeel in "overall_feedback": baseer je conclusie en je aanbeveling over een hergehoor uitsluitend op paren die wél beoordeelbaar zijn.
+
 Als het gebruikersbericht een sectie "ACHTERGRONDINFORMATIE" bevat: dit zijn fragmenten uit een \
 gecureerde kennisbank (foutentypologie, IND-werkinstructies, gedocumenteerde taalkundige \
 bevindingen over tolken bij asielgehoren), opgehaald omdat ze mogelijk relevant zijn voor de \
@@ -95,6 +97,18 @@ Geldige waarden voor severity: critical, high, medium, low
 Als er geen problemen zijn voor een paar, gebruik een lege array: "issues": []
 Voeg voor elk paar een entry toe in "pairs", ook als er geen issues zijn.\
 """
+
+
+# Appended to any pair whose text Whisper's own decode metrics distrust. Without
+# it the model reads a hallucinated block as something the interpreter said and
+# writes it up as a critical omission — which is how "Erveys inaarefbeidehevaadah."
+# became a recommendation to re-run the hearing.
+_ASR_WARNING = (
+    "⚠ LET OP: de spraakherkenning is voor dit fragment onbetrouwbaar "
+    "(automatische transcriptie mislukt). De weergegeven tolktekst is mogelijk "
+    "geen weergave van wat de tolk werkelijk zei. Beoordeel dit paar NIET als "
+    "tolkfout; meld het als 'niet beoordeelbaar door opnamekwaliteit'."
+)
 
 
 def _get_client() -> anthropic.AsyncAnthropic:
@@ -177,6 +191,8 @@ async def generate_feedback(
         lines.append(f"Paar {i} (gelijkenis: {score:.3f}):")
         lines.append(f"  Cliënt:  {source_text}")
         lines.append(f"  Tolk:    {interp_text}")
+        if pair.get("unassessable"):
+            lines.append(f"  {_ASR_WARNING}")
         lines.append("")
 
     # ── OFFICER→CLIENT section ────────────────────────────────────────────────
@@ -191,6 +207,8 @@ async def generate_feedback(
             lines.append(f"Paar {i} (gelijkenis: {score:.3f}):")
             lines.append(f"  Ambtenaar: {source_text}")
             lines.append(f"  Tolk:      {interp_text}")
+            if pair.get("unassessable"):
+                lines.append(f"  {_ASR_WARNING}")
             lines.append("")
 
     # ── RAG context — best-effort, never blocks feedback generation ─────────────
@@ -210,9 +228,16 @@ async def generate_feedback(
 
     user_content = "\n".join(lines)
 
+    # One JSON object covering every pair in both directions. A 40-block hearing
+    # runs ~18 c2o + ~15 o2c pairs and each finding carries a paragraph of Dutch
+    # rationale plus quoted phrases, which overran the previous 4096 and truncated
+    # the response mid-string — json.loads then failed and every structured issue
+    # was dropped (the UI showed "Kritieke problemen (0)" against a feedback panel
+    # full of critical findings). Budget for the whole document; _parse_feedback_json
+    # below still salvages a truncated one rather than discarding it.
     message = await client.messages.create(
         model=settings.llm_model,
-        max_tokens=4096,
+        max_tokens=16000,
         system=[
             {
                 "type": "text",
@@ -235,15 +260,105 @@ async def generate_feedback(
     log.info("generate_feedback  c2o_pairs=%d  o2c_pairs=%d  input_tokens=%d  output_tokens=%d",
              len(c2o_pairs), len(o2c_pairs), usage.input_tokens, usage.output_tokens)
 
+    if message.stop_reason == "max_tokens":
+        log.warning("generate_feedback  response hit max_tokens (%d output) — "
+                    "salvaging what parsed", message.usage.output_tokens)
+
+    parsed = _parse_feedback_json(cleaned)
+    if parsed is None:
+        log.error("generate_feedback  JSON unparseable even after repair — "
+                  "returning prose only, no structured issues")
+        return {"overall_feedback": _extract_overall(cleaned) or response_text,
+                "structured_issues": []}
+
+    pairs = parsed.get("pairs", []) or []
+    issues_total = sum(len(p.get("issues", [])) for p in pairs)
+    log.info("generate_feedback  parsed_pairs=%d  total_issues=%d",
+             len(pairs), issues_total)
+    return {
+        "overall_feedback": parsed.get("overall_feedback", response_text),
+        "structured_issues": pairs,
+    }
+
+
+def _parse_feedback_json(text: str) -> dict | None:
+    """Parse the model's JSON, repairing a response cut off by the token limit.
+
+    A truncated response is still mostly valid: `overall_feedback` and every
+    complete entry in `pairs` before the cut are intact, and only the final
+    partial entry is broken. Rather than discard the whole document, walk to the
+    last point where a pair object closed cleanly, then shut the array and the
+    root object there. Returns None when not even one pair survived.
+    """
     try:
-        parsed = _json.loads(cleaned)
-        issues_total = sum(len(p.get("issues", [])) for p in parsed.get("pairs", []))
-        log.info("generate_feedback  parsed_pairs=%d  total_issues=%d",
-                 len(parsed.get("pairs", [])), issues_total)
-        return {
-            "overall_feedback": parsed.get("overall_feedback", response_text),
-            "structured_issues": parsed.get("pairs", []),
-        }
-    except (_json.JSONDecodeError, AttributeError) as exc:
-        log.warning("generate_feedback  JSON parse failed (%s) — returning raw text", exc)
-        return {"overall_feedback": response_text, "structured_issues": []}
+        return _json.loads(text)
+    except _json.JSONDecodeError:
+        pass
+
+    depth = 0
+    in_string = False
+    escaped = False
+    last_pair_end: int | None = None
+
+    for i, ch in enumerate(text):
+        if escaped:
+            escaped = False
+            continue
+        if ch == "\\" and in_string:
+            escaped = True
+            continue
+        if ch == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+        if ch in "{[":
+            depth += 1
+        elif ch in "}]":
+            depth -= 1
+            # depth 1 = root object, 2 = inside the "pairs" array, so a close
+            # landing on 2 is one complete pair object.
+            if depth == 2:
+                last_pair_end = i
+
+    if last_pair_end is None:
+        return None
+
+    try:
+        repaired = _json.loads(text[: last_pair_end + 1] + "]}")
+    except _json.JSONDecodeError:
+        return None
+
+    log.warning("generate_feedback  repaired truncated JSON — kept %d complete pair(s)",
+                len(repaired.get("pairs", []) or []))
+    return repaired
+
+
+def _extract_overall(text: str) -> str | None:
+    """Last resort: pull overall_feedback out of a response too broken to parse.
+
+    Without this the caller stores the entire raw JSON blob as the feedback text,
+    which is what the reviewer then reads in the UI. Scanned by hand rather than
+    by regex because the value is a long Dutch paragraph containing escaped quotes.
+    """
+    key = '"overall_feedback"'
+    k = text.find(key)
+    if k == -1:
+        return None
+    open_quote = text.find('"', text.find(":", k + len(key)))
+    if open_quote == -1:
+        return None
+
+    i = open_quote + 1
+    while i < len(text):
+        ch = text[i]
+        if ch == '\\':
+            i += 2
+            continue
+        if ch == '"':
+            try:
+                return _json.loads(text[open_quote:i + 1])
+            except _json.JSONDecodeError:
+                return None
+        i += 1
+    return None  # value itself was truncated

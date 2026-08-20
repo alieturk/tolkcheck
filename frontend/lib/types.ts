@@ -63,6 +63,18 @@ export interface AlignedBlock {
   pair_index?: number;
   /** Interpreter blocks only, when paired: index of the source block in this array. */
   source_index?: number;
+  /** Whisper's own decode-quality signals for this block. */
+  asr?: BlockAsr | null;
+}
+
+/** Decode-quality signals aggregated over a block's segments (worst case). */
+export interface BlockAsr {
+  min_avg_logprob: number | null;
+  max_compression_ratio: number | null;
+  max_no_speech_prob: number | null;
+  /** True when the transcription cannot be trusted as a record of what was said. */
+  unreliable: boolean;
+  reasons: string[];
 }
 
 export interface Evaluation {

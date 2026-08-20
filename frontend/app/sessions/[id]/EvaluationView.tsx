@@ -50,6 +50,9 @@ interface DisplaySegment {
   translatedText?: string;     // what the interpreter actually said for this turn
   translationLanguage?: string; // language Whisper detected for the interpreter's turn
   accuracy?: number;   // 0–1 LaBSE score
+  /** Transcription of this turn (or its translation) failed Whisper's own decode
+   *  checks, so no score is shown — it would measure the decoder, not the interpreter. */
+  asrUnreliable?: boolean;
   issues?: IssueItem[];
 }
 
@@ -114,6 +117,9 @@ function buildDisplaySegments(evaluation: Evaluation): DisplaySegment[] {
     const paired = (interpBySource.get(i) ?? []).filter((b) => b.direction === wantDirection);
     const idx = paired.length > 0 ? paired[0].pair_index : undefined;
     const key = isClient ? "client_to_officer" : "officer_to_client";
+    // Either side being untrustworthy invalidates the comparison.
+    const unreliable =
+      block.asr?.unreliable === true || paired.some((b) => b.asr?.unreliable === true);
 
     display.push({
       id: String(i),
@@ -127,7 +133,10 @@ function buildDisplaySegments(evaluation: Evaluation): DisplaySegment[] {
       machineTranslation: isClient && idx !== undefined ? translations[idx] : undefined,
       translatedText: paired.length > 0 ? paired.map((b) => b.text).join(" ") : undefined,
       translationLanguage: paired.length > 0 ? paired[0].language : undefined,
-      accuracy: idx !== undefined ? scores2(scores, isClient, idx) : undefined,
+      accuracy: unreliable || idx === undefined
+        ? undefined
+        : scores2(scores, isClient, idx),
+      asrUnreliable: unreliable,
       issues: idx !== undefined ? issueMap.get(`${key}:${idx}`) : undefined,
     });
   });
@@ -226,6 +235,14 @@ function TimeSegment({ segment, isExpanded, onToggle, feedback, onFeedback }: Ti
               {segment.accuracy !== undefined && (
                 <span className={`text-xs px-2 py-0.5 rounded ${accuracyColor(segment.accuracy)}`}>
                   {Math.round(segment.accuracy * 100)}% nauwkeurigheid
+                </span>
+              )}
+              {segment.asrUnreliable && (
+                <span
+                  className="text-xs px-2 py-0.5 rounded bg-slate-200 text-slate-700"
+                  title="De automatische transcriptie van dit fragment is onbetrouwbaar. Er wordt geen score getoond, omdat die de spraakherkenning zou meten en niet de tolk."
+                >
+                  Niet beoordeelbaar — transcriptie onbetrouwbaar
                 </span>
               )}
               {hasCritical && (

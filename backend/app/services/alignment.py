@@ -17,6 +17,50 @@ import logging
 log = logging.getLogger(__name__)
 
 
+# ── ASR reliability thresholds ────────────────────────────────────────────────
+# Whisper's own decode-failure gates, reused here. faster-whisper applies
+# logprob_threshold=-1.0 and compression_ratio_threshold=2.4 internally to decide
+# whether to retry a temperature; a segment that ends up past them anyway is one
+# the decoder itself considers bad. no_speech_prob catches text emitted over
+# silence — the "Subtitles by the Amara.org community" class of hallucination.
+LOGPROB_FLOOR        = -1.0
+COMPRESSION_CEILING  = 2.4
+NO_SPEECH_CEILING    = 0.6
+
+
+def _block_asr(segments: list[dict]) -> dict:
+    """Aggregate per-segment decode signals over a block.
+
+    Worst-case rather than mean: one hallucinated segment inside an otherwise
+    clean block still makes the block's text untrustworthy, and averaging would
+    hide it. `unreliable` is the flag downstream reads to decide a block should
+    not be scored as if it were speech.
+    """
+    logprobs   = [s["avg_logprob"]       for s in segments if s.get("avg_logprob") is not None]
+    compress   = [s["compression_ratio"] for s in segments if s.get("compression_ratio") is not None]
+    no_speech  = [s["no_speech_prob"]    for s in segments if s.get("no_speech_prob") is not None]
+
+    min_logprob   = min(logprobs)  if logprobs  else None
+    max_compress  = max(compress)  if compress  else None
+    max_no_speech = max(no_speech) if no_speech else None
+
+    reasons: list[str] = []
+    if min_logprob is not None and min_logprob < LOGPROB_FLOOR:
+        reasons.append("low_logprob")
+    if max_compress is not None and max_compress > COMPRESSION_CEILING:
+        reasons.append("repetitive")
+    if max_no_speech is not None and max_no_speech > NO_SPEECH_CEILING:
+        reasons.append("no_speech")
+
+    return {
+        "min_avg_logprob":       min_logprob,
+        "max_compression_ratio": max_compress,
+        "max_no_speech_prob":    max_no_speech,
+        "unreliable":            bool(reasons),
+        "reasons":               reasons,
+    }
+
+
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def build_blocks(
@@ -75,10 +119,22 @@ def build_blocks(
                 "language":  seg.get("language", "?"),
                 "direction": None,
                 "segments":  [seg],
+                "asr":       None,   # filled after all segments are collected
             })
 
-    log.info("build_blocks  total=%d  speakers=%s",
+    for b in blocks:
+        b["asr"] = _block_asr(b["segments"])
+        if b["asr"]["unreliable"]:
+            log.warning("build_blocks  UNRELIABLE  role=%-11s  %.1f–%.1fs  reasons=%s  "
+                        "logprob=%s  compression=%s  no_speech=%s  %r",
+                        b["role"], b["start"], b["end"], b["asr"]["reasons"],
+                        b["asr"]["min_avg_logprob"], b["asr"]["max_compression_ratio"],
+                        b["asr"]["max_no_speech_prob"],
+                        b["text"][:60].replace(chr(10), " "))
+
+    log.info("build_blocks  total=%d  unreliable=%d  speakers=%s",
              len(blocks),
+             sum(1 for b in blocks if b["asr"]["unreliable"]),
              {r: sum(1 for b in blocks if b["role"] == r)
               for r in ("client", "interpreter", "officer")})
     for b in blocks:
