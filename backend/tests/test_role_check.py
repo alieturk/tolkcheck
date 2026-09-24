@@ -113,6 +113,37 @@ class TestWrongRolePick:
         assert "interpreter_candidate" not in codes(run(segs))
 
 
+class TestClientLanguageMismatch:
+    def test_client_mostly_not_speaking_expected_language(self):
+        """NEW: Client should speak mostly in the expected language.
+
+        This catches Phase B retranscription failures where forced language
+        did not take hold, or language detection was wrong.
+        """
+        # Client has mostly Dutch segments (wrong for Turkish client)
+        segs = [make_seg(OFFICER, "Vraag", 0, 2, language="nl")]
+        segs += [make_seg(CLIENT, f"Nederlands {i}", 10 + i, 11 + i, language="nl") for i in range(10)]
+        segs += [make_seg(INTERP, "Soru", 30, 32, language="tr")]
+        segs += [make_seg(INTERP, "Vraag", 32, 34, language="nl")]
+
+        result = run(segs)  # client_lang="tr"
+        assert "client_language_mismatch" in codes(result)
+        assert result["ok"] is False
+        w = next(w for w in result["warnings"] if w["code"] == "client_language_mismatch")
+        assert w["severity"] == "high"
+        assert w["speaker"] == CLIENT
+
+    def test_client_speaking_expected_language_is_ok(self):
+        """Client speaking ≥50% in expected language is acceptable."""
+        segs = healthy()
+        # Add some Dutch to the client (diarization leak or code-switching)
+        segs += [make_seg(CLIENT, f"Nederlands {i}", 300 + i, 301 + i, language="nl") for i in range(3)]
+
+        result = run(segs)
+        # Should not trigger client_language_mismatch (client still mostly Turkish)
+        assert "client_language_mismatch" not in codes(result)
+
+
 class TestEdgeCases:
     def test_empty_transcript(self):
         result = run([])

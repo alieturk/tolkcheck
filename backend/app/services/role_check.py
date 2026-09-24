@@ -83,6 +83,18 @@ def check_roles(
         warnings.append({"code": code, "severity": severity,
                          "speaker": speaker, "message": message})
 
+    # NEW: Verify client actually speaks the expected language
+    # This catches cases where language detection failed or Phase B retranscription
+    # with forced language did not take hold.
+    if client_lang != "nl" and client_speaker in distribution:
+        client_info = distribution[client_speaker]
+        client_lang_share = share(client_speaker, client_lang)
+        if client_lang_share < 0.5:
+            warn("client_language_mismatch", "high", client_speaker,
+                 f"{client_speaker} is the client but only {client_lang_share:.0%} of their "
+                 f"segments were detected as '{client_lang}'. The client's language may have "
+                 f"been misdetected, or diarization may have mixed speakers.")
+
     # Nothing below is meaningful when the client speaks Dutch too.
     if client_lang != "nl":
         # 1. Officers speaking the client's language — client turns in the officer's cluster.

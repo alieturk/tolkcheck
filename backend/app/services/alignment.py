@@ -14,6 +14,8 @@ from __future__ import annotations
 
 import logging
 
+from app.services import asr_confidence
+
 log = logging.getLogger(__name__)
 
 
@@ -41,13 +43,15 @@ MAX_PAIR_GAP_S         = 20.0
 MAX_PAIR_BLOCK_DISTANCE = 6
 
 
-def _block_asr(segments: list[dict]) -> dict:
+def _block_asr(segments: list[dict], language: str = "nl") -> dict:
     """Aggregate per-segment decode signals over a block.
 
     Worst-case rather than mean: one hallucinated segment inside an otherwise
     clean block still makes the block's text untrustworthy, and averaging would
-    hide it. `unreliable` is the flag downstream reads to decide a block should
-    not be scored as if it were speech.
+    hide it.
+
+    Returns both legacy binary `unreliable` flag (for backward compatibility) and
+    new continuous `confidence_score` (0-1) for filtering decisions.
     """
     logprobs   = [s["avg_logprob"]       for s in segments if s.get("avg_logprob") is not None]
     compress   = [s["compression_ratio"] for s in segments if s.get("compression_ratio") is not None]
@@ -65,12 +69,17 @@ def _block_asr(segments: list[dict]) -> dict:
     if max_no_speech is not None and max_no_speech > NO_SPEECH_CEILING:
         reasons.append("no_speech")
 
+    # Compute continuous confidence score (0-1)
+    confidence = asr_confidence.compute_block_confidence(segments, language=language)
+
     return {
         "min_avg_logprob":       min_logprob,
         "max_compression_ratio": max_compress,
         "max_no_speech_prob":    max_no_speech,
         "unreliable":            bool(reasons),
         "reasons":               reasons,
+        "confidence_score":      confidence,  # NEW: continuous score
+        "severity":              asr_confidence.confidence_to_severity(confidence),  # NEW
     }
 
 
@@ -136,11 +145,15 @@ def build_blocks(
             })
 
     for b in blocks:
-        b["asr"] = _block_asr(b["segments"])
+        b["asr"] = _block_asr(b["segments"], language=b["language"])
+        confidence = b["asr"].get("confidence_score", 0.5)
+        severity = b["asr"].get("severity", "high")
         if b["asr"]["unreliable"]:
-            log.warning("build_blocks  UNRELIABLE  role=%-11s  %.1f–%.1fs  reasons=%s  "
+            log.warning("build_blocks  UNRELIABLE  role=%-11s  %.1f–%.1fs  "
+                        "confidence=%.2f  severity=%s  reasons=%s  "
                         "logprob=%s  compression=%s  no_speech=%s  %r",
-                        b["role"], b["start"], b["end"], b["asr"]["reasons"],
+                        b["role"], b["start"], b["end"], confidence, severity,
+                        b["asr"]["reasons"],
                         b["asr"]["min_avg_logprob"], b["asr"]["max_compression_ratio"],
                         b["asr"]["max_no_speech_prob"],
                         b["text"][:60].replace(chr(10), " "))

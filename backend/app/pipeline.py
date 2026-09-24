@@ -87,7 +87,7 @@ def _pair_unassessable(pair: dict) -> bool:
 def _remap_compact_segment(
     seg: dict,
     spans: list[tuple[float, float, float, float]],
-) -> None:
+) -> bool:
     """Map one segment's timestamps from compact-waveform time back to original time.
 
     ``spans`` holds ``(compact_start, compact_end, orig_start, orig_end)`` for each
@@ -103,9 +103,12 @@ def _remap_compact_segment(
     So: pick the chunk this segment *overlaps most*, shift by that chunk's offset,
     then clamp into the chunk's original span. A remapped segment can therefore
     never escape the client turn it came from. Mutates ``seg`` in place.
+
+    Returns True if the segment required special handling (fell in a gap or straddles
+    a boundary), False if it mapped cleanly.
     """
     if not spans:
-        return
+        return False
 
     best_i, best_overlap = None, 0.0
     for i, (c0, c1, _o0, _o1) in enumerate(spans):
@@ -113,6 +116,7 @@ def _remap_compact_segment(
         if overlap > best_overlap:
             best_i, best_overlap = i, overlap
 
+    had_issue = False
     if best_i is None:
         # Lies entirely inside an inter-chunk gap — attribute to the nearest chunk.
         best_i = min(
@@ -121,6 +125,7 @@ def _remap_compact_segment(
         )
         log.warning("[B] remap  segment %.2f–%.2fs fell in a gap — nearest chunk=%d  %r",
                     seg["start"], seg["end"], best_i, seg["text"][:60].replace("\n", " "))
+        had_issue = True
     elif best_overlap < (seg["end"] - seg["start"]) - 0.05:
         # Straddles a boundary: its text may mix two client turns. Cannot be split
         # without word-level timestamps, so it is attributed whole to the dominant
@@ -129,12 +134,14 @@ def _remap_compact_segment(
                     "— attributed to chunk %d  %r",
                     seg["start"], seg["end"], best_overlap, seg["end"] - seg["start"],
                     best_i, seg["text"][:60].replace("\n", " "))
+        had_issue = True
 
     c0, _c1, o0, o1 = spans[best_i]
     shift = o0 - c0
     start = min(max(seg["start"] + shift, o0), o1)
     end   = min(max(seg["end"]   + shift, start), o1)
     seg["start"], seg["end"] = start, end
+    return had_issue
 
 
 def _filter_hallucinations(segments: list[dict]) -> list[dict]:
@@ -206,14 +213,17 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                 import torchaudio
                 waveform, sr = torchaudio.load(str(audio_path))
                 all_segments: list[dict] = []
+                skipped_count = 0
 
                 for turn in sorted(turns, key=lambda t: t["start"]):
                     s = int(turn["start"] * sr)
                     e = int(turn["end"] * sr)
                     chunk = waveform[:, s:e]
                     if chunk.shape[-1] < 800:  # skip slivers < ~50 ms
-                        log.debug("[A] turn_skip  speaker=%-12s  %.2f–%.2fs  (too short)",
-                                  turn["speaker"], turn["start"], turn["end"])
+                        skipped_count += 1
+                        log.info("[A] turn_skip  speaker=%-12s  %.2f–%.2fs  duration=%.3fs  (too short)",
+                                 turn["speaker"], turn["start"], turn["end"],
+                                 (e - s) / sr)
                         continue
 
                     segs = await transcription.transcribe_chunk(
@@ -258,10 +268,12 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                      before_filter, len(merged), before_filter - len(merged))
 
             session.duration_seconds = turns[-1]["end"] if turns else None
-            eval_row = Evaluation(session_id=sid, transcript=merged)
+            eval_row = Evaluation(session_id=sid, transcript=merged, short_turns_skipped=skipped_count)
             db.add(eval_row)
-            log.info("[A] DONE  total_segments=%d  duration=%.1fs → AWAITING_ROLE_CONFIRMATION",
-                     len(merged), session.duration_seconds or 0)
+            if skipped_count > 0:
+                log.warning("[A] %d short turns skipped — may affect pairing completeness", skipped_count)
+            log.info("[A] DONE  total_segments=%d  duration=%.1fs  skipped=%d → AWAITING_ROLE_CONFIRMATION",
+                     len(merged), session.duration_seconds or 0, skipped_count)
             await _set_status(db, session, SessionStatus.AWAITING_ROLE_CONFIRMATION)
 
         except Exception as exc:
@@ -348,6 +360,7 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
         # client's utterances). Falls back to session.language only if no client segments
         # are found, then to "nl" as last resort.
         client_segments = [s for s in transcript if s.get("speaker") == client_speaker]
+        detected_lang = "?"
         if client_segments:
             lang_counts: dict[str, int] = {}
             for seg in client_segments:
@@ -365,6 +378,12 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
         log.info("[B] session=%s  client=%s  interpreter=%s  client_lang=%s  transcript_segs=%d",
                  sid, client_speaker, interpreter_speaker, client_lang, len(transcript))
 
+        if detected_lang == "?":
+            eval_row.language_confidence = "low"
+            log.warning("[B] language_detection_failed  falling_back_to=%s  client_lang=%s",
+                        detected_lang, client_lang)
+        else:
+            eval_row.language_confidence = "high"
         try:
             # 5a. Re-transcribe client speaker with forced language (if non-Dutch)
             if client_lang != "nl" and Path(session.audio_path).exists():
@@ -433,11 +452,35 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                             compact, sr, client_lang, initial_prompt=session.known_terms
                         )
 
+                        remap_issues = 0
                         for seg in new_segs:
-                            _remap_compact_segment(seg, spans)
+                            had_issue = _remap_compact_segment(seg, spans)
+                            if had_issue:
+                                remap_issues += 1
                             seg["speaker"] = client_speaker
 
-                        log.info("[B] retranscribe  new_segs=%d", len(new_segs))
+                        log.info("[B] retranscribe  new_segs=%d  remap_issues=%d", len(new_segs), remap_issues)
+                        if remap_issues > 0 and len(new_segs) > 0:
+                            remap_pct = (remap_issues / len(new_segs)) * 100
+                            if remap_pct > 10:
+                                log.warning("[B] retranscribe  high_remap_issues  %d/%d segments (%.1f%%) "
+                                            "had timestamp mapping issues", remap_issues, len(new_segs), remap_pct)
+                                eval_row.timestamp_mapping_issues = remap_issues
+
+                        if new_segs:
+                            lang_check: dict[str, int] = {}
+                            for seg in new_segs:
+                                lang = seg.get("language", "?")
+                                lang_check[lang] = lang_check.get(lang, 0) + 1
+
+                            forced_lang_pct = lang_check.get(client_lang, 0) / len(new_segs) if new_segs else 0
+                            if forced_lang_pct < 0.7:
+                                log.warning("[B] retranscribe  language_validation_failed  "
+                                            "forced=%s  achieved_distribution=%s  pct=%.1f%%",
+                                            client_lang, dict(lang_check), forced_lang_pct * 100)
+                                eval_row.language_validation_passed = False
+                            else:
+                                eval_row.language_validation_passed = True
                         for s in new_segs:
                             log.debug("[B] retranscribe  AFTER   %.1f–%.1fs  lang=%-4s  %r",
                                       s["start"], s["end"], s.get("language", "?"),

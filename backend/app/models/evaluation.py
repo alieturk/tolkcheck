@@ -49,6 +49,14 @@ class Evaluation(Base):
     llm_feedback: Mapped[str | None] = mapped_column(Text, nullable=True)
     structured_issues: Mapped[list | None] = mapped_column(JSONB, nullable=True)
 
+    # Diagnostic flags from Phase A/B — surface issues to the frontend
+    short_turns_skipped: Mapped[int] = mapped_column(default=0)
+    language_confidence: Mapped[str] = mapped_column(String(10), default="high")
+    language_validation_passed: Mapped[bool] = mapped_column(default=True)
+    timestamp_mapping_issues: Mapped[int | None] = mapped_column(nullable=True)
+    # ASR confidence scores per direction (Tier 3 fix #8)
+    asr_confidence_distribution: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
