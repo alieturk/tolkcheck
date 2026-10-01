@@ -10,6 +10,7 @@ from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_asyn
 from app.database import Base, get_session
 from app.main import app
 from app.models.user import User
+from app.routers import sessions as sessions_router
 from app.security import hash_password
 
 
@@ -67,9 +68,14 @@ async def db_session():
 
 
 @pytest_asyncio.fixture
-async def client(db_session: AsyncSession):
+async def client(db_session: AsyncSession, tmp_path, monkeypatch):
     async def _override_get_session():
         yield db_session
+
+    # Uploads go to a per-test temp dir that pytest removes, not to the real
+    # backend/uploads/ — otherwise every run leaves dummy audio files behind.
+    monkeypatch.setattr(sessions_router, "UPLOAD_DIR", tmp_path / "uploads")
+    (tmp_path / "uploads").mkdir()
 
     app.dependency_overrides[get_session] = _override_get_session
     transport = ASGITransport(app=app)
