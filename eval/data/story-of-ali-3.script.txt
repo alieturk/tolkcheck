@@ -1,0 +1,127 @@
+# Synthetic hearing script for story-of-ali-3.wav, as supplied by the author
+# (Huseyin) on 2026-10-01. Fully synthetic: TTS audio, invented people and story.
+# Copied verbatim below this header; speaker labels are only on the first turns,
+# exactly as supplied. Not yet annotated with error categories — any labelling
+# must come from the author, not be inferred by a script.
+
+IND MEDEWERKER: Goedemorgen meneer Demir. Mijn naam is Sanne Vermeer, ik ben de gehoormedewerker van de IND. Naast mij zit Derya, zij is de tolk Turks. Begrijpt u haar goed?
+
+Tolk: Günaydın Bay Demir. Benim adım Sanne Vermeer, IND'nin görüşme memuruyum. Yanımda Derya var, o Türkçe tercümanınız. Onu iyi anlıyor musunuz?
+
+Ali: Evet, iyi anlıyorum
+
+Tolk: Hij zegt dat hij haar goed verstaat.
+
+Kunt u mij vertellen hoe oud u bent en waar u geboren bent?
+
+Kaç yaşındasınız ve nerede doğdunuz?
+
+Yirmi dokuz yaşındayım. Diyarbakır'da doğdum.
+
+Hij is negenentwintig jaar oud en geboren in Diyarbakır.
+
+Wat was uw beroep in Turkije?
+
+Türkiye'de mesleğiniz neydi?
+
+ Serbest gazeteciydim. Yerel bir haber sitesi için yazıyordum.
+
+Hij was freelance journalist. Hij schreef voor een lokale nieuwswebsite.
+
+  Waar schreef u over?
+
+Ne hakkında yazıyordunuz?
+
+Belediyedekilerde inşaat ihaleleriyle ilgili yolsuzluklar hakkında yazıyordum.
+
+Hij schreef over corruptie bij de gemeente.
+
+Wanneer merkte u voor het eerst dat dit problemen opleverde?
+
+Bunun sorun yarattığını ilk ne zaman fark ettiniz?
+
+Yaklaşık sekiz ay önce, bir adam beni aradı ve yazmayı bırakmamı söyledi.
+
+Hij zegt dat hij ongeveer drie maanden geleden voor het eerst een dreigtelefoontje kreeg.
+
+Heeft u een idee wie deze persoon was?
+
+Bu kişinin kim olduğu hakkında bir fikriniz var mı?
+
+Hayır, numarası belirsizdi. Ama sesi tanıdık geldi, sanki daha önce bir yerde duymuştum.
+
+Nee, het nummer was onbekend. Maar de stem klonk bekend, alsof ik die al eens eerder had gehoord.
+
+U heeft in uw eerdere verklaring genoemd dat u werd vastgehouden. Uw eerdere verklaring beschrijft dat u werd vastgehouden.
+
+İşten eve dönerken iki kişi beni durdurdu. Beni bir arabaya bindirdiler ve birkaç saat tuttular.
+
+Hij werd op een avond tegengehouden door meerdere mannen, die hem in een auto zetten en enkele uren vasthielden.
+
+Wat gebeurd tijdens die uren?
+
+O saatler boyunca ne oldu?
+
+Beni dövdüler ve yazılarımı durdurmam gerektiğini söylediler. Sonra beni bıraktılar.
+
+Ze hebben hem geslagen en gezegd dat hij moest stoppen met schrijven. Daarna lieten ze hem gaan.
+
+Heeft u dit gemeld bij de politie?
+
+Bunu polise bildirdiniz mi?
+
+Hayır, bu adamların polisle bağlantılı olabileceğinden korkuyordum.
+
+Nee, hij was bang dat de politie zelf achter de aanval zat.
+
+Heeft u met uw familie over dit voorval gesproken?
+
+Bu olay hakkında ailenizle konuştunuz mu?
+
+Evet, kardeşime anlattım. O bana polise gitmemi söyledi ama ben gitmek istemedim
+
+Ja, hij heeft dit verteld aan zijn zus. Zij zei dat hij naar de politie moest gaan, maar dat wilde hij niet.
+
+Even voor de duidelijkheid: eerder in het dossier staat dat meneer Demir een broer heeft, geen zus. Kunt u dit navragen?
+
+Meneer Demir zei “kardeşim”, dat betekent “mijn broer”. Ik zei per ongeluk “zus”. Het is zijn broer.
+
+Hoe voelde u zich toen u dat briefje onder uw deur vond?
+
+Kapınızın altındaki o kağıdı bulduğunuzda kendinizi nasıl hissettiniz?
+
+Kağıdı okuduğumda çok korktum, ellerim titriyordu. O gece hiç uyuyamadım
+
+Hij zag dat hij bang werd toen hij het briefje lees.
+
+Wanneer ben t u vertrokken uit Turkije?
+
+Türkiye'den ne zaman ayrıldınız?
+
+İki gün sonra, otobüsle İstanbul'a gittim, oradan da bir kamyonla sınırı geçtim.
+
+Hij vertrok tweedag later; hij reisde met de bus naar Istanboel en stak de grens over.
+
+U hebt het eerste dreigtelefoontje kreeg in vijf maanden, maar het dossier staat er eerder. Kunt u dit verklaren?
+
+Az önce sekiz ay önce ilk tehdit telefonunu aldığınızı söylediniz, ancak dosyada beş ay yazıyor. Bunu açıklayabilir misiniz?
+
+Emin değilim, tam olarak hatırlamıyorum ama sekiz ay civarı olmalı, belki biraz daha az.
+
+Hij zegt dat hij het niet precies zeker weet, maar dat het ongeveer acht maanden moet zijn geweest, misschien iets minder.
+
+Heeft u nog iets toe te voegen dat wij nog niet besproken hebben?
+
+Henüz konuşmadığımız, eklemek istediğiniz bir şey var mı?
+
+Hayır, her şeyi anlattım.
+
+Nee, hij denkt dat hij alles heeft verteld.
+
+Dank u wel voor uw antwoorden. Dit was het einde van het gehoor.
+
+Görüşme burada sona erdi.
+
+Teşekkür ederim.
+
+Hij bedankt u.
