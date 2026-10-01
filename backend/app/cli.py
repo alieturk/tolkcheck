@@ -6,6 +6,9 @@ whoever operates the deployment.
 Usage (inside the backend container):
     uv run python -m app.cli create-user someone@ind.nl
     uv run python -m app.cli create-user someone@ind.nl --generate
+    uv run python -m app.cli list-users
+    uv run python -m app.cli deactivate-user someone@ind.nl
+    uv run python -m app.cli activate-user someone@ind.nl
     uv run python -m app.cli ingest-knowledge knowledge_base
     uv run python -m app.cli purge-expired --dry-run
 """
@@ -20,12 +23,23 @@ from pathlib import Path
 
 from sqlalchemy import select
 
+from app.audit import audit
+from app.config import settings
 from app.database import AsyncSessionLocal
+from app.logging_config import configure_logging
 from app.models.user import User
 from app.security import hash_password
 
 
+def _check_password_policy(password: str) -> None:
+    if len(password) < settings.password_min_length:
+        print(f"Error: password must be at least {settings.password_min_length} characters.",
+              file=sys.stderr)
+        raise SystemExit(1)
+
+
 async def _create_user(email: str, password: str) -> None:
+    _check_password_policy(password)
     async with AsyncSessionLocal() as db:
         existing = await db.execute(select(User).where(User.email == email))
         if existing.scalar_one_or_none() is not None:
@@ -37,6 +51,7 @@ async def _create_user(email: str, password: str) -> None:
         await db.commit()
         await db.refresh(user)
 
+    audit("account.create", user=user.id, via="cli")
     print(f"Created user {user.email} (id={user.id})")
 
 
@@ -52,6 +67,46 @@ def create_user_command(args: argparse.Namespace) -> None:
             raise SystemExit(1)
 
     asyncio.run(_create_user(args.email, password))
+
+
+async def _set_active(email: str, active: bool) -> None:
+    async with AsyncSessionLocal() as db:
+        user = (await db.execute(select(User).where(User.email == email))).scalar_one_or_none()
+        if user is None:
+            print(f"Error: no user with email '{email}'.", file=sys.stderr)
+            raise SystemExit(1)
+        user.is_active = active
+        user.failed_login_count = 0
+        user.locked_until = None
+        # Either way, tokens issued so far stop working: a deactivated user is
+        # logged out everywhere at once, a reactivated one starts clean.
+        user.token_version += 1
+        await db.commit()
+    audit("account.activate" if active else "account.deactivate", user=user.id, via="cli")
+    print(f"{'Activated' if active else 'Deactivated'} {email}; existing logins revoked.")
+
+
+def deactivate_user_command(args: argparse.Namespace) -> None:
+    asyncio.run(_set_active(args.email, False))
+
+
+def activate_user_command(args: argparse.Namespace) -> None:
+    asyncio.run(_set_active(args.email, True))
+
+
+async def _list_users() -> None:
+    async with AsyncSessionLocal() as db:
+        users = (await db.execute(select(User).order_by(User.created_at))).scalars().all()
+    for u in users:
+        state = "active" if u.is_active else "INACTIVE"
+        if u.locked_until is not None:
+            state += f", locked until {u.locked_until:%Y-%m-%d %H:%M}"
+        print(f"{u.email:40s} {state:12s} created {u.created_at:%Y-%m-%d}  id={u.id}")
+    audit("account.list", via="cli", count=len(users))
+
+
+def list_users_command(args: argparse.Namespace) -> None:
+    asyncio.run(_list_users())
 
 
 async def _ingest_knowledge(path: Path) -> None:
@@ -107,6 +162,19 @@ def main() -> None:
     )
     create_user_parser.set_defaults(func=create_user_command)
 
+    list_parser = subparsers.add_parser("list-users", help="List accounts and their status")
+    list_parser.set_defaults(func=list_users_command)
+
+    for name, func, help_ in (
+        ("deactivate-user", deactivate_user_command,
+         "Block an account and revoke its existing logins"),
+        ("activate-user", activate_user_command,
+         "Re-enable an account (also clears a lockout) and revoke old logins"),
+    ):
+        p = subparsers.add_parser(name, help=help_)
+        p.add_argument("email")
+        p.set_defaults(func=func)
+
     ingest_parser = subparsers.add_parser(
         "ingest-knowledge",
         help="(Re-)embed the curated knowledge_base/ corpus into Postgres for RAG retrieval",
@@ -128,6 +196,7 @@ def main() -> None:
     purge_parser.set_defaults(func=purge_expired_command)
 
     args = parser.parse_args()
+    configure_logging(settings.log_level)  # so audit lines reach stdout
     args.func(args)
 
 

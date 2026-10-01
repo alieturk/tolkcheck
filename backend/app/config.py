@@ -57,6 +57,13 @@ class Settings(BaseSettings):
     # on-prem deployments without internal HTTPS must set COOKIE_SECURE=false
     # explicitly in .env, or the login cookie will silently fail to persist.
     cookie_secure: bool = True
+    # Account lockout (BIO2 5.17): this many consecutive failed logins lock the
+    # account for login_lockout_minutes. Per account, not per IP — rate
+    # limiting by source address belongs in the reverse proxy.
+    login_max_failures: int = 5
+    login_lockout_minutes: int = 15
+    # Minimum length for passwords set through the operator CLI.
+    password_min_length: int = 12
 
     # Retention (EIS-5, AVG art. 5(1)(e)): sessions — with their transcript,
     # flags and feedback — and any remaining audio are deleted this many days

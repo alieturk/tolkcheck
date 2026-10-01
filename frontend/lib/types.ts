@@ -18,7 +18,6 @@ export interface Session {
   status: SessionStatus;
   duration_seconds: number | null;
   error_code: string | null;
-  error_message: string | null;
   /** Set once the uploaded audio has been deleted (at COMPLETED or FAILED). */
   audio_deleted_at: string | null;
   created_at: string;
