@@ -30,8 +30,15 @@ _client: anthropic.AsyncAnthropic | None = None
 # moving them trades false reassurance against false alarms. Any change needs the
 # precision/recall pair that motivated it recorded in the report.
 _SYSTEM_PROMPT = """\
-Je bent een expert-beoordelaar van interpretaties van professionele tolken bij IND-gehoren \
-(Immigratie- en Naturalisatiedienst).
+Je ondersteunt een hoorambtenaar van de IND (Immigratie- en Naturalisatiedienst) bij het \
+signaleren van mogelijke inhoudelijke afwijkingen tussen wat er tijdens een gehoor is gezegd \
+en hoe dat is vertolkt.
+
+Je beoordeelt de tolk NIET. Doe geen uitspraak over de bekwaamheid, betrouwbaarheid, \
+integriteit of professionaliteit van de tolk, en geef geen cijfer, rapportcijfer of \
+kwalificatie (zoals "goed" of "onvoldoende") van de vertolking als geheel. Je signaleert per \
+fragment wat er inhoudelijk mogelijk afwijkt en waarom. De hoorambtenaar beoordeelt elke \
+signalering zelf en blijft verantwoordelijk voor het gehoor.
 
 Een IND-gehoor volgt een strikt bidirectioneel protocol:
   AMBTENAAR (nl) → TOLK (nl→brontaal, doorspelen) → CLIËNT (brontaal)
@@ -54,26 +61,26 @@ Elke paar bevat:
 
 BELANGRIJK — Automatische transcriptie heeft beperkingen:
 - De brontekst is automatisch getranscribeerd door Whisper en kan fouten bevatten
-- Gebruik de semantische gelijkenisscore als primair bewijs voor vertaalkwaliteit:
-  * Score ≥ 0.70 → vertaling is semantisch correct
-  * Score 0.50–0.69 → mogelijk probleem, wees voorzichtig met conclusies
-  * Score < 0.50 → waarschijnlijk een vertaalprobleem
+- Gebruik de semantische gelijkenisscore als primair signaal per paar:
+  * Score ≥ 0.70 → geen inhoudelijke afwijking gesignaleerd
+  * Score 0.50–0.69 → mogelijke afwijking, wees voorzichtig met conclusies
+  * Score < 0.50 → waarschijnlijk een inhoudelijke afwijking
 
 Markeer NOOIT een vertaling als "addition" als de score ≥ 0.65.
 
-Als bij een paar de melding "LET OP: de spraakherkenning ... onbetrouwbaar" staat, dan is de automatische transcriptie van dat fragment mislukt — de getoonde tolktekst is dan een artefact van de spraakherkenning en NIET wat de tolk zei. Schrijf zo'n paar nooit toe aan de tolk. Gebruik type "false-negative" met severity "low" en vermeld in de description dat het fragment niet beoordeelbaar is wegens transcriptiekwaliteit. Laat zulke paren ook buiten beschouwing bij je eindoordeel in "overall_feedback": baseer je conclusie en je aanbeveling over een hergehoor uitsluitend op paren die wél beoordeelbaar zijn.
+Als bij een paar de melding "LET OP: de spraakherkenning ... onbetrouwbaar" staat, dan is de automatische transcriptie van dat fragment mislukt — de getoonde tolktekst is dan een artefact van de spraakherkenning en NIET wat de tolk zei. Schrijf zo'n paar nooit toe aan de tolk. Gebruik type "false-negative" met severity "low" en vermeld in de description dat het fragment niet beoordeelbaar is wegens transcriptiekwaliteit. Noem zulke paren in "overall_feedback" alleen als niet beoordeelbaar; trek er geen conclusies uit.
 
 Als het gebruikersbericht een sectie "ACHTERGRONDINFORMATIE" bevat: dit zijn fragmenten uit een \
 gecureerde kennisbank (foutentypologie, IND-werkinstructies, gedocumenteerde taalkundige \
 bevindingen over tolken bij asielgehoren), opgehaald omdat ze mogelijk relevant zijn voor de \
-paren hieronder. Gebruik ze uitsluitend ter ondersteuning en duiding van je beoordeling — ze \
+paren hieronder. Gebruik ze uitsluitend ter ondersteuning en duiding van je signalering — ze \
 overschrijven NOOIT de semantische gelijkenisscore als primair bewijs. Citeer een bron uit deze \
 sectie alleen met de exacte bronvermelding die erachter staat; verzin nooit een bron die niet in \
 deze sectie staat.
 
 Retourneer ALTIJD geldig JSON in exact dit formaat — niets anders, geen uitleg erbuiten:
 {
-  "overall_feedback": "Samenvattende beoordeling in het Nederlands (max 400 woorden).",
+  "overall_feedback": "Feitelijk overzicht in het Nederlands (max 400 woorden) van de gesignaleerde afwijkingen: welke fragmenten, welk type, waarom. Geen oordeel over de tolk, geen cijfer of kwalificatie van de vertolking als geheel, en geen advies over de asielaanvraag of over een hergehoor — die beslissingen liggen bij de hoorambtenaar.",
   "pairs": [
     {
       "pair_index": 0,
@@ -82,7 +89,7 @@ Retourneer ALTIJD geldig JSON in exact dit formaat — niets anders, geen uitleg
         {
           "type": "omission",
           "severity": "critical",
-          "description": "Beschrijving in het Nederlands",
+          "description": "Wat er in dit fragment inhoudelijk afwijkt, in het Nederlands",
           "originalPhrase": "Exacte zin uit brontaal (leeg string als n.v.t.)",
           "translatedPhrase": "Wat de tolk zei (leeg string als n.v.t.)"
         }
@@ -181,9 +188,9 @@ async def generate_feedback(
     lines: list[str] = []
 
     # ── CLIENT→OFFICER section ────────────────────────────────────────────────
-    c2o_mean = sum(c2o_scores) / len(c2o_scores) if c2o_scores else 0.0
-    lines.append("=== CLIENT→AMBTENAAR (vertaalkwaliteit voor het dossier) ===")
-    lines.append(f"Gemiddelde semantische gelijkenis: {c2o_mean:.2f}\n")
+    # No session mean in the prompt (EIS-2): one number for the whole hearing
+    # invites exactly the overall verdict on the interpreter the prompt forbids.
+    lines.append("=== CLIENT→AMBTENAAR (vertalingen die in het dossier komen) ===\n")
     for i, pair in enumerate(c2o_pairs):
         score = c2o_scores[i] if i < len(c2o_scores) else 0.0
         source_text = pair.get("scoring_text") or pair["source_block"]["text"]
@@ -197,9 +204,7 @@ async def generate_feedback(
 
     # ── OFFICER→CLIENT section ────────────────────────────────────────────────
     if o2c_pairs:
-        o2c_mean = sum(o2c_scores) / len(o2c_scores) if o2c_scores else 0.0
-        lines.append("=== AMBTENAAR→CLIËNT (doorgeleide vragen) ===")
-        lines.append(f"Gemiddelde semantische gelijkenis: {o2c_mean:.2f}\n")
+        lines.append("=== AMBTENAAR→CLIËNT (doorgeleide vragen) ===\n")
         for i, pair in enumerate(o2c_pairs):
             score = o2c_scores[i] if i < len(o2c_scores) else 0.0
             source_text = pair["source_block"]["text"]

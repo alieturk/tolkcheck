@@ -547,7 +547,7 @@ export default function EvaluationView({ evaluation }: Props) {
       {/* LLM overall feedback */}
       {evaluation.llm_feedback && (
         <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <h2 className="text-base font-semibold text-gray-900 mb-3">Samenvattende feedback</h2>
+          <h2 className="text-base font-semibold text-gray-900 mb-3">Overzicht van signaleringen</h2>
           <div className="relative">
             <pre className="text-sm text-gray-800 whitespace-pre-wrap font-sans leading-relaxed">
               {evaluation.llm_feedback}
