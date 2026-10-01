@@ -1,0 +1,72 @@
+14:02:59: Starting worker for 2 functions: run_pipeline, resume_scoring
+2026-10-01 14:02:59 | INFO     | arq.worker                               | Starting worker for 2 functions: run_pipeline, resume_scoring
+2026-10-01 14:02:59 | INFO     | app.worker                               | Pre-loading LaBSE model…
+Traceback (most recent call last):
+  File "<string>", line 12, in <module>
+    w.run_worker(WorkerSettings, burst=False)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\arq\worker.py", line 899, in run_worker
+    worker.run()
+    ~~~~~~~~~~^^
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\arq\worker.py", line 313, in run
+    self.loop.run_until_complete(self.main_task)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\cultro\AppData\Roaming\uv\python\cpython-3.13.15-windows-x86_64-none\Lib\asyncio\base_events.py", line 726, in run_until_complete
+    return future.result()
+           ~~~~~~~~~~~~~^^
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\arq\worker.py", line 363, in main
+    await self.on_startup(self.ctx)
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\app\worker.py", line 39, in startup
+    await loop.run_in_executor(None, _get_labse)
+  File "C:\Users\cultro\AppData\Roaming\uv\python\cpython-3.13.15-windows-x86_64-none\Lib\concurrent\futures\thread.py", line 59, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\app\services\embeddings.py", line 24, in get_model
+    from sentence_transformers import SentenceTransformer
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\sentence_transformers\__init__.py", line 15, in <module>
+    from sentence_transformers.base.sampler import DefaultBatchSampler, MultiDatasetDefaultBatchSampler
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\sentence_transformers\base\__init__.py", line 4, in <module>
+    from .model import BaseModel
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\sentence_transformers\base\model.py", line 30, in <module>
+    from sentence_transformers.base.modality import format_modality, infer_batch_modality
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\sentence_transformers\base\modality.py", line 14, in <module>
+    from sentence_transformers.base.modality_types import (
+    ...<4 lines>...
+    )
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\sentence_transformers\base\modality_types.py", line 16, in <module>
+    from torchcodec.decoders import AudioDecoder, VideoDecoder
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\__init__.py", line 10, in <module>
+    from . import decoders, samplers  # noqa
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\decoders\__init__.py", line 7, in <module>
+    from .._core import AudioStreamMetadata, VideoStreamMetadata
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\_core\__init__.py", line 8, in <module>
+    from ._metadata import (
+    ...<5 lines>...
+    )
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\_core\_metadata.py", line 16, in <module>
+    from torchcodec._core.ops import (
+    ...<3 lines>...
+    )
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\_core\ops.py", line 84, in <module>
+    load_torchcodec_shared_libraries()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\_core\ops.py", line 69, in load_torchcodec_shared_libraries
+    raise RuntimeError(
+    ...<11 lines>...
+    )
+RuntimeError: Could not load libtorchcodec. Likely causes:
+          1. FFmpeg is not properly installed in your environment. We support
+             versions 4, 5, 6 and 7.
+          2. The PyTorch version (2.8.0+cpu) is not compatible with
+             this version of TorchCodec. Refer to the version compatibility
+             table:
+             https://github.com/pytorch/torchcodec?tab=readme-ov-file#installing-torchcodec.
+          3. Another runtime dependency; see exceptions below.
+        The following exceptions were raised as we tried to load libtorchcodec:
+        
+[start of libtorchcodec loading traceback]
+FFmpeg version 7: Could not find module 'C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\libtorchcodec_core7.dll' (or one of its dependencies). Try using the full path with constructor syntax.
+FFmpeg version 6: Could not find module 'C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\libtorchcodec_core6.dll' (or one of its dependencies). Try using the full path with constructor syntax.
+FFmpeg version 5: Could not find module 'C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\libtorchcodec_core5.dll' (or one of its dependencies). Try using the full path with constructor syntax.
+FFmpeg version 4: Could not find module 'C:\Users\cultro\TolkCheck\tolkcheck\backend\.venv\Lib\site-packages\torchcodec\libtorchcodec_core4.dll' (or one of its dependencies). Try using the full path with constructor syntax.
+[end of libtorchcodec loading traceback].

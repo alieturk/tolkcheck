@@ -1,0 +1,3 @@
+14:02:55 input sha256=eee43f800f76dfdc2b43197a6e352b518d60962719f40d29ff3ee03940d66cce  workdir=C:\Users\cultro\tolkcheck-t8-env\20261001-140254
+14:03:00 api up; waiting for worker to load LaBSE + Whisper (first run downloads weights)
+14:03:36 evidence written to C:\Users\cultro\TolkCheck\tolkcheck\eval\results\t8\20261001-140254\evidence.json
