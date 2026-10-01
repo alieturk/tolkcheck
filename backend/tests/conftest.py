@@ -73,7 +73,9 @@ async def client(db_session: AsyncSession):
 
     app.dependency_overrides[get_session] = _override_get_session
     transport = ASGITransport(app=app)
-    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+    # https so the client sends back the Secure login cookie (cookie_secure
+    # defaults to True); over http it is dropped and authed requests get 401.
+    async with AsyncClient(transport=transport, base_url="https://test") as ac:
         yield ac
     app.dependency_overrides.clear()
 
