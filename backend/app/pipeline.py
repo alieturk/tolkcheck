@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import logging
 import uuid
+from datetime import datetime, timezone
 from pathlib import Path
 
 from sqlalchemy import select
@@ -69,6 +70,28 @@ async def _set_failed(
     session.error_code = error_code
     session.error_message = error_message
     await db.commit()
+    # FAILED is terminal: /start only accepts PENDING, so the audio is never read again.
+    await _delete_audio(db, session)
+
+
+async def _delete_audio(db: AsyncSession, session: Session) -> None:
+    """Remove the uploaded audio file once the session is terminal (EIS-5).
+
+    Called at COMPLETED and FAILED — not after Phase A, because Phase B reads
+    the audio again for the forced-language re-transcription. Never raises: a
+    failed delete must not turn a finished session into a failed one, so it is
+    logged and audio_deleted_at stays NULL, which keeps it findable.
+    """
+    path = Path(session.audio_path)
+    try:
+        path.unlink(missing_ok=True)
+        session.audio_deleted_at = datetime.now(timezone.utc)
+        await db.commit()
+    except Exception as exc:
+        log.error("[audio] delete FAILED  session=%s  file=%s  still_on_disk=%s  error=%s",
+                  session.id, path.name, path.exists(), exc)
+        return
+    log.info("[audio] deleted  session=%s  file=%s", session.id, path.name)
 
 
 def _pair_unassessable(pair: dict) -> bool:
@@ -591,11 +614,9 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
             for pair in o2c_pairs:
                 pair["unassessable"] = _pair_unassessable(pair)
 
-            assessable = [sc for sc, pair in zip(c2o_scores, c2o_pairs)
-                          if not pair["unassessable"]]
-            excluded = len(c2o_scores) - len(assessable)
+            excluded = sum(1 for pair in c2o_pairs if pair["unassessable"])
             if excluded:
-                log.warning("[B] scoring  %d of %d c2o pairs excluded from the aggregate "
+                log.warning("[B] scoring  %d of %d c2o pairs unassessable "
                             "(unreliable ASR)", excluded, len(c2o_scores))
                 for pair, sc in zip(c2o_pairs, c2o_scores):
                     if pair["unassessable"]:
@@ -604,30 +625,9 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                                     pair["pair_index"], sc, asr.get("reasons"),
                                     pair["interp_block"]["text"][:60].replace(chr(10), " "))
 
-            if assessable:
-                agg = scoring.aggregate_scores(assessable)
-                overall = round(agg["mean"] * 100, 1)
-                log.info("[B] c2o_scores  mean=%.3f  min=%.3f  max=%.3f  overall=%.1f/100  "
-                         "(n=%d assessable, %d excluded)",
-                         agg["mean"], agg["min"], agg["max"], overall, len(assessable), excluded)
-            else:
-                # Every pair was unreliable: report no score rather than a made-up one.
-                overall = None
-                log.error("[B] c2o_scores  no assessable pairs — overall score withheld")
-
-            eval_row.overall_score        = overall
-            eval_row.accuracy_score       = overall
-            # Word counts over assessable pairs only — garbled text has a word count
-            # but carries no content, so counting it inflates completeness.
-            ok_idx = [i for i, pair in enumerate(c2o_pairs) if not pair["unassessable"]]
-            total_src_words    = sum(len(scoring_texts[i].split())    for i in ok_idx)
-            total_interp_words = sum(len(c2o_interp_texts[i].split()) for i in ok_idx)
-            eval_row.completeness_score = (
-                round(min(total_interp_words / total_src_words, 1.0) * 100, 1)
-                if total_src_words else None
-            )
-            eval_row.terminology_score    = overall
-            eval_row.fluency_score        = overall
+            # No per-session aggregate is computed or stored (EIS-2): a mean over a
+            # hearing summarises the interpreter in one number. Only the per-pair
+            # scores are kept; the UI flags pairs, it does not grade the session.
             eval_row.semantic_similarity_scores = c2o_scores
             eval_row.aligned_blocks = blocks
 
@@ -657,9 +657,10 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
 
             eval_row.llm_feedback      = feedback_result["overall_feedback"]
             eval_row.structured_issues = feedback_result["structured_issues"]
-            log.info("[B] DONE  overall=%.1f  completeness=%.1f → COMPLETED",
-                     overall, eval_row.completeness_score)
+            log.info("[B] DONE  pairs=%d  unassessable=%d → COMPLETED",
+                     len(c2o_scores) + len(o2c_scores), excluded)
             await _set_status(db, session, SessionStatus.COMPLETED)
+            await _delete_audio(db, session)
 
         except Exception as exc:
             log.exception("[B] UNHANDLED ERROR: %s", exc)

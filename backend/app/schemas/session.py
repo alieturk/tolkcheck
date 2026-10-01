@@ -21,5 +21,6 @@ class SessionOut(BaseModel):
     duration_seconds: float | None
     error_code: str | None
     error_message: str | None
+    audio_deleted_at: datetime | None
     created_at: datetime
     updated_at: datetime

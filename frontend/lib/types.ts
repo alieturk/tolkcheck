@@ -19,6 +19,8 @@ export interface Session {
   duration_seconds: number | null;
   error_code: string | null;
   error_message: string | null;
+  /** Set once the uploaded audio has been deleted (at COMPLETED or FAILED). */
+  audio_deleted_at: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -106,11 +108,6 @@ export interface Evaluation {
   role_warnings: RoleWarnings | null;
   interpreter_speaker: string | null;
   client_speaker: string | null;
-  overall_score: number | null;
-  accuracy_score: number | null;
-  completeness_score: number | null;
-  terminology_score: number | null;
-  fluency_score: number | null;
   semantic_similarity_scores: number[] | null;
   client_translations: string[] | null;
   llm_feedback: string | null;

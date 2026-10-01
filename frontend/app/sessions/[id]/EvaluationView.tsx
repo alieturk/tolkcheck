@@ -428,23 +428,9 @@ export default function EvaluationView({ evaluation }: Props) {
       !s.issues?.some((i) => i.severity === "critical" && i.type !== "false-negative")
   );
 
-  const overallScore = evaluation.overall_score ?? 0;
-  const statusLabel =
-    overallScore >= 80
-      ? "Goed"
-      : overallScore >= 60
-      ? "Voldoende"
-      : "Controle vereist";
-  const statusColor =
-    overallScore >= 80 ? "text-green-600" : overallScore >= 60 ? "text-amber-500" : "text-red-500";
-
-  // Circular progress ring (r=28, circumference ≈ 175.9)
-  const r = 28;
-  const circ = 2 * Math.PI * r;
-  const dash = circ * (1 - overallScore / 100);
-  const ringColor =
-    overallScore >= 80 ? "text-green-500" : overallScore >= 60 ? "text-amber-500" : "text-red-500";
-
+  // No session-level score or grade on purpose (EIS-2): the tool signals
+  // deviations per utterance and does not judge the interpreter. The summary
+  // cards only count flagged segments; the officer judges each one.
   const tabs = [
     { label: `Alle segmenten (${segments.length})` },
     { label: `Kritieke problemen (${criticalSegs.length})`, count: criticalSegs.length },
@@ -524,7 +510,7 @@ export default function EvaluationView({ evaluation }: Props) {
       )}
 
       {/* Summary cards */}
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 gap-4">
         {/* Card 1: critical issues */}
         <div className="bg-white rounded-xl border border-gray-200 p-5">
           <div className="flex items-start justify-between">
@@ -541,39 +527,19 @@ export default function EvaluationView({ evaluation }: Props) {
           </div>
         </div>
 
-        {/* Card 2: average accuracy */}
+        {/* Card 2: high-priority flags */}
         <div className="bg-white rounded-xl border border-gray-200 p-5">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm text-gray-500 mb-1">Gemiddelde nauwkeurigheid</p>
-              <p className={`text-3xl font-bold ${statusColor}`}>{overallScore.toFixed(1)}%</p>
-              <p className={`text-sm mt-2 ${statusColor}`}>{statusLabel}</p>
-            </div>
-            <svg className={`-rotate-90 w-16 h-16 ${ringColor}`} viewBox="0 0 64 64">
-              <circle cx="32" cy="32" r={r} stroke="currentColor" strokeWidth="6" fill="transparent" className="text-gray-200" />
-              <circle
-                cx="32" cy="32" r={r}
-                stroke="currentColor" strokeWidth="6" fill="transparent"
-                strokeDasharray={circ}
-                strokeDashoffset={dash}
-              />
-            </svg>
-          </div>
-        </div>
-
-        {/* Card 3: status */}
-        <div className="bg-white rounded-xl border border-gray-200 p-5">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm text-gray-500 mb-1">Status controle</p>
-              <p className={`text-xl font-semibold mt-1 ${statusColor}`}>{statusLabel}</p>
+              <p className="text-sm text-gray-500 mb-1">Hoge prioriteit</p>
+              <p className="text-3xl font-bold text-gray-900">{highSegs.length}</p>
               <p className="text-sm text-gray-500 mt-2">
-                {criticalSegs.length > 0
-                  ? `${criticalSegs.length} kritieke segment(en)`
-                  : "Geen kritieke omissies"}
+                Signalering per fragment, geen oordeel over de tolk
               </p>
             </div>
-            <Flag className={`w-8 h-8 ${overallScore < 60 ? "text-orange-500" : overallScore < 80 ? "text-amber-400" : "text-green-500"}`} />
+            <Flag
+              className={`w-8 h-8 ${highSegs.length > 0 ? "text-amber-400" : "text-gray-300"}`}
+            />
           </div>
         </div>
       </div>
