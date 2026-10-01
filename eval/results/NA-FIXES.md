@@ -5,16 +5,17 @@
 | | Commit | Branch |
 |---|---|---|
 | Voor | `2decb30` | `main` op het moment van de eerste meting |
-| Na | `6d689ea` | `fix/eis-2-eis-5` (10 commits: EIS-2/EIS-5-fixes, retentie, beveiliging, productie-deployment) |
+| Na (T9) | `6d689ea` | `fix/eis-2-eis-5` (10 commits: EIS-2/EIS-5-fixes, retentie, beveiliging, productie-deployment) |
+| Na (T10) | `e7c1ff0` | `fix/eis-2-eis-5` + productteksten herschreven (1 commit, alleen tekst) |
 
 **Reproduceren** (vanuit een checkout van `eval/dv4`, met de te inspecteren code in een tweede checkout of worktree):
 
 ```bash
 uv run --project backend python eval/t9_security.py --repo <checkout> --out eval/results/t9/v2-<voor|na>
-uv run --project backend python eval/t10_scope.py   --repo <checkout> --out eval/results/t10/after
+uv run --project backend python eval/t10_scope.py   --repo <checkout> --out eval/results/t10/after-<commit>
 ```
 
-Bewijs: [`t9/v2-before/evidence.json`](t9/v2-before/evidence.json), [`t9/v2-after/evidence.json`](t9/v2-after/evidence.json), [`t10/after/evidence.json`](t10/after/evidence.json) en [`t10/after/schema.sql`](t10/after/schema.sql). De eerste T10-meting staat in [`t10/`](t10/).
+Bewijs: [`t9/v2-before/evidence.json`](t9/v2-before/evidence.json), [`t9/v2-after/evidence.json`](t9/v2-after/evidence.json), [`t10/after-e7c1ff0/evidence.json`](t10/after-e7c1ff0/evidence.json) en [`t10/after-e7c1ff0/schema.sql`](t10/after-e7c1ff0/schema.sql). De eerste T10-meting staat in [`t10/`](t10/); de tussenmeting op `6d689ea` in [`t10/after/`](t10/after/).
 
 ## Instrument aangepast (T9 v2) — en daarom beide kanten opnieuw gemeten
 
@@ -68,19 +69,25 @@ Voor productie stond er "0" bij poorten, wachtwoorden en Adminer omdat er nog ge
 
 | Deelcontrole | Voor | Na | Bewijs na |
 |---|---|---|---|
-| Geen tolkscore | Niet voldaan | **Voldaan, met kanttekening** | Enige scorekolom: `evaluations.semantic_similarity_scores` (per paar). Geen score of oordeel meer in de UI (0 vondsten) en geen "beoordelaar"-rol of "Samenvattende beoordeling" in de Claude-prompt (0 vondsten). |
+| Geen tolkscore | Niet voldaan | **Voldaan** | Enige scorekolom: `evaluations.semantic_similarity_scores` (per paar). Geen score of oordeel meer in de UI (0 vondsten) en geen "beoordelaar"-rol of "Samenvattende beoordeling" in de Claude-prompt (0 vondsten). |
 | Geen koppeling tussen sessies | Voldaan, met kanttekening | **Voldaan, met kanttekening** | Ongewijzigd: geen tabel verwijst naar meer dan één sessie; `ind_case_id` blijft een vrij tekstveld. Nieuw: na 90 dagen wordt alles verwijderd, wat de periode waarover gekoppeld zou kunnen worden begrenst. |
 | Geen koppeling aan identiteit van de tolk | Voldaan in schema, niet afgedwongen | **Ongewijzigd** | Het transcript kan de naam van de tolk bevatten ("Naast mij zit Derya, zij is de tolk"); dat wordt niet gefilterd. Wel worden transcripten nu na 90 dagen verwijderd. |
 
-Kanttekening bij de tolkscore: twee productteksten beschrijven de tool nog als kwaliteitsbeoordeling (`frontend/app/page.tsx:58` "AI-kwaliteitsevaluatie voor IND-tolkgesprekken", `frontend/app/upload/page.tsx:89` "om de kwaliteit te evalueren"). Die zijn niet aangepast.
+T10 is twee keer na de fixes gemeten:
 
-**EIS-2 na de fixes: grotendeels voldaan.** Open: de twee productteksten en ongefilterde namen in het transcript.
+| Controle (`product_framing`: teksten die de tool als kwaliteitsbeoordeling omschrijven) | `6d689ea` | `e7c1ff0` |
+|---|---:|---:|
+| Vondsten | 2 | 0 |
+
+Op `6d689ea` stonden er nog twee: `frontend/app/page.tsx:58` "AI-kwaliteitsevaluatie voor IND-tolkgesprekken" en `frontend/app/upload/page.tsx:89` "om de kwaliteit te evalueren". In `e7c1ff0` zijn die herschreven, samen met drie teksten die de T10-controle niet doorzocht maar dezelfde strekking hadden (paginametadata in `frontend/app/layout.tsx`, de API-beschrijving in `backend/app/main.py` en de statusmelding "Kwaliteit wordt berekend..."). Alle andere T10-uitkomsten en het schema zijn tussen beide metingen gelijk gebleven (zelfde migratierevisie `i2f8b6d3e5a7`; de schemadumps verschillen alleen in regeleinden en de willekeurige `\restrict`-sleutel die pg_dump elke keer genereert).
+
+**EIS-2 na de fixes: voldaan, op één punt na.** Open: de naam van de tolk kan via het transcript worden opgeslagen ("Naast mij zit Derya, zij is de tolk") en wordt niet gefilterd; transcripten worden wel na 90 dagen verwijderd.
 
 ## Afwijkingen en beperkingen
 
 - Alleen statische inspectie en een test van de databaserechten. De productie-stack (`docker-compose.prod.yml`) is nooit gestart: er is geen Docker op de ontwikkelmachine. De YAML is gevalideerd.
 - De frontendwijzigingen zijn niet gecompileerd of getypecheckt (geen Node beschikbaar).
-- T8 (privacy in een echte run, inclusief het verwijderen van audio en de retentietaak) is nog niet uitgevoerd; het verwijdergedrag is alleen met unittests aangetoond (213/213 tests slagen op `6d689ea`).
+- T8 (privacy in een echte run, inclusief het verwijderen van audio en de retentietaak) is nog niet uitgevoerd; het verwijdergedrag is alleen met unittests aangetoond (213/213 tests slagen op `6d689ea` en op `e7c1ff0`).
 - Het T9-instrument is aangepast (zie boven). Vergelijk alleen v2 met v2.
 - Telling 32 van 61 gaat uit van één uiting per regel in het aangeleverde script; in een echte run bepalen ASR-segmentgrenzen het opknippen.
 - De BIO2-nummering (5.17/5.18 tegenover ISO 27002:2022 8.5/8.2) is nog niet tegen de BIO2-tekst gecontroleerd [CONTROLEREN].
