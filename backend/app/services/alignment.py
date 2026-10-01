@@ -151,12 +151,12 @@ def build_blocks(
         if b["asr"]["unreliable"]:
             log.warning("build_blocks  UNRELIABLE  role=%-11s  %.1f–%.1fs  "
                         "confidence=%.2f  severity=%s  reasons=%s  "
-                        "logprob=%s  compression=%s  no_speech=%s  %r",
+                        "logprob=%s  compression=%s  no_speech=%s  chars=%d",
                         b["role"], b["start"], b["end"], confidence, severity,
                         b["asr"]["reasons"],
                         b["asr"]["min_avg_logprob"], b["asr"]["max_compression_ratio"],
                         b["asr"]["max_no_speech_prob"],
-                        b["text"][:60].replace(chr(10), " "))
+                        len(b["text"]))
 
     log.info("build_blocks  total=%d  unreliable=%d  speakers=%s",
              len(blocks),
@@ -164,9 +164,8 @@ def build_blocks(
              {r: sum(1 for b in blocks if b["role"] == r)
               for r in ("client", "interpreter", "officer")})
     for b in blocks:
-        log.debug("build_blocks  block  role=%-11s  speaker=%-12s  %.1f–%.1fs  %r",
-                  b["role"], b["speaker"], b["start"], b["end"],
-                  b["text"][:60].replace("\n", " "))
+        log.debug("build_blocks  block  role=%-11s  speaker=%-12s  %.1f–%.1fs  chars=%d",
+                  b["role"], b["speaker"], b["start"], b["end"], len(b["text"]))
     return blocks
 
 
@@ -286,10 +285,10 @@ def extract_pairs(
                 "pair_index":   len(c2o_pairs),
             }
             c2o_pairs.append(pair)
-            log.info("extract_pairs  c2o[%d]  client=%.1fs %r  →  interp=%.1fs %r",
+            log.info("extract_pairs  c2o[%d]  client=%.1fs chars=%d  →  interp=%.1fs chars=%d",
                      pair["pair_index"],
-                     source["start"], source["text"][:60].replace("\n", " "),
-                     block["start"],  block["text"][:60].replace("\n", " "))
+                     source["start"], len(source["text"]),
+                     block["start"],  len(block["text"]))
 
         elif block["direction"] == "to_client":
             src_i = _find_preceding(blocks, i, "officer")
@@ -307,10 +306,10 @@ def extract_pairs(
                 "pair_index":   len(o2c_pairs),
             }
             o2c_pairs.append(pair)
-            log.info("extract_pairs  o2c[%d]  officer=%.1fs %r  →  interp=%.1fs %r",
+            log.info("extract_pairs  o2c[%d]  officer=%.1fs chars=%d  →  interp=%.1fs chars=%d",
                      pair["pair_index"],
-                     source["start"], source["text"][:60].replace("\n", " "),
-                     block["start"],  block["text"][:60].replace("\n", " "))
+                     source["start"], len(source["text"]),
+                     block["start"],  len(block["text"]))
 
     log.info("extract_pairs  c2o_pairs=%d  o2c_pairs=%d", len(c2o_pairs), len(o2c_pairs))
     return c2o_pairs, o2c_pairs

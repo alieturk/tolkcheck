@@ -155,6 +155,6 @@ def _transcribe_chunk_sync(
     log.info("transcribe_chunk  forced_lang=%s  detected=%s  prob=%.2f  segments=%d",
              language or "auto", detected, info.language_probability, len(result))
     for seg in result:
-        log.debug("transcribe_chunk  %.2f–%.2fs  %r",
-                  seg["start"], seg["end"], seg["text"][:80].replace("\n", " "))
+        log.debug("transcribe_chunk  %.2f–%.2fs  chars=%d",
+                  seg["start"], seg["end"], len(seg["text"]))
     return result

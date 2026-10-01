@@ -146,17 +146,17 @@ def _remap_compact_segment(
             range(len(spans)),
             key=lambda i: min(abs(seg["start"] - spans[i][0]), abs(seg["start"] - spans[i][1])),
         )
-        log.warning("[B] remap  segment %.2f–%.2fs fell in a gap — nearest chunk=%d  %r",
-                    seg["start"], seg["end"], best_i, seg["text"][:60].replace("\n", " "))
+        log.warning("[B] remap  segment %.2f–%.2fs fell in a gap — nearest chunk=%d  chars=%d",
+                    seg["start"], seg["end"], best_i, len(seg["text"]))
         had_issue = True
     elif best_overlap < (seg["end"] - seg["start"]) - 0.05:
         # Straddles a boundary: its text may mix two client turns. Cannot be split
         # without word-level timestamps, so it is attributed whole to the dominant
         # chunk — worth logging as a residual source of text/turn misattribution.
         log.warning("[B] remap  segment %.2f–%.2fs straddles chunks (overlap=%.2fs of %.2fs) "
-                    "— attributed to chunk %d  %r",
+                    "— attributed to chunk %d  chars=%d",
                     seg["start"], seg["end"], best_overlap, seg["end"] - seg["start"],
-                    best_i, seg["text"][:60].replace("\n", " "))
+                    best_i, len(seg["text"]))
         had_issue = True
 
     c0, _c1, o0, o1 = spans[best_i]
@@ -257,10 +257,9 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                         seg["start"] += turn["start"]
                         seg["end"]   += turn["start"]
                         seg["speaker"] = turn["speaker"]
-                        log.debug("[A] segment  speaker=%-12s  lang=%-4s  %.1f–%.1fs  %r",
+                        log.debug("[A] segment  speaker=%-12s  lang=%-4s  %.1f–%.1fs  chars=%d",
                                   turn["speaker"], seg.get("language", "?"),
-                                  seg["start"], seg["end"],
-                                  seg["text"][:80].replace("\n", " "))
+                                  seg["start"], seg["end"], len(seg["text"]))
 
                     if segs:
                         log.info("[A] turn  speaker=%-12s  %.1f–%.1fs  detected=%s  segs=%d",
@@ -427,14 +426,13 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                          len(all_client_segs), len(client_segs_before),
                          len(skipped_dutch), client_lang)
                 for s in skipped_dutch:
-                    log.warning("[B] retranscribe  SKIP_DUTCH  %.1f–%.1fs  %r  "
+                    log.warning("[B] retranscribe  SKIP_DUTCH  %.1f–%.1fs  chars=%d  "
                                 "— Dutch audio attributed to the client; "
                                 "check diarization/role assignment",
-                                s["start"], s["end"], s["text"][:70].replace(chr(10), " "))
+                                s["start"], s["end"], len(s["text"]))
                 for s in client_segs_before:
-                    log.debug("[B] retranscribe  BEFORE  %.1f–%.1fs  lang=%-4s  %r",
-                              s["start"], s["end"], s.get("language", "?"),
-                              s["text"][:80].replace("\n", " "))
+                    log.debug("[B] retranscribe  BEFORE  %.1f–%.1fs  lang=%-4s  chars=%d",
+                              s["start"], s["end"], s.get("language", "?"), len(s["text"]))
                 try:
                     import torch
                     import torchaudio
@@ -505,9 +503,9 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                             else:
                                 eval_row.language_validation_passed = True
                         for s in new_segs:
-                            log.debug("[B] retranscribe  AFTER   %.1f–%.1fs  lang=%-4s  %r",
+                            log.debug("[B] retranscribe  AFTER   %.1f–%.1fs  lang=%-4s  chars=%d",
                                       s["start"], s["end"], s.get("language", "?"),
-                                      s["text"][:80].replace("\n", " "))
+                                      len(s["text"]))
 
                         non_client = [s for s in transcript if s["speaker"] != client_speaker]
                         # skipped_dutch keeps its Phase A text — it is client-attributed
@@ -570,10 +568,8 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                     scoring_texts = await feedback.translate_to_dutch(c2o_client_texts, client_lang)
                     eval_row.client_translations = scoring_texts
                     for i, (orig, trans) in enumerate(zip(c2o_client_texts, scoring_texts)):
-                        log.info("[B] translate[%d]  %r → %r",
-                                 i,
-                                 orig[:60].replace("\n", " "),
-                                 trans[:60].replace("\n", " "))
+                        log.info("[B] translate[%d]  chars %d → %d",
+                                 i, len(orig), len(trans))
                 except Exception as exc:
                     log.warning("[B] translate  FAILED (%s) — scoring with original text", exc)
                     scoring_texts = c2o_client_texts
@@ -593,15 +589,11 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                 return
 
             for i, sc in enumerate(c2o_scores):
-                log.info("[B] c2o_score[%d]  %.4f  src=%r  tgt=%r",
-                         i, sc,
-                         scoring_texts[i][:60].replace("\n", " "),
-                         c2o_interp_texts[i][:60].replace("\n", " "))
+                log.info("[B] c2o_score[%d]  %.4f  src_chars=%d  tgt_chars=%d",
+                         i, sc, len(scoring_texts[i]), len(c2o_interp_texts[i]))
             for i, sc in enumerate(o2c_scores):
-                log.info("[B] o2c_score[%d]  %.4f  src=%r  tgt=%r",
-                         i, sc,
-                         o2c_officer_texts[i][:60].replace("\n", " "),
-                         o2c_interp_texts[i][:60].replace("\n", " "))
+                log.info("[B] o2c_score[%d]  %.4f  src_chars=%d  tgt_chars=%d",
+                         i, sc, len(o2c_officer_texts[i]), len(o2c_interp_texts[i]))
 
             # Mark pairs whose text Whisper itself decoded badly. A block flagged
             # here produced nonsense — a hallucinated language, a repetition loop,
@@ -621,9 +613,9 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                 for pair, sc in zip(c2o_pairs, c2o_scores):
                     if pair["unassessable"]:
                         asr = pair["interp_block"].get("asr") or {}
-                        log.warning("[B] scoring  EXCLUDED c2o[%d]  score=%.3f  reasons=%s  %r",
+                        log.warning("[B] scoring  EXCLUDED c2o[%d]  score=%.3f  reasons=%s  chars=%d",
                                     pair["pair_index"], sc, asr.get("reasons"),
-                                    pair["interp_block"]["text"][:60].replace(chr(10), " "))
+                                    len(pair["interp_block"]["text"]))
 
             # No per-session aggregate is computed or stored (EIS-2): a mean over a
             # hearing summarises the interpreter in one number. Only the per-pair
