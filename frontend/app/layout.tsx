@@ -4,7 +4,7 @@ import UserBar from "./UserBar";
 
 export const metadata: Metadata = {
   title: "Tolkcheck",
-  description: "AI-powered quality evaluation for IND interpreter sessions",
+  description: "Signals possible deviations between what was said and how it was interpreted in IND hearings",
 };
 
 export default function RootLayout({

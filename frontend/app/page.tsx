@@ -55,7 +55,7 @@ export default function DashboardPage() {
       <header className="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
         <div>
           <h1 className="text-lg font-semibold text-gray-900">Tolkcheck</h1>
-          <p className="text-xs text-gray-400">AI-kwaliteitsevaluatie voor IND-tolkgesprekken</p>
+          <p className="text-xs text-gray-400">Signalering van mogelijke vertaalafwijkingen in IND-gehoren</p>
         </div>
         <Link
           href="/upload"
