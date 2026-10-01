@@ -1,0 +1,136 @@
+{
+  "test": "T10 scope (EIS-2)",
+  "generated": "2026-10-01T15:59:08",
+  "git_commit": "6d689eaf644e167d1f77ce2a75e734128fe3d76d",
+  "repo_head_migration": "i2f8b6d3e5a7",
+  "alembic_revision": "i2f8b6d3e5a7",
+  "tables": {
+    "evaluations": [
+      "id uuid",
+      "session_id uuid",
+      "interpreter_speaker character varying",
+      "client_speaker character varying",
+      "transcript jsonb",
+      "semantic_similarity_scores jsonb",
+      "llm_feedback text",
+      "created_at timestamp with time zone",
+      "structured_issues jsonb",
+      "updated_at timestamp with time zone",
+      "client_translations jsonb",
+      "aligned_blocks jsonb",
+      "role_warnings jsonb",
+      "short_turns_skipped integer",
+      "language_confidence character varying",
+      "language_validation_passed boolean",
+      "timestamp_mapping_issues integer",
+      "asr_confidence_distribution jsonb"
+    ],
+    "knowledge_chunks": [
+      "id uuid",
+      "source_id character varying",
+      "category character varying",
+      "title character varying",
+      "content text",
+      "metadata jsonb",
+      "embedding USER-DEFINED",
+      "created_at timestamp with time zone"
+    ],
+    "sessions": [
+      "id uuid",
+      "filename character varying",
+      "audio_path character varying",
+      "language character varying",
+      "ind_case_id character varying",
+      "status USER-DEFINED",
+      "duration_seconds double precision",
+      "error_code character varying",
+      "error_message text",
+      "created_at timestamp with time zone",
+      "updated_at timestamp with time zone",
+      "owner_id uuid",
+      "known_terms text",
+      "audio_deleted_at timestamp with time zone"
+    ],
+    "users": [
+      "id uuid",
+      "email character varying",
+      "hashed_password character varying",
+      "is_active boolean",
+      "created_at timestamp with time zone",
+      "failed_login_count integer",
+      "locked_until timestamp with time zone",
+      "token_version integer"
+    ]
+  },
+  "foreign_keys": [
+    {
+      "from_table": "evaluations",
+      "to_table": "sessions",
+      "conname": "evaluations_session_id_fkey",
+      "definition": "FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE"
+    },
+    {
+      "from_table": "sessions",
+      "to_table": "users",
+      "conname": "sessions_owner_id_fkey",
+      "definition": "FOREIGN KEY (owner_id) REFERENCES users(id)"
+    }
+  ],
+  "check_1_score_columns": [
+    "evaluations.semantic_similarity_scores (jsonb)"
+  ],
+  "check_2_session_links": {
+    "foreign_keys_touching_sessions": [
+      {
+        "from_table": "evaluations",
+        "to_table": "sessions",
+        "conname": "evaluations_session_id_fkey",
+        "definition": "FOREIGN KEY (session_id) REFERENCES sessions(id) ON DELETE CASCADE"
+      },
+      {
+        "from_table": "sessions",
+        "to_table": "users",
+        "conname": "sessions_owner_id_fkey",
+        "definition": "FOREIGN KEY (owner_id) REFERENCES users(id)"
+      }
+    ],
+    "tables_referencing_more_than_one_session": [],
+    "shared_attributes_on_sessions": [
+      "sessions.ind_case_id (character varying)",
+      "sessions.owner_id (uuid)"
+    ]
+  },
+  "check_3_identity_columns": [
+    "evaluations.interpreter_speaker (character varying)",
+    "evaluations.client_speaker (character varying)",
+    "sessions.filename (character varying)",
+    "sessions.ind_case_id (character varying)",
+    "users.email (character varying)"
+  ],
+  "free_text_columns_user_can_fill": [
+    "sessions.filename (character varying)",
+    "sessions.ind_case_id (character varying)",
+    "sessions.known_terms (text)"
+  ],
+  "code": {
+    "score_columns_written": [
+      "backend/app/pipeline.py:623: eval_row.semantic_similarity_scores = c2o_scores"
+    ],
+    "score_shown_in_ui": [],
+    "llm_prompt_role": [],
+    "cross_session_queries": [
+      "backend/app/routers/sessions.py:98: select(Session)",
+      "backend/app/routers/sessions.py:120: select(Session).where(",
+      "backend/app/routers/sessions.py:150: select(Session).where(",
+      "backend/app/routers/sessions.py:166: select(Evaluation).where(Evaluation.session_id == session_id)",
+      "backend/app/routers/sessions.py:198: select(Session).where(",
+      "backend/app/routers/evaluations.py:31: select(Evaluation)",
+      "backend/app/pipeline.py:47: result = await db.execute(select(Session).where(Session.id == session_id))",
+      "backend/app/pipeline.py:366: select(Evaluation).where(Evaluation.session_id == sid)"
+    ],
+    "product_framing": [
+      "frontend/app/page.tsx:58: <p className=\"text-xs text-gray-400\">AI-kwaliteitsevaluatie voor IND-tolkgesprekken</p>",
+      "frontend/app/upload/page.tsx:89: Upload een audio-opname van een IND-tolkgesprek om de kwaliteit te evalueren."
+    ]
+  }
+}

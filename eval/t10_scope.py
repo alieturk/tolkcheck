@@ -8,12 +8,15 @@ paths that write and display the relevant columns. The verdict is written by a
 human in RESULTS.md; this script only produces the evidence.
 
 Usage (from repo root, Postgres with a migrated tolkcheck_t8 on :5433):
-  uv run --project backend python eval/t10_scope.py
+  uv run --project backend python eval/t10_scope.py [--repo PATH] [--out DIR]
 
-Writes eval/results/t10/schema.sql (pg_dump --schema-only) and evidence.json.
+--repo inspects another checkout (the database must be migrated to that
+checkout's head; evidence.json records both so a mismatch is visible).
+Writes <out>/schema.sql (pg_dump --schema-only) and <out>/evidence.json.
 """
 from __future__ import annotations
 
+import argparse
 import asyncio
 import datetime as dt
 import json
@@ -47,11 +50,26 @@ CODE_GREPS = {
 }
 
 
-def grep(pattern: str, files: list[str]) -> list[str]:
+def _alembic_head(repo: Path) -> str | None:
+    """The revision no other migration in the checkout points back to."""
+    revs, downs = set(), set()
+    for f in (repo / "backend" / "alembic" / "versions").glob("*.py"):
+        src = f.read_text(encoding="utf-8")
+        r = re.search(r"^revision[^=]*=\s*['\"](\w+)['\"]", src, re.M)
+        d = re.search(r"^down_revision[^=]*=\s*['\"](\w+)['\"]", src, re.M)
+        if r:
+            revs.add(r.group(1))
+        if d:
+            downs.add(d.group(1))
+    heads = revs - downs
+    return heads.pop() if len(heads) == 1 else None
+
+
+def grep(pattern: str, files: list[str], repo: Path = REPO) -> list[str]:
     rx = re.compile(pattern)
     hits = []
     for rel in files:
-        p = REPO / rel
+        p = repo / rel
         if not p.exists():
             hits.append(f"{rel}: <missing>")
             continue
@@ -62,10 +80,15 @@ def grep(pattern: str, files: list[str]) -> list[str]:
 
 
 async def main() -> None:
-    OUT.mkdir(parents=True, exist_ok=True)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--repo", type=Path, default=REPO)
+    ap.add_argument("--out", type=Path, default=OUT)
+    args = ap.parse_args()
+    repo, out = args.repo.resolve(), args.out
+    out.mkdir(parents=True, exist_ok=True)
     env = {**os.environ, "PGPASSWORD": "postgres"}
     subprocess.run([str(PG_DUMP), "-h", "localhost", "-p", "5433", "-U", "postgres",
-                    "--schema-only", "--no-owner", "-f", str(OUT / "schema.sql"), "tolkcheck_t8"],
+                    "--schema-only", "--no-owner", "-f", str(out / "schema.sql"), "tolkcheck_t8"],
                    env=env, check=True)
 
     conn = await asyncpg.connect(DSN)
@@ -86,8 +109,9 @@ async def main() -> None:
     evidence = {
         "test": "T10 scope (EIS-2)",
         "generated": dt.datetime.now().isoformat(timespec="seconds"),
-        "git_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO,
+        "git_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo,
                                      capture_output=True, text=True).stdout.strip(),
+        "repo_head_migration": _alembic_head(repo),
         "alembic_revision": revision,
         "tables": {t: [f"{c['column_name']} {c['data_type']}" for c in cols if c["table_name"] == t]
                    for t in tables},
@@ -110,11 +134,11 @@ async def main() -> None:
             f"sessions.{c['column_name']} ({c['data_type']})" for c in cols
             if c["table_name"] == "sessions" and c["data_type"] in FREE_TEXT_TYPES
             and c["column_name"] in ("filename", "ind_case_id", "known_terms")],
-        "code": {k: grep(p, f) for k, (p, f) in CODE_GREPS.items()},
+        "code": {k: grep(p, f, repo) for k, (p, f) in CODE_GREPS.items()},
     }
-    (OUT / "evidence.json").write_text(json.dumps(evidence, indent=2, ensure_ascii=False),
+    (out / "evidence.json").write_text(json.dumps(evidence, indent=2, ensure_ascii=False),
                                        encoding="utf-8")
-    print(f"wrote {OUT / 'schema.sql'} and {OUT / 'evidence.json'}")
+    print(f"wrote {out / 'schema.sql'} and {out / 'evidence.json'}")
     for k in ("check_1_score_columns", "check_2_session_links", "check_3_identity_columns",
               "free_text_columns_user_can_fill"):
         print(k, json.dumps(evidence[k], ensure_ascii=False))
