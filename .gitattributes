@@ -1,0 +1,5 @@
+# Files executed or parsed inside Linux containers must keep LF endings,
+# also when the repository is checked out on Windows.
+*.sh text eol=lf
+deploy/Caddyfile text eol=lf
+Dockerfile* text eol=lf
