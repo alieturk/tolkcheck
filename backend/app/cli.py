@@ -7,6 +7,7 @@ Usage (inside the backend container):
     uv run python -m app.cli create-user someone@ind.nl
     uv run python -m app.cli create-user someone@ind.nl --generate
     uv run python -m app.cli ingest-knowledge knowledge_base
+    uv run python -m app.cli purge-expired --dry-run
 """
 from __future__ import annotations
 
@@ -75,6 +76,24 @@ def ingest_knowledge_command(args: argparse.Namespace) -> None:
     asyncio.run(_ingest_knowledge(Path(args.path)))
 
 
+async def _purge_expired(dry_run: bool, days: int | None) -> None:
+    from app.services.retention import purge_expired
+
+    async with AsyncSessionLocal() as db:
+        result = await purge_expired(db, dry_run=dry_run, retention_days=days)
+    verb = "Would delete" if dry_run else "Deleted"
+    print(f"{verb} {result['sessions_deleted']} session(s) uploaded before {result['cutoff']} "
+          f"({result['retention_days']} days), {result['audio_files_deleted']} audio file(s), "
+          f"{result['orphan_files_deleted']} orphan file(s).")
+    if result["audio_delete_failed"]:
+        print(f"{result['audio_delete_failed']} audio file(s) could not be deleted; "
+              "their sessions were kept and will be retried.", file=sys.stderr)
+
+
+def purge_expired_command(args: argparse.Namespace) -> None:
+    asyncio.run(_purge_expired(args.dry_run, args.days))
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(prog="app.cli")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -97,6 +116,16 @@ def main() -> None:
         help="Directory of *.md source files (default: knowledge_base)",
     )
     ingest_parser.set_defaults(func=ingest_knowledge_command)
+
+    purge_parser = subparsers.add_parser(
+        "purge-expired",
+        help="Run the retention job now: delete sessions and audio older than RETENTION_DAYS",
+    )
+    purge_parser.add_argument("--dry-run", action="store_true",
+                              help="Report what would be deleted without deleting anything")
+    purge_parser.add_argument("--days", type=int, default=None,
+                              help="Override RETENTION_DAYS for this run")
+    purge_parser.set_defaults(func=purge_expired_command)
 
     args = parser.parse_args()
     args.func(args)

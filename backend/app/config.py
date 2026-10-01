@@ -58,6 +58,11 @@ class Settings(BaseSettings):
     # explicitly in .env, or the login cookie will silently fail to persist.
     cookie_secure: bool = True
 
+    # Retention (EIS-5, AVG art. 5(1)(e)): sessions — with their transcript,
+    # flags and feedback — and any remaining audio are deleted this many days
+    # after upload by the daily job in app/services/retention.py.
+    retention_days: int = 90
+
     # Logging
     log_level: str = "INFO"
 
