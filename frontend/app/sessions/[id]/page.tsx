@@ -334,7 +334,7 @@ export default function SessionPage() {
               <span>
                 {session.status === "transcribing"  && "Audio wordt getranscribeerd..."}
                 {session.status === "diarising"     && "Sprekers worden geïdentificeerd..."}
-                {session.status === "scoring"       && "Kwaliteit wordt berekend..."}
+                {session.status === "scoring"       && "Vertalingen worden vergeleken..."}
                 {session.status === "generating"    && "Feedback wordt gegenereerd..."}
               </span>
             </div>

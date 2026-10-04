@@ -86,7 +86,8 @@ export default function UploadPage() {
       <div className="w-full max-w-lg bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
         <h1 className="text-2xl font-semibold text-gray-900 mb-1">Nieuwe evaluatie</h1>
         <p className="text-sm text-gray-500 mb-6">
-          Upload een audio-opname van een IND-tolkgesprek om de kwaliteit te evalueren.
+          Upload een audio-opname van een IND-gehoor om fragmenten te laten signaleren waar de
+          vertolking inhoudelijk mogelijk afwijkt. U beoordeelt elke signalering zelf.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-5">

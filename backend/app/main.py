@@ -18,7 +18,8 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(
     title="Tolkcheck API",
-    description="AI-powered interpreter quality evaluation for IND sessions",
+    description="Signals possible deviations between source utterance and interpretation "
+                "in IND hearings, per fragment; does not assess the interpreter",
     version="0.1.0",
     lifespan=lifespan,
     redirect_slashes=False,

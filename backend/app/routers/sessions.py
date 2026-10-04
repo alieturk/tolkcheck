@@ -5,11 +5,12 @@ from pathlib import Path
 
 from arq import create_pool
 from arq.connections import RedisSettings
-from fastapi import APIRouter, Depends, File, Form, HTTPException, UploadFile, status
+from fastapi import APIRouter, Depends, File, Form, HTTPException, Request, UploadFile, status
 from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
+from app.audit import audit
 from app.config import settings
 from app.database import get_session as get_db   # aliased to avoid shadowing by the route handler below
 from app.models.evaluation import Evaluation
@@ -42,6 +43,7 @@ async def _arq_pool():
 
 @router.post("", status_code=status.HTTP_202_ACCEPTED)
 async def create_session(
+    request: Request,
     audio: UploadFile = File(...),
     language: str = Form("nl"),
     case_id: str | None = Form(None),
@@ -76,6 +78,7 @@ async def create_session(
     db.add(session)
     await db.commit()
     await db.refresh(session)
+    audit("session.upload", request, user=current_user.id, session=session_id, bytes=len(contents))
 
     return {"session_id": str(session_id), "status": session.status}
 
@@ -84,6 +87,7 @@ async def create_session(
 
 @router.get("", response_model=list[SessionOut])
 async def list_sessions(
+    request: Request,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
     limit: int = 50,
@@ -97,13 +101,16 @@ async def list_sessions(
         .limit(limit)
         .offset(offset)
     )
-    return result.scalars().all()
+    rows = result.scalars().all()
+    audit("session.list", request, user=current_user.id, count=len(rows))
+    return rows
 
 
 # ── Get one ────────────────────────────────────────────────────────────────────
 
 @router.get("/{session_id}", response_model=SessionOut)
 async def get_session(
+    request: Request,
     session_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
@@ -116,7 +123,10 @@ async def get_session(
     )
     session = result.scalar_one_or_none()
     if not session:
+        audit("session.not_found", request, user=current_user.id, session=session_id)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
+    # No audit on success: the UI polls this every 3 s for the status stepper.
+    # Access to the content (transcript, flags) is audited in evaluations.py.
     return session
 
 
@@ -129,6 +139,7 @@ class ConfirmRolesRequest(BaseModel):
 
 @router.post("/{session_id}/confirm-roles", status_code=status.HTTP_202_ACCEPTED)
 async def confirm_roles(
+    request: Request,
     session_id: uuid.UUID,
     body: ConfirmRolesRequest,
     db: AsyncSession = Depends(get_db),
@@ -142,6 +153,7 @@ async def confirm_roles(
     )
     session = result.scalar_one_or_none()
     if not session:
+        audit("session.not_found", request, user=current_user.id, session=session_id)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
 
     if session.status != SessionStatus.AWAITING_ROLE_CONFIRMATION:
@@ -167,6 +179,7 @@ async def confirm_roles(
     arq = await _arq_pool()
     await arq.enqueue_job("resume_scoring", str(session_id))
     await arq.aclose()
+    audit("session.confirm_roles", request, user=current_user.id, session=session_id)
 
     return {"session_id": str(session_id), "status": SessionStatus.SCORING}
 
@@ -175,6 +188,7 @@ async def confirm_roles(
 
 @router.post("/{session_id}/start", status_code=status.HTTP_202_ACCEPTED)
 async def start_pipeline(
+    request: Request,
     session_id: uuid.UUID,
     db: AsyncSession = Depends(get_db),
     current_user: User = Depends(get_current_user),
@@ -187,6 +201,7 @@ async def start_pipeline(
     )
     session = result.scalar_one_or_none()
     if not session:
+        audit("session.not_found", request, user=current_user.id, session=session_id)
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
 
     if session.status != SessionStatus.PENDING:
@@ -198,5 +213,6 @@ async def start_pipeline(
     arq = await _arq_pool()
     await arq.enqueue_job("run_pipeline", str(session_id))
     await arq.aclose()
+    audit("session.start", request, user=current_user.id, session=session_id)
 
     return {"session_id": str(session_id), "status": session.status}

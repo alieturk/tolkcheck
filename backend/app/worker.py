@@ -12,6 +12,7 @@ import logging
 
 from arq import ArqRedis
 from arq.connections import RedisSettings
+from arq.cron import cron
 
 from app.config import settings
 from app.logging_config import configure_logging
@@ -49,8 +50,20 @@ async def shutdown(ctx: dict) -> None:
     """Called once when the worker process shuts down."""
 
 
+async def purge_expired_sessions(ctx: dict) -> dict:
+    """Daily retention run (EIS-5) — see app/services/retention.py."""
+    from app.database import AsyncSessionLocal
+    from app.services.retention import purge_expired
+
+    async with AsyncSessionLocal() as db:
+        return await purge_expired(db)
+
+
 class WorkerSettings:
     functions = [run_pipeline, resume_scoring]
+    # Daily at 03:00 (worker's clock), and once at startup so a day missed
+    # while the worker was down is caught up rather than skipped.
+    cron_jobs = [cron(purge_expired_sessions, hour=3, minute=0, run_at_startup=True)]
     on_startup = startup
     on_shutdown = shutdown
     redis_settings = RedisSettings.from_dsn(settings.redis_url)

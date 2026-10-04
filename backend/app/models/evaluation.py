@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from sqlalchemy import DateTime, Float, ForeignKey, String, Text, func
+from sqlalchemy import DateTime, ForeignKey, String, Text, func
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -27,12 +27,9 @@ class Evaluation(Base):
     interpreter_speaker: Mapped[str | None] = mapped_column(String(32), nullable=True)
     client_speaker: Mapped[str | None] = mapped_column(String(32), nullable=True)
 
-    # Scores — 0 to 100 (null until Phase B of the pipeline completes)
-    overall_score: Mapped[float | None] = mapped_column(Float, nullable=True)
-    accuracy_score: Mapped[float | None] = mapped_column(Float, nullable=True)
-    completeness_score: Mapped[float | None] = mapped_column(Float, nullable=True)
-    terminology_score: Mapped[float | None] = mapped_column(Float, nullable=True)
-    fluency_score: Mapped[float | None] = mapped_column(Float, nullable=True)
+    # Deliberately no per-session score (EIS-2): the tool signals deviations per
+    # utterance and does not judge the interpreter. The per-pair similarities in
+    # semantic_similarity_scores are the only scores stored.
 
     # AI pipeline outputs
     # transcript: list of {start, end, speaker, text} — stored after diarisation

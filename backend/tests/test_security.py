@@ -47,7 +47,13 @@ class TestTokenRoundtrip:
     def test_tampered_signature_raises(self):
         user_id = uuid.uuid4()
         token = create_access_token(user_id)
-        tampered = token[:-1] + ("A" if token[-1] != "A" else "B")
+        # Flip the FIRST signature character. The last one is a trap: base64url
+        # packs 32 signature bytes into 43 chars, so the final char carries 2
+        # unused bits and some swaps decode to the identical signature (~5% of
+        # runs, which made this test flaky).
+        sig_start = token.rindex(".") + 1
+        swapped = "A" if token[sig_start] != "A" else "B"
+        tampered = token[:sig_start] + swapped + token[sig_start + 1:]
         with pytest.raises(InvalidTokenError):
             decode_access_token(tampered)
 

@@ -1,0 +1,29 @@
+# TLS-terminating reverse proxy for docker-compose.prod.yml (BIO2 8.24).
+# Only this container publishes ports; everything else stays on the internal
+# Docker network. The browser talks to the frontend only; Next.js forwards
+# /api/backend/* to the API (frontend/next.config.ts).
+#
+# Certificates: by default Caddy obtains one from Let's Encrypt for $DOMAIN,
+# which needs a public DNS name and port 80/443 reachable from the internet.
+# On an internal IND network, replace the automatic certificate with the
+# organisation's own (uncomment one `tls` line):
+#   tls /etc/caddy/certs/tolkcheck.crt /etc/caddy/certs/tolkcheck.key
+#   tls internal        # Caddy's local CA; clients must trust it explicitly
+{$DOMAIN} {
+	encode gzip
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "DENY"
+		Referrer-Policy "no-referrer"
+		-Server
+	}
+
+	# Hearing recordings can be large; reject anything beyond 1 GB outright.
+	request_body {
+		max_size 1GB
+	}
+
+	reverse_proxy frontend:3000
+}

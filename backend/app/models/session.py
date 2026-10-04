@@ -50,6 +50,13 @@ class Session(Base):
     error_code: Mapped[str | None] = mapped_column(String(64), nullable=True)
     # Raw Python exception — for debugging only, never shown in the UI
     error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
+    # Set when the uploaded audio file is removed from disk (EIS-5,
+    # process-and-delete). The pipeline deletes it as soon as the session
+    # reaches a terminal status (COMPLETED or FAILED); see pipeline._delete_audio.
+    # audio_path is kept as a record of where the file was, not that it exists.
+    audio_deleted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )

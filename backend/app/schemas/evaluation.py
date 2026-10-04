@@ -14,11 +14,6 @@ class EvaluationOut(BaseModel):
     session_id: uuid.UUID
     interpreter_speaker: str | None
     client_speaker: str | None
-    overall_score: float | None
-    accuracy_score: float | None
-    completeness_score: float | None
-    terminology_score: float | None
-    fluency_score: float | None
     transcript: list[Any] | None
     # Speaker blocks with interpreter direction and pair linkage, as produced by
     # services/alignment.py. This is what the UI renders from: without it the
