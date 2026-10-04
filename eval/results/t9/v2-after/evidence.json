@@ -1,0 +1,434 @@
+{
+  "test": "T9 security (EIS-6), code review only",
+  "instrument": "eval/t9_security.py v2",
+  "generated": "2026-10-01T15:58:40",
+  "inspected_repo": "C:\\Users\\cultro\\TolkCheck\\tolkcheck",
+  "inspected_commit": "6d689eaf644e167d1f77ce2a75e734128fe3d76d",
+  "inspected_branch": "fix/eis-2-eis-5",
+  "checks": {
+    "password_hashing": {
+      "pattern": "CryptContext|bcrypt|argon2",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/routers/auth.py:59: account is locked: same generic error, and the same bcrypt work, in every",
+        "backend/app/security.py:15: from passlib.context import CryptContext",
+        "backend/app/security.py:26: _pwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")",
+        "backend/app/security.py:41: \"\"\"Spend the same bcrypt time as a real check when there is nothing to"
+      ]
+    },
+    "jwt_algorithm_and_secret": {
+      "pattern": "algorithm|secret_key|jwt\\.(en|de)code",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/config.py:53: secret_key: str  # required — no default; app must fail to start if unset",
+        "backend/app/config.py:54: algorithm: str = \"HS256\"",
+        "backend/app/security.py:59: return jwt.encode(payload, settings.secret_key, algorithm=settings.algorithm)",
+        "backend/app/security.py:65: payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])"
+      ]
+    },
+    "tls_dev_config": {
+      "pattern": "sslmode|ssl=|ssl_context|certfile|keyfile|rediss://|^\\s*tls\\s|Strict-Transport-Security|\\\"443:443\\\"",
+      "searched": [
+        "docker-compose.yml",
+        "backend/Dockerfile.dev",
+        "frontend/Dockerfile.dev",
+        "backend/.env.example"
+      ],
+      "hits": []
+    },
+    "tls_prod_config": {
+      "pattern": "sslmode|ssl=|ssl_context|certfile|keyfile|rediss://|^\\s*tls\\s|Strict-Transport-Security|\\\"443:443\\\"",
+      "searched": [
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example"
+      ],
+      "hits": [
+        "docker-compose.prod.yml:37: - \"443:443\"",
+        "deploy/Caddyfile:16: Strict-Transport-Security \"max-age=31536000; includeSubDomains\""
+      ]
+    },
+    "encryption_at_rest": {
+      "pattern": "encrypt|fernet|cipher|AES|pgcrypto",
+      "searched": [
+        "backend/app",
+        "docker-compose.yml",
+        "backend/Dockerfile.dev",
+        "frontend/Dockerfile.dev",
+        "backend/.env.example",
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": []
+    },
+    "audio_written_plain": {
+      "pattern": "write_bytes|UPLOAD_DIR",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/routers/sessions.py:24: UPLOAD_DIR = Path(\"uploads\")",
+        "backend/app/routers/sessions.py:25: UPLOAD_DIR.mkdir(exist_ok=True)",
+        "backend/app/routers/sessions.py:63: audio_path = UPLOAD_DIR / f\"{session_id}{suffix}\"",
+        "backend/app/routers/sessions.py:66: audio_path.write_bytes(contents)",
+        "backend/app/services/retention.py:36: from app.routers.sessions import UPLOAD_DIR",
+        "backend/app/services/retention.py:46: upload_dir: Path = UPLOAD_DIR,",
+        "backend/app/services/retention.py:87: if upload_dir.exists():",
+        "backend/app/services/retention.py:88: for f in upload_dir.iterdir():"
+      ]
+    },
+    "cookie_flags": {
+      "pattern": "httponly|secure=|samesite",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/routers/auth.py:41: httponly=True,",
+        "backend/app/routers/auth.py:42: secure=settings.cookie_secure,",
+        "backend/app/routers/auth.py:43: samesite=\"lax\",",
+        "backend/app/routers/auth.py:133: samesite=\"lax\",",
+        "backend/app/routers/auth.py:134: secure=settings.cookie_secure,",
+        "backend/app/security.py:4: Token delivery is a cookie (httpOnly, SameSite=Lax), not an Authorization"
+      ]
+    },
+    "mfa": {
+      "pattern": "totp|otp|mfa|2fa|webauthn|second.factor|pyotp",
+      "searched": [
+        "backend/app",
+        "frontend/app",
+        "frontend/lib"
+      ],
+      "hits": []
+    },
+    "rate_limit_or_lockout": {
+      "pattern": "slowapi|limiter|rate.?limit|lockout|locked_until|login_max_failures|throttl",
+      "searched": [
+        "backend/app",
+        "docker-compose.yml",
+        "backend/Dockerfile.dev",
+        "frontend/Dockerfile.dev",
+        "backend/.env.example",
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": [
+        "backend/app/cli.py:80: user.locked_until = None",
+        "backend/app/cli.py:102: if u.locked_until is not None:",
+        "backend/app/cli.py:103: state += f\", locked until {u.locked_until:%Y-%m-%d %H:%M}\"",
+        "backend/app/cli.py:172: \"Re-enable an account (also clears a lockout) and revoke old logins\"),",
+        "backend/app/config.py:63: login_max_failures: int = 5",
+        "backend/app/config.py:64: login_lockout_minutes: int = 15",
+        "backend/app/models/user.py:25: locked_until: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)",
+        "backend/app/routers/auth.py:60: failure case. After settings.login_max_failures consecutive wrong",
+        "backend/app/routers/auth.py:61: passwords the account is locked for settings.login_lockout_minutes.",
+        "backend/app/routers/auth.py:76: if user.locked_until is not None and user.locked_until > now:",
+        "backend/app/routers/auth.py:87: if user.failed_login_count >= settings.login_max_failures:",
+        "backend/app/routers/auth.py:88: user.locked_until = now + timedelta(minutes=settings.login_lockout_minutes)",
+        "backend/app/routers/auth.py:91: minutes=settings.login_lockout_minutes)",
+        "backend/app/routers/auth.py:97: user.locked_until = None"
+      ]
+    },
+    "password_policy": {
+      "pattern": "min_length|len\\(password\\)|password.*<\\s*\\d|zxcvbn",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/cli.py:35: if len(password) < settings.password_min_length:",
+        "backend/app/cli.py:36: print(f\"Error: password must be at least {settings.password_min_length} characters.\",",
+        "backend/app/config.py:66: password_min_length: int = 12"
+      ]
+    },
+    "token_revocation": {
+      "pattern": "revok|blacklist|denylist|jti|token_version",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/cli.py:83: user.token_version += 1",
+        "backend/app/cli.py:86: print(f\"{'Activated' if active else 'Deactivated'} {email}; existing logins revoked.\")",
+        "backend/app/cli.py:170: \"Block an account and revoke its existing logins\"),",
+        "backend/app/cli.py:172: \"Re-enable an account (also clears a lockout) and revoke old logins\"),",
+        "backend/app/models/user.py:28: token_version: Mapped[int] = mapped_column(Integer, default=0, server_default=\"0\")",
+        "backend/app/routers/auth.py:99: _set_auth_cookie(response, create_access_token(user.id, user.token_version))",
+        "backend/app/routers/auth.py:110: \"\"\"Clear the cookie and revoke the token server-side.",
+        "backend/app/routers/auth.py:114: token_version is bumped, which invalidates every token issued to that",
+        "backend/app/routers/auth.py:125: if user is not None and user.token_version == ver:",
+        "backend/app/routers/auth.py:126: user.token_version += 1",
+        "backend/app/security.py:54: def create_access_token(subject: uuid.UUID, token_version: int = 0) -> str:",
+        "backend/app/security.py:58: payload = {\"sub\": str(subject), \"ver\": token_version, \"exp\": expire}",
+        "backend/app/security.py:101: user_id, token_version = decode_access_claims(token)",
+        "backend/app/security.py:112: if token_version != user.token_version:",
+        "backend/app/security.py:113: audit(\"auth.rejected\", request, reason=\"revoked_token\", user=user_id,"
+      ]
+    },
+    "token_lifetime": {
+      "pattern": "access_token_expire_minutes",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/config.py:55: access_token_expire_minutes: int = 60 * 10  # 10 hours",
+        "backend/app/routers/auth.py:44: max_age=settings.access_token_expire_minutes * 60,",
+        "backend/app/security.py:56: minutes=settings.access_token_expire_minutes"
+      ]
+    },
+    "roles_or_admin_flag": {
+      "pattern": "is_admin|is_superuser|permission|user_role|access_role|Role\\(|scopes?\\s*=",
+      "searched": [
+        "backend/app/models",
+        "backend/app/security.py",
+        "backend/app/routers"
+      ],
+      "hits": []
+    },
+    "account_management_cli": {
+      "pattern": "create-user|deactivate-user|activate-user|list-users",
+      "searched": [
+        "backend/app/cli.py"
+      ],
+      "hits": [
+        "backend/app/cli.py:7: uv run python -m app.cli create-user someone@ind.nl",
+        "backend/app/cli.py:8: uv run python -m app.cli create-user someone@ind.nl --generate",
+        "backend/app/cli.py:9: uv run python -m app.cli list-users",
+        "backend/app/cli.py:10: uv run python -m app.cli deactivate-user someone@ind.nl",
+        "backend/app/cli.py:11: uv run python -m app.cli activate-user someone@ind.nl",
+        "backend/app/cli.py:156: create_user_parser = subparsers.add_parser(\"create-user\", help=\"Provision a new user account\")",
+        "backend/app/cli.py:165: list_parser = subparsers.add_parser(\"list-users\", help=\"List accounts and their status\")",
+        "backend/app/cli.py:169: (\"deactivate-user\", deactivate_user_command,",
+        "backend/app/cli.py:171: (\"activate-user\", activate_user_command,"
+      ]
+    },
+    "ownership_checks": {
+      "pattern": "owner_id\\s*==\\s*current_user\\.id",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/routers/evaluations.py:33: .where(Evaluation.session_id == session_id, Session.owner_id == current_user.id)",
+        "backend/app/routers/sessions.py:99: .where(Session.owner_id == current_user.id)",
+        "backend/app/routers/sessions.py:121: Session.id == session_id, Session.owner_id == current_user.id",
+        "backend/app/routers/sessions.py:151: Session.id == session_id, Session.owner_id == current_user.id",
+        "backend/app/routers/sessions.py:199: Session.id == session_id, Session.owner_id == current_user.id"
+      ]
+    },
+    "default_credentials_dev": {
+      "pattern": "postgres:postgres|POSTGRES_PASSWORD=postgres\\b",
+      "searched": [
+        "docker-compose.yml",
+        "backend/Dockerfile.dev",
+        "frontend/Dockerfile.dev",
+        "backend/.env.example"
+      ],
+      "hits": [
+        "docker-compose.yml:35: - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/tolkcheck",
+        "docker-compose.yml:57: - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/tolkcheck",
+        "docker-compose.yml:114: - POSTGRES_PASSWORD=postgres",
+        "backend/.env.example:2: DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/tolkcheck"
+      ]
+    },
+    "default_credentials_prod": {
+      "pattern": "postgres:postgres|POSTGRES_PASSWORD=postgres\\b",
+      "searched": [
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example"
+      ],
+      "hits": []
+    },
+    "required_secrets_prod": {
+      "pattern": "\\$\\{\\w+:\\?",
+      "searched": [
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example"
+      ],
+      "hits": [
+        "docker-compose.prod.yml:22: DATABASE_URL: postgresql+asyncpg://tolkcheck_app:${APP_DB_PASSWORD:?set APP_DB_PASSWORD}@db:5432/tolkcheck",
+        "docker-compose.prod.yml:23: REDIS_URL: redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD}@redis:6379",
+        "docker-compose.prod.yml:24: SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY (openssl rand -hex 32)}",
+        "docker-compose.prod.yml:26: CORS_ORIGINS: '[\"https://${DOMAIN:?set DOMAIN}\"]'",
+        "docker-compose.prod.yml:27: HF_TOKEN: ${HF_TOKEN:?set HF_TOKEN}",
+        "docker-compose.prod.yml:40: DOMAIN: ${DOMAIN:?set DOMAIN}",
+        "docker-compose.prod.yml:65: DATABASE_URL: postgresql+asyncpg://${POSTGRES_USER:?set POSTGRES_USER}:${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}@db:5432/tolkcheck",
+        "docker-compose.prod.yml:66: SECRET_KEY: ${SECRET_KEY:?set SECRET_KEY (openssl rand -hex 32)}",
+        "docker-compose.prod.yml:106: command: [\"redis-server\", \"--requirepass\", \"${REDIS_PASSWORD:?set REDIS_PASSWORD}\"]",
+        "docker-compose.prod.yml:112: POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER}",
+        "docker-compose.prod.yml:113: POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}",
+        "docker-compose.prod.yml:115: APP_DB_PASSWORD: ${APP_DB_PASSWORD:?set APP_DB_PASSWORD}",
+        "deploy/postgres/10-app-role.sh:9: : \"${APP_DB_PASSWORD:?APP_DB_PASSWORD must be set}\""
+      ]
+    },
+    "redis_password": {
+      "pattern": "requirepass|redis://:",
+      "searched": [
+        "docker-compose.yml",
+        "backend/Dockerfile.dev",
+        "frontend/Dockerfile.dev",
+        "backend/.env.example",
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": [
+        "docker-compose.prod.yml:23: REDIS_URL: redis://:${REDIS_PASSWORD:?set REDIS_PASSWORD}@redis:6379",
+        "docker-compose.prod.yml:106: command: [\"redis-server\", \"--requirepass\", \"${REDIS_PASSWORD:?set REDIS_PASSWORD}\"]"
+      ]
+    },
+    "least_privilege_db_role": {
+      "pattern": "tolkcheck_app",
+      "searched": [
+        "docker-compose.prod.yml",
+        "deploy",
+        "backend/Dockerfile",
+        "frontend/Dockerfile",
+        ".env.prod.example"
+      ],
+      "hits": [
+        "docker-compose.prod.yml:22: DATABASE_URL: postgresql+asyncpg://tolkcheck_app:${APP_DB_PASSWORD:?set APP_DB_PASSWORD}@db:5432/tolkcheck",
+        "deploy/postgres/10-app-role.sh:16: CREATE ROLE tolkcheck_app LOGIN PASSWORD :'app_password';",
+        "deploy/postgres/10-app-role.sh:17: GRANT CONNECT ON DATABASE :\"db\" TO tolkcheck_app;",
+        "deploy/postgres/10-app-role.sh:18: GRANT USAGE ON SCHEMA public TO tolkcheck_app;",
+        "deploy/postgres/10-app-role.sh:23: GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO tolkcheck_app;",
+        "deploy/postgres/10-app-role.sh:25: GRANT USAGE, SELECT ON SEQUENCES TO tolkcheck_app;"
+      ]
+    },
+    "exposed_ports_dev": {
+      "pattern": "^\\s*-\\s*\\\"\\d+:\\d+\\\"",
+      "searched": [
+        "docker-compose.yml"
+      ],
+      "hits": [
+        "docker-compose.yml:9: - \"3000:3000\"",
+        "docker-compose.yml:27: - \"8000:8000\"",
+        "docker-compose.yml:70: - \"6379:6379\"",
+        "docker-compose.yml:77: - \"8080:8080\"",
+        "docker-compose.yml:111: - \"5433:5432\""
+      ]
+    },
+    "exposed_ports_prod": {
+      "pattern": "^\\s*-\\s*\\\"\\d+:\\d+\\\"",
+      "searched": [
+        "docker-compose.prod.yml"
+      ],
+      "hits": [
+        "docker-compose.prod.yml:37: - \"443:443\"",
+        "docker-compose.prod.yml:38: - \"80:80\"           # only to redirect to https and for ACME challenges"
+      ]
+    },
+    "admin_tools_dev": {
+      "pattern": "adminer|pgadmin",
+      "searched": [
+        "docker-compose.yml"
+      ],
+      "hits": [
+        "docker-compose.yml:74: adminer:",
+        "docker-compose.yml:75: image: adminer:latest"
+      ]
+    },
+    "admin_tools_prod": {
+      "pattern": "^\\s*(adminer|pgadmin)|image:\\s*(adminer|dpage/pgadmin)",
+      "searched": [
+        "docker-compose.prod.yml"
+      ],
+      "hits": []
+    },
+    "container_user_prod": {
+      "pattern": "^USER\\b",
+      "searched": [
+        "backend/Dockerfile",
+        "frontend/Dockerfile"
+      ],
+      "hits": [
+        "backend/Dockerfile:36: USER tolkcheck",
+        "frontend/Dockerfile:34: USER nextjs"
+      ]
+    },
+    "log_sink_and_level": {
+      "pattern": "basicConfig|stream=|FileHandler|log_level",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/cli.py:199: configure_logging(settings.log_level)  # so audit lines reach stdout",
+        "backend/app/config.py:74: log_level: str = \"INFO\"",
+        "backend/app/logging_config.py:23: logging.basicConfig(",
+        "backend/app/logging_config.py:27: stream=sys.stdout,",
+        "backend/app/main.py:10: configure_logging(settings.log_level)",
+        "backend/app/worker.py:21: configure_logging(settings.log_level)"
+      ]
+    },
+    "security_event_logging": {
+      "pattern": "\\blog\\.|\\blogger\\.|\\blogging\\.|\\baudit\\(",
+      "searched": [
+        "backend/app/routers/auth.py",
+        "backend/app/security.py",
+        "backend/app/routers/sessions.py",
+        "backend/app/routers/evaluations.py",
+        "backend/app/cli.py"
+      ],
+      "hits": [
+        "backend/app/routers/auth.py:74: audit(\"login.failure\", request, reason=\"unknown_user\", email_hash=email_hash(body.email))",
+        "backend/app/routers/auth.py:78: audit(\"login.failure\", request, reason=\"locked\", user=user.id)",
+        "backend/app/routers/auth.py:82: audit(\"login.failure\", request, reason=\"inactive\", user=user.id)",
+        "backend/app/routers/auth.py:90: audit(\"account.locked\", request, user=user.id,",
+        "backend/app/routers/auth.py:93: audit(\"login.failure\", request, reason=\"bad_password\", user=user.id)",
+        "backend/app/routers/auth.py:100: audit(\"login.success\", request, user=user.id)",
+        "backend/app/routers/auth.py:128: audit(\"logout\", request, user=user.id)",
+        "backend/app/security.py:103: audit(\"auth.rejected\", request, reason=\"invalid_token\", path=request.url.path)",
+        "backend/app/security.py:109: audit(\"auth.rejected\", request, reason=\"inactive_or_unknown_user\",",
+        "backend/app/security.py:113: audit(\"auth.rejected\", request, reason=\"revoked_token\", user=user_id,",
+        "backend/app/routers/sessions.py:81: audit(\"session.upload\", request, user=current_user.id, session=session_id, bytes=len(contents))",
+        "backend/app/routers/sessions.py:105: audit(\"session.list\", request, user=current_user.id, count=len(rows))",
+        "backend/app/routers/sessions.py:126: audit(\"session.not_found\", request, user=current_user.id, session=session_id)",
+        "backend/app/routers/sessions.py:156: audit(\"session.not_found\", request, user=current_user.id, session=session_id)",
+        "backend/app/routers/sessions.py:182: audit(\"session.confirm_roles\", request, user=current_user.id, session=session_id)",
+        "backend/app/routers/sessions.py:204: audit(\"session.not_found\", request, user=current_user.id, session=session_id)",
+        "backend/app/routers/sessions.py:216: audit(\"session.start\", request, user=current_user.id, session=session_id)",
+        "backend/app/routers/evaluations.py:37: audit(\"evaluation.not_found\", request, user=current_user.id, session=session_id)",
+        "backend/app/routers/evaluations.py:42: audit(\"evaluation.view\", request, user=current_user.id, session=session_id)",
+        "backend/app/cli.py:54: audit(\"account.create\", user=user.id, via=\"cli\")",
+        "backend/app/cli.py:85: audit(\"account.activate\" if active else \"account.deactivate\", user=user.id, via=\"cli\")",
+        "backend/app/cli.py:105: audit(\"account.list\", via=\"cli\", count=len(users))"
+      ]
+    },
+    "raw_errors_returned_by_api": {
+      "pattern": "^\\s*error_message\\s*:",
+      "searched": [
+        "backend/app/schemas/session.py"
+      ],
+      "hits": []
+    }
+  },
+  "transcript_text_in_logs": [],
+  "log_exposure_story_of_ali_3": {
+    "script": "eval/data/story-of-ali-3.script.txt",
+    "text_log_calls_at_info_or_higher": 0,
+    "truncation_chars": 60,
+    "utterances": 61,
+    "logged_in_full": 0,
+    "examples_logged_in_full": [],
+    "note": "No log call at INFO or higher writes text, so nothing of the script reaches the default logs."
+  }
+}

@@ -1,0 +1,280 @@
+{
+  "test": "T9 security (EIS-6), code review only",
+  "generated": "2026-10-01T14:27:27",
+  "git_commit": "2decb3093fb67550dfb3e2fe3221842c452052ff",
+  "checks": {
+    "password_hashing": {
+      "pattern": "CryptContext|bcrypt|argon2",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/security.py:15: from passlib.context import CryptContext",
+        "backend/app/security.py:25: _pwd_context = CryptContext(schemes=[\"bcrypt\"], deprecated=\"auto\")"
+      ]
+    },
+    "jwt_algorithm_and_secret": {
+      "pattern": "algorithm|secret_key|jwt\\.(en|de)code",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/config.py:53: secret_key: str  # required — no default; app must fail to start if unset",
+        "backend/app/config.py:54: algorithm: str = \"HS256\"",
+        "backend/app/security.py:45: return jwt.encode(payload, settings.secret_key, algorithm=settings.algorithm)",
+        "backend/app/security.py:50: payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])"
+      ]
+    },
+    "tls_in_app_or_config": {
+      "pattern": "sslmode|ssl=|ssl_context|--ssl-|certfile|keyfile|rediss://|tls_",
+      "searched": [
+        "backend/app",
+        "docker-compose.yml",
+        "backend/Dockerfile",
+        "backend/Dockerfile.dev",
+        "backend/.env.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": []
+    },
+    "encryption_at_rest": {
+      "pattern": "encrypt|fernet|cipher|AES|pgcrypto",
+      "searched": [
+        "backend/app",
+        "docker-compose.yml",
+        "backend/Dockerfile",
+        "backend/Dockerfile.dev",
+        "backend/.env.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": []
+    },
+    "audio_written_plain": {
+      "pattern": "write_bytes|UPLOAD_DIR",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/routers/sessions.py:23: UPLOAD_DIR = Path(\"uploads\")",
+        "backend/app/routers/sessions.py:24: UPLOAD_DIR.mkdir(exist_ok=True)",
+        "backend/app/routers/sessions.py:61: audio_path = UPLOAD_DIR / f\"{session_id}{suffix}\"",
+        "backend/app/routers/sessions.py:64: audio_path.write_bytes(contents)"
+      ]
+    },
+    "default_credentials_in_config": {
+      "pattern": "postgres:postgres|POSTGRES_PASSWORD|requirepass",
+      "searched": [
+        "docker-compose.yml",
+        "backend/Dockerfile",
+        "backend/Dockerfile.dev",
+        "backend/.env.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": [
+        "docker-compose.yml:35: - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/tolkcheck",
+        "docker-compose.yml:57: - DATABASE_URL=postgresql+asyncpg://postgres:postgres@db:5432/tolkcheck",
+        "docker-compose.yml:114: - POSTGRES_PASSWORD=postgres",
+        "backend/.env.example:2: DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/tolkcheck"
+      ]
+    },
+    "cookie_flags": {
+      "pattern": "httponly|secure=|samesite",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/config.py:57: # on-prem deployments without internal HTTPS must set COOKIE_SECURE=false",
+        "backend/app/routers/auth.py:35: httponly=True,",
+        "backend/app/routers/auth.py:36: secure=settings.cookie_secure,",
+        "backend/app/routers/auth.py:37: samesite=\"lax\",",
+        "backend/app/routers/auth.py:74: samesite=\"lax\",",
+        "backend/app/routers/auth.py:75: secure=settings.cookie_secure,",
+        "backend/app/security.py:4: Token delivery is a cookie (httpOnly, SameSite=Lax), not an Authorization"
+      ]
+    },
+    "mfa": {
+      "pattern": "totp|otp|mfa|2fa|webauthn|second.factor|pyotp",
+      "searched": [
+        "backend/app",
+        "frontend/app",
+        "frontend/lib"
+      ],
+      "hits": []
+    },
+    "rate_limit_or_lockout": {
+      "pattern": "slowapi|limiter|rate.?limit|lockout|failed_attempts|throttl",
+      "searched": [
+        "backend/app",
+        "docker-compose.yml",
+        "backend/Dockerfile",
+        "backend/Dockerfile.dev",
+        "backend/.env.example",
+        "backend/pyproject.toml"
+      ],
+      "hits": []
+    },
+    "password_policy": {
+      "pattern": "min_length|len\\(password\\)|password.*<\\s*\\d|zxcvbn",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": []
+    },
+    "token_revocation": {
+      "pattern": "revok|blacklist|denylist|jti|token_version",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": []
+    },
+    "token_lifetime": {
+      "pattern": "access_token_expire_minutes",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/config.py:55: access_token_expire_minutes: int = 60 * 10  # 10 hours",
+        "backend/app/routers/auth.py:38: max_age=settings.access_token_expire_minutes * 60,",
+        "backend/app/security.py:42: minutes=settings.access_token_expire_minutes"
+      ]
+    },
+    "roles_or_admin_flag": {
+      "pattern": "is_admin|is_superuser|permission|user_role|access_role|Role\\(|scopes?\\s*=",
+      "searched": [
+        "backend/app/models",
+        "backend/app/security.py",
+        "backend/app/routers"
+      ],
+      "hits": []
+    },
+    "account_provisioning": {
+      "pattern": "create-user|_create_user|is_active",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/cli.py:7: uv run python -m app.cli create-user someone@ind.nl",
+        "backend/app/cli.py:8: uv run python -m app.cli create-user someone@ind.nl --generate",
+        "backend/app/cli.py:27: async def _create_user(email: str, password: str) -> None:",
+        "backend/app/cli.py:53: asyncio.run(_create_user(args.email, password))",
+        "backend/app/cli.py:82: create_user_parser = subparsers.add_parser(\"create-user\", help=\"Provision a new user account\")",
+        "backend/app/models/user.py:21: is_active: Mapped[bool] = mapped_column(Boolean, default=True)",
+        "backend/app/routers/auth.py:59: if user is None or not user.is_active or not verify_password(body.password, user.hashed_password):",
+        "backend/app/security.py:82: if user is None or not user.is_active:"
+      ]
+    },
+    "ownership_checks": {
+      "pattern": "owner_id\\s*==\\s*current_user\\.id",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/routers/evaluations.py:31: .where(Evaluation.session_id == session_id, Session.owner_id == current_user.id)",
+        "backend/app/routers/sessions.py:95: .where(Session.owner_id == current_user.id)",
+        "backend/app/routers/sessions.py:114: Session.id == session_id, Session.owner_id == current_user.id",
+        "backend/app/routers/sessions.py:140: Session.id == session_id, Session.owner_id == current_user.id",
+        "backend/app/routers/sessions.py:185: Session.id == session_id, Session.owner_id == current_user.id"
+      ]
+    },
+    "exposed_service_ports": {
+      "pattern": "^\\s*-\\s*\\\"\\d+:\\d+\\\"",
+      "searched": [
+        "docker-compose.yml"
+      ],
+      "hits": [
+        "docker-compose.yml:9: - \"3000:3000\"",
+        "docker-compose.yml:27: - \"8000:8000\"",
+        "docker-compose.yml:70: - \"6379:6379\"",
+        "docker-compose.yml:77: - \"8080:8080\"",
+        "docker-compose.yml:111: - \"5433:5432\""
+      ]
+    },
+    "admin_tools": {
+      "pattern": "adminer|pgadmin",
+      "searched": [
+        "docker-compose.yml"
+      ],
+      "hits": [
+        "docker-compose.yml:73: # ── Adminer — web UI for the database (http://localhost:8080) ────────────",
+        "docker-compose.yml:74: adminer:",
+        "docker-compose.yml:75: image: adminer:latest"
+      ]
+    },
+    "container_user": {
+      "pattern": "^USER\\b",
+      "searched": [
+        "backend/Dockerfile",
+        "backend/Dockerfile.dev"
+      ],
+      "hits": []
+    },
+    "log_sink_and_level": {
+      "pattern": "basicConfig|stream=|FileHandler|log_level",
+      "searched": [
+        "backend/app"
+      ],
+      "hits": [
+        "backend/app/config.py:62: log_level: str = \"INFO\"",
+        "backend/app/logging_config.py:23: logging.basicConfig(",
+        "backend/app/logging_config.py:27: stream=sys.stdout,",
+        "backend/app/main.py:10: configure_logging(settings.log_level)",
+        "backend/app/worker.py:20: configure_logging(settings.log_level)"
+      ]
+    },
+    "auth_event_logging": {
+      "pattern": "log\\.|logger\\.|logging\\.",
+      "searched": [
+        "backend/app/routers/auth.py",
+        "backend/app/security.py",
+        "backend/app/routers/sessions.py",
+        "backend/app/routers/evaluations.py",
+        "backend/app/cli.py"
+      ],
+      "hits": []
+    },
+    "transcript_text_in_logs": {
+      "pattern": "log\\.(info|warning|error)\\(.*%r",
+      "searched": [
+        "backend/app/pipeline.py",
+        "backend/app/services/alignment.py"
+      ],
+      "hits": [
+        "backend/app/pipeline.py:126: log.warning(\"[B] remap  segment %.2f–%.2fs fell in a gap — nearest chunk=%d  %r\",",
+        "backend/app/pipeline.py:407: log.warning(\"[B] retranscribe  SKIP_DUTCH  %.1f–%.1fs  %r  \"",
+        "backend/app/pipeline.py:550: log.info(\"[B] translate[%d]  %r → %r\",",
+        "backend/app/pipeline.py:573: log.info(\"[B] c2o_score[%d]  %.4f  src=%r  tgt=%r\",",
+        "backend/app/pipeline.py:578: log.info(\"[B] o2c_score[%d]  %.4f  src=%r  tgt=%r\",",
+        "backend/app/pipeline.py:603: log.warning(\"[B] scoring  EXCLUDED c2o[%d]  score=%.3f  reasons=%s  %r\",",
+        "backend/app/services/alignment.py:289: log.info(\"extract_pairs  c2o[%d]  client=%.1fs %r  →  interp=%.1fs %r\",",
+        "backend/app/services/alignment.py:310: log.info(\"extract_pairs  o2c[%d]  officer=%.1fs %r  →  interp=%.1fs %r\","
+      ]
+    },
+    "raw_errors_returned_by_api": {
+      "pattern": "error_message",
+      "searched": [
+        "backend/app/schemas/session.py",
+        "backend/app/pipeline.py"
+      ],
+      "hits": [
+        "backend/app/schemas/session.py:23: error_message: str | None",
+        "backend/app/pipeline.py:66: error_message: str,",
+        "backend/app/pipeline.py:70: session.error_message = error_message"
+      ]
+    }
+  },
+  "log_exposure_story_of_ali_3": {
+    "script": "eval/data/story-of-ali-3.script.txt",
+    "truncation_chars": 60,
+    "utterances": 61,
+    "logged_in_full": 32,
+    "logged_truncated": 29,
+    "examples_logged_in_full": [
+      "Evet, iyi anlıyorum",
+      "Hij zegt dat hij haar goed verstaat.",
+      "Kunt u mij vertellen hoe oud u bent en waar u geboren bent?",
+      "Kaç yaşındasınız ve nerede doğdunuz?",
+      "Yirmi dokuz yaşındayım. Diyarbakır'da doğdum."
+    ],
+    "note": "Every utterance appears in the log, at least its first 60 characters; these counts say how many appear completely."
+  }
+}
