@@ -31,7 +31,10 @@ COPY knowledge_base/ ./knowledge_base/
 RUN useradd --system --uid 10001 --home-dir /app --shell /usr/sbin/nologin tolkcheck \
     && mkdir -p /app/uploads /models \
     && chown tolkcheck:tolkcheck /app/uploads /models
+# The user's home (/app) is read-only, so every other cache that libraries
+# write under ~/.cache (torch, etc.) is redirected to the writable volume.
 ENV HF_HOME=/models \
+    XDG_CACHE_HOME=/models/.cache \
     PATH="/app/.venv/bin:$PATH"
 USER tolkcheck
 
