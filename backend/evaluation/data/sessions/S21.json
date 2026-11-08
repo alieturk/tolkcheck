@@ -1,0 +1,189 @@
+{
+ "session_id": "S21",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "verhoor en behandeling op het politiebureau",
+ "generator": "claude",
+ "prompt_version": "tolkcheck-sessies-v2",
+ "reviewed": false,
+ "reviewed_by": null,
+ "pairs": [
+  {
+   "pair_id": "S21-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u misschien beschrijven hoe de kamer eruitzag waar u werd ondervraagd?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sorgulandığınız odanın nasıl göründüğünü anlatabilir misiniz?"
+   },
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Sorgulandığınız odanın nasıl göründüğünü belki anlatabilir misiniz?"
+  },
+  {
+   "pair_id": "S21-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Oda çok küçüktü, pencere yoktu. Ortada bir masa ve iki sandalye vardı. Duvarlar gri boyalıydı ve tavanda sürekli yanan bir lamba vardı. Beni sandalyeye oturttular, ellerimi çözmediler. Bir polis kapının önünde durdu, diğeri karşıma oturup soru sormaya başladı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De kamer was erg klein en had geen raam. In het midden stonden een tafel en twee stoelen. De muren waren grijs geverfd en aan het plafond brandde de hele tijd een lamp. Ze lieten me op een stoel zitten en maakten mijn handen niet los. Een agent bleef bij de deur staan en de ander ging tegenover me zitten en begon vragen te stellen."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke vragen stelde die agent en hoe lang duurde dat verhoor?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "O polisin size yönelttiği sorular nelerdi ve sorgulama ne kadar devam etti?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Önce adımı ve adresimi sordu. Sonra gazetedeki yazılarımı, kimlerle görüştüğümü, telefonumdaki mesajları sordu. Aynı soruları üç dört kez tekrarladı. Yaklaşık beş saat sürdü."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Eerst vroeg de agent naar mijn naam en mijn adres. Daarna vroeg de agent naar mijn artikelen in de krant en met wie ik contact had. Dezelfde vragen herhaalde de agent drie of vier keer. Het duurde ongeveer vijf uur."
+   },
+   "label": "omissie",
+   "subtype": "detail",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Eerst vroeg de agent naar mijn naam en mijn adres. Daarna vroeg de agent naar mijn artikelen in de krant, met wie ik contact had en naar de berichten op mijn telefoon. Dezelfde vragen herhaalde de agent drie of vier keer. Het duurde ongeveer vijf uur."
+  },
+  {
+   "pair_id": "S21-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft de agent u tijdens het verhoor ook bedreigd of geslagen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sorgu sırasında polis sizi tehdit etti mi ya da dövdü mü?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, bir kez yüzüme tokat attı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, de agent sloeg me één keer in mijn gezicht."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u daarna een arts gesproken, of een advocaat, voordat u werd vrijgelaten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Daha sonra serbest bırakılmadan önce bir doktorla veya bir avukatla görüştünüz mü? Bunu duymak çok üzücü."
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_oordeel",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Daha sonra serbest bırakılmadan önce bir doktorla veya bir avukatla görüştünüz mü?"
+  },
+  {
+   "pair_id": "S21-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, kimseyle konuşmama izin vermediler. Üçüncü gün beni bıraktılar ama gazeteciliğe devam edersem 'ekmek kapını kapatırız' dediler."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, ze lieten me met niemand praten. Op de derde dag lieten ze me gaan, maar ze zeiden dat ze mijn bron van inkomsten zouden afnemen als ik doorging met journalistiek. De tolk merkt op: 'ekmek kapını kapatırız' is een uitdrukking, letterlijk 'we sluiten je broodpoort', en betekent dat ze mijn bron van inkomsten zouden afnemen."
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}

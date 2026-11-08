@@ -1,0 +1,190 @@
+{
+ "session_id": "S20",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "aanhouding en detentie",
+ "generator": "claude",
+ "prompt_version": "tolkcheck-sessies-v2",
+ "reviewed": false,
+ "reviewed_by": null,
+ "pairs": [
+  {
+   "pair_id": "S20-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U zei dat u in november 2022 bent aangehouden. Waar was dat precies?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Kasım 2022'de gözaltına alındığınızı söylediniz. Bu tam olarak nerede oldu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S20-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Okulun önünde, öğle arasında. Dışarı çıkmıştım, iki polis yanıma geldi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Voor de school, tijdens de middagpauze. Ik was naar buiten gegaan en twee agenten kwamen naar me toe."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S20-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat zeiden de agenten tegen u voordat ze u meenamen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Polisler size ne söylediler?"
+   },
+   "label": "omissie",
+   "subtype": "bijzin",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Polisler sizi götürmeden önce size ne söylediler?"
+  },
+  {
+   "pair_id": "S20-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Kimliğimi sordular, ben de gösterdim. Sonra ellerimi arkadan bağladılar ve beni arabaya bindirdiler. Ne olduğunu sorduğumda cevap vermediler. Arabada yaklaşık yarım saat gittik, sonra bir binanın önünde durduk. İçeri girmeden önce telefonumu aldılar ve bana bir kâğıt imzalattılar."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze vroegen naar mijn identiteitsbewijs en ik liet het zien. Daarna bonden ze mijn handen op mijn rug en zetten ze mij in de auto. Toen ik vroeg wat er aan de hand was, gaven ze geen antwoord. We reden ongeveer een half uur en stopten daarna voor een gebouw. Nadat ik naar binnen was gegaan, namen ze mijn telefoon af en lieten ze mij een papier tekenen."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "tijd_of_volgorde",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Ze vroegen naar mijn identiteitsbewijs en ik liet het zien. Daarna bonden ze mijn handen op mijn rug en zetten ze mij in de auto. Toen ik vroeg wat er aan de hand was, gaven ze geen antwoord. We reden ongeveer een half uur en stopten daarna voor een gebouw. Voordat ik naar binnen ging, namen ze mijn telefoon af en lieten ze mij een papier tekenen."
+  },
+  {
+   "pair_id": "S20-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat stond er op dat papier dat u moest tekenen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İmzalamanız gereken o kâğıtta ne yazıyordu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S20-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Okumama izin vermediler. Sadece 'imzala, yoksa daha uzun kalırsın' dediler. Ben korktum ve çaresiz kaldım, o yüzden imzaladım, içeriğini bilmeden."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze lieten me het niet lezen. Ze zeiden alleen: 'teken, anders blijf je langer.' Ik was bang en voelde me machteloos, dus ik tekende, zonder de inhoud te kennen. De tolk licht toe dat zo'n papier meestal een proces-verbaal is."
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_uitleg_tolk",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Ze lieten me het niet lezen. Ze zeiden alleen: 'teken, anders blijf je langer.' Ik was bang en voelde me machteloos, dus ik tekende, zonder de inhoud te kennen."
+  },
+  {
+   "pair_id": "S20-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U zei eerder dat u drie dagen bent vastgehouden. Kreeg u in die tijd eten en water?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Daha önce beş gün gözaltında tutulduğunuzu söylediniz. O süre boyunca yemek ve su verildi mi?"
+   },
+   "label": "entiteitsfout",
+   "subtype": "tijdsduur",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Daha önce üç gün gözaltında tutulduğunuzu söylediniz. O süre boyunca yemek ve su verildi mi?"
+  },
+  {
+   "pair_id": "S20-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "İlk gün hiçbir şey vermediler. İkinci gün bir bardak su ve biraz ekmek geldi. Bacım sonradan öğrendi, bir avukat tuttu."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De eerste dag gaven ze me niets. De tweede dag kreeg ik een glas water en wat brood. Mijn zus is er later achter gekomen en heeft een advocaat genomen. De tolk merkt op dat de cliënt het woord 'bacı' gebruikt, een regionaal woord voor 'zus'."
+   },
+   "label": "controle_taalvariant",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}

@@ -1,0 +1,190 @@
+{
+ "session_id": "S22",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "bedreigingen na publicaties",
+ "generator": "claude",
+ "prompt_version": "tolkcheck-sessies-v2",
+ "reviewed": false,
+ "reviewed_by": null,
+ "pairs": [
+  {
+   "pair_id": "S22-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer kreeg u de eerste bedreiging, en hoe kwam die bij u binnen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İlk tehdidi ne zaman aldınız ve size nasıl ulaştı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S22-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Yazı dizimin üçüncü bölümü çıktıktan iki gün sonra, telefonum çaldı. Bilmediğim bir numaraydı. Karşıdaki adam adımı söyledi ve 'yazmayı bırak' dedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Twee dagen nadat het derde deel van mijn artikelenreeks verscheen, ging mijn telefoon. Het was een nummer dat ik niet kende. De man aan de andere kant noemde mijn naam en zei: 'stop met schrijven.'"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S22-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wist u wie hij was, en heeft u dit aan uw redacteur Selim Koç verteld?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Onun kim olduğunu biliyor muydunuz ve bunu editörünüz Serkan Koç'a anlattınız mı?"
+   },
+   "label": "entiteitsfout",
+   "subtype": "naam",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Onun kim olduğunu biliyor muydunuz ve bunu editörünüz Selim Koç'a anlattınız mı?"
+  },
+  {
+   "pair_id": "S22-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, tanımadım. Ama editörüme hemen anlattım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, ik kende hem. Maar ik heb het meteen aan mijn redacteur verteld."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "ontkenning_omgekeerd",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Nee, ik kende hem niet. Maar ik heb het meteen aan mijn redacteur verteld."
+  },
+  {
+   "pair_id": "S22-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kwamen er daarna nog meer bedreigingen, en op welke manier?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sonraki günlerde tehditler devam etti mi ve ne şekilde?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S22-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Bundan sonra gerçekten her gün aradılar. Bazen gece yarısı, bazen sabah erkenden. Numarayı her seferinde değiştiriyorlardı, o yüzden engelleyemedim. Mesajlar da gelmeye başladı; yazılarımı bilen, çocuğumun okuluna kadar her şeyi bilen biri gibi yazıyorlardı. Artık eve rahat girip çıkamıyordum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Daarna belden ze me elke dag. Soms midden in de nacht, soms vroeg in de ochtend. Ze veranderden elke keer van nummer, dus ik kon ze niet blokkeren. Er kwamen ook berichten; ze schreven als iemand die mijn artikelen kende en alles wist, zelfs welke school mijn kind bezocht. Ik kon niet meer rustig in en uit mijn huis gaan."
+   },
+   "label": "register_en_nadruk",
+   "subtype": "nadruk_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Daarna belden ze me echt elke dag. Soms midden in de nacht, soms vroeg in de ochtend. Ze veranderden elke keer van nummer, dus ik kon ze niet blokkeren. Er kwamen ook berichten; ze schreven als iemand die mijn artikelen kende en alles wist, zelfs welke school mijn kind bezocht. Ik kon niet meer rustig in en uit mijn huis gaan."
+  },
+  {
+   "pair_id": "S22-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hebt u de bedreigingen gemeld bij de politie of bij het openbaar ministerie, en wanneer was dat?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Tehditleri polise bildirdiniz mi ve bu ne zaman oldu?"
+   },
+   "label": "omissie",
+   "subtype": "kernfeit",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Tehditleri polise ya da savcılığa bildirdiniz mi ve bu ne zaman oldu?"
+  },
+  {
+   "pair_id": "S22-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, bildirdim. Ocak ayında Yeşilbağ Mahallesi'ndeki karakola gittim. Nöbetçi memur tutanak tutmayı reddetti, 'bunlar gazeteci işi' dedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, ik heb het gemeld. In januari ben ik naar het politiebureau in een wijk gegaan waarvan de tolk de naam niet goed verstond. De tolk vraagt de cliënt de naam te herhalen. De dienstdoende agent weigerde een proces-verbaal op te maken en zei: 'dat hoort bij het werk van journalisten.'"
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}

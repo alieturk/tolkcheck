@@ -1,0 +1,189 @@
+{
+ "session_id": "S23",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "vertrek en reisroute",
+ "generator": "claude",
+ "prompt_version": "tolkcheck-sessies-v2",
+ "reviewed": false,
+ "reviewed_by": null,
+ "pairs": [
+  {
+   "pair_id": "S23-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer heeft u besloten het land te verlaten, en waarom toen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ülkeyi terk etmeye ne zaman karar verdiniz ve neden o zaman?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mart ayında karar verdim. Artık güvende olmadığımı anlamıştım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "In maart nam ik die beslissing. Ik begreep dat ik niet langer veilig was."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U vertrok dus op 14 april. Hoe heeft u de reis betaald?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yani 4 Nisan'da yola çıktınız. Yolculuğun parasını nasıl ödediniz?"
+   },
+   "label": "entiteitsfout",
+   "subtype": "datum",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Yani 14 Nisan'da yola çıktınız. Yolculuğun parasını nasıl ödediniz?"
+  },
+  {
+   "pair_id": "S23-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Köydeki malları sattık, yani koyunları ve iki ineği. Ağabeyim de biraz borç buldu, toplam yedi bin avro oldu."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "We hebben de veestapel in het dorp verkocht, dus de schapen en twee koeien. Mijn broer heeft ook wat geld geleend; in totaal werd het zevenduizend euro. De tolk merkt op dat de cliënt het woord 'mal' gebruikt in de regionale betekenis van 'vee'."
+   },
+   "label": "controle_taalvariant",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S23-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoeveel van dat geld ging naar de man die u over de grens bracht?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "O paranın ne kadarı sizi sınırdan geçiren adama gitti?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Beş bin avro aldı. Sınırdaki devriyeler yüzünden gece karanlıkta yürümek zorunda kaldık."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De man nam vijfduizend euro. Omdat we 's nachts in het donker moesten lopen, waren er patrouilles aan de grens."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "oorzaak_gevolg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "De man nam vijfduizend euro. Vanwege de patrouilles aan de grens moesten we 's nachts in het donker lopen."
+  },
+  {
+   "pair_id": "S23-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Was u alleen over de grens, of met anderen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yanınızda başka insanlar var mıydı, yoksa sınırı yalnız mı geçtiniz?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Yirmi kadar kişiydik, çoğu Suriyeli ve Afganlıydı. Gecenin ortasında yürümeye başladık. Bir kadının bebeği vardı, çocuk hiç ağlamadı, sanırım çok yorgundu. Dört saat kadar yürüdük, kimse konuşmadı. Sabaha karşı bir köye vardık ve bizi bir ahıra soktular."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "We waren met ongeveer twintig mensen, de meesten Syriërs en Afghanen. Midden in de nacht begonnen we te lopen, in de regen. Een vrouw had een baby; het kind huilde helemaal niet, ik denk dat het heel moe was. We liepen ongeveer vier uur en niemand zei iets. Tegen de ochtend kwamen we bij een dorp en ze brachten ons in een stal."
+   },
+   "label": "toevoeging",
+   "subtype": "verzonnen_detail",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "We waren met ongeveer twintig mensen, de meesten Syriërs en Afghanen. Midden in de nacht begonnen we te lopen. Een vrouw had een baby; het kind huilde helemaal niet, ik denk dat het heel moe was. We liepen ongeveer vier uur en niemand zei iets. Tegen de ochtend kwamen we bij een dorp en ze brachten ons in een stal."
+  }
+ ]
+}

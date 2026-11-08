@@ -1,0 +1,190 @@
+{
+ "session_id": "S24",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "familie en terugkeer",
+ "generator": "claude",
+ "prompt_version": "tolkcheck-sessies-v2",
+ "reviewed": false,
+ "reviewed_by": null,
+ "pairs": [
+  {
+   "pair_id": "S24-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Als uw gezin nog in Turkije blijft, welke problemen verwacht u voor hen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Onlar için hangi sorunları bekliyorsunuz?"
+   },
+   "label": "omissie",
+   "subtype": "voorwaarde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Ailenizin Türkiye'de kalmaya devam etmesi halinde, onlar için hangi sorunları bekliyorsunuz?"
+  },
+  {
+   "pair_id": "S24-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Karım ve iki kızım hâlâ annemin evinde kalıyor. Karım öğretmendi ama okuldan çıkarıldı. Komşular artık onlarla konuşmuyor."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn vrouw en mijn twee dochters wonen nog steeds in het huis van mijn moeder. Mijn vrouw was lerares, maar ze is bij de school ontslagen. De buren praten niet meer met hen."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S24-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft iemand van de autoriteiten sindsdien contact met hen opgenomen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "O zamandan bu yana resmî makamlardan biri onlara ulaştı mı?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S24-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, geçen ay iki kişi gelip kapıyı çaldı, sivil giyimliydiler. Karıma benim nerede olduğumu sordular. Karım bilmediğini söyledi. Sanırım bir daha geleceklerdi, çünkü giderken 'yine görüşürüz' dediler. Kızlarım o günden beri geceleri uyuyamıyor ve okula gitmek istemiyor."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, vorige maand kwamen twee mensen aan de deur kloppen; ze waren in burgerkleding. Ze vroegen mijn vrouw waar ik was. Mijn vrouw zei dat ze het niet wist. Ze zouden nog een keer komen, want bij het weggaan zeiden ze: 'we zien elkaar nog.' Mijn dochters slapen sindsdien 's nachts niet meer en willen niet naar school."
+   },
+   "label": "register_en_nadruk",
+   "subtype": "twijfel_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Ja, vorige maand kwamen twee mensen aan de deur kloppen; ze waren in burgerkleding. Ze vroegen mijn vrouw waar ik was. Mijn vrouw zei dat ze het niet wist. Ik denk dat ze nog een keer zouden komen, want bij het weggaan zeiden ze: 'we zien elkaar nog.' Mijn dochters slapen sindsdien 's nachts niet meer en willen niet naar school."
+  },
+  {
+   "pair_id": "S24-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat zei uw vrouw toen u haar vertelde dat u het land moest verlaten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Karınıza ülkeyi terk etmeniz gerektiğini söylediğinizde karınız ne dedi? Bu karar sizin için kolay mıydı?"
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_vraag_tolk",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Karınıza ülkeyi terk etmeniz gerektiğini söylediğinizde karınız ne dedi?"
+  },
+  {
+   "pair_id": "S24-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ağladı ama 'git, burada kalma' dedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze huilde, maar ze zei dat het misschien beter was als ik wegging."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "sterker_of_zwakker_gemaakt",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Ze huilde, maar ze zei: 'ga, blijf hier niet.'"
+  },
+  {
+   "pair_id": "S24-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Denkt u dat uw vrouw en dochters ooit naar u toe kunnen komen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sizce karınız ve kızlarınız bir gün size gelebilir mi?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S24-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Bilmiyorum. Karım pasaport için başvurdu ama bekletiyorlar. Çok korkuyor, ağzından çıkanı kulağı duymuyor."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik weet het niet. Mijn vrouw heeft een paspoort aangevraagd, maar ze laten haar wachten. Ze is heel bang, ze weet niet meer wat ze zegt. De tolk merkt op: 'ağzından çıkanı kulağı duymuyor' is een uitdrukking, letterlijk 'haar oor hoort niet wat uit haar mond komt', en betekent dat iemand zo zenuwachtig is dat hij of zij niet weet wat hij of zij zegt."
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}
