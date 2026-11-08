@@ -23,6 +23,11 @@ for trying the format out; the report then says the numbers are not valid.
     uv run python evaluation/detection_check.py --threshold 0.70      # current production cut-off, no calibration
     uv run python evaluation/detection_check.py --path pseudo_reference  # needs ANTHROPIC_API_KEY
     uv run python evaluation/detection_check.py --include-drafts --include-unreviewed --threshold 0.70  # format demo only
+    uv run python evaluation/detection_check.py --dry-run --include-unreviewed --threshold 0.70  # dev sessions only, DEMO
+
+`--dry-run` scores only the dev sessions with the given --threshold (required),
+chooses no threshold, leaves test sessions out, and marks the report DEMO / "niet
+geldig". `--sessions-dir` reads the sessions from another folder.
 """
 from __future__ import annotations
 
@@ -31,6 +36,7 @@ import asyncio
 import datetime as _dt
 import json
 import math
+from pathlib import Path
 
 from _common import (
     DATA,
@@ -172,31 +178,42 @@ async def run(
     include_drafts: bool = False,
     include_unreviewed: bool = False,
     n_boot: int = 2000,
+    dry_run: bool = False,
+    sessions_dir: Path = SESSIONS_DIR,
 ) -> CheckResult:
     if path not in PATHS:
         return CheckResult.failed(NAME, f"unknown path {path!r}")
-    if not SESSIONS_DIR.exists():
-        return CheckResult.skipped(NAME, f"{SESSIONS_DIR} not found")
+    if dry_run and threshold is None:
+        return CheckResult.failed(NAME, "--dry-run needs --threshold; it never chooses one")
+    if not sessions_dir.exists():
+        return CheckResult.skipped(NAME, f"{sessions_dir} not found")
     try:
-        all_sessions = load_sessions(SESSIONS_DIR)
+        all_sessions = load_sessions(sessions_dir)
     except SessionFormatError as exc:
         return CheckResult.failed(NAME, f"session format: {exc}")
     sessions, excluded = _select(all_sessions, include_drafts, include_unreviewed)
+    if dry_run:
+        # Test and draft sessions stay out of the run entirely: not scored, not reported.
+        excluded += [f"{s.session_id}: split={s.split}, niet meegeteld (--dry-run rekent alleen dev door)"
+                     for s in sessions if s.split != "dev"]
+        sessions = [s for s in sessions if s.split == "dev"]
     if not sessions:
         return CheckResult.skipped(
-            NAME, f"no usable sessions in {SESSIONS_DIR.name}/ ({'; '.join(excluded) or 'empty'})")
+            NAME, f"no usable sessions in {sessions_dir.name}/ ({'; '.join(excluded) or 'empty'})")
     if path == "pseudo_reference" and env_missing("anthropic_api_key"):
         return CheckResult.skipped(NAME, "pseudo_reference needs ANTHROPIC_API_KEY")
 
-    demo = include_drafts or include_unreviewed
+    demo = include_drafts or include_unreviewed or dry_run
     dev = [p for s in sessions if s.split == "dev" for p in s.pairs]
     test = [p for s in sessions if s.split in ("test", "draft") for p in s.pairs]
-    if not test:
+    if not test and not dry_run:
         return CheckResult.skipped(NAME, "no test (or, with --include-drafts, draft) sessions")
     if threshold is None and not dev:
         return CheckResult.skipped(
             NAME, "no dev sessions to choose a threshold on; add dev sessions or pass --threshold")
 
+    reported = dev if dry_run else test
+    set_name = "ontwikkelset" if dry_run else "testset"
     all_pairs = dev + test
     log.info("[%s] path=%s sessions=%d dev_pairs=%d test_pairs=%d",
              NAME, path, len(sessions), len(dev), len(test))
@@ -212,7 +229,7 @@ async def run(
         return [Row(p.session_id, p.category, by_id[p.pair_id])
                 for p in pairs if by_id[p.pair_id] is not None]
 
-    dev_rows, test_rows = rows_of(dev), rows_of(test)
+    dev_rows, reported_rows = rows_of(dev), rows_of(reported)
     if threshold is None:
         try:
             threshold = choose_threshold(dev_rows, criterion)
@@ -221,19 +238,24 @@ async def run(
         how = f"gekozen op de ontwikkelset ({len(dev_rows)} paren, criterium `{criterion}`)"
     else:
         how = "vooraf opgegeven, niet afgesteld"
-    boot = session_bootstrap(test_rows, threshold, CATEGORIES, n_boot=n_boot)
-    table_md, numbers = _results_table(test_rows, threshold, boot)
+    boot = session_bootstrap(reported_rows, threshold, CATEGORIES, n_boot=n_boot)
+    table_md, numbers = _results_table(reported_rows, threshold, boot)
 
     md: list[str] = []
-    if demo:
+    if dry_run:
+        md.append("> **DEMO — niet geldig als resultaat.** Gedraaid met --dry-run: alleen "
+                  "ontwikkelsessies zijn doorgerekend, met een vooraf opgegeven drempel. Er is geen "
+                  "drempel gekozen en er zijn geen testsessies bekeken."
+                  + (" Niet-gecontroleerde sessies tellen mee." if include_unreviewed else "") + "\n")
+    elif demo:
         md.append("> **Niet geldig als resultaat.** Gedraaid met "
                   + ", ".join(f for f, on in (("--include-drafts", include_drafts),
                                               ("--include-unreviewed", include_unreviewed)) if on)
                   + ": niet-gecontroleerde of conceptsessies tellen mee. Alleen om het formaat te testen.\n")
     md.append(f"**Scoringsroute:** `{path}`. **Drempel:** {threshold:.3f}, {how}. "
               f"Een paar wordt gesignaleerd als de score onder de drempel ligt. "
-              f"**Testset:** {len(test_rows)} paren uit "
-              f"{len({r.session_id for r in test_rows})} sessie(s).\n")
+              f"**{set_name.capitalize()}:** {len(reported_rows)} paren uit "
+              f"{len({r.session_id for r in reported_rows})} sessie(s).\n")
     md.append(table_md)
     md.append("\nRecall per categorie; valse alarmen en precision alleen voor de hele set, "
               "omdat de detector geen categorie geeft. De bootstrap trekt hele sessies "
@@ -242,7 +264,7 @@ async def run(
     if ref:
         shift_rows = []
         for c in CATEGORIES:
-            deltas = [ref[p.pair_id] - by_id[p.pair_id] for p in test
+            deltas = [ref[p.pair_id] - by_id[p.pair_id] for p in reported
                       if p.category == c and p.pair_id in ref and by_id[p.pair_id] is not None]
             if deltas:
                 shift_rows.append([CATEGORY_NL[c], len(deltas), sum(deltas) / len(deltas),
@@ -256,8 +278,8 @@ async def run(
     detail = [[p.pair_id, CATEGORY_NL.get(p.category, "controle"), p.subtype or "",
                _fmt(by_id[p.pair_id]), "ja" if (by_id[p.pair_id] is not None
                                                  and by_id[p.pair_id] < threshold) else "nee",
-               p.source_words] for p in test]
-    md.append("\n**Per paar (testset)**\n")
+               p.source_words] for p in reported]
+    md.append(f"\n**Per paar ({set_name})**\n")
     md.append(md_table(["paar", "categorie", "subtype", "score", "gesignaleerd", "woorden bron"], detail))
 
     notes = excluded + [w for s in sessions for w in s.warnings]
@@ -267,9 +289,12 @@ async def run(
         md.append("\n**Opmerkingen**\n\n" + "\n".join(f"- {n}" for n in notes))
 
     numbers.update({"path": path, "threshold": threshold, "criterion": criterion if how.startswith("gekozen") else None,
-                    "valid": not demo, "n_dev": len(dev_rows), "n_test": len(test_rows),
+                    "valid": not demo, "n_dev": len(dev_rows),
+                    "n_test": 0 if dry_run else len(reported_rows),
                     "scores": {k: v for k, v in by_id.items()}, "reference_scores": ref,
                     "notes": notes})
+    if dry_run:
+        numbers["dry_run"] = True
     return CheckResult(name=NAME, status=RAN, markdown="\n".join(md), numbers=numbers)
 
 
@@ -282,10 +307,17 @@ def _main() -> int:
     ap.add_argument("--include-drafts", action="store_true")
     ap.add_argument("--include-unreviewed", action="store_true")
     ap.add_argument("--bootstrap", type=int, default=2000)
+    ap.add_argument("--dry-run", action="store_true",
+                    help="score only dev sessions with --threshold (required); report is DEMO / niet geldig")
+    ap.add_argument("--sessions-dir", type=Path, default=SESSIONS_DIR,
+                    help="folder with session files (default: evaluation/data/sessions)")
     args = ap.parse_args()
+    if args.dry_run and args.threshold is None:
+        ap.error("--dry-run requires --threshold")
 
     res = asyncio.run(run(args.path, args.criterion, args.threshold,
-                          args.include_drafts, args.include_unreviewed, args.bootstrap))
+                          args.include_drafts, args.include_unreviewed, args.bootstrap,
+                          dry_run=args.dry_run, sessions_dir=args.sessions_dir))
     print("\n" + "=" * 70)
     print(f"{res.name}: {res.status}" + (f" — {res.reason}" if res.reason else ""))
     print("=" * 70)
@@ -296,7 +328,8 @@ def _main() -> int:
         if not res.numbers.get("valid"):
             stem += "-DEMO"
         (RESULTS_DIR / f"{stem}.md").write_text(
-            f"# DV4 laag 1 — detectie op tekst ({_dt.date.today().isoformat()})\n\n" + res.markdown + "\n",
+            f"# {'DEMO — ' if args.dry_run else ''}DV4 laag 1 — detectie op tekst "
+            f"({_dt.date.today().isoformat()})\n\n" + res.markdown + "\n",
             encoding="utf-8")
         (RESULTS_DIR / f"{stem}.json").write_text(
             json.dumps(res.numbers, indent=1, ensure_ascii=False, default=str), encoding="utf-8")
