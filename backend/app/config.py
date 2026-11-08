@@ -45,6 +45,23 @@ class Settings(BaseSettings):
     # Anthropic
     anthropic_api_key: str = ""
     llm_model: str = "claude-sonnet-4-6"
+    # Sampling temperature for every Claude call (feedback and pseudo-reference
+    # translation). 0 makes runs as repeatable as the API allows, which DV4 needs:
+    # with the API default (1.0) two runs over the same session can produce
+    # different flags, so a precision/recall figure would not be reproducible.
+    llm_temperature: float = 0.0
+
+    # LaBSE cut-offs written into the feedback prompt (services/feedback.py).
+    # Hand-picked, NOT calibrated: DV4 calibrates them on the dev split with
+    # evaluation/detection_check.py and the chosen value is set here (or in .env)
+    # afterwards, so the prompt and the measured threshold can no longer drift.
+    labse_correct_threshold: float = 0.70       # >= -> no deviation signalled
+    labse_likely_issue_threshold: float = 0.50  # <  -> likely deviation
+    labse_no_addition_threshold: float = 0.65   # >= -> LLM may not flag "addition"
+    # When False the prompt still shows each pair's score but drops the rules
+    # above, so the LLM's own detection can be measured independently of LaBSE
+    # (DV4 layer comparison). Production default keeps the rules.
+    llm_score_rules: bool = True
 
     # Redis / ARQ
     redis_url: str = "redis://redis:6379"

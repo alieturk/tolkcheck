@@ -50,13 +50,15 @@ from _common import (
 NAME = "scoring_check"
 PAIRS_CSV = DATA / "pairs.csv"
 
-# ── feedback.py's thresholds, mirrored ────────────────────────────────────────
-# These live inside feedback._SYSTEM_PROMPT as prose, so they cannot be imported.
-# _assert_thresholds_in_sync() below fails loudly if the prompt is edited without
-# updating these — otherwise this script would silently grade against stale numbers.
-T_CORRECT = 0.70        # >= 0.70 -> "vertaling is semantisch correct"
-T_LIKELY_ISSUE = 0.50   # <  0.50 -> "waarschijnlijk een vertaalprobleem"
-T_NO_ADDITION = 0.65    # >= 0.65 -> LLM told to NEVER flag as "addition"
+# ── feedback.py's thresholds ──────────────────────────────────────────────────
+# The prompt is built from these settings (config.py), so they are read from the
+# same place rather than mirrored. _assert_thresholds_in_sync() still checks the
+# built prompt actually contains them.
+from app.config import settings as _settings  # noqa: E402
+
+T_CORRECT = _settings.labse_correct_threshold            # >= -> no deviation signalled
+T_LIKELY_ISSUE = _settings.labse_likely_issue_threshold  # <  -> likely deviation
+T_NO_ADDITION = _settings.labse_no_addition_threshold    # >= -> LLM may not flag "addition"
 
 CORRECT = "correct"
 POSSIBLE = "possible issue"

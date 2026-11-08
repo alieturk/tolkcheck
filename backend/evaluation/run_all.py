@@ -38,6 +38,7 @@ CHECKS = {
     "diarization": "diarization_check",
     "scoring": "scoring_check",
     "translation": "translation_check",
+    "detection": "detection_check",
 }
 
 

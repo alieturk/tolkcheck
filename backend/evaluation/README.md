@@ -171,3 +171,37 @@ engages.
 **CPU only.** `whisper_device` defaults to `cpu`. `wer_check.py` reports RTF
 (processing seconds per audio second) so the speed side of the `large-v3` vs `turbo`
 trade-off is visible alongside the accuracy side.
+
+---
+
+## DV4 layer 1 — `detection_check.py`
+
+Measures the detector on text: LaBSE over the labelled pairs in
+`data/sessions/*.json` (format: `data/sessions/README.md`), no audio involved.
+
+1. The flag threshold is chosen on the `dev` sessions (`--criterion f1`, `youden`
+   or `recall:0.8`), or fixed with `--threshold` to measure a given cut-off such
+   as the current production 0.70.
+2. On the `test` sessions it reports recall per category with a Wilson interval
+   and a bootstrap over whole sessions, the false-alarm rate on the control pairs,
+   and precision — in the set and recomputed for 5, 10 and 20% deviating pairs.
+3. Only `reviewed: true` sessions count. `--include-drafts --include-unreviewed`
+   run the format on S12 and mark the report `-DEMO` / "niet geldig".
+
+```bash
+uv run python evaluation/detection_check.py                       # calibrate on dev, report on test
+uv run python evaluation/detection_check.py --threshold 0.70      # current production cut-off
+uv run python evaluation/detection_check.py --path pseudo_reference   # c2o route via Claude, needs ANTHROPIC_API_KEY
+uv run python evaluation/detection_check.py --include-drafts --include-unreviewed --threshold 0.70   # demo on S12
+```
+
+Reports land in `results/YYYY-MM-DD-detection-<path>.md` and `.json`. The metric
+and loader code (`metrics.py`, `sessions.py`) is standard-library only and unit
+tested in `tests/test_detection_metrics.py`.
+
+The cut-offs in the feedback prompt now come from `settings`
+(`LABSE_CORRECT_THRESHOLD`, `LABSE_LIKELY_ISSUE_THRESHOLD`,
+`LABSE_NO_ADDITION_THRESHOLD`); after calibration, set the chosen value there.
+`LLM_SCORE_RULES=false` drops those rules from the prompt so the LLM's own
+detection can be measured separately (layer comparison), and `LLM_TEMPERATURE`
+(default 0) makes the Claude calls as repeatable as the API allows.

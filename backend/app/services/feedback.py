@@ -16,20 +16,20 @@ if TYPE_CHECKING:
 log = logging.getLogger(__name__)
 _client: anthropic.AsyncAnthropic | None = None
 
-# TODO(DV4): the four numeric thresholds in _SYSTEM_PROMPT below (0.70 / 0.50 /
-# 0.65) are hand-picked, not calibrated. Nothing tests them and no precision or
-# recall figure backs them. DV4 has to calibrate them against labelled data.
+# TODO(DV4): the LaBSE cut-offs in the prompt (labse_*_threshold in config.py,
+# defaults 0.70 / 0.50 / 0.65) are hand-picked, not calibrated. They now come
+# from settings so the value DV4 calibrates can be set without editing prose.
 #
-# Calibration inputs live at:  evaluation/data/pairs.csv
-# Current classification behaviour: evaluation/scoring_check.py reports, per
-#   labelled pair, whether these cut-offs put it in the right bucket — run that
-#   before touching the numbers, and re-run it after.
+# Calibration: evaluation/detection_check.py chooses the flag threshold on the
+#   dev split of evaluation/data/sessions/ and reports recall per category, the
+#   false-alarm rate and precision on the test split. scoring_check.py still
+#   reports how the current cut-offs bucket the older pairs.csv set.
 #
 # Do NOT tune these by eye against a single session; the thresholds decide what a
 # reviewing IND officer is shown as "probably fine" versus "probably wrong", so
 # moving them trades false reassurance against false alarms. Any change needs the
 # precision/recall pair that motivated it recorded in the report.
-_SYSTEM_PROMPT = """\
+_SYSTEM_PROMPT_TEMPLATE = """\
 Je ondersteunt een hoorambtenaar van de IND (Immigratie- en Naturalisatiedienst) bij het \
 signaleren van mogelijke inhoudelijke afwijkingen tussen wat er tijdens een gehoor is gezegd \
 en hoe dat is vertolkt.
@@ -61,13 +61,7 @@ Elke paar bevat:
 
 BELANGRIJK — Automatische transcriptie heeft beperkingen:
 - De brontekst is automatisch getranscribeerd door Whisper en kan fouten bevatten
-- Gebruik de semantische gelijkenisscore als primair signaal per paar:
-  * Score ≥ 0.70 → geen inhoudelijke afwijking gesignaleerd
-  * Score 0.50–0.69 → mogelijke afwijking, wees voorzichtig met conclusies
-  * Score < 0.50 → waarschijnlijk een inhoudelijke afwijking
-
-Markeer NOOIT een vertaling als "addition" als de score ≥ 0.65.
-
+{score_rules}
 Als bij een paar de melding "LET OP: de spraakherkenning ... onbetrouwbaar" staat, dan is de automatische transcriptie van dat fragment mislukt — de getoonde tolktekst is dan een artefact van de spraakherkenning en NIET wat de tolk zei. Schrijf zo'n paar nooit toe aan de tolk. Gebruik type "false-negative" met severity "low" en vermeld in de description dat het fragment niet beoordeelbaar is wegens transcriptiekwaliteit. Noem zulke paren in "overall_feedback" alleen als niet beoordeelbaar; trek er geen conclusies uit.
 
 Als het gebruikersbericht een sectie "ACHTERGRONDINFORMATIE" bevat: dit zijn fragmenten uit een \
@@ -106,6 +100,40 @@ Voeg voor elk paar een entry toe in "pairs", ook als er geen issues zijn.\
 """
 
 
+def _score_rules_text() -> str:
+    """The LaBSE cut-offs as prompt text, from settings (see config.py).
+
+    With settings.llm_score_rules off, the score is still shown per pair but the
+    model is given no cut-offs, so its own detection can be measured separately.
+    """
+    if not settings.llm_score_rules:
+        return (
+            "- De semantische gelijkenisscore is een hulpmiddel; beoordeel elk paar ook "
+            "zelf op weglatingen, toevoegingen en betekenisverschuivingen, ook bij een hoge score.\n"
+        )
+    hi = settings.labse_correct_threshold
+    lo = settings.labse_likely_issue_threshold
+    no_add = settings.labse_no_addition_threshold
+    return (
+        "- Gebruik de semantische gelijkenisscore als primair signaal per paar:\n"
+        f"  * Score ≥ {hi:.2f} → geen inhoudelijke afwijking gesignaleerd\n"
+        f"  * Score {lo:.2f}–{hi - 0.01:.2f} → mogelijke afwijking, wees voorzichtig met conclusies\n"
+        f"  * Score < {lo:.2f} → waarschijnlijk een inhoudelijke afwijking\n"
+        "\n"
+        f"Markeer NOOIT een vertaling als \"addition\" als de score ≥ {no_add:.2f}.\n"
+    )
+
+
+def build_system_prompt() -> str:
+    """System prompt with the current settings filled in."""
+    return _SYSTEM_PROMPT_TEMPLATE.replace("{score_rules}", _score_rules_text())
+
+
+# Built once at import: settings are fixed for the process lifetime, and a
+# constant system prompt keeps prompt caching effective.
+_SYSTEM_PROMPT = build_system_prompt()
+
+
 # Appended to any pair whose text Whisper's own decode metrics distrust. Without
 # it the model reads a hallucinated block as something the interpreter said and
 # writes it up as a critical omission — which is how "Erveys inaarefbeidehevaadah."
@@ -141,6 +169,7 @@ async def translate_to_dutch(texts: list[str], source_lang: str) -> list[str]:
     message = await client.messages.create(
         model=settings.llm_model,
         max_tokens=2048,
+        temperature=settings.llm_temperature,
         messages=[{"role": "user", "content": prompt}],
     )
     raw: str = message.content[0].text.strip()  # type: ignore[index]
@@ -243,6 +272,7 @@ async def generate_feedback(
     message = await client.messages.create(
         model=settings.llm_model,
         max_tokens=16000,
+        temperature=settings.llm_temperature,
         system=[
             {
                 "type": "text",

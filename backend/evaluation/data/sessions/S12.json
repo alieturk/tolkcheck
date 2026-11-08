@@ -1,0 +1,102 @@
+{
+ "session_id": "S12",
+ "language_pair": "tr-nl",
+ "split": "draft",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_a",
+  "interpreter": {
+   "nl": "vb_interp_a_nl",
+   "tr": "vb_interp_a_tr"
+  }
+ },
+ "topic": "aanhouding en detentie",
+ "generator": "claude-code",
+ "reviewed": false,
+ "pairs": [
+  {
+   "pair_id": "S12-P01",
+   "order": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U vertelde net dat u in maart 2023 bent opgepakt. Kunt u mij uitgebreid vertellen wat er die dag is gebeurd, vanaf het moment dat u uw huis verliet tot het moment dat u op het politiebureau aankwam? Neem rustig de tijd en vertel alles wat u zich herinnert."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Az önce Mart 2023'te gözaltına alındığınızı söylediniz. O gün olanları, evden çıktığınız andan karakola varışınıza kadar ayrıntılı olarak anlatabilir misiniz? Acele etmeyin, hatırladığınız her şeyi anlatın."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S12-P02",
+   "order": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Sabah saat yedi buçuk gibi evden çıktım, her zamanki gibi işe gidiyordum. Kapının önünde siyah bir araba bekliyordu ve içinden üç kişi indi. İkisi sivil giyimliydi, biri polis üniforması giyiyordu. Adımı sordular, ben de söyledim, sonra kimliğimi istediler. Hiçbir açıklama yapmadan kollarımdan tutup beni arabaya bindirdiler. Yolculuk yaklaşık kırk dakika sürdü ve bu sürede kimse bana tek kelime söylemedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ben rond half acht van huis vertrokken, zoals gewoonlijk op weg naar mijn werk. Voor de deur stond een zwarte auto en daar stapten drie mannen uit, twee in burgerkleding. Ze vroegen mijn naam en ik gaf die, daarna vroegen ze mijn identiteitsbewijs. Zonder uitleg pakten ze mij bij de armen en zetten me in de auto. De rit duurde ongeveer veertig minuten en onderweg zei niemand een woord tegen mij."
+   },
+   "label": "omissie",
+   "subtype": "kernfeit",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND Vertolking 5",
+   "reference_rendering": "Ik ben rond half acht van huis vertrokken, zoals gewoonlijk op weg naar mijn werk. Voor de deur stond een zwarte auto en daar stapten drie mannen uit. Twee van hen droegen burgerkleding, een van hen droeg een politie-uniform. Ze vroegen mijn naam en ik gaf die, daarna vroegen ze mijn identiteitsbewijs. Zonder uitleg pakten ze mij bij de armen en zetten me in de auto. De rit duurde ongeveer veertig minuten en onderweg zei niemand een woord tegen mij."
+  },
+  {
+   "pair_id": "S12-P03",
+   "order": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Dank u. Wat gebeurde er toen u op het politiebureau aankwam? Heeft iemand u verteld waarvan u werd verdacht, en kon u contact opnemen met een advocaat of met uw familie?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Teşekkürler. Karakola vardığınızda ne oldu? Size neyle suçlandığınız söylendi mi, bir avukata veya ailenize ulaşabildiniz mi? Bunu hatırlamak sizin için zor mu?"
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_vraag_tolk",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Teşekkürler. Karakola vardığınızda ne oldu? Size neyle suçlandığınız söylendi mi, bir avukata veya ailenize ulaşabildiniz mi?"
+  },
+  {
+   "pair_id": "S12-P04",
+   "order": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Beni bir odaya götürdüler ve orada yaklaşık altı saat bekletildim. Sonra iki kişi geldi ve bana sürekli aynı soruları sordular: kimlerle görüştüğümü, yazılarımı kimin için yazdığımı. Avukat istedim ama reddettiler. Sanırım ikinci gün serbest bıraktılar, tam hatırlamıyorum, ama çıkmadan önce bir kâğıt imzalattılar ve içeriğini okumama izin vermediler."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze brachten me naar een kamer waar ik ongeveer zes uur moest wachten. Daarna kwamen er twee mannen die mij steeds dezelfde vragen stelden: met wie ik contact had en voor wie ik mijn artikelen schreef. Ik vroeg om een advocaat, maar dat werd geweigerd. Op de tweede dag werd ik vrijgelaten, en voordat ik wegging lieten ze mij een papier tekenen dat ik niet mocht lezen."
+   },
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Ze brachten me naar een kamer waar ik ongeveer zes uur moest wachten. Daarna kwamen er twee mannen die mij steeds dezelfde vragen stelden: met wie ik contact had en voor wie ik mijn artikelen schreef. Ik vroeg om een advocaat, maar dat werd geweigerd. Volgens mij werd ik de tweede dag vrijgelaten, precies weet ik het niet meer, en voordat ik wegging lieten ze mij een papier tekenen dat ik niet mocht lezen."
+  }
+ ]
+}
