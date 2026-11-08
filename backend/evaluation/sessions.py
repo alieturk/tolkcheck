@@ -56,6 +56,7 @@ class Pair:
     severity: str
     expected_flag: bool
     reference_text: str | None
+    round: int | None = None  # interview round; absent in sessions before prompt v2
 
     @property
     def is_control(self) -> bool:
@@ -75,6 +76,30 @@ class Session:
     path: Path
     pairs: list[Pair] = field(default_factory=list)
     warnings: list[str] = field(default_factory=list)
+    reviewed_by: str | None = None
+    prompt_version: str | None = None
+    interpreter_voices: tuple[str, ...] = ()
+
+
+def _interpreter_voices(value: object, where: str) -> tuple[str, ...]:
+    """``voices.interpreter`` is one voice (string) or one voice per language (dict)."""
+    if value is None:
+        return ()
+    if isinstance(value, str):
+        return (value,)
+    if isinstance(value, dict):
+        return tuple(str(v) for v in value.values())
+    raise SessionFormatError(
+        f"{where}: voices.interpreter must be a string or an object, got {type(value).__name__}"
+    )
+
+
+def _round(value: object, where: str) -> int | None:
+    if value is None:
+        return None
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise SessionFormatError(f"{where}: round must be an integer, got {value!r}")
+    return value
 
 
 def _category(label: str, where: str) -> str | None:
@@ -102,18 +127,25 @@ def load_session(path: Path) -> Session:
     if split not in SPLITS:
         raise SessionFormatError(f"{path.name}: split {split!r} not in {SPLITS}")
     reviewed = bool(data.get("reviewed", False))
-    session = Session(sid, split, reviewed, str(data.get("language_pair", "")), Path(path))
+    session = Session(
+        sid, split, reviewed, str(data.get("language_pair", "")), Path(path),
+        reviewed_by=data.get("reviewed_by"),
+        prompt_version=data.get("prompt_version"),
+    )
 
     # One interpreter, one voice: two voice profiles for the interpreter make the
     # diarizer hear four speakers where the pipeline expects three, which tests
     # the fixture rather than the tool. Only a warning here — this loader is used
     # for the text-level measurement, where voices do not matter — but layer 2
     # (audio) must not run on such a session.
-    interp = (data.get("voices") or {}).get("interpreter")
-    if isinstance(interp, dict) and len(set(interp.values())) > 1:
+    session.interpreter_voices = _interpreter_voices(
+        (data.get("voices") or {}).get("interpreter"), path.name
+    )
+    distinct = sorted(set(session.interpreter_voices))
+    if len(distinct) > 1:
         session.warnings.append(
-            f"{sid}: interpreter has {len(set(interp.values()))} different voices "
-            f"({', '.join(sorted(set(interp.values())))}); fine for text-level "
+            f"{sid}: interpreter has {len(distinct)} different voices "
+            f"({', '.join(distinct)}); fine for text-level "
             "scoring, not for an audio run"
         )
 
@@ -165,6 +197,7 @@ def load_session(path: Path) -> Session:
             severity=str(raw.get("severity", "")),
             expected_flag=expected,
             reference_text=raw.get("reference_rendering"),
+            round=_round(raw.get("round"), where),
         ))
     return session
 

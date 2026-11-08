@@ -172,3 +172,47 @@ class TestLoader:
         s = load_session(_write(tmp_path, _minimal(expected_flag=False)))
         assert s.pairs[0].is_control
         assert s.warnings
+
+    def test_s12_has_no_v2_fields(self):
+        s = load_session(S12)
+        assert s.prompt_version is None and s.reviewed_by is None
+        assert all(p.round is None for p in s.pairs)
+
+    def test_reads_round_reviewed_by_and_prompt_version(self, tmp_path):
+        data = _minimal(round=3)
+        data["reviewed_by"] = "native-speaker-1"
+        data["prompt_version"] = "tolkcheck-sessies-v2"
+        s = load_session(_write(tmp_path, data))
+        assert s.reviewed_by == "native-speaker-1"
+        assert s.prompt_version == "tolkcheck-sessies-v2"
+        assert s.pairs[0].round == 3
+
+    @pytest.mark.parametrize("bad", ["3", 1.5, True])
+    def test_round_must_be_an_integer(self, tmp_path, bad):
+        with pytest.raises(SessionFormatError, match="round"):
+            load_session(_write(tmp_path, _minimal(round=bad)))
+
+    def test_interpreter_voice_as_string(self, tmp_path):
+        data = _minimal()
+        data["voices"] = {"interpreter": "vb_interp_a"}
+        s = load_session(_write(tmp_path, data))
+        assert s.interpreter_voices == ("vb_interp_a",)
+        assert not any("different voices" in w for w in s.warnings)
+
+    def test_interpreter_voices_as_dict_still_warn(self, tmp_path):
+        data = _minimal()
+        data["voices"] = {"interpreter": {"nl": "a_nl", "tr": "a_tr"}}
+        s = load_session(_write(tmp_path, data))
+        assert set(s.interpreter_voices) == {"a_nl", "a_tr"}
+        assert any("different voices" in w for w in s.warnings)
+
+    def test_dict_with_one_voice_does_not_warn(self, tmp_path):
+        data = _minimal()
+        data["voices"] = {"interpreter": {"nl": "a", "tr": "a"}}
+        assert not load_session(_write(tmp_path, data)).warnings
+
+    def test_interpreter_voice_of_other_type_is_rejected(self, tmp_path):
+        data = _minimal()
+        data["voices"] = {"interpreter": ["a", "b"]}
+        with pytest.raises(SessionFormatError, match="voices.interpreter"):
+            load_session(_write(tmp_path, data))
