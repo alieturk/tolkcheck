@@ -59,9 +59,10 @@ class Settings(BaseSettings):
     labse_likely_issue_threshold: float = 0.50  # <  -> likely deviation
     labse_no_addition_threshold: float = 0.65   # >= -> LLM may not flag "addition"
     # When False the prompt still shows each pair's score but drops the rules
-    # above, so the LLM's own detection can be measured independently of LaBSE
-    # (DV4 layer comparison). Production default keeps the rules.
-    llm_score_rules: bool = True
+    # above, so the LLM judges each pair itself. Off by default: on the DV4 dev
+    # sessions the rules cost recall (LLM 7/18 with them, 12/18 without) because
+    # LaBSE scores most deviations above the "no deviation" cut-off.
+    llm_score_rules: bool = False
 
     # Redis / ARQ
     redis_url: str = "redis://redis:6379"

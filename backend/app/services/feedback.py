@@ -46,7 +46,7 @@ Een IND-gehoor volgt een strikt bidirectioneel protocol:
 
 Je ontvangt twee sets uitgelijnde paren:
 
-**CLIENT→AMBTENAAR** (juridisch beslissend — fouten hier zijn altijd critical):
+**CLIENT→AMBTENAAR** (juridisch beslissend — fouten hier wegen het zwaarst):
   De cliënt spreekt in de brontaal. De tolk vertaalt naar het Nederlands voor de ambtenaar.
   Dit zijn de vertalingen die het IND-dossier vormen en de asielbeslissing beïnvloeden.
 
@@ -55,7 +55,7 @@ Je ontvangt twee sets uitgelijnde paren:
   Fouten hier zorgen ervoor dat de cliënt de vraag verkeerd begrijpt.
 
 Elke paar bevat:
-- De brontekst (cliënt of ambtenaar)
+- De brontekst (cliënt of ambtenaar). Bij cliënt→ambtenaar staat de originele Turkse of andere brontekst erbij, plus een automatische hulpvertaling naar het Nederlands. Beoordeel de tolk op de originele brontekst; de hulpvertaling kan zelf fouten bevatten en een verschil met alleen de hulpvertaling is geen tolkfout.
 - De vertaling van de tolk
 - Een semantische gelijkenisscore (0.0–1.0) berekend door een taalmodel (LaBSE)
 
@@ -63,6 +63,20 @@ BELANGRIJK — Automatische transcriptie heeft beperkingen:
 - De brontekst is automatisch getranscribeerd door Whisper en kan fouten bevatten
 {score_rules}
 Als bij een paar de melding "LET OP: de spraakherkenning ... onbetrouwbaar" staat, dan is de automatische transcriptie van dat fragment mislukt — de getoonde tolktekst is dan een artefact van de spraakherkenning en NIET wat de tolk zei. Schrijf zo'n paar nooit toe aan de tolk. Gebruik type "false-negative" met severity "low" en vermeld in de description dat het fragment niet beoordeelbaar is wegens transcriptiekwaliteit. Noem zulke paren in "overall_feedback" alleen als niet beoordeelbaar; trek er geen conclusies uit.
+
+Toegestaan en dus GEEN afwijking, ook niet met een lage severity:
+- De tolk meldt dat een uitdrukking niet letterlijk te vertalen is en omschrijft de betekenis.
+- De tolk meldt dat iets niet verstaan is en vraagt om herhaling.
+- De tolk meldt een regionaal woord of taalvariant en geeft de betekenis.
+Beoordeel in zulke gevallen alleen of de overige inhoud klopt.
+
+Getallen, datums en namen kunnen door de spraakherkenning verkeerd zijn verstaan. Noem in de description dat de opname gecontroleerd moet worden als een verschil alleen uit zo'n gegeven bestaat.
+
+Gebruik voor severity deze betekenis:
+- critical: een feit dat de asielbeslissing kan raken is veranderd, ontbreekt of is toegevoegd (wie, wat, wanneer, waar, hoe lang, oorzaak, dreiging, ontkenning).
+- high: een andere inhoudelijke afwijking die de betekenis van het relaas of de vraag verandert, zoals een weggevallen voorwaarde of twijfel, verzwakte of versterkte stelligheid, of een eigen uitleg, oordeel of vraag van de tolk.
+- medium: een kleine inhoudelijke verandering die geen feit en geen stelligheid raakt.
+- low: alleen woordkeus of stijl, zonder inhoudelijk gevolg.
 
 Als het gebruikersbericht een sectie "ACHTERGRONDINFORMATIE" bevat: dit zijn fragmenten uit een \
 gecureerde kennisbank (foutentypologie, IND-werkinstructies, gedocumenteerde taalkundige \
@@ -222,10 +236,13 @@ async def generate_feedback(
     lines.append("=== CLIENT→AMBTENAAR (vertalingen die in het dossier komen) ===\n")
     for i, pair in enumerate(c2o_pairs):
         score = c2o_scores[i] if i < len(c2o_scores) else 0.0
-        source_text = pair.get("scoring_text") or pair["source_block"]["text"]
+        original_text = pair["source_block"]["text"]
+        helper_translation = pair.get("scoring_text")
         interp_text = pair["interp_block"]["text"]
         lines.append(f"Paar {i} (gelijkenis: {score:.3f}):")
-        lines.append(f"  Cliënt:  {source_text}")
+        lines.append(f"  Cliënt (origineel):      {original_text}")
+        if helper_translation and helper_translation != original_text:
+            lines.append(f"  Cliënt (hulpvertaling):  {helper_translation}")
         lines.append(f"  Tolk:    {interp_text}")
         if pair.get("unassessable"):
             lines.append(f"  {_ASR_WARNING}")
