@@ -40,6 +40,22 @@ from app.config import settings
 
 log = logging.getLogger(__name__)
 
+# Silence put in front of the audio before diarization. A recording that starts with
+# speech at t=0 gave pyannote too little context: the first sentence was cut after
+# about a second and its tail assigned to another speaker. Times are shifted back.
+LEAD_IN_SILENCE_S = 2.0
+
+
+def _remove_lead_in(turns: list[dict], lead_in_s: float = LEAD_IN_SILENCE_S) -> list[dict]:
+    """Shift turns back to the original timeline; anything inside the lead-in goes."""
+    shifted = []
+    for turn in turns:
+        start = max(0.0, turn["start"] - lead_in_s)
+        end = max(0.0, turn["end"] - lead_in_s)
+        if end > start:
+            shifted.append({**turn, "start": start, "end": end})
+    return shifted
+
 
 async def diarize(audio_path: Path, num_speakers: int | None = None) -> list[dict]:
     """Async wrapper — offloads CPU/GPU-bound work to the default thread pool."""
@@ -67,7 +83,8 @@ def _diarize_sync(audio_path: Path, num_speakers: int | None) -> list[dict]:
 
     # Audio laden via torchaudio (zoals je al deed, dit is goed voor MP3 nu)
     waveform, sample_rate = torchaudio.load(str(audio_path))
-    audio_input = {"waveform": waveform, "sample_rate": sample_rate}
+    lead_in = torch.zeros(waveform.shape[0], int(LEAD_IN_SILENCE_S * sample_rate))
+    audio_input = {"waveform": torch.cat([lead_in, waveform], dim=1), "sample_rate": sample_rate}
 
     # Uitvoeren van de pipeline
     result = pipeline(audio_input, **kwargs)
@@ -83,6 +100,7 @@ def _diarize_sync(audio_path: Path, num_speakers: int | None) -> list[dict]:
             "end": float(segment.end),
             "speaker": str(speaker)
         })
+    turns = _remove_lead_in(turns)
 
     # Summarise diarization output so misassignments are immediately visible
     from collections import Counter

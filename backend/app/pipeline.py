@@ -40,6 +40,10 @@ ERR_DIARISATION_FAILED   = "DIARISATION_FAILED"
 ERR_SCORING_FAILED       = "SCORING_FAILED"
 ERR_LLM_ERROR            = "LLM_ERROR"
 
+# How far a segment may run past the end of its diarization turn before it can be
+# treated as invented; see _clean_turn_segments.
+MAX_TURN_OVERRUN_S = 0.5
+
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
@@ -167,6 +171,123 @@ def _remap_compact_segment(
     return had_issue
 
 
+def _clean_turn_segments(segments: list[dict], turn_seconds: float) -> list[dict]:
+    """Keep a turn's segments inside the turn and drop what Whisper invented past it.
+
+    Timestamps here are relative to the turn. Diarization can return turns of a few
+    hundredths of a second; Whisper pads those to 30 s and writes a stock phrase over
+    the silence ("Thanks for watching!"). The segment then claims 30 s of the hearing,
+    so it sits between real turns, becomes the nearest "source" for the interpreter's
+    next turn, and pulls other speakers' audio into the client re-transcription.
+
+    Both conditions are required. A real sentence can overrun a turn because of
+    Whisper's loose timestamps (it then has a low no_speech_prob and is kept), and a
+    short real word can have a high no_speech_prob while staying inside its turn.
+    Whatever is kept is clamped to the turn. Mutates the kept segments.
+    """
+    kept: list[dict] = []
+    for seg in segments:
+        overrun = seg["end"] - turn_seconds
+        no_speech = seg.get("no_speech_prob") or 0.0
+        if overrun > MAX_TURN_OVERRUN_S and no_speech > alignment.NO_SPEECH_CEILING:
+            log.warning("[A] dropped invented segment  turn=%.3fs  overrun=%.2fs  no_speech=%.2f  chars=%d",
+                        turn_seconds, overrun, no_speech, len(seg["text"]))
+            continue
+        seg["end"] = min(seg["end"], turn_seconds)
+        seg["start"] = min(seg["start"], seg["end"])
+        kept.append(seg)
+    return kept
+
+
+def _expected_interpreter_language(
+    transcript: list[dict],
+    index: int,
+    interpreter_speaker: str,
+    client_speaker: str,
+    client_lang: str,
+) -> str | None:
+    """The language the hearing protocol implies for the interpreter turn at ``index``.
+
+    The interpreter renders whoever spoke last: the client into Dutch, the officer
+    into the client's language. None when nobody spoke before this turn.
+    """
+    for seg in reversed(transcript[:index]):
+        if seg["speaker"] != interpreter_speaker:
+            return "nl" if seg["speaker"] == client_speaker else client_lang
+    return None
+
+
+async def _repair_interpreter_languages(
+    audio_path: Path,
+    transcript: list[dict],
+    interpreter_speaker: str,
+    client_speaker: str,
+    client_lang: str,
+    known_terms: str | None,
+) -> tuple[list[dict], int]:
+    """Re-transcribe interpreter turns detected as neither Dutch nor the client's language.
+
+    Per-turn language detection can land on a third language (a Dutch turn decoded as
+    Farsi), which turns the whole turn into nonsense that reads as an interpreting
+    error. Restricting detection to the two languages is not enough: on such a turn
+    the audio can still score higher for the wrong one of the two, which would also
+    flip the turn's direction. The protocol says which language is due, so that is
+    the language forced here. Returns the new transcript and the number of runs fixed.
+    """
+    allowed = {"nl", client_lang}
+    runs: list[tuple[int, int]] = []
+    i = 0
+    while i < len(transcript):
+        seg = transcript[i]
+        if seg["speaker"] != interpreter_speaker or seg.get("language") in allowed:
+            i += 1
+            continue
+        end = i
+        while (end + 1 < len(transcript)
+               and transcript[end + 1]["speaker"] == interpreter_speaker
+               and transcript[end + 1].get("language") == seg.get("language")):
+            end += 1
+        runs.append((i, end))
+        i = end + 1
+    if not runs:
+        return transcript, 0
+
+    import torchaudio
+    waveform, sr = torchaudio.load(str(audio_path))
+    result: list[dict] = []
+    repaired = 0
+    previous_end = 0
+    for first, last in runs:
+        result.extend(transcript[previous_end:first])
+        previous_end = last + 1
+        expected = _expected_interpreter_language(
+            transcript, first, interpreter_speaker, client_speaker, client_lang
+        )
+        start, end = transcript[first]["start"], transcript[last]["end"]
+        chunk = waveform[:, int(start * sr):int(end * sr)]
+        new_segs: list[dict] = []
+        if expected is not None and chunk.shape[-1] >= 800:
+            new_segs = _clean_turn_segments(
+                await transcription.transcribe_chunk(chunk, sr, expected, initial_prompt=known_terms),
+                chunk.shape[-1] / sr,
+            )
+        if not new_segs:
+            result.extend(transcript[first:last + 1])
+            continue
+        original = transcript[first].get("language", "?")
+        for seg in new_segs:
+            seg["start"] += start
+            seg["end"] += start
+            seg["speaker"] = interpreter_speaker
+            seg["language_repaired_from"] = original
+        log.warning("[B] language_repair  interpreter %.1f–%.1fs  detected=%s  forced=%s  segs=%d",
+                    start, end, original, expected, len(new_segs))
+        result.extend(new_segs)
+        repaired += 1
+    result.extend(transcript[previous_end:])
+    return result, repaired
+
+
 def _filter_hallucinations(segments: list[dict]) -> list[dict]:
     """Remove degenerate Whisper loops (same text repeated 3+ consecutive times)."""
     result: list[dict] = []
@@ -252,6 +373,7 @@ async def run_pipeline(ctx: dict, session_id: str) -> None:
                     segs = await transcription.transcribe_chunk(
                         chunk, sr, language, initial_prompt=session.known_terms
                     )
+                    segs = _clean_turn_segments(segs, chunk.shape[-1] / sr)
 
                     for seg in segs:
                         seg["start"] += turn["start"]
@@ -519,6 +641,19 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                 except Exception as exc:
                     log.warning("[B] retranscribe  FAILED (%s) — keeping Phase A transcript", exc)
 
+            # 4a. Repair interpreter turns decoded in a third language, now that the
+            # confirmed roles say which language the protocol expects for each turn.
+            if client_lang != "nl" and Path(session.audio_path).exists():
+                try:
+                    transcript, repaired = await _repair_interpreter_languages(
+                        Path(session.audio_path), transcript, interpreter_speaker,
+                        client_speaker, client_lang, session.known_terms,
+                    )
+                    if repaired:
+                        eval_row.transcript = transcript
+                except Exception as exc:
+                    log.warning("[B] language_repair  FAILED (%s) — keeping detected languages", exc)
+
             # 4b. Check the confirmed roles against the languages actually detected.
             # Runs on the post-re-transcription transcript and before any scoring, so
             # a hearing whose speakers were mixed up is recorded as such rather than
@@ -616,6 +751,12 @@ async def resume_scoring(ctx: dict, session_id: str) -> None:
                         log.warning("[B] scoring  EXCLUDED c2o[%d]  score=%.3f  reasons=%s  chars=%d",
                                     pair["pair_index"], sc, asr.get("reasons"),
                                     len(pair["interp_block"]["text"]))
+
+            # Each pair's score also goes on its interpreter block. The column below
+            # holds client→officer scores only, so officer→client scores would
+            # otherwise be computed, shown to the LLM and then lost.
+            for pair, sc in zip(c2o_pairs + o2c_pairs, c2o_scores + o2c_scores):
+                pair["interp_block"]["similarity_score"] = float(sc)
 
             # No per-session aggregate is computed or stored (EIS-2): a mean over a
             # hearing summarises the interpreter in one number. Only the per-pair
