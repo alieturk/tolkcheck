@@ -202,6 +202,18 @@ tested in `tests/test_detection_metrics.py`.
 The cut-offs in the feedback prompt now come from `settings`
 (`LABSE_CORRECT_THRESHOLD`, `LABSE_LIKELY_ISSUE_THRESHOLD`,
 `LABSE_NO_ADDITION_THRESHOLD`); after calibration, set the chosen value there.
-`LLM_SCORE_RULES=false` drops those rules from the prompt so the LLM's own
-detection can be measured separately (layer comparison), and `LLM_TEMPERATURE`
-(default 0) makes the Claude calls as repeatable as the API allows.
+Those rules are only in the prompt with `LLM_SCORE_RULES=true`. The default is
+`false`, so the LLM judges each pair itself; `true` remains for the layer
+comparison. `LLM_TEMPERATURE` (default 0) makes the Claude calls as repeatable as
+the API allows.
+
+## End-to-end check — `pipeline_check.py`
+
+Runs the dev sessions through the real backend and worker via the API and compares
+the output with the labels. Always a DEMO: `--label` names the run, `--audio-dir`
+says where the `s<nn>.wav` files are. Needs Postgres with pgvector on
+`localhost:5433` and `HF_TOKEN` and `ANTHROPIC_API_KEY` in `backend/.env`.
+
+```bash
+uv run --with "fakeredis[lua]==2.38.0" --with jiwer python evaluation/pipeline_check.py --audio-dir <map>
+```

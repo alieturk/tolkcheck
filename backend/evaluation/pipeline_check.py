@@ -14,9 +14,10 @@ Run from backend/ (Postgres with pgvector on localhost:5433, as for T8):
 
 Test-environment settings, as in T8: its own database (dropped and recreated each
 run), fakeredis, COOKIE_SECURE=false and a work dir outside the repo. Unlike T8 the
-Claude step is real: ANTHROPIC_API_KEY comes from backend/.env, with variant A
-(LLM_SCORE_RULES=true, LLM_TEMPERATURE=0). The knowledge base is ingested, because
-retrieval is part of the feedback step.
+Claude step is real: ANTHROPIC_API_KEY comes from backend/.env, with the current
+defaults (LLM_SCORE_RULES=false, LLM_TEMPERATURE=0; pass --llm-score-rules true for
+the variant with LaBSE rules). The knowledge base is ingested, because retrieval is
+part of the feedback step. Only dev sessions are run; others are skipped.
 
 How pipeline output is tied to the labels
 -----------------------------------------
@@ -77,7 +78,7 @@ from t8_privacy import (  # noqa: E402
 )
 
 NAME = "pipeline_check"
-LABELS_DIR = REPO / "eval" / "data" / "sessions-json"
+LABELS_DIR = detection_check.SESSIONS_DIR
 AUDIO_DIR = REPO.parent / "sessions"
 DEFAULT_WORKDIR = Path.home() / "tolkcheck-pipeline-check"
 DB_NAME = "tolkcheck_pipeline_check"
@@ -224,7 +225,10 @@ def is_unassessable(source: dict, interp: dict) -> bool:
 
 
 def _pipeline_score(raw: dict, candidate: dict) -> float | None:
-    index = candidate["pair_index"]
+    stored = candidate["interp"].get("similarity_score")
+    if stored is not None:
+        return float(stored)
+    index = candidate["pair_index"]  # runs from before the score was kept on the block
     if candidate["direction"] == "tr->nl":
         scores = (raw.get("evaluation") or {}).get("semantic_similarity_scores") or []
         return float(scores[index]) if index < len(scores) else None
@@ -541,9 +545,11 @@ def render(rows: list[dict], all_stats: list[dict], summary: dict, meta: dict) -
         f"({dt.date.today().isoformat()})\n",
         "> **Niet geldig als resultaat.** Controle van de werking op synthetische dev-sessies die "
         "nog niet zijn nagekeken. Geen meting voor DV4. Er is niets afgesteld.\n",
-        f"**Opzet:** echte backend en worker via de API. Variant A: LLM_SCORE_RULES=true, "
+        f"**Opzet:** echte backend en worker via de API. Run `{meta.get('label') or 'standaard'}`: "
+        f"LLM_SCORE_RULES={meta.get('llm_score_rules', '?')}, "
         f"LLM_TEMPERATURE=0, model `{meta.get('llm_model')}`, Whisper `{meta.get('whisper_model')}`. "
-        f"Commit `{meta.get('commit')}`.\n",
+        f"Commit `{meta.get('commit')}`"
+        f"{', met niet-gecommitte wijzigingen in backend/app (zie app.diff)' if meta.get('app_diff') else ''}.\n",
         "**Rollen zijn automatisch gegeven**, op basis van de overlap met de JSON (zie tabel), niet "
         "door een mens. Een rolfout van een echte gebruiker valt hier dus buiten.\n",
         f"**Definities:** gevonden = bronuiting binnen dezelfde richting met overeenkomst ≥ {MIN_MATCH:.2f}. "
@@ -653,7 +659,8 @@ async def _drive_all(todo: list[tuple[Session, Path]], email: str, password: str
             log(f"{session.session_id}: {raw.get('status')} in {raw.get('seconds')} s")
 
 
-def run_stack(todo: list[tuple[Session, Path]], out_dir: Path, workdir: Path, log) -> dict:
+def run_stack(todo: list[tuple[Session, Path]], out_dir: Path, workdir: Path, log,
+              llm_score_rules: str = "true") -> dict:
     """Start backend + worker on an isolated database, run every session, stop them."""
     secrets_from_env = _dotenv_settings()
     missing = [k for k in ("HF_TOKEN", "ANTHROPIC_API_KEY") if k not in secrets_from_env]
@@ -673,7 +680,7 @@ def run_stack(todo: list[tuple[Session, Path]], out_dir: Path, workdir: Path, lo
     env.update({
         "DATABASE_URL": DB_URL, "REDIS_URL": f"redis://127.0.0.1:{REDIS_PORT}",
         "SECRET_KEY": secrets.token_hex(32), "COOKIE_SECURE": "false", "LOG_LEVEL": "INFO",
-        "LLM_SCORE_RULES": "true", "LLM_TEMPERATURE": "0",
+        "LLM_SCORE_RULES": llm_score_rules, "LLM_TEMPERATURE": "0",
         "PYTHONPATH": str(BACKEND), "PYTHONIOENCODING": "utf-8", "PYTHONUTF8": "1",
     })
 
@@ -713,7 +720,8 @@ def run_stack(todo: list[tuple[Session, Path]], out_dir: Path, workdir: Path, lo
             except subprocess.TimeoutExpired:
                 p.kill()
     return {"llm_model": secrets_from_env.get("LLM_MODEL"),
-            "whisper_model": secrets_from_env.get("WHISPER_MODEL")}
+            "whisper_model": secrets_from_env.get("WHISPER_MODEL"),
+            "llm_score_rules": llm_score_rules}
 
 
 def build_report(sessions: list[Session], raw_dir: Path, labels_dir: Path, meta: dict) -> tuple[str, dict]:
@@ -753,19 +761,24 @@ def main() -> int:
     ap.add_argument("--workdir", type=Path, default=DEFAULT_WORKDIR)
     ap.add_argument("--from-raw", type=Path, default=None,
                     help="skip the stack and rebuild the report from an earlier run's raw/ folder")
+    ap.add_argument("--label", default="", help="name of this run; goes into the report's file name")
+    ap.add_argument("--llm-score-rules", choices=("true", "false"), default="false",
+                    help="LLM_SCORE_RULES for the worker; true = LaBSE cut-offs in the prompt")
     args = ap.parse_args()
 
     sessions = load_sessions(args.labels_dir)
     if args.sessions:
         sessions = [s for s in sessions if s.session_id in set(args.sessions)]
+    skipped = [s.session_id for s in sessions if s.split != "dev"]
+    if skipped:
+        print(f"overgeslagen, geen dev-sessie: {', '.join(skipped)}")
+    sessions = [s for s in sessions if s.split == "dev"]
     if not sessions:
-        print("geen sessies gevonden", file=sys.stderr)
-        return 2
-    if any(s.split != "dev" for s in sessions):
-        print("alleen dev-sessies zijn toegestaan", file=sys.stderr)
+        print("geen dev-sessies gevonden", file=sys.stderr)
         return 2
 
-    stem = f"{dt.date.today().isoformat()}-pipeline_check-DEMO"
+    label = f"-{args.label}" if args.label else ""
+    stem = f"{dt.date.today().isoformat()}-pipeline_check{label}-DEMO"
     out_dir = RESULTS_DIR / stem
     out_dir.mkdir(parents=True, exist_ok=True)
     progress = open(out_dir / "progress.log", "a", encoding="utf-8")
@@ -789,8 +802,13 @@ def main() -> int:
                 print(f"audio ontbreekt: {audio}", file=sys.stderr)
                 return 2
             todo.append((s, audio.resolve()))
-        meta = run_stack(todo, out_dir, args.workdir, log)
+        meta = run_stack(todo, out_dir, args.workdir, log, args.llm_score_rules)
         meta["commit"] = _git_commit()
+        meta["label"] = args.label
+        diff = subprocess.run(["git", "diff", "HEAD", "--", "backend/app"], cwd=REPO,
+                              capture_output=True, text=True, encoding="utf-8").stdout
+        meta["app_diff"] = bool(diff)
+        (out_dir / "app.diff").write_text(diff, encoding="utf-8")
         meta_path.write_text(json.dumps(meta, indent=1), encoding="utf-8")
         raw_dir = out_dir / "raw"
 
