@@ -29,6 +29,7 @@ def test_prompt_keeps_current_cutoffs_when_rules_are_on(monkeypatch):
 
 
 def test_calibrated_threshold_is_written_into_prompt(monkeypatch):
+    monkeypatch.setattr(settings, "llm_score_rules", True)
     monkeypatch.setattr(settings, "labse_correct_threshold", 0.83)
     monkeypatch.setattr(settings, "labse_likely_issue_threshold", 0.61)
     monkeypatch.setattr(settings, "labse_no_addition_threshold", 0.78)
