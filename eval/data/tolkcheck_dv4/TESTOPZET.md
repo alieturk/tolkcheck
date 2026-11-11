@@ -43,3 +43,4 @@ Vastgelegd op 2026-11-11, vóór het genereren van de sessies en vóór elke run
 
 - 2026-11-11: prompt van feedback.py aangepast na voorlopige dev-run (vals alarm op zelfcorrectie S29-P07); testset niet gelezen of gescoord.
 - 2026-11-11: parser van feedback.py aangepast na voorlopige dev-run (S26: antwoord in twee JSON-blokken, alle issues vielen weg); meerdere blokken worden samengevoegd en onleesbare feedback wordt als "niet beoordeeld" getoond; testset niet gelezen of gescoord. Hierna is de tool bevroren tot na de testrun.
+- Testset gedraaid op 2026-11-11 met commit f6d64fa7a2e14e55e8f458a675ed3224f2fae7a5; metrics pas na review van de labels. Twee verzegelde runs in `backend/evaluation/results/test_sealed_2026-11-11/`: run1 is primair, run2 alleen voor stabiliteit. SHA-256 van predictions.json: run1 `d7eec372cb4d084bf4e8a7e18c44f2a69ceff17a7302fdaded4bd0e2ebde0f51`, run2 `e81c8cddbbb7f7f0b1c57e5b8dbad80a6e4d32a86c55b875d09c4b9d2216f869`.
