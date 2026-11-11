@@ -38,3 +38,7 @@ Vastgelegd op 2026-11-11, vóór het genereren van de sessies en vóór elke run
 
 - LaBSE is deterministisch.
 - Variant A (feedbackmodel) draait met `llm_temperature=0`.
+
+## Wijzigingen
+
+- 2026-11-11: prompt van feedback.py aangepast na voorlopige dev-run (vals alarm op zelfcorrectie S29-P07); testset niet gelezen of gescoord.
