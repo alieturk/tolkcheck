@@ -155,5 +155,23 @@ class TestRoundTrip(unittest.TestCase):
         self.assertEqual([p.read_text(encoding="utf-8") for p in self.paths], before)
 
 
+
+class TestRemarkColumn(TestRoundTrip):
+    def test_column_is_named_opmerking_reviewer(self):
+        ws = self.load_workbook(self.sheet)[rs.REVIEW_SHEET]
+        self.assertIn("opmerking reviewer", [c.value for c in ws[1]])
+
+    def test_old_header_is_still_read_back(self):
+        self.fill({"S25-P01": ("nee", "klopt niet")})
+        wb = self.load_workbook(self.sheet)
+        ws = wb[rs.REVIEW_SHEET]
+        for cell in ws[1]:
+            if cell.value == rs.REMARK:
+                cell.value = rs.OLD_REMARK
+        wb.save(self.sheet)
+        report = rs.apply_sheet(self.sheet, self.dir, "Ayşe", write=False)
+        self.assertEqual(report.rejected_pairs, [("S25", "S25-P01", "klopt niet")])
+
+
 if __name__ == "__main__":
     unittest.main()

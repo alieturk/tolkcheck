@@ -42,7 +42,8 @@ DEFAULT_FRACTION = 0.30
 
 REVIEW_SHEET = "review"
 META_SHEET = "steekproef"
-AGREE, REMARK = "akkoord (ja/nee)", "opmerking"
+AGREE, REMARK = "akkoord (ja/nee)", "opmerking reviewer"
+OLD_REMARK = "opmerking"   # header in sheets made before the rename; still read back
 DIFFS = "woordverschillen"
 COLUMNS = ("sessie", "pair_id", "richting", "bron", "vertolking", "reference_rendering",
            DIFFS, "label", "subtype", "severity", AGREE, REMARK)
@@ -192,6 +193,8 @@ def apply_sheet(sheet: Path, sessions_dir: Path, reviewer: str, write: bool = Tr
     finally:
         wb.close()   # read-only mode keeps the file open (and locked on Windows) until closed
     header = [str(h) for h in rows[0]]
+    if REMARK not in header and OLD_REMARK in header:
+        header[header.index(OLD_REMARK)] = REMARK
     idx = {name: header.index(name) for name in ("sessie", "pair_id", AGREE, REMARK)}
 
     by_session: dict[str, list[tuple[str, str, str]]] = {sid: [] for sid in meta}
