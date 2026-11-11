@@ -20,6 +20,8 @@ for trying the format out; the report then says the numbers are not valid.
 
     uv run python evaluation/detection_check.py
     uv run python evaluation/detection_check.py --criterion youden
+    (default criterion: recall_at_fpr, i.e. highest recall at FPR <= 0.10, as fixed in
+    eval/data/tolkcheck_dv4/TESTOPZET.md)
     uv run python evaluation/detection_check.py --threshold 0.70      # current production cut-off, no calibration
     uv run python evaluation/detection_check.py --path pseudo_reference  # needs ANTHROPIC_API_KEY
     uv run python evaluation/detection_check.py --include-drafts --include-unreviewed --threshold 0.70  # format demo only
@@ -173,7 +175,7 @@ def _results_table(rows: list[Row], threshold: float, boot: dict) -> tuple[str, 
 
 async def run(
     path: str = "cross_lingual",
-    criterion: str = "f1",
+    criterion: str = "recall_at_fpr",
     threshold: float | None = None,
     include_drafts: bool = False,
     include_unreviewed: bool = False,
@@ -302,7 +304,8 @@ def _main() -> int:
     setup_logging()
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--path", default="cross_lingual", choices=PATHS)
-    ap.add_argument("--criterion", default="f1", help="f1 | youden | recall:0.8")
+    ap.add_argument("--criterion", default="recall_at_fpr",
+                    help="recall_at_fpr (TESTOPZET: max FPR 0.10) | recall_at_fpr:0.05 | f1 | youden | recall:0.8")
     ap.add_argument("--threshold", type=float, default=None, help="fixed threshold; skips calibration")
     ap.add_argument("--include-drafts", action="store_true")
     ap.add_argument("--include-unreviewed", action="store_true")

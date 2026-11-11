@@ -118,19 +118,32 @@ def candidate_thresholds(scores: Sequence[float]) -> list[float]:
     return [uniq[0] - 1e-6] + mids + [uniq[-1] + 1e-6]
 
 
-def choose_threshold(rows: Sequence[Row], criterion: str = "f1") -> float:
+def choose_threshold(rows: Sequence[Row], criterion: str = "f1", max_fpr: float = 0.10) -> float:
     """Pick the flag threshold on (dev) rows.
 
     ``f1``      maximise F1 over deviations vs controls
     ``youden``  maximise recall - FPR (insensitive to the share of deviations)
     ``recall:X``  lowest threshold whose recall is at least X (fewest flags that
                 still catch that share), e.g. ``recall:0.8``
+    ``recall_at_fpr``  highest recall (all categories together) among thresholds
+                with FPR <= ``max_fpr``; at equal recall the lowest FPR.
+                ``recall_at_fpr:0.05`` sets the limit in the criterion itself.
+                Always has an answer: the threshold below every score flags
+                nothing and has FPR 0.
 
     Ties go to the lower threshold, i.e. fewer flags shown to the officer.
     """
     if not any(r.deviant for r in rows) or all(r.deviant for r in rows):
         raise ValueError("need both deviant and control rows to choose a threshold")
     cands = candidate_thresholds([r.score for r in rows])
+    if criterion == "recall_at_fpr" or criterion.startswith("recall_at_fpr:"):
+        limit = float(criterion.split(":", 1)[1]) if ":" in criterion else max_fpr
+        stats = {t: counts(rows, t) for t in cands}
+        ok = [t for t in cands if stats[t].fpr <= limit]
+        best_recall = max(stats[t].recall for t in ok)
+        tied = [t for t in ok if stats[t].recall == best_recall]
+        best_fpr = min(stats[t].fpr for t in tied)
+        return min(t for t in tied if stats[t].fpr == best_fpr)
     if criterion.startswith("recall:"):
         target = float(criterion.split(":", 1)[1])
         ok = [t for t in cands if counts(rows, t).recall >= target]

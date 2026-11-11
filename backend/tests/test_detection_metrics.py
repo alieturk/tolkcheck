@@ -91,6 +91,35 @@ class TestChooseThreshold:
         assert counts(_rows(), t).recall == 1.0
         assert t == pytest.approx((0.85 + 0.88) / 2)
 
+    def test_recall_at_fpr_respects_the_fpr_limit(self):
+        # 10 controls, so each false alarm is 0.10 FPR
+        rows = ([Row("A", "omissie", s) for s in (0.50, 0.60, 0.70, 0.95)]
+                + [Row("B", None, s) for s in (0.65, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.96, 0.97)])
+        t = choose_threshold(rows, "recall_at_fpr", max_fpr=0.10)
+        k = counts(rows, t)
+        assert k.fpr <= 0.10
+        assert k.recall == pytest.approx(0.75)     # 0.95 would need FPR 0.8
+        assert k.fpr == pytest.approx(0.10)        # 0.70 can only be caught with the 0.65 control
+        assert t == pytest.approx((0.70 + 0.80) / 2)
+
+    def test_recall_at_fpr_prefers_lower_fpr_at_equal_recall(self):
+        rows = [Row("A", "omissie", 0.30), Row("A", None, 0.50), Row("A", None, 0.90)]
+        t = choose_threshold(rows, "recall_at_fpr", max_fpr=0.5)
+        # recall 1 is reached both at 0.4 (FPR 0) and at 0.7 (FPR 0.5): take FPR 0
+        assert counts(rows, t).fpr == 0.0
+        assert t == pytest.approx(0.40)
+
+    def test_recall_at_fpr_limit_in_the_criterion(self):
+        rows = ([Row("A", "omissie", s) for s in (0.50, 0.60, 0.70, 0.95)]
+                + [Row("B", None, s) for s in (0.65, 0.80, 0.85, 0.90, 0.91, 0.92, 0.93, 0.94, 0.96, 0.97)])
+        assert counts(rows, choose_threshold(rows, "recall_at_fpr:0.0")).fpr == 0.0
+        assert choose_threshold(rows, "recall_at_fpr:0.10") == choose_threshold(rows, "recall_at_fpr")
+
+    def test_recall_at_fpr_can_flag_nothing(self):
+        rows = [Row("A", "omissie", 0.9), Row("A", None, 0.1)]
+        t = choose_threshold(rows, "recall_at_fpr", max_fpr=0.10)
+        assert counts(rows, t).recall == 0.0 and counts(rows, t).fpr == 0.0
+
     def test_needs_both_classes(self):
         with pytest.raises(ValueError):
             choose_threshold([Row("A", "omissie", 0.3)], "f1")
