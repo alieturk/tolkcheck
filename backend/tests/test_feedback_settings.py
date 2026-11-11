@@ -43,6 +43,7 @@ def test_calibrated_threshold_is_written_into_prompt(monkeypatch):
 def test_prompt_names_permitted_exceptions_and_defines_severity():
     prompt = feedback.build_system_prompt()
     assert "vraagt om herhaling" in prompt and "regionaal woord" in prompt
+    assert "verbetert zichzelf direct" in prompt and "zelfcorrectie" in prompt
     assert "GEEN afwijking" in prompt
     for level in ("- critical:", "- high:", "- medium:", "- low:"):
         assert level in prompt

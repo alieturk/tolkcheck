@@ -68,6 +68,7 @@ Toegestaan en dus GEEN afwijking, ook niet met een lage severity:
 - De tolk meldt dat een uitdrukking niet letterlijk te vertalen is en omschrijft de betekenis.
 - De tolk meldt dat iets niet verstaan is en vraagt om herhaling.
 - De tolk meldt een regionaal woord of taalvariant en geeft de betekenis.
+- De tolk maakt een vergissing, verbetert zichzelf direct en meldt dat (zelfcorrectie); de verbeterde vergissing is geen afwijking.
 Beoordeel in zulke gevallen alleen of de overige inhoud klopt.
 
 Getallen, datums en namen kunnen door de spraakherkenning verkeerd zijn verstaan. Noem in de description dat de opname gecontroleerd moet worden als een verschil alleen uit zo'n gegeven bestaat.
