@@ -1,11 +1,21 @@
 """DV4 test set, sealed: predictions now, metrics only after the labels are reviewed.
 
-    # 1. predictions on the test sessions — no labels used, no metrics, nothing shown
-    uv run python evaluation/test_sealed.py predict --sessions-dir ../eval/data/tolkcheck_dv4/sessions_v4
+    # 1. predictions on the test sessions, twice — no labels used, no metrics, nothing shown
+    uv run python evaluation/test_sealed.py predict --run run1 --sessions-dir ../eval/data/tolkcheck_dv4/sessions_v4
+    uv run python evaluation/test_sealed.py predict --run run2 --sessions-dir ../eval/data/tolkcheck_dv4/sessions_v4
 
     # 2. later, after review: metrics from the sealed predictions and the reviewed labels
     uv run python evaluation/test_sealed.py score --sealed evaluation/results/test_sealed_<date> \\
         --sessions-dir ../eval/data/tolkcheck_dv4/sessions_v4
+
+Two runs, fixed before either was made
+--------------------------------------
+``predict`` is run twice on the same commit, into ``<sealed>/run1`` and
+``<sealed>/run2``. **run1 is primary: every reported metric comes from run1.** run2
+is used for one thing only, stability: per variant, the share of test pairs whose
+decision (flagged or not) is the same in run1 and run2. It never replaces, averages
+or selects run1 results. A run2 on another commit than run1 is reported as such and
+makes the stability figures invalid.
 
 predict
 -------
@@ -60,6 +70,8 @@ import feedback_text_check as ftc  # noqa: E402
 from sessions import Session, load_sessions  # noqa: E402
 
 VARIANTS = ("A", "B")
+PRIMARY_RUN, STABILITY_RUN = "run1", "run2"
+RUNS = (PRIMARY_RUN, STABILITY_RUN)
 DEFAULT_CRITERION, DEFAULT_MAX_FPR = "recall_at_fpr", 0.10
 
 
@@ -86,6 +98,47 @@ def tracked_changes(repo: Path = REPO_ROOT) -> list[str]:
 def head_commit(repo: Path = REPO_ROOT) -> str:
     return subprocess.run(["git", "rev-parse", "HEAD"], cwd=repo, capture_output=True,
                           text=True, check=True).stdout.strip()
+
+
+def run_dirs(sealed: Path) -> tuple[Path, Path | None]:
+    """(primary run, stability run or None). A folder with its own manifest.json is
+    a single run and is used as the primary one."""
+    if (sealed / "manifest.json").exists():
+        return sealed, None
+    primary = sealed / PRIMARY_RUN
+    if not (primary / "manifest.json").exists():
+        raise SystemExit(f"geen {PRIMARY_RUN}/manifest.json in {sealed}")
+    second = sealed / STABILITY_RUN
+    return primary, second if (second / "manifest.json").exists() else None
+
+
+def decisions(predictions: list[dict], threshold: float) -> dict[str, dict[str, bool]]:
+    """Per variant and rule: pair_id → flagged, from sealed predictions alone."""
+    out: dict[str, dict[str, bool]] = {"C": {p["pair_id"]: p["labse"] < threshold
+                                             for p in predictions if p["labse"] is not None}}
+    for v in VARIANTS:
+        for rule in ftc.RULES:
+            out[f"{v}:{rule}"] = {p["pair_id"]: ftc.is_flagged(p[f"issues_{v}"] or [], rule) for p in predictions}
+    return out
+
+
+def stability(run1: list[dict], run2: list[dict], threshold: float, pair_ids: set[str] | None = None) -> dict:
+    """Share of pairs with the same decision in both runs, per variant (and rule).
+    Only pairs present in both runs with the same text count; ``pair_ids`` narrows
+    it further (e.g. to the pairs kept for the metrics)."""
+    second = {p["pair_id"]: p for p in run2}
+    common = [p for p in run1 if p["pair_id"] in second and second[p["pair_id"]]["text_hash"] == p["text_hash"]
+              and (pair_ids is None or p["pair_id"] in pair_ids)]
+    ids = [p["pair_id"] for p in common]
+    d1 = decisions(common, threshold)
+    d2 = decisions([second[i] for i in ids], threshold)
+    out = {}
+    for key in d1:
+        both = [i for i in ids if i in d1[key] and i in d2[key]]
+        same = sum(d1[key][i] == d2[key][i] for i in both)
+        out[key] = {"n": len(both), "same": same, "share": same / len(both) if both else None,
+                    "differ": [i for i in both if d1[key][i] != d2[key][i]]}
+    return out
 
 
 def issues_per_pair_id(session: Session, structured) -> dict[str, list[dict] | None]:
@@ -157,7 +210,7 @@ async def _variant_child(variant: str, sessions_dir: Path, out: Path) -> None:
     }, indent=1, ensure_ascii=False), encoding="utf-8")
 
 
-async def predict(sessions_dir: Path, out: Path, force_dirty: bool = False) -> dict:
+async def predict(sessions_dir: Path, out: Path, force_dirty: bool = False, run: str = "run1") -> dict:
     dirty = tracked_changes()
     if dirty and not force_dirty:
         raise SystemExit("niet-gecommitte wijzigingen in gevolgde bestanden; commit eerst:\n" + "\n".join(dirty))
@@ -205,6 +258,8 @@ async def predict(sessions_dir: Path, out: Path, force_dirty: bool = False) -> d
                 for v in VARIANTS}
     manifest = {
         "status": "verzegeld: alleen voorspellingen, geen metrics; labels niet gebruikt",
+        "run": run,
+        "role": "primair" if run == PRIMARY_RUN else "alleen stabiliteit",
         "date": _dt.date.today().isoformat(),
         "commit": commit,
         "uncommitted_tracked_changes": dirty,
@@ -283,8 +338,9 @@ def compute_metrics(test_sessions: list[Session], dev_sessions: list[Session], p
 
 async def score(sealed: Path, sessions_dir: Path, out: Path | None, criterion: str, max_fpr: float,
                 allow_unreviewed: bool, n_boot: int) -> Path:
-    manifest = json.loads((sealed / "manifest.json").read_text(encoding="utf-8"))
-    predictions = json.loads((sealed / "predictions.json").read_text(encoding="utf-8"))
+    primary, second = run_dirs(sealed)
+    manifest = json.loads((primary / "manifest.json").read_text(encoding="utf-8"))
+    predictions = json.loads((primary / "predictions.json").read_text(encoding="utf-8"))
     sessions = load_sessions(sessions_dir)
     test = [s for s in sessions if s.split == "test" and s.session_id in manifest["sessions"]]
     dev = [s for s in sessions if s.split == "dev"]
@@ -301,10 +357,24 @@ async def score(sealed: Path, sessions_dir: Path, out: Path | None, criterion: s
 
     result = compute_metrics(test, dev, predictions, dev_scores, criterion, max_fpr, n_boot)
     valid = not unreviewed and not missing and not result["excluded_pairs"]
+
+    kept = {p.pair_id for s in test for p in s.pairs} - set(result["excluded_pairs"])
+    if second is not None:
+        manifest2 = json.loads((second / "manifest.json").read_text(encoding="utf-8"))
+        run2 = json.loads((second / "predictions.json").read_text(encoding="utf-8"))
+        result["stability"] = {
+            "role": f"{STABILITY_RUN} alleen voor stabiliteit; alle metrics komen uit {PRIMARY_RUN}",
+            "same_commit": manifest2["commit"] == manifest["commit"],
+            "commit_run2": manifest2["commit"],
+            "per_variant": stability(predictions, run2, result["variants"]["C"]["threshold"], kept),
+        }
+    else:
+        result["stability"] = None
     today = _dt.date.today().isoformat()
     result.update({
         "status": "definitief" if valid else "NIET GELDIG",
-        "valid": valid, "date": today, "sealed": str(sealed), "sealed_commit": manifest["commit"],
+        "valid": valid, "date": today, "sealed": str(sealed), "primary_run": str(primary),
+        "sealed_commit": manifest["commit"],
         "sealed_date": manifest["date"], "scored_with_commit": head_commit(),
         "unreviewed_sessions": unreviewed, "sealed_sessions_missing": missing,
         "dev_sessions": [s.session_id for s in dev],
@@ -328,6 +398,17 @@ async def score(sealed: Path, sessions_dir: Path, out: Path | None, criterion: s
         for rule in ftc.RULES:
             md += [f"\n## {v} — gesignaleerd = {rule}" + (" (primair)" if rule == ftc.PRIMARY_RULE else "") + "\n",
                    result["variants"][v][rule]["markdown"]]
+    st = result["stability"]
+    if st:
+        md.append(f"\n## Stabiliteit ({STABILITY_RUN} tegen {PRIMARY_RUN})\n\n{st['role']}."
+                  + ("" if st["same_commit"] else f" **Let op: {STABILITY_RUN} draaide op een andere commit "
+                     f"({st['commit_run2']}); deze cijfers zijn niet geldig.**") + "\n")
+        md.append("| variant | paren | zelfde beslissing | aandeel |\n|---|---|---|---|")
+        for key, v in st["per_variant"].items():
+            share = "–" if v["share"] is None else f"{v['share']:.3f}"
+            md.append(f"| {key} | {v['n']} | {v['same']} | {share} |")
+    else:
+        md.append(f"\n_Geen {STABILITY_RUN} gevonden; stabiliteit niet berekend._\n")
     if result["excluded_pairs"]:
         md.append("\n**Uitgesloten paren**\n\n" + "\n".join(f"- {k}: {v}" for k, v in result["excluded_pairs"].items()))
     (out / "result.md").write_text("\n".join(md) + "\n", encoding="utf-8")
@@ -346,7 +427,9 @@ def main(argv: list[str] | None = None) -> int:
     sub = ap.add_subparsers(dest="cmd", required=True)
     pr = sub.add_parser("predict")
     pr.add_argument("--sessions-dir", type=Path, required=True)
-    pr.add_argument("--out", type=Path, default=None, help="standaard results/test_sealed_<datum>/")
+    pr.add_argument("--run", choices=RUNS, default=PRIMARY_RUN,
+                    help=f"{PRIMARY_RUN} is primair, {STABILITY_RUN} alleen voor stabiliteit")
+    pr.add_argument("--out", type=Path, default=None, help="standaard results/test_sealed_<datum>/<run>/")
     ch = sub.add_parser("_variant")   # internal: one variant in its own process
     ch.add_argument("--variant", choices=VARIANTS, required=True)
     ch.add_argument("--sessions-dir", type=Path, required=True)
@@ -366,9 +449,9 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.cmd == "predict":
         from _common import RESULTS_DIR
-        out = args.out or RESULTS_DIR / f"test_sealed_{_dt.date.today().isoformat()}"
-        m = asyncio.run(predict(args.sessions_dir, out))
-        print(f"verzegeld: {out}\ncommit {m['commit']} · {len(m['sessions'])} sessies")
+        out = args.out or RESULTS_DIR / f"test_sealed_{_dt.date.today().isoformat()}" / args.run
+        m = asyncio.run(predict(args.sessions_dir, out, run=args.run))
+        print(f"verzegeld: {out} ({m['run']}, {m['role']})\ncommit {m['commit']} · {len(m['sessions'])} sessies")
         for v, info in m["variants"].items():
             print(f"{v}: tokens {info['tokens']} · kosten ≈ ${info['cost_usd_estimate']:.4f} · "
                   f"stop {info['stop_reasons']} · paren zonder antwoord {info['pairs_without_answer']}")

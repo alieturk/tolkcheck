@@ -135,5 +135,53 @@ class TestGuards(unittest.TestCase):
         self.assertEqual((k.tp, k.fp), (1, 0))
 
 
+
+class TestTwoRuns(unittest.TestCase):
+    def setUp(self):
+        self.test = [load(n, "test") for n in (30, 31)]
+
+    def test_identical_runs_are_fully_stable(self):
+        preds = sealed_predictions(self.test, lambda p: not p.is_control, lambda p: False, lambda p: 0.8)
+        st = ts.stability(preds, json.loads(json.dumps(preds)), threshold=0.85)
+        for key, v in st.items():
+            self.assertEqual((v["n"], v["share"], v["differ"]), (16, 1.0, []), key)
+        self.assertEqual(set(st), {"C", "A:high_critical", "A:any_issue", "B:high_critical", "B:any_issue"})
+
+    def test_differences_are_counted_per_variant(self):
+        run1 = sealed_predictions(self.test, lambda p: True, lambda p: False, lambda p: 0.8)
+        run2 = json.loads(json.dumps(run1))
+        run2[0]["issues_A"] = []                       # A changes its mind on one pair
+        run2[1]["issues_B"] = [issue("medium")]        # B: only below the primary rule
+        st = ts.stability(run1, run2, threshold=0.85)
+        self.assertEqual(st["A:high_critical"]["same"], 15)
+        self.assertEqual(st["A:high_critical"]["differ"], [run1[0]["pair_id"]])
+        self.assertEqual(st["B:high_critical"]["share"], 1.0)
+        self.assertEqual(st["B:any_issue"]["same"], 15)
+        self.assertEqual(st["C"]["share"], 1.0)
+
+    def test_only_kept_pairs_with_the_same_text_count(self):
+        run1 = sealed_predictions(self.test, lambda p: True, lambda p: True, lambda p: 0.8)
+        run2 = json.loads(json.dumps(run1))
+        run2[2]["text_hash"] = "anders"
+        st = ts.stability(run1, run2, threshold=0.85, pair_ids={p["pair_id"] for p in run1[:5]})
+        self.assertEqual(st["C"]["n"], 4)
+
+    def test_run_dirs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            with self.assertRaises(SystemExit):
+                ts.run_dirs(root)
+            (root / "run1").mkdir()
+            (root / "run1" / "manifest.json").write_text("{}", encoding="utf-8")
+            self.assertEqual(ts.run_dirs(root), (root / "run1", None))
+            (root / "run2").mkdir()
+            (root / "run2" / "manifest.json").write_text("{}", encoding="utf-8")
+            self.assertEqual(ts.run_dirs(root), (root / "run1", root / "run2"))
+            self.assertEqual(ts.run_dirs(root / "run2"), (root / "run2", None))   # a single run folder
+
+    def test_primary_run_is_fixed(self):
+        self.assertEqual((ts.PRIMARY_RUN, ts.STABILITY_RUN), ("run1", "run2"))
+
+
 if __name__ == "__main__":
     unittest.main()
