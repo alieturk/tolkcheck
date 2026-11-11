@@ -17,8 +17,12 @@ Vastgelegd op 2026-11-11, vóór het genereren van de sessies en vóór elke run
 ## Drempel en runs
 
 - De drempel van variant C wordt alleen op dev gekozen, met de procedure uit
-  `backend/evaluation/detection_check.py` (`choose_threshold` op de dev-sessies;
-  standaardcriterium `f1`).
+  `backend/evaluation/detection_check.py` (`choose_threshold` op de dev-sessies).
+  Criterium: hoogste recall (alle categorieën samen) bij FPR ≤ 0,10 op dev; bij
+  gelijke recall de laagste FPR (`choose_threshold`, criterium `recall_at_fpr`,
+  `max_fpr=0.10`).
+  Gewijzigd op 2026-11-11 na een voorlopige run op dev (f1 koos 0,942 met FPR 0,64);
+  de testset was op dat moment niet gelezen of gescoord.
 - Op test wordt daarna precies één run gedaan met variant A en variant C.
 - Er wordt niets meer aangepast nadat de testresultaten bekend zijn.
 
