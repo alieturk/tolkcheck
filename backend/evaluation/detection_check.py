@@ -206,8 +206,10 @@ async def run(
         return CheckResult.skipped(NAME, "pseudo_reference needs ANTHROPIC_API_KEY")
 
     demo = include_drafts or include_unreviewed or dry_run
-    dev = [p for s in sessions if s.split == "dev" for p in s.pairs]
-    test = [p for s in sessions if s.split in ("test", "draft") for p in s.pairs]
+    # Pairs the reviewer left out (excluded: true, see review_sheet.py) count nowhere.
+    left_out = [p for s in sessions for p in s.pairs if p.excluded]
+    dev = [p for s in sessions if s.split == "dev" for p in s.pairs if not p.excluded]
+    test = [p for s in sessions if s.split in ("test", "draft") for p in s.pairs if not p.excluded]
     if not test and not dry_run:
         return CheckResult.skipped(NAME, "no test (or, with --include-drafts, draft) sessions")
     if threshold is None and not dev:
@@ -285,11 +287,15 @@ async def run(
     md.append(md_table(["paar", "categorie", "subtype", "score", "gesignaleerd", "woorden bron"], detail))
 
     notes = excluded + [w for s in sessions for w in s.warnings]
+    if left_out:
+        notes.append(f"{len(left_out)} paar/paren weggelaten door de reviewer: "
+                     + ", ".join(f"{p.pair_id} ({p.excluded_reason or 'geen reden'})" for p in left_out))
     if unscored:
         notes.append(f"niet gescoord (vertaling mislukt): {', '.join(unscored)}")
     if notes:
         md.append("\n**Opmerkingen**\n\n" + "\n".join(f"- {n}" for n in notes))
 
+    numbers["excluded_by_reviewer"] = {p.pair_id: p.excluded_reason for p in left_out}
     numbers.update({"path": path, "threshold": threshold, "criterion": criterion if how.startswith("gekozen") else None,
                     "valid": not demo, "n_dev": len(dev_rows),
                     "n_test": 0 if dry_run else len(reported_rows),

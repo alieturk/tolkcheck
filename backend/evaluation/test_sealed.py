@@ -39,6 +39,9 @@ and listed: their predictions belong to other text. Then:
 * C: the threshold is chosen again on the reviewed dev sessions with
   metrics.choose_threshold (recall_at_fpr, max FPR 0.10, as TESTOPZET.md), and
   applied to the sealed LaBSE scores of the test pairs.
+* Pairs the reviewer left out (``excluded: true``) count nowhere — not in the test
+  metrics, not in the dev set the C threshold is chosen on — and are reported with
+  their reason. Unlike changed text, this does not make the run invalid.
 * A and B: a pair is flagged when it has an issue of severity high or critical that
   is not of type false-negative (feedback_text_check.PRIMARY_RULE); "any issue" is
   reported next to it.
@@ -311,10 +314,15 @@ def compute_metrics(test_sessions: list[Session], dev_sessions: list[Session], p
     for pid in pred:
         if pid not in {p.pair_id for p in test_pairs}:
             excluded[pid] = "paar bestaat niet meer in de sessies"
-    kept = [p for p in test_pairs if p.pair_id not in excluded]
+    # Left out by the reviewer: allowed, counted separately, does not invalidate the run.
+    # (The text check above still covers them.)
+    by_reviewer = {p.pair_id: p.excluded_reason for p in test_pairs if p.excluded and p.pair_id not in excluded}
+    kept = [p for p in test_pairs if p.pair_id not in excluded and p.pair_id not in by_reviewer]
 
+    dev_left_out = {p.pair_id: p.excluded_reason for s in dev_sessions for p in s.pairs if p.excluded}
     dev_rows = [Row(p.session_id, p.category, dev_scores[p.pair_id])
-                for s in dev_sessions for p in s.pairs if dev_scores.get(p.pair_id) is not None]
+                for s in dev_sessions for p in s.pairs
+                if not p.excluded and dev_scores.get(p.pair_id) is not None]
     threshold = choose_threshold(dev_rows, criterion, max_fpr=max_fpr)
 
     def report(rows, thr):
@@ -333,7 +341,8 @@ def compute_metrics(test_sessions: list[Session], dev_sessions: list[Session], p
                         else ftc.NOT_FLAGGED_SCORE) for p in kept]
             out[v][rule] = report(rows, ftc.THRESHOLD)
         out[v]["pairs_without_answer"] = sum(pred[p.pair_id][f"issues_{v}"] is None for p in kept)
-    return {"variants": out, "excluded_pairs": excluded, "n_test_pairs": len(kept)}
+    return {"variants": out, "excluded_pairs": excluded, "n_test_pairs": len(kept),
+            "excluded_by_reviewer": {"test": by_reviewer, "dev": dev_left_out}}
 
 
 async def score(sealed: Path, sessions_dir: Path, out: Path | None, criterion: str, max_fpr: float,
@@ -358,7 +367,8 @@ async def score(sealed: Path, sessions_dir: Path, out: Path | None, criterion: s
     result = compute_metrics(test, dev, predictions, dev_scores, criterion, max_fpr, n_boot)
     valid = not unreviewed and not missing and not result["excluded_pairs"]
 
-    kept = {p.pair_id for s in test for p in s.pairs} - set(result["excluded_pairs"])
+    kept = ({p.pair_id for s in test for p in s.pairs} - set(result["excluded_pairs"])
+            - set(result["excluded_by_reviewer"]["test"]))
     if second is not None:
         manifest2 = json.loads((second / "manifest.json").read_text(encoding="utf-8"))
         run2 = json.loads((second / "predictions.json").read_text(encoding="utf-8"))
@@ -409,6 +419,11 @@ async def score(sealed: Path, sessions_dir: Path, out: Path | None, criterion: s
             md.append(f"| {key} | {v['n']} | {v['same']} | {share} |")
     else:
         md.append(f"\n_Geen {STABILITY_RUN} gevonden; stabiliteit niet berekend._\n")
+    left = result["excluded_by_reviewer"]
+    md.append(f"\n**Weggelaten door de reviewer:** {len(left['test'])} testpaar/-paren, "
+              f"{len(left['dev'])} dev-paar/-paren (tellen nergens mee; maken de run niet ongeldig)\n")
+    for split in ("test", "dev"):
+        md += [f"- {split} {pid}: {reason or 'geen reden'}" for pid, reason in left[split].items()]
     if result["excluded_pairs"]:
         md.append("\n**Uitgesloten paren**\n\n" + "\n".join(f"- {k}: {v}" for k, v in result["excluded_pairs"].items()))
     (out / "result.md").write_text("\n".join(md) + "\n", encoding="utf-8")

@@ -57,6 +57,8 @@ class Pair:
     expected_flag: bool
     reference_text: str | None
     round: int | None = None  # interview round; absent in sessions before prompt v2
+    excluded: bool = False    # left out by the reviewer (review_sheet.py apply); text unchanged
+    excluded_reason: str | None = None
 
     @property
     def is_control(self) -> bool:
@@ -198,6 +200,8 @@ def load_session(path: Path) -> Session:
             expected_flag=expected,
             reference_text=raw.get("reference_rendering"),
             round=_round(raw.get("round"), where),
+            excluded=bool(raw.get("excluded", False)),
+            excluded_reason=raw.get("excluded_reason"),
         ))
     return session
 
