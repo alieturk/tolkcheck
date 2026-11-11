@@ -8,6 +8,12 @@ Vastgelegd op 2026-11-11, vóór het genereren van de sessies en vóór elke run
 - test = S30–S49
 - Map: `eval/data/tolkcheck_dv4/sessions_v4/`
 
+## Varianten
+
+- A: huidige tool, Claude met drempelregels (`LLM_SCORE_RULES=true`), drempel 0,70
+- B: Claude zonder drempelregels (`LLM_SCORE_RULES=false`); optioneel, script nog niet gebouwd
+- C: alleen LaBSE, drempel gekozen op dev (S20–S29)
+
 ## Drempel en runs
 
 - De drempel van variant C wordt alleen op dev gekozen, met de procedure uit
