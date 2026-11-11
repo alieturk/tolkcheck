@@ -25,8 +25,9 @@ def valid_session(number: int = 20) -> dict:
     """A session that satisfies every rule, for any number with four deviations
     or fewer; each test then breaks one thing."""
     deviations = list(BY_LAST_DIGIT[number % 10])
-    labels = deviations + [EXCEPTION_BY_MOD3[number % 3], "controle_letterlijk", "controle_parafrase"]
-    labels += ["controle_letterlijk"] * (8 - len(labels))
+    labels = deviations + ["controle_letterlijk", "controle_parafrase"]
+    labels += ["controle_letterlijk"] * (7 - len(labels))
+    labels.insert(5, EXCEPTION_BY_MOD3[number % 3])  # P06, an answer: taalvariant must be tr->nl
     # P01 (question) and P02 (answer) are always deviations, so both directions have one.
     answer_lengths = {1: 10, 3: 25, 5: 45, 7: 12}
     pairs = []
@@ -46,9 +47,20 @@ def valid_session(number: int = 20) -> dict:
             "expected_flag": label in session_lint.DEVIATIONS,
         }
         if label in session_lint.DEVIATIONS:
-            pair["reference_rendering"] = words(8)
+            pair["reference_rendering"] = words(7) + " juist"
         pairs.append(pair)
     return {"session_id": f"S{number}", "split": "dev", "prompt_version": PROMPT_VERSION, "pairs": pairs}
+
+
+def v3_session(number: int = 20) -> dict:
+    """valid_session as prompt v3 writes it: subtypes from the rotation."""
+    data = valid_session(number)
+    data["prompt_version"] = "tolkcheck-sessies-v3"
+    wanted = session_lint.expected_subtypes(number)
+    for pair in data["pairs"]:
+        if pair["label"] in wanted:
+            pair["subtype"] = wanted[pair["label"]]
+    return data
 
 
 class Base(unittest.TestCase):
@@ -118,7 +130,7 @@ class TestCategoriesAndExceptions(Base):
 
     def test_wrong_exception_for_the_number(self):
         data = valid_session(20)  # 20 % 3 == 2: controle_taalvariant
-        data["pairs"][4]["label"] = "controle_verzoek_herhaling"
+        data["pairs"][5]["label"] = "controle_verzoek_herhaling"
         self.assertFinding(data, "verwacht precies één controle_taalvariant")
 
     def test_two_exceptions(self):
@@ -129,12 +141,12 @@ class TestCategoriesAndExceptions(Base):
 
     def test_exception_is_required(self):
         data = valid_session(20)
-        data["pairs"][4]["label"] = "controle_letterlijk"
+        data["pairs"][5]["label"] = "controle_letterlijk"
         self.assertFinding(data, "uitzondering: gevonden –")
 
     def test_literal_and_paraphrase_required(self):
         data = valid_session(20)
-        for index in (5, 7):  # the fixture has two literal controls
+        for index in (4, 7):  # the fixture has two literal controls
             data["pairs"][index]["label"] = "controle_parafrase"
         self.assertFinding(data, "geen controle_letterlijk")
         data = valid_session(20)
@@ -277,6 +289,202 @@ class TestDirectory(unittest.TestCase):
         data["pairs"].pop()
         self._write("S20.json", data)
         self.assertEqual(self._run_main(), 1)
+
+
+
+class TestPromptVersions(unittest.TestCase):
+    def test_v3_is_checked_and_v1_skipped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            for n, version in ((20, "tolkcheck-sessies-v3"), (21, "tolkcheck-sessies-v1")):
+                data = v3_session(n)
+                data["prompt_version"] = version
+                Path(tmp, f"S{n}.json").write_text(json.dumps(data), encoding="utf-8")
+            findings, skipped = session_lint.lint_directory(Path(tmp))
+        self.assertEqual(findings, {"S20": []})
+        self.assertEqual(set(skipped), {"S21"})
+
+
+class TestReferenceDiff(Base):
+    def _deviation(self, data: dict) -> dict:
+        return next(p for p in data["pairs"] if p["label"] in session_lint.DEVIATIONS)
+
+    def _set(self, rendering: str, reference: str) -> tuple[dict, dict]:
+        data = valid_session()
+        pair = self._deviation(data)
+        pair["rendering"]["text"] = rendering
+        pair["reference_rendering"] = reference
+        return data, pair
+
+    def test_one_run_is_clean_without_note(self):
+        data, _ = self._set("Polisler size ne söylediler?",
+                            "Polisler sizi götürmeden önce size ne söylediler?")
+        self.assertEqual(lint_session(data), [])
+        self.assertEqual(session_lint.session_notes(data), [])
+
+    def test_two_runs_close_together_are_allowed_and_noted(self):
+        data, pair = self._set("Ja, ik kende hem.", "Nee, ik kende hem niet.")
+        self.assertEqual(lint_session(data), [])
+        notes = session_lint.session_notes(data)
+        self.assertEqual(len(notes), 1)
+        self.assertIn(f"{pair['pair_id']}: 2 woordverschillen, 2 woord(en) ertussen", notes[0])
+
+    def test_gap_of_six_is_allowed_seven_is_not(self):
+        six = "a b c d e f"
+        data, _ = self._set(f"X {six} Y", f"P {six} Q")
+        self.assertEqual(lint_session(data), [])
+        data, pair = self._set(f"X {six} g Y", f"P {six} g Q")
+        self.assertFinding(data, f"{pair['pair_id']}: rendering en reference_rendering verschillen op "
+                                 "2 plaatsen die 7 woorden uit elkaar liggen")
+
+    def test_three_runs_is_a_finding(self):
+        data, pair = self._set("a X b Y c Z d", "a P b Q c R d")
+        self.assertFinding(data, f"{pair['pair_id']}: rendering en reference_rendering verschillen op "
+                                 "3 plaatsen, hooguit 2")
+
+    def test_adjacent_changes_count_as_one_run(self):
+        self.assertEqual(session_lint.diff_runs("a b c d", "a x y z d"), [("b c", "x y z")])
+        self.assertEqual(len(session_lint.diff_runs("a b c", "a c")), 1)   # deletion only
+        self.assertEqual(len(session_lint.diff_runs("a c", "a b c")), 1)   # insertion only
+
+    def test_gaps_and_description(self):
+        self.assertEqual(session_lint.word_diff("a X b c Y", "a P b c Q")[1], [2])
+        self.assertEqual(session_lint.describe_diff("a X b c Y", "a P b c Q"), "2 (2 ertussen)")
+        self.assertEqual(session_lint.describe_diff("a X b", "a P b"), "1")
+
+    def test_identical_reference_is_a_note_not_a_finding(self):
+        data, pair = self._set("a b c", "a b c")
+        self.assertEqual(lint_session(data), [])
+        self.assertIn("gelijk aan de rendering", session_lint.session_notes(data)[0])
+
+    def test_controls_are_ignored(self):
+        data = valid_session()
+        control = next(p for p in data["pairs"] if p["label"] == "controle_letterlijk")
+        control["rendering"]["text"] = "a b c d e"
+        self.assertEqual(lint_session(data), [])
+
+
+class TestSubtypeRotation(Base):
+    def _v3(self, number: int) -> dict:
+        return v3_session(number)
+
+    def test_every_category_of_the_session_gets_a_valid_subtype(self):
+        for number in range(20, 90):
+            wanted = session_lint.expected_subtypes(number)
+            self.assertEqual(set(wanted), set(BY_LAST_DIGIT[number % 10]))
+            for category, subtype in wanted.items():
+                self.assertIn(subtype, session_lint.SUBTYPES[category])
+
+    def test_each_subtype_equally_often_give_or_take_one(self):
+        counts = {c: {s: 0 for s in subs} for c, subs in session_lint.SUBTYPES.items()}
+        for number in range(20, 90):
+            for category, subtype in session_lint.expected_subtypes(number).items():
+                counts[category][subtype] += 1
+        for category, per in counts.items():
+            self.assertLessEqual(max(per.values()) - min(per.values()), 1, category)
+
+    def test_rotation_follows_occurrences_of_the_category(self):
+        # omissie occurs in S20, S21, S22, S24: kernfeit, detail, bijzin, voorwaarde
+        got = [session_lint.expected_subtypes(n)["omissie"] for n in (20, 21, 22, 24, 25)]
+        self.assertEqual(got, ["kernfeit", "detail", "bijzin", "voorwaarde", "kernfeit"])
+
+    def test_v3_session_with_the_rotation_is_clean(self):
+        for number in range(20, 90):
+            with self.subTest(number=number):
+                self.assertEqual(lint_session(self._v3(number)), [])
+
+    def test_wrong_subtype_is_a_finding_for_v3(self):
+        data = self._v3(26)
+        pair = next(p for p in data["pairs"] if p["label"] == "entiteitsfout")
+        pair["subtype"] = "aantal"
+        self.assertFinding(data, f"{pair['pair_id']}: subtype 'aantal' bij entiteitsfout, verwacht 'tijdsduur'")
+
+    def test_v2_sessions_keep_their_own_subtypes(self):
+        data = valid_session(26)
+        for pair in data["pairs"]:
+            if pair["label"] == "entiteitsfout":
+                pair["subtype"] = "aantal"
+        self.assertEqual(lint_session(data), [])
+
+
+class TestDialectDirection(Base):
+    def test_taalvariant_in_a_question_is_a_finding(self):
+        data = valid_session(20)
+        exc = next(p for p in data["pairs"] if p["label"] == "controle_taalvariant")
+        self.assertEqual(exc["direction"], "tr->nl")
+        self.assertEqual(lint_session(data), [])
+        # swap it with the literal control on P05, a question
+        data["pairs"][4]["label"], exc["label"] = "controle_taalvariant", "controle_letterlijk"
+        self.assertFinding(data, f"{data['pairs'][4]['pair_id']}: controle_taalvariant in een nl->tr-paar")
+
+    def test_other_exceptions_may_be_in_a_question(self):
+        data = valid_session(22)  # 22 % 3 == 1: verzoek_herhaling
+        exc = next(p for p in data["pairs"] if p["label"] == "controle_verzoek_herhaling")
+        q = next(p for p in data["pairs"] if p["direction"] == "nl->tr" and p["label"] == "controle_letterlijk")
+        exc["label"], q["label"] = q["label"], exc["label"]
+        self.assertEqual(lint_session(data), [])
+
+
+
+def v4_session(number: int = 20) -> dict:
+    """v3_session as prompt v4 writes it: zelfcorrectie instead of taalvariant."""
+    data = v3_session(number)
+    data["prompt_version"] = session_lint.V4
+    for pair in data["pairs"]:
+        if pair["label"] == "controle_taalvariant":
+            pair["label"] = session_lint.SELF_CORRECTION
+            pair["normbron"] = "Wbtv regel 18"
+            pair["rendering"]["text"] = "Ik woonde in Izmir. De tolk corrigeert zich: in Ankara."
+    return data
+
+
+class TestPromptV4(Base):
+    def test_v4_sessions_are_checked_and_clean(self):
+        for number in range(20, 90):
+            with self.subTest(number=number):
+                data = v4_session(number)
+                self.assertEqual(lint_session(data), [])
+                self.assertEqual(session_lint.session_notes(data), [])
+
+    def test_v4_needs_zelfcorrectie_for_mod_3_is_2(self):
+        data = v3_session(20)              # still has controle_taalvariant
+        data["prompt_version"] = session_lint.V4
+        self.assertFinding(data, "verwacht precies één controle_zelfcorrectie")
+
+    def test_v3_still_needs_taalvariant(self):
+        data = v4_session(20)
+        data["prompt_version"] = session_lint.V3
+        self.assertFinding(data, "verwacht precies één controle_taalvariant")
+
+    def test_other_remainders_unchanged_in_v4(self):
+        self.assertEqual(session_lint.exceptions_for(session_lint.V4)[0], "controle_gemelde_omschrijving")
+        self.assertEqual(session_lint.exceptions_for(session_lint.V4)[1], "controle_verzoek_herhaling")
+
+    def test_zelfcorrectie_needs_normbron_18(self):
+        data = v4_session(20)
+        pair = next(p for p in data["pairs"] if p["label"] == session_lint.SELF_CORRECTION)
+        pair["normbron"] = "Wbtv regel 17"
+        self.assertFinding(data, f"{pair['pair_id']}: controle_zelfcorrectie met normbron 'Wbtv regel 17'")
+
+    def test_missing_announcement_is_a_warning_not_a_finding(self):
+        data = v4_session(20)
+        pair = next(p for p in data["pairs"] if p["label"] == session_lint.SELF_CORRECTION)
+        pair["rendering"]["text"] = "Ik woonde in Ankara."
+        self.assertEqual(lint_session(data), [])
+        notes = session_lint.session_notes(data)
+        self.assertEqual(len(notes), 1)
+        self.assertIn(f"{pair['pair_id']}: waarschuwing: controle_zelfcorrectie zonder melding", notes[0])
+
+    def test_turkish_announcement_counts(self):
+        data = v4_session(20)
+        pair = next(p for p in data["pairs"] if p["label"] == session_lint.SELF_CORRECTION)
+        pair["rendering"]["text"] = "İzmir'de, tercüman düzeltiyor: Ankara'da yaşıyordum."
+        self.assertEqual(session_lint.session_notes(data), [])
+
+    def test_v4_directory_is_not_skipped(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            Path(tmp, "S20.json").write_text(json.dumps(v4_session(20)), encoding="utf-8")
+            findings, skipped = session_lint.lint_directory(Path(tmp))
+        self.assertEqual((findings, skipped), ({"S20": []}, {}))
 
 
 if __name__ == "__main__":

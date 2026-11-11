@@ -33,6 +33,7 @@ EVAL_DIR = Path(__file__).resolve().parent
 if str(EVAL_DIR) not in sys.path:
     sys.path.insert(0, str(EVAL_DIR))
 
+from session_lint import describe_diff  # noqa: E402
 from sessions import Pair, Session, load_session  # noqa: E402
 
 DEFAULT_SESSIONS_DIR = EVAL_DIR.parent.parent / "eval" / "data" / "tolkcheck_dv4" / "sessions_v2"
@@ -42,9 +43,18 @@ DEFAULT_FRACTION = 0.30
 REVIEW_SHEET = "review"
 META_SHEET = "steekproef"
 AGREE, REMARK = "akkoord (ja/nee)", "opmerking"
+DIFFS = "woordverschillen"
 COLUMNS = ("sessie", "pair_id", "richting", "bron", "vertolking", "reference_rendering",
-           "label", "subtype", "severity", AGREE, REMARK)
-WIDTHS = (8, 10, 8, 60, 60, 50, 28, 24, 10, 16, 40)
+           DIFFS, "label", "subtype", "severity", AGREE, REMARK)
+WIDTHS = (8, 10, 8, 60, 60, 50, 16, 28, 24, 10, 16, 40)
+
+
+def diffs_cell(p: Pair) -> str:
+    """Contiguous word differences between rendering and reference (deviations only),
+    as session_lint counts them: "1", or "2 (3 ertussen)" for two runs 3 words apart."""
+    if p.is_control or not p.reference_text:
+        return ""
+    return describe_diff(p.rendering_text, p.reference_text)
 
 
 # --------------------------------------------------------------------------- #
@@ -94,7 +104,8 @@ def make_sheet(paths: list[Path], out: Path, seed: int = DEFAULT_SEED,
         rows = rows_for(s, seed, fraction)
         for p in rows:
             ws.append([s.session_id, p.pair_id, p.direction, p.source_text, p.rendering_text,
-                       p.reference_text or "", p.label, p.subtype or "", p.severity, "", ""])
+                       p.reference_text or "", diffs_cell(p), p.label, p.subtype or "",
+                       p.severity, "", ""])
         summary[s.session_id] = {
             "file": Path(path).name,
             "sha256": sha256(path),

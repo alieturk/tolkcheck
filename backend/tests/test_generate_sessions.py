@@ -12,9 +12,10 @@ EVAL_DIR = Path(__file__).resolve().parent.parent / "evaluation"
 sys.path.insert(0, str(EVAL_DIR))
 
 import generate_sessions as gs  # noqa: E402
-from session_lint import PROMPT_VERSION  # noqa: E402
 
-from tests.test_session_lint import valid_session  # noqa: E402
+PV = "tolkcheck-sessies-v3"
+
+from tests.test_session_lint import v3_session as valid_session  # noqa: E402
 
 
 def fenced(data: dict, before: str = "| controletabel |\n|---|\n", tag: str = "json") -> str:
@@ -118,7 +119,7 @@ class TestRetryLoop(unittest.TestCase):
                     reviewed_by="iemand", prompt_version="v1",
                     voices={"officer": "x", "applicant": "y", "interpreter": "z"})
         fake = FakeCaller([fenced(data)], model="claude-sonnet-4-6")
-        out = gs.generate_one(fake, "systeem", self.a)
+        out = gs.generate_one(fake, "systeem", self.a, PV)
         self.assertTrue(out.ok)
         self.assertEqual(len(out.attempts), 1)
         d = out.data
@@ -126,7 +127,7 @@ class TestRetryLoop(unittest.TestCase):
         self.assertEqual(d["topic"], "werk en politieke activiteiten")
         self.assertEqual(d["voices"], gs.voices_for(25))
         self.assertEqual(d["generator"], "claude-sonnet-4-6")
-        self.assertEqual(d["prompt_version"], PROMPT_VERSION)
+        self.assertEqual(d["prompt_version"], PV)
         self.assertIs(d["reviewed"], False)
         self.assertIsNone(d["reviewed_by"])
 
@@ -134,7 +135,7 @@ class TestRetryLoop(unittest.TestCase):
         bad = valid_session(25)
         bad["pairs"].pop()
         fake = FakeCaller([fenced(bad), fenced(valid_session(25))])
-        out = gs.generate_one(fake, "systeem", self.a)
+        out = gs.generate_one(fake, "systeem", self.a, PV)
         self.assertTrue(out.ok)
         self.assertEqual(len(out.attempts), 2)
         self.assertEqual(out.usage["input_tokens"], 200)
@@ -145,20 +146,20 @@ class TestRetryLoop(unittest.TestCase):
 
     def test_rejected_after_max_retries(self):
         fake = FakeCaller(["geen json"] * 10)
-        out = gs.generate_one(fake, "systeem", self.a, max_retries=3)
+        out = gs.generate_one(fake, "systeem", self.a, PV, max_retries=3)
         self.assertFalse(out.ok)
         self.assertEqual(len(fake.calls), 4)
         self.assertIn("geen codeblok", out.problems[0])
 
     def test_wrong_session_id_is_a_finding(self):
         fake = FakeCaller([fenced(valid_session(25)).replace('"S25"', '"S99"')] * 4)
-        out = gs.generate_one(fake, "systeem", self.a)
+        out = gs.generate_one(fake, "systeem", self.a, PV)
         self.assertFalse(out.ok)
         self.assertTrue(any("session_id" in p for p in out.problems))
 
     def test_truncated_answer_is_retried(self):
         fake = FakeCaller([fenced(valid_session(25))] * 4, stop_reason="max_tokens")
-        out = gs.generate_one(fake, "systeem", self.a, max_retries=1)
+        out = gs.generate_one(fake, "systeem", self.a, PV, max_retries=1)
         self.assertFalse(out.ok)
         self.assertEqual(len(fake.calls), 2)
         self.assertIn("max_tokens", out.problems[0])
@@ -166,18 +167,69 @@ class TestRetryLoop(unittest.TestCase):
     def test_write_outcome_ok_and_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             out_dir = Path(tmp)
-            bad = gs.generate_one(FakeCaller(["geen json"] * 4), "s", self.a)
+            bad = gs.generate_one(FakeCaller(["geen json"] * 4), "s", self.a, PV)
             gs.write_outcome(bad, out_dir)
             self.assertTrue((out_dir / "rejected" / "S25.errors.md").exists())
             self.assertFalse((out_dir / "S25.json").exists())
 
-            good = gs.generate_one(FakeCaller([fenced(valid_session(25))]), "s", self.a)
+            good = gs.generate_one(FakeCaller([fenced(valid_session(25))]), "s", self.a, PV)
             gs.write_outcome(good, out_dir)
             self.assertTrue((out_dir / "S25.json").exists())
             self.assertFalse((out_dir / "rejected" / "S25.errors.md").exists())
             raw = (out_dir / "raw" / "S25.md").read_text(encoding="utf-8")
             self.assertIn("controletabel", raw)
             self.assertEqual(gs.log_record(good)["attempts"], 1)
+
+
+class TestSubtypesAndWarnings(unittest.TestCase):
+    def test_user_message_names_the_rotation_subtypes(self):
+        a = gs.assignment(26)
+        self.assertEqual(a.subtypes, {"toevoeging": "eigen_vraag_tolk",
+                                      "betekenisverschuiving": "sterker_of_zwakker_gemaakt",
+                                      "entiteitsfout": "tijdsduur",
+                                      "register_en_nadruk": "voorzichtigheidswoord_weg"})
+        msg = gs.user_message(a)
+        for subtype in a.subtypes.values():
+            self.assertIn(f'"{subtype}"', msg)
+
+    def test_allowed_second_difference_is_not_sent_back(self):
+        data = valid_session(25)
+        pair = next(p for p in data["pairs"] if p["label"] == "omissie")
+        pair["rendering"]["text"] = "Ja, ik kende hem."
+        pair["reference_rendering"] = "Nee, ik kende hem niet."
+        fake = FakeCaller([fenced(data)])
+        out = gs.generate_one(fake, "s", gs.assignment(25), PV)
+        self.assertTrue(out.ok)
+        self.assertEqual(len(fake.calls), 1)
+
+    def test_deviation_with_expected_flag_false_is_an_error(self):
+        data = valid_session(25)
+        pair = next(p for p in data["pairs"] if p["label"] == "omissie")
+        pair["expected_flag"] = False
+        problems = gs.validate(gs.apply_overrides(data, gs.assignment(25), "m", PV), gs.assignment(25))
+        self.assertTrue(any("expected_flag false" in p for p in problems), problems)
+        self.assertFalse(any("loader:" in p and "counted as a control" in p for p in problems))
+
+    def test_wrong_subtype_is_sent_back(self):
+        bad = valid_session(26)
+        next(p for p in bad["pairs"] if p["label"] == "entiteitsfout")["subtype"] = "aantal"
+        fake = FakeCaller([fenced(bad), fenced(valid_session(26))])
+        out = gs.generate_one(fake, "s", gs.assignment(26), PV)
+        self.assertTrue(out.ok)
+        self.assertIn("verwacht 'tijdsduur'", fake.calls[1][2]["content"])
+
+
+class TestPromptVersion(unittest.TestCase):
+    def test_follows_the_file_name(self):
+        self.assertEqual(gs.prompt_version_of(Path("x/tolkcheck-sessies-v3.md")), "tolkcheck-sessies-v3")
+        self.assertEqual(gs.DEFAULT_PROMPT.name, "tolkcheck-sessies-v4.md")
+        self.assertEqual(gs.DEFAULT_MODEL, "claude-haiku-5-5")
+
+    def test_log_and_raw_carry_the_version(self):
+        out = gs.generate_one(FakeCaller([fenced(valid_session(25))]), "s", gs.assignment(25), "promptX")
+        self.assertEqual(out.data["prompt_version"], "promptX")
+        self.assertEqual(gs.log_record(out)["prompt_version"], "promptX")
+        self.assertIn("prompt: promptX", gs.raw_markdown(out))
 
 
 class TestCost(unittest.TestCase):

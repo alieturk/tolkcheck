@@ -103,6 +103,17 @@ class TestRoundTrip(unittest.TestCase):
         self.assertEqual(meta["A1"].value, "seed")
         self.assertEqual(meta["B1"].value, 11)
 
+    def test_woordverschillen_column(self):
+        ws = self.load_workbook(self.sheet)[rs.REVIEW_SHEET]
+        header = [c.value for c in ws[1]]
+        col = header.index("woordverschillen")
+        label_col = header.index("label")
+        for row in ws.iter_rows(min_row=2, values_only=True):
+            if str(row[label_col]).startswith("controle"):
+                self.assertIn(row[col], (None, ""))
+            else:
+                self.assertEqual(row[col], "1")   # the fixture changes one word
+
     def test_all_ja_marks_sessions_reviewed(self):
         self.fill({})
         report = rs.apply_sheet(self.sheet, self.dir, "Ayşe")

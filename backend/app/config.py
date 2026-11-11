@@ -44,6 +44,10 @@ class Settings(BaseSettings):
 
     # Anthropic
     anthropic_api_key: str = ""
+    # Only for evaluation/generate_sessions.py (synthetic test sessions made with
+    # Gemini); the app itself never calls Gemini. Declared here because Settings
+    # rejects unknown keys in .env.
+    gemini_api_key: str = ""
     llm_model: str = "claude-sonnet-4-6"
     # Sampling temperature for every Claude call (feedback and pseudo-reference
     # translation). 0 makes runs as repeatable as the API allows, which DV4 needs:

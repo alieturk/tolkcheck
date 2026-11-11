@@ -5,8 +5,8 @@ the raw JSON rather than going through sessions.py, so a session the loader woul
 refuse still gets a full list of findings instead of one exception. Standard
 library only; no scores are computed here.
 
-Only sessions written with prompt v2 are checked, because the rules describe that
-prompt. Older sessions (S12) are listed as skipped, and so are ``test`` sessions:
+Only sessions written with prompt v2 or v3 are checked, because the rules describe
+those prompts. Older sessions (S12) are listed as skipped, and so are ``test`` sessions:
 nothing derived from them should reach the person writing or tuning the set.
 
     uv run python evaluation/session_lint.py
@@ -21,10 +21,26 @@ Readings of the prompt that the rules leave open
 * Length bands are inclusive as the prompt words them, so an answer of exactly 15
   or 35 words counts for both bands it touches.
 * Words are whitespace-separated tokens, the same count as ``Pair.source_words``.
+* "reference_rendering differs only at the labelled spot" is checked on words:
+  difflib aligns rendering and reference token by token. One contiguous run of
+  changed tokens is fine; so are two runs at most 6 unchanged words apart, because
+  one deviation often shows in two places (a Dutch negation, a verb that moves).
+  More runs, or two further apart, is a finding. Allowed two-run pairs, and
+  references identical to the rendering, are listed as notes, not findings.
+  Punctuation stays attached to its word, so "gün." against "gün" is a change.
+* Subtypes are checked against the rotation (expected_subtypes) only for prompt v3;
+  earlier sessions chose their own.
+* controle_taalvariant must sit in an answer (tr->nl): the client uses the dialect
+  word. This holds for every prompt version.
+* Prompt v4 replaces controle_taalvariant by controle_zelfcorrectie for n mod 3 == 2.
+  Its normbron must be "Wbtv regel 18" (a finding); a rendering without the
+  interpreter's announcement ("corrigeert", "De tolk", or Turkish "tercüman",
+  "düzelt") is only a warning, listed with the notes.
 """
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import re
 import sys
@@ -32,6 +48,12 @@ from collections import Counter
 from pathlib import Path
 
 PROMPT_VERSION = "tolkcheck-sessies-v2"
+# v3 keeps v2's structure, distribution and lengths and only adds content rules
+# (one contiguous change per deviation, varied wording, subtype definitions), so
+# the same checks apply to both.
+V3, V4 = "tolkcheck-sessies-v3", "tolkcheck-sessies-v4"
+# v4 = v3 with controle_zelfcorrectie in place of controle_taalvariant (n mod 3 == 2).
+PROMPT_VERSIONS = (PROMPT_VERSION, V3, V4)
 DEFAULT_DIR = Path(__file__).resolve().parent / "data" / "sessions"
 
 N_PAIRS = 8
@@ -67,13 +89,42 @@ EXCEPTION_BY_MOD3 = {
     1: "controle_verzoek_herhaling",
     2: "controle_taalvariant",
 }
-EXCEPTIONS = set(EXCEPTION_BY_MOD3.values())
+SELF_CORRECTION = "controle_zelfcorrectie"
+SELF_CORRECTION_NORM = "Wbtv regel 18"
+# Words that show the interpreter announcing the self-correction (Dutch or Turkish).
+# Missing them is a warning (a note), not a finding.
+SELF_CORRECTION_MARKERS = ("corrigeert", "de tolk", "tercüman", "düzelt")
+EXCEPTION_BY_MOD3_V4 = {**EXCEPTION_BY_MOD3, 2: SELF_CORRECTION}
+EXCEPTIONS = set(EXCEPTION_BY_MOD3.values()) | {SELF_CORRECTION}
 CONTROLS = {LITERAL, PARAPHRASE} | EXCEPTIONS
+
+# Subtypes per category. From prompt v3 on, the generator assigns them per session
+# by rotation (expected_subtypes) and the lint checks the session uses exactly those.
+SUBTYPES: dict[str, tuple[str, ...]] = {
+    OM: ("kernfeit", "detail", "bijzin", "voorwaarde"),
+    TOE: ("eigen_vraag_tolk", "eigen_uitleg_tolk", "verzonnen_detail", "eigen_oordeel"),
+    BET: ("ontkenning_omgekeerd", "tijd_of_volgorde", "oorzaak_gevolg", "wie_deed_wat",
+          "sterker_of_zwakker_gemaakt"),
+    ENT: ("naam", "datum", "plaats", "aantal", "tijdsduur"),
+    REG: ("voorzichtigheidswoord_weg", "nadruk_weg", "twijfel_weg", "beleefdheid_of_toon"),
+}
+FIRST_SESSION = 20
+SUBTYPE_ROTATION_VERSIONS = {"tolkcheck-sessies-v3", "tolkcheck-sessies-v4"}
+DIALECT = "controle_taalvariant"
+
+# Word-level comparison of rendering and reference_rendering per deviation.
+MAX_DIFF_RUNS = 2
+MAX_DIFF_GAP = 6     # two runs may be at most this many unchanged words apart
 
 MAX_SOURCE_WORDS = 60
 LENGTH_BANDS = (("kort (≤15)", 0, 15), ("middellang (15–35)", 15, 35), ("lang (35–60)", 35, 60))
 OWN_QUESTION = "eigen_vraag_tolk"
 OWN_QUESTION_SEVERITIES = {"major", "critical"}
+
+
+def exceptions_for(version: object) -> dict[int, str]:
+    """The permitted-exception control per number modulo 3, for this prompt version."""
+    return EXCEPTION_BY_MOD3_V4 if version == V4 else EXCEPTION_BY_MOD3
 
 
 def _session_number(data: dict) -> int | None:
@@ -116,7 +167,7 @@ def _check_structure(pairs: list[dict]) -> list[str]:
     return out
 
 
-def _check_labels(number: int | None, pairs: list[dict]) -> list[str]:
+def _check_labels(number: int | None, pairs: list[dict], version: object = None) -> list[str]:
     out: list[str] = []
     labels = [str(p.get("label")) for p in pairs]
     for i, (pair, label) in enumerate(zip(pairs, labels)):
@@ -135,7 +186,7 @@ def _check_labels(number: int | None, pairs: list[dict]) -> list[str]:
             out.append(f"afwijkingen passen niet bij laatste cijfer {digit}: "
                        f"ontbrekend {missing or '–'}, teveel {extra or '–'}")
 
-        expected_exception = EXCEPTION_BY_MOD3[number % 3]
+        expected_exception = exceptions_for(version)[number % 3]
         exceptions = [label for label in labels if label in EXCEPTIONS]
         if exceptions != [expected_exception]:
             out.append(f"uitzondering: gevonden {exceptions or '–'}, verwacht precies één "
@@ -186,22 +237,168 @@ def _check_pair_fields(pairs: list[dict]) -> list[str]:
     return out
 
 
+def expected_subtypes(number: int) -> dict[str, str]:
+    """The subtype per deviation category for session ``number``.
+
+    Each category goes round its subtypes in the order of SUBTYPES, counting only
+    the sessions from FIRST_SESSION on that contain the category. So over any run of
+    sessions starting at S20 every subtype of a category occurs equally often (give
+    or take one)."""
+    out = {}
+    for category in BY_LAST_DIGIT[number % 10]:
+        seen = sum(1 for m in range(FIRST_SESSION, number) if category in BY_LAST_DIGIT[m % 10])
+        options = SUBTYPES[category]
+        out[category] = options[seen % len(options)]
+    return out
+
+
+def word_diff(rendering: str, reference: str) -> tuple[list[tuple[str, str]], list[int]]:
+    """Contiguous runs of differing words, as (rendering part, reference part), and
+    the number of unchanged words between consecutive runs."""
+    a, b = rendering.split(), reference.split()
+    runs: list[tuple[str, str]] = []
+    gaps: list[int] = []
+    in_run = False
+    pending_gap = 0
+    matcher = difflib.SequenceMatcher(None, a, b, autojunk=False)
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag == "equal":
+            in_run = False
+            pending_gap = i2 - i1
+            continue
+        part = (" ".join(a[i1:i2]), " ".join(b[j1:j2]))
+        if in_run:   # two non-equal opcodes next to each other are still one run
+            prev = runs[-1]
+            runs[-1] = (" ".join(x for x in (prev[0], part[0]) if x),
+                        " ".join(x for x in (prev[1], part[1]) if x))
+        else:
+            if runs:
+                gaps.append(pending_gap)
+            runs.append(part)
+        in_run = True
+    return runs, gaps
+
+
+def diff_runs(rendering: str, reference: str) -> list[tuple[str, str]]:
+    """Contiguous runs of differing words, as (rendering part, reference part)."""
+    return word_diff(rendering, reference)[0]
+
+
+def diff_allowed(runs: list, gaps: list[int]) -> bool:
+    """One run, or two runs at most MAX_DIFF_GAP unchanged words apart."""
+    if len(runs) <= 1:
+        return True
+    return len(runs) <= MAX_DIFF_RUNS and all(g <= MAX_DIFF_GAP for g in gaps)
+
+
+def describe_diff(rendering: str, reference: str) -> str:
+    """Short text for reports: number of runs and, with two or more, the words between."""
+    runs, gaps = word_diff(rendering, reference)
+    if len(runs) == 2:
+        return f"2 ({gaps[0]} ertussen)"
+    if len(runs) > 2:
+        return f"{len(runs)} ({', '.join(map(str, gaps))} ertussen)"
+    return str(len(runs))
+
+
+def _show(runs: list[tuple[str, str]]) -> str:
+    return "; ".join(f"«{r or '–'}» ↔ «{f or '–'}»" for r, f in runs)
+
+
+def _deviations_with_reference(pairs: list[dict]):
+    for i, pair in enumerate(pairs):
+        reference = pair.get("reference_rendering")
+        if pair.get("label") in DEVIATIONS and reference:
+            yield i, pair, str(reference)
+
+
+def _check_reference_diff(pairs: list[dict]) -> list[str]:
+    out = []
+    for i, pair, reference in _deviations_with_reference(pairs):
+        runs, gaps = word_diff(_text(pair, "rendering"), reference)
+        if not diff_allowed(runs, gaps):
+            if len(runs) > MAX_DIFF_RUNS:
+                why = f"{len(runs)} plaatsen, hooguit {MAX_DIFF_RUNS}"
+            else:
+                why = f"2 plaatsen die {gaps[0]} woorden uit elkaar liggen, hooguit {MAX_DIFF_GAP}"
+            out.append(f"{_pair_name(pair, i)}: rendering en reference_rendering verschillen op "
+                       f"{why}: {_show(runs)}")
+    return out
+
+
+def _check_subtypes(number: int | None, version: object, pairs: list[dict]) -> list[str]:
+    if number is None or version not in SUBTYPE_ROTATION_VERSIONS:
+        return []
+    wanted = expected_subtypes(number)
+    out = []
+    for i, pair in enumerate(pairs):
+        label = pair.get("label")
+        if label in wanted and pair.get("subtype") != wanted[label]:
+            out.append(f"{_pair_name(pair, i)}: subtype {pair.get('subtype')!r} bij {label}, "
+                       f"verwacht {wanted[label]!r} (rotatie voor S{number})")
+    return out
+
+
+def _check_dialect_direction(pairs: list[dict]) -> list[str]:
+    return [f"{_pair_name(pair, i)}: {DIALECT} in een {pair.get('direction')}-paar; "
+            f"de cliënt gebruikt het dialectwoord, dus verwacht {ANSWER}"
+            for i, pair in enumerate(pairs)
+            if pair.get("label") == DIALECT and pair.get("direction") != ANSWER]
+
+
+def _check_self_correction(pairs: list[dict]) -> list[str]:
+    return [f"{_pair_name(pair, i)}: {SELF_CORRECTION} met normbron {pair.get('normbron')!r}, "
+            f"verwacht {SELF_CORRECTION_NORM!r}"
+            for i, pair in enumerate(pairs)
+            if pair.get("label") == SELF_CORRECTION and pair.get("normbron") != SELF_CORRECTION_NORM]
+
+
 def lint_session(data: dict) -> list[str]:
-    """Return every departure from prompt v2; an empty list means the session is clean."""
+    """Return every departure from the prompt; an empty list means the session is clean."""
     pairs = data.get("pairs")
     if not isinstance(pairs, list) or not all(isinstance(p, dict) for p in pairs):
         return ["pairs ontbreekt of is geen lijst van objecten"]
+    number = _session_number(data)
     return (
         _check_structure(pairs)
-        + _check_labels(_session_number(data), pairs)
+        + _check_labels(number, pairs, data.get("prompt_version"))
         + _check_direction_spread(pairs)
         + _check_lengths(pairs)
         + _check_pair_fields(pairs)
+        + _check_reference_diff(pairs)
+        + _check_subtypes(number, data.get("prompt_version"), pairs)
+        + _check_dialect_direction(pairs)
+        + _check_self_correction(pairs)
     )
 
 
-def lint_directory(directory: Path) -> tuple[dict[str, list[str]], dict[str, str]]:
-    """Return ``(findings per checked session, reason per skipped session)``."""
+def session_notes(data: dict) -> list[str]:
+    """Worth recording, not findings: deviations whose reference differs in two places
+    close together (allowed), or not at all. Never sent to the model."""
+    pairs = data.get("pairs")
+    if not isinstance(pairs, list) or not all(isinstance(p, dict) for p in pairs):
+        return []
+    out = []
+    for i, pair, reference in _deviations_with_reference(pairs):
+        runs, gaps = word_diff(_text(pair, "rendering"), reference)
+        if len(runs) == 2 and diff_allowed(runs, gaps):
+            out.append(f"{_pair_name(pair, i)}: 2 woordverschillen, {gaps[0]} woord(en) ertussen "
+                       f"(toegestaan): {_show(runs)}")
+        elif not runs:
+            out.append(f"{_pair_name(pair, i)}: reference_rendering gelijk aan de rendering")
+    for i, pair in enumerate(pairs):
+        if pair.get("label") == SELF_CORRECTION:
+            text = _text(pair, "rendering").lower()
+            if not any(marker in text for marker in SELF_CORRECTION_MARKERS):
+                out.append(f"{_pair_name(pair, i)}: waarschuwing: {SELF_CORRECTION} zonder melding "
+                           f"van de tolk in de rendering (gezocht: {', '.join(SELF_CORRECTION_MARKERS)})")
+    return out
+
+
+def lint_directory(directory: Path, notes: dict[str, list[str]] | None = None
+                   ) -> tuple[dict[str, list[str]], dict[str, str]]:
+    """Return ``(findings per checked session, reason per skipped session)``.
+    Pass a dict as ``notes`` to also collect session_notes per checked session."""
     findings: dict[str, list[str]] = {}
     skipped: dict[str, str] = {}
     for path in sorted(Path(directory).glob("*.json")):
@@ -216,15 +413,20 @@ def lint_directory(directory: Path) -> tuple[dict[str, list[str]], dict[str, str
         name = str(data.get("session_id", path.stem))
         if data.get("split") == "test":
             skipped[name] = "split=test, niet bekeken"
-        elif data.get("prompt_version") != PROMPT_VERSION:
+        elif data.get("prompt_version") not in PROMPT_VERSIONS:
             skipped[name] = f"prompt_version={data.get('prompt_version')!r}, regels gelden niet"
         else:
             findings[name] = lint_session(data)
+            if notes is not None:
+                notes[name] = session_notes(data)
     return findings, skipped
 
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description="Toets sessies aan prompt tolkcheck-sessies-v2.")
+    for stream in (sys.stdout, sys.stderr):   # Windows consoles default to cp1252
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", errors="replace")
+    parser = argparse.ArgumentParser(description="Toets sessies aan prompt tolkcheck-sessies-v2/v3/v4.")
     parser.add_argument("--sessions-dir", type=Path, default=DEFAULT_DIR,
                         help="map met sessies (standaard: evaluation/data/sessions)")
     args = parser.parse_args(argv)
@@ -232,11 +434,14 @@ def main(argv: list[str] | None = None) -> int:
     if not args.sessions_dir.is_dir():
         print(f"map niet gevonden: {args.sessions_dir}", file=sys.stderr)
         return 2
-    findings, skipped = lint_directory(args.sessions_dir)
+    notes: dict[str, list[str]] = {}
+    findings, skipped = lint_directory(args.sessions_dir, notes)
     for name, problems in findings.items():
         print(f"{name}: {'OK' if not problems else f'{len(problems)} afwijking(en)'}")
         for problem in problems:
             print(f"  - {problem}")
+        for note in notes.get(name, []):
+            print(f"  · {note}")
     for name, reason in skipped.items():
         print(f"{name}: overgeslagen ({reason})")
     total = sum(len(p) for p in findings.values())
