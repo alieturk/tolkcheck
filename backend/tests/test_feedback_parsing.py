@@ -82,3 +82,103 @@ class TestExtractOverall:
 
     def test_returns_none_when_key_absent(self):
         assert _extract_overall('{"pairs": []}') is None
+
+
+# ── Several JSON blocks, and answers that cannot be read (DV4 dev, S26) ─────────
+import asyncio  # noqa: E402
+from types import SimpleNamespace  # noqa: E402
+
+from app.services import feedback  # noqa: E402
+from app.services.feedback import _parse_feedback_response  # noqa: E402
+
+ISSUE = {"type": "omission", "severity": "high", "description": "Bijzin ontbreekt",
+         "originalPhrase": "a", "translatedPhrase": "b"}
+
+
+def _fenced(doc: dict) -> str:
+    return "```json\n" + json.dumps(doc, ensure_ascii=False, indent=2) + "\n```"
+
+
+C2O_BLOCK = {"overall_feedback": "Antwoorden: één afwijking.",
+             "pairs": [{"pair_index": 0, "direction": "client_to_officer", "issues": [ISSUE]},
+                       {"pair_index": 1, "direction": "client_to_officer", "issues": []}]}
+O2C_BLOCK = {"overall_feedback": "Vragen: geen afwijkingen.",
+             "pairs": [{"pair_index": 0, "direction": "officer_to_client", "issues": []},
+                       {"pair_index": 1, "direction": "officer_to_client", "issues": []}]}
+
+
+class TestSeveralBlocks:
+    def test_two_blocks_are_merged(self):
+        text = _fenced(C2O_BLOCK) + "\n\n**Aanvulling AMBTENAAR→CLIËNT paren:**\n\n" + _fenced(O2C_BLOCK)
+        parsed = _parse_feedback_response(text)
+        keys = [(p["direction"], p["pair_index"]) for p in parsed["pairs"]]
+        assert keys == [("client_to_officer", 0), ("client_to_officer", 1),
+                        ("officer_to_client", 0), ("officer_to_client", 1)]
+        assert parsed["pairs"][0]["issues"] == [ISSUE]
+        assert "Antwoorden" in parsed["overall_feedback"] and "Vragen" in parsed["overall_feedback"]
+
+    def test_duplicate_pairs_and_issues_are_merged_once(self):
+        again = {"overall_feedback": "Antwoorden: één afwijking.",
+                 "pairs": [{"pair_index": 0, "direction": "client_to_officer",
+                            "issues": [ISSUE, {**ISSUE, "severity": "critical"}]}]}
+        parsed = _parse_feedback_response(_fenced(C2O_BLOCK) + "\n" + _fenced(again))
+        entries = [p for p in parsed["pairs"] if (p["direction"], p["pair_index"]) == ("client_to_officer", 0)]
+        assert len(entries) == 1
+        assert entries[0]["issues"] == [ISSUE, {**ISSUE, "severity": "critical"}]
+        assert parsed["overall_feedback"] == "Antwoorden: één afwijking."
+
+    def test_single_unfenced_document_still_works(self):
+        assert _parse_feedback_response(json.dumps(DOC))["pairs"][1]["issues"][0]["severity"] == "critical"
+
+    def test_truncated_second_block_keeps_its_complete_pairs(self):
+        second = _fenced(O2C_BLOCK)
+        cut = second[: second.rfind('{"pair_index": 1') if '{"pair_index": 1' in second else -40]
+        parsed = _parse_feedback_response(_fenced(C2O_BLOCK) + "\n" + cut)
+        assert ("officer_to_client", 0) in {(p["direction"], p["pair_index"]) for p in parsed["pairs"]}
+
+    def test_nothing_readable_returns_none(self):
+        assert _parse_feedback_response("Sorry, ik kan dit niet beoordelen.") is None
+        assert _parse_feedback_response("```json\n{kapot\n```") is None
+
+
+def _run_feedback(answer: str, n_c2o: int = 2, n_o2c: int = 2) -> dict:
+    message = SimpleNamespace(content=[SimpleNamespace(text=answer)], stop_reason="end_turn",
+                              usage=SimpleNamespace(input_tokens=1, output_tokens=1))
+
+    class Messages:
+        async def create(self, **kwargs):
+            return message
+
+    old = feedback._client
+    feedback._client = SimpleNamespace(messages=Messages())
+    try:
+        block = {"source_block": {"text": "bron"}, "interp_block": {"text": "tolk"}}
+        return asyncio.run(feedback.generate_feedback([block] * n_c2o, [0.9] * n_c2o,
+                                                      [block] * n_o2c, [0.9] * n_o2c))
+    finally:
+        feedback._client = old
+
+
+class TestNotAssessedIsVisible:
+    def test_unreadable_answer_marks_the_session(self):
+        result = _run_feedback("Dit is geen JSON.")
+        assert result["structured_issues"] == []
+        assert result["not_assessed"] == ["client_to_officer", "officer_to_client"]
+        assert result["overall_feedback"].startswith("⚠ NIET BEOORDEELD")
+        assert "betekent NIET dat er geen afwijkingen zijn" in result["overall_feedback"]
+
+    def test_missing_direction_is_marked(self):
+        result = _run_feedback(_fenced(C2O_BLOCK))          # the o2c block never came
+        assert result["not_assessed"] == ["officer_to_client"]
+        assert "AMBTENAAR→CLIËNT" in result["overall_feedback"].split("\n")[0]
+        assert "Antwoorden: één afwijking." in result["overall_feedback"]
+
+    def test_two_blocks_need_no_notice(self):
+        result = _run_feedback(_fenced(C2O_BLOCK) + "\n\nAanvulling:\n\n" + _fenced(O2C_BLOCK))
+        assert result["not_assessed"] == []
+        assert not result["overall_feedback"].startswith("⚠")
+        assert len(result["structured_issues"]) == 4
+
+    def test_direction_without_pairs_is_not_marked(self):
+        result = _run_feedback(_fenced(C2O_BLOCK), n_o2c=0)
+        assert result["not_assessed"] == []

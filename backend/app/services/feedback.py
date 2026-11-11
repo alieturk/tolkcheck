@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json as _json
 import logging
+import re as _re
 from typing import TYPE_CHECKING
 
 import anthropic
@@ -303,12 +304,6 @@ async def generate_feedback(
 
     response_text: str = message.content[0].text  # type: ignore[index]
 
-    cleaned = response_text.strip()
-    if cleaned.startswith("```"):
-        cleaned = cleaned.split("\n", 1)[-1]
-        if cleaned.endswith("```"):
-            cleaned = cleaned[: cleaned.rfind("```")]
-
     usage = message.usage
     log.info("generate_feedback  c2o_pairs=%d  o2c_pairs=%d  input_tokens=%d  output_tokens=%d",
              len(c2o_pairs), len(o2c_pairs), usage.input_tokens, usage.output_tokens)
@@ -317,21 +312,124 @@ async def generate_feedback(
         log.warning("generate_feedback  response hit max_tokens (%d output) — "
                     "salvaging what parsed", message.usage.output_tokens)
 
-    parsed = _parse_feedback_json(cleaned)
+    expected = {"client_to_officer": len(c2o_pairs), "officer_to_client": len(o2c_pairs)}
+    parsed = _parse_feedback_response(response_text)
     if parsed is None:
-        log.error("generate_feedback  JSON unparseable even after repair — "
-                  "returning prose only, no structured issues")
-        return {"overall_feedback": _extract_overall(cleaned) or response_text,
-                "structured_issues": []}
+        not_assessed = [d for d, n in expected.items() if n]
+        log.error("generate_feedback  JSON unparseable even after repair — session marked "
+                  "NOT ASSESSED, no structured issues")
+        overall = _extract_overall(response_text)
+        return {"overall_feedback": _not_assessed_notice(not_assessed, whole_session=True)
+                + ("\n\n" + overall if overall else ""),
+                "structured_issues": [],
+                "not_assessed": not_assessed}
 
     pairs = parsed.get("pairs", []) or []
+    answered = {p.get("direction") or "client_to_officer" for p in pairs if isinstance(p, dict)}
+    not_assessed = [d for d, n in expected.items() if n and d not in answered]
     issues_total = sum(len(p.get("issues", [])) for p in pairs)
-    log.info("generate_feedback  parsed_pairs=%d  total_issues=%d",
-             len(pairs), issues_total)
+    log.info("generate_feedback  parsed_pairs=%d  total_issues=%d  blocks=%d  not_assessed=%s",
+             len(pairs), issues_total, parsed.get("_blocks", 1), not_assessed or "-")
+    overall = parsed.get("overall_feedback") or ""
+    if not_assessed:
+        log.error("generate_feedback  no answer for direction(s) %s — marked NOT ASSESSED", not_assessed)
+        overall = _not_assessed_notice(not_assessed) + ("\n\n" + overall if overall else "")
     return {
-        "overall_feedback": parsed.get("overall_feedback", response_text),
+        "overall_feedback": overall or response_text,
         "structured_issues": pairs,
+        "not_assessed": not_assessed,
     }
+
+
+_DIRECTION_NL = {"client_to_officer": "CLIËNT→AMBTENAAR", "officer_to_client": "AMBTENAAR→CLIËNT"}
+
+
+def _not_assessed_notice(directions: list[str], whole_session: bool = False) -> str:
+    """Shown at the top of the feedback text the officer reads: no signal here does
+    NOT mean no deviation, because the automatic analysis could not be read."""
+    if whole_session:
+        return ("⚠ NIET BEOORDEELD: de automatische analyse van deze sessie kon niet worden "
+                "gelezen. Er zijn geen signaleringen getoond, maar dat betekent NIET dat er geen "
+                "afwijkingen zijn. Beoordeel deze sessie zelf of laat de analyse opnieuw uitvoeren.")
+    names = " en ".join(_DIRECTION_NL.get(d, d) for d in directions)
+    return (f"⚠ NIET BEOORDEELD: voor de richting {names} kon de automatische analyse niet worden "
+            "gelezen. Voor die paren zijn geen signaleringen getoond, maar dat betekent NIET dat er "
+            "geen afwijkingen zijn.")
+
+
+_FENCE = _re.compile(r"```[A-Za-z]*[ \t]*\r?\n(.*?)(?:\r?\n)?[ \t]*```", _re.DOTALL)
+
+
+def _response_blocks(text: str) -> list[str]:
+    """The JSON documents in a response: every fenced block, or the whole text when
+    there is none. A final fence left open (a cut-off answer) still counts."""
+    text = text.strip()
+    blocks = [b.strip() for b in _FENCE.findall(text)]
+    tail = text.rsplit("```", 1)
+    if text.count("```") % 2 == 1 and tail[-1].strip():
+        # odd number of fences: the last block was opened but never closed
+        opened = tail[-1].split("\n", 1)
+        blocks.append((opened[1] if len(opened) > 1 else "").strip())
+    if not blocks:
+        blocks = [text]
+    return [b for b in blocks if b]
+
+
+def _issue_key(issue: dict) -> tuple:
+    return tuple(str(issue.get(k, "")).strip() for k in
+                 ("type", "severity", "description", "originalPhrase", "translatedPhrase"))
+
+
+def _merge_feedback(docs: list[dict]) -> dict:
+    """One feedback document from several: overall texts joined, pair entries merged
+    on (direction, pair_index), identical issues kept once."""
+    overalls: list[str] = []
+    merged: dict[tuple[str, int], dict] = {}
+    order: list[tuple[str, int]] = []
+    loose: list[dict] = []
+    for doc in docs:
+        text = str(doc.get("overall_feedback") or "").strip()
+        if text and text not in overalls:
+            overalls.append(text)
+        for entry in doc.get("pairs", []) or []:
+            if not isinstance(entry, dict):
+                continue
+            direction = entry.get("direction") or "client_to_officer"
+            try:
+                key = (direction, int(entry.get("pair_index")))
+            except (TypeError, ValueError):
+                loose.append(entry)
+                continue
+            if key not in merged:
+                merged[key] = {**entry, "direction": direction, "pair_index": key[1], "issues": []}
+                order.append(key)
+            seen = {_issue_key(i) for i in merged[key]["issues"]}
+            for issue in entry.get("issues", []) or []:
+                if isinstance(issue, dict) and _issue_key(issue) not in seen:
+                    merged[key]["issues"].append(issue)
+                    seen.add(_issue_key(issue))
+    return {"overall_feedback": "\n\n".join(overalls),
+            "pairs": [merged[k] for k in order] + loose,
+            "_blocks": len(docs)}
+
+
+def _parse_feedback_response(text: str) -> dict | None:
+    """Parse a whole model response: each JSON block on its own (with the truncation
+    repair of _parse_feedback_json), then merged. None when no block could be read.
+
+    The model sometimes answers in two blocks — one per direction, the second headed
+    "Aanvulling AMBTENAAR→CLIËNT paren" (DV4 dev, S26). Reading only the first, or
+    neither, used to drop every issue of the session without a trace."""
+    docs = []
+    for block in _response_blocks(text):
+        doc = _parse_feedback_json(block)
+        if isinstance(doc, dict):
+            docs.append(doc)
+    if not docs:
+        return None
+    if len(docs) > 1:
+        log.warning("generate_feedback  answer had %d JSON blocks — merged", len(docs))
+    return _merge_feedback(docs)
 
 
 def _parse_feedback_json(text: str) -> dict | None:
