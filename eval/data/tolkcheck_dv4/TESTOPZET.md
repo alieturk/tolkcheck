@@ -1,0 +1,30 @@
+# Testopzet DV4 — detectie op synthetische sessies
+
+Vastgelegd op 2026-11-11, vóór het genereren van de sessies en vóór elke run op test.
+
+## Sessies
+
+- dev = S20–S29
+- test = S30–S49
+- Map: `eval/data/tolkcheck_dv4/sessions_v4/`
+
+## Drempel en runs
+
+- De drempel van variant C wordt alleen op dev gekozen, met de procedure uit
+  `backend/evaluation/detection_check.py` (`choose_threshold` op de dev-sessies;
+  standaardcriterium `f1`).
+- Op test wordt daarna precies één run gedaan met variant A en variant C.
+- Er wordt niets meer aangepast nadat de testresultaten bekend zijn.
+
+## Generator
+
+- model: claude-haiku-5-5
+- temperature: niet instelbaar bij dit model (API weigert de parameter); standaard sampling
+- reproduceerbaarheid: de gegenereerde sessies worden opgeslagen en na review bevroren;
+  het generatielog (model, promptversie, tokens, kosten, duur) wordt meegecommit
+- prompt: tolkcheck-sessies-v4 (commit 059fcd2)
+
+## Detectie
+
+- LaBSE is deterministisch.
+- Variant A (feedbackmodel) draait met `llm_temperature=0`.
