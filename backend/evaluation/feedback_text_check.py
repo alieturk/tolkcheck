@@ -129,11 +129,12 @@ def assign_flags(pairs: list, scores: dict[str, float | None], structured: list 
     return sorted(out, key=lambda r: order[r.pair_id])
 
 
-def rows_for(results: list[PairResult], rule: str) -> list:
-    """metrics.Row per pair, with the flag encoded as a score below/above THRESHOLD."""
+def rows_for(results: list[PairResult], rule: str, skip: set[str] | frozenset = frozenset()) -> list:
+    """metrics.Row per pair, with the flag encoded as a score below/above THRESHOLD.
+    Pairs in ``skip`` (left out by the reviewer) are not counted."""
     from metrics import Row
     return [Row(r.session_id, r.category, FLAGGED_SCORE if r.flags[rule] else NOT_FLAGGED_SCORE)
-            for r in results]
+            for r in results if r.pair_id not in skip]
 
 
 # --------------------------------------------------------------------------- #
@@ -253,9 +254,12 @@ async def run(variant: str, sessions_dir: Path, split: str, out_dir: Path, n_boo
               f"{'?' if cost is None else f'${cost:.4f}'} · {duration:.0f} s"
               + (f" · ontbrekend: {', '.join(missing)}" if missing else ""), flush=True)
 
+    # The whole session still goes to the model (as in the tool); pairs the reviewer
+    # left out (excluded: true) are only left out of the counts.
+    left_out = {p.pair_id: p.excluded_reason for p in pairs if p.excluded}
     reports = {}
     for rule in RULES:
-        rows = rows_for(results, rule)
+        rows = rows_for(results, rule, set(left_out))
         boot = session_bootstrap(rows, THRESHOLD, CATEGORIES, n_boot=n_boot)
         table_md, numbers = dc._results_table(rows, THRESHOLD, boot)
         total = counts(rows, THRESHOLD)
@@ -282,6 +286,7 @@ async def run(variant: str, sessions_dir: Path, split: str, out_dir: Path, n_boo
         "differences_from_tool": ["geen kennisbank (geen database)",
                                   "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"],
         "reports": reports,
+        "excluded_by_reviewer": left_out,
         "per_session": per_session,
         "tokens_total": tokens,
         "cost_usd_estimate_total": sum(r["cost_usd_estimate"] or 0 for r in per_session),

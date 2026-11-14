@@ -133,5 +133,17 @@ class TestRecordingClient(unittest.TestCase):
         self.assertEqual(client.calls[0]["temperature"], 0.0)
 
 
+
+class TestLeftOutPairs(unittest.TestCase):
+    def test_skipped_pairs_are_not_counted(self):
+        s = session(20)
+        structured = [{"pair_index": i, "direction": d, "issues": [issue("high")]}
+                      for d in ("officer_to_client", "client_to_officer") for i in range(4)]
+        results = ftc.assign_flags(s.pairs, {}, structured)
+        all_rows = ftc.rows_for(results, "high_critical")
+        left = ftc.rows_for(results, "high_critical", {"S20-P01", "S20-P02"})
+        self.assertEqual((len(all_rows), len(left)), (8, 6))
+
+
 if __name__ == "__main__":
     unittest.main()
