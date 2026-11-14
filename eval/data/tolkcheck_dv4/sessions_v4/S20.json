@@ -1,0 +1,193 @@
+{
+ "session_id": "S20",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "aanhouding en detentie",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S20-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer bent u voor het eerst aangehouden?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İlk kez ne zaman gözaltına alındınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S20-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mart ayının on ikisinde, sabah saat yedide, evimin önünde polisler beni aldı. Sonra Mardin'deki karakolda üç gün tutuldum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Op twaalf maart, om zeven uur 's ochtends, haalden agenten me op voor mijn huis. Daarna zat ik twee dagen, nee, de tolk corrigeert zich: drie dagen, op het politiebureau in Mardin."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S20-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u mij zeggen waarom de politie u destijds meenam?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Polisin sizi neden aldığını anlatır mısınız? Bu arada, hangi derneğin üyesiydiniz?"
+   },
+   "reference_rendering": "Polisin sizi neden aldığını anlatır mısınız?",
+   "label": "toevoeging",
+   "subtype": "eigen_vraag_tolk",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S20-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, o gün hiç silah taşımadım, sadece pankart tuttum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, die dag droeg ik een wapen, ik hield alleen een spandoek vast."
+   },
+   "reference_rendering": "Nee, die dag droeg ik geen wapen, ik hield alleen een spandoek vast.",
+   "label": "betekenisverschuiving",
+   "subtype": "ontkenning_omgekeerd",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S20-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe lang bent u in het politiebureau gehouden, en wat gebeurde er in die tijd?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Karakolda ne kadar tutulduğunuzu ve bu süre içinde neler yaşandığını söyler misiniz?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S20-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Karakolda ilk gece bir odada tek başıma tutuldum. Sabaha kadar uyumadım, çünkü sürekli bağırıyorlardı. İkinci gün beni sorguya aldılar ve bana okuyamadığım bir kağıda imza attırdılar. Okuyamadığım bir kağıt olduğunu söyledim ama yine de imzalamak zorunda kaldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik zat de eerste nacht alleen in een kamer op het bureau in Mardin. Ik sliep tot de ochtend niet, want ze bleven de hele tijd schreeuwen. De tweede dag namen ze me mee voor verhoor, en ze lieten me een papier tekenen dat ik niet kon lezen. Ik zei dat het een papier was dat ik niet kon lezen."
+   },
+   "reference_rendering": "Ik zat de eerste nacht alleen in een kamer op het bureau in Mardin. Ik sliep tot de ochtend niet, want ze bleven de hele tijd schreeuwen. De tweede dag namen ze me mee voor verhoor, en ze lieten me een papier tekenen dat ik niet kon lezen. Ik zei dat het een papier was dat ik niet kon lezen, maar ik moest het toch tekenen.",
+   "label": "omissie",
+   "subtype": "kernfeit",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "opmerking_reviewer": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging.",
+   "excluded": true,
+   "excluded_reason": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+  },
+  {
+   "pair_id": "S20-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u tijdens die detentie medische zorg gekregen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bu gözaltı süresince tıbbi bakım aldınız mı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S20-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mardin karakolunda bir kez Komiser Serkan Aydın ile konuştum. Sonra bana ağrı kesici verdi ve yaralarıma bakılmasını istedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb op het bureau in Mardin één keer gesproken met commissaris Serkan Altun. Daarna gaf hij me pijnstillers en vroeg hij of mijn verwondingen verzorgd konden worden."
+   },
+   "reference_rendering": "Ik heb op het bureau in Mardin één keer gesproken met commissaris Serkan Aydın. Daarna gaf hij me pijnstillers en vroeg hij of mijn verwondingen verzorgd konden worden.",
+   "label": "entiteitsfout",
+   "subtype": "naam",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  }
+ ]
+}

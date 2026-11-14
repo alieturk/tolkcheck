@@ -1,0 +1,102 @@
+{
+ "session_id": "S27",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting. Bij paar 1 is sprake van een kritieke betekenisomkering: de cliënt zegt uitdrukkelijk dat hij de verklaring nooit heeft afgelegd ('hiçbir zaman vermedim'), maar de tolk vertaalt dit als 'die verklaring heb ik wel afgelegd' — een directe ontkenning wordt zo een bevestiging. Dit raakt een centraal feit in het relaas. Bij paar 2 ontbreekt in de vertolking de zinsnede 'met alleen een dun jasje aan' ('üzerimde sadece ince bir ceketle'), wat een detail is over de omstandigheden van de detentie. De overige paren leveren geen inhoudelijke afwijkingen op. Paar 3 (client→ambtenaar) bevat een transparante tolkmelding over een idiomatische uitdrukking, wat conform protocol is. In de AMBTENAAR→CLIËNT-richting is bij paar 3 een toevoeging zichtbaar: de tolk voegt een verduidelijkende toelichting toe ('Yani gözaltının bittiği tarihi kastediyor' — 'hij bedoelt de datum waarop de detentie eindigde'). Dit is een eigen interpretatie van de tolk die niet in de oorspronkelijke vraag stond en de vraag inhoudelijk inkadert voor de cliënt.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt uitdrukkelijk dat hij die verklaring nooit heeft afgelegd ('hiçbir zaman vermedim' = ik heb die verklaring nooit afgelegd). De tolk vertaalt dit als 'die verklaring heb ik wel afgelegd', wat de betekenis volledig omkeert: een ontkenning wordt een bevestiging. Dit is een feitelijk beslissend gegeven over het al dan niet ondertekenen of afleggen van een verklaring onder druk.\",\n          \"originalPhrase\": \"ama ben o ifadeyi hiçbir zaman vermedim\",\n          \"translatedPhrase\": \"maar die verklaring heb ik wel afgelegd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt vermeldt dat hij de hele nacht met alleen een dun jasje aan in de cel zat ('üzerimde sadece ince bir ceketle oturdum'). Dit detail over de omstandigheden van de detentie ontbreekt in de vertolking. De tolk zegt alleen 'ik zat er', zonder de kleding te noemen.\",\n          \"originalPhrase\": \"üzerimde sadece ince bir ceketle oturdum\",\n          \"translatedPhrase\": \"ik zat er\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan de vertaalde vraag een eigen verduidelijking toe: 'Yani gözaltının bittiği tarihi kastediyor' (= 'hij bedoelt de datum waarop de detentie eindigde'). Deze toelichting staat niet in de oorspronkelijke vraag van de ambtenaar en is een eigen interpretatie van de tolk. Dit stuurt de cliënt in een bepaalde richting bij het beantwoorden van de vraag.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Yani gözaltının bittiği tarihi kastediyor.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1011,
+    "output_tokens": 1216,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting. Bij paar 1 is sprake van een kritieke betekenisomkering: de cliënt zegt uitdrukkelijk dat hij de verklaring nooit heeft afgelegd ('hiçbir zaman vermedim'), maar de tolk vertaalt dit als 'die verklaring heb ik wel afgelegd' — een directe ontkenning wordt zo een bevestiging. Dit raakt een centraal feit in het relaas. Bij paar 2 ontbreekt in de vertolking de zinsnede 'met alleen een dun jasje aan' ('üzerimde sadece ince bir ceketle'), wat een detail is over de omstandigheden van de detentie. De overige paren leveren geen inhoudelijke afwijkingen op. Paar 3 (client→ambtenaar) bevat een transparante tolkmelding over een idiomatische uitdrukking, wat conform protocol is. In de AMBTENAAR→CLIËNT-richting is bij paar 3 een toevoeging zichtbaar: de tolk voegt een verduidelijkende toelichting toe ('Yani gözaltının bittiği tarihi kastediyor' — 'hij bedoelt de datum waarop de detentie eindigde'). Dit is een eigen interpretatie van de tolk die niet in de oorspronkelijke vraag stond en de vraag inhoudelijk inkadert voor de cliënt.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt uitdrukkelijk dat hij die verklaring nooit heeft afgelegd ('hiçbir zaman vermedim' = ik heb die verklaring nooit afgelegd). De tolk vertaalt dit als 'die verklaring heb ik wel afgelegd', wat de betekenis volledig omkeert: een ontkenning wordt een bevestiging. Dit is een feitelijk beslissend gegeven over het al dan niet ondertekenen of afleggen van een verklaring onder druk.",
+      "originalPhrase": "ama ben o ifadeyi hiçbir zaman vermedim",
+      "translatedPhrase": "maar die verklaring heb ik wel afgelegd"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "medium",
+      "description": "De cliënt vermeldt dat hij de hele nacht met alleen een dun jasje aan in de cel zat ('üzerimde sadece ince bir ceketle oturdum'). Dit detail over de omstandigheden van de detentie ontbreekt in de vertolking. De tolk zegt alleen 'ik zat er', zonder de kleding te noemen.",
+      "originalPhrase": "üzerimde sadece ince bir ceketle oturdum",
+      "translatedPhrase": "ik zat er"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan de vertaalde vraag een eigen verduidelijking toe: 'Yani gözaltının bittiği tarihi kastediyor' (= 'hij bedoelt de datum waarop de detentie eindigde'). Deze toelichting staat niet in de oorspronkelijke vraag van de ambtenaar en is een eigen interpretatie van de tolk. Dit stuurt de cliënt in een bepaalde richting bij het beantwoorden van de vraag.",
+      "originalPhrase": "",
+      "translatedPhrase": "Yani gözaltının bittiği tarihi kastediyor."
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S27-P01",
+   "S27-P03",
+   "S27-P05",
+   "S27-P07"
+  ],
+  "client_to_officer": [
+   "S27-P02",
+   "S27-P04",
+   "S27-P06",
+   "S27-P08"
+  ]
+ }
+}

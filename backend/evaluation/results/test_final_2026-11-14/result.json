@@ -1,0 +1,524 @@
+{
+ "variants": {
+  "C": {
+   "threshold": 0.7188705503940582,
+   "criterion": "recall_at_fpr",
+   "max_fpr": 0.1,
+   "n_dev_pairs": 79,
+   "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.00 | 0.00–0.22 | 0.00–0.00 | 14 |\n| Toevoeging | 0.00 | 0.00–0.22 | 0.00–0.00 | 14 |\n| Betekenisverschuiving | 0.00 | 0.00–0.22 | 0.00–0.00 | 14 |\n| Entiteitsfout | 0.07 | 0.01–0.31 | 0.00–0.23 | 14 |\n| Register en nadruk | 0.00 | 0.00–0.22 | 0.00–0.00 | 14 |\n| **Alle afwijkingen** | 0.01 | 0.00–0.08 | 0.00–0.04 | 70 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.07 | 0.03–0.14 | 0.02–0.11 | 90 |\n| Precision in deze set (44% afwijkend) | 0.14 | 0.03–0.51 | 0.00–0.44 | 7 |\n| Precision bij 5% afwijkende paren | 0.01 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.02 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.05 | – | – | berekend |",
+   "numbers": {
+    "omissie": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 14,
+     "wilson": [
+      1.3877787807814457e-17,
+      0.2153108027376358
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 14,
+     "wilson": [
+      1.3877787807814457e-17,
+      0.2153108027376358
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 14,
+     "wilson": [
+      1.3877787807814457e-17,
+      0.2153108027376358
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.07142857142857142,
+     "tp": 1,
+     "n": 14,
+     "wilson": [
+      0.012722215247890939,
+      0.31468704424151117
+     ],
+     "bootstrap": [
+      0.0,
+      0.23076923076923078
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 14,
+     "wilson": [
+      1.3877787807814457e-17,
+      0.2153108027376358
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "all": {
+     "recall": 0.014285714285714285,
+     "fpr": 0.06666666666666667,
+     "precision": 0.14285714285714285,
+     "tp": 1,
+     "fn": 69,
+     "fp": 6,
+     "tn": 84,
+     "share_deviant": 0.4375,
+     "precision_at_prevalence": {
+      "0.05": 0.011152416356877326,
+      "0.1": 0.023255813953488372,
+      "0.2": 0.05084745762711864
+     }
+    }
+   }
+  },
+  "A": {
+   "high_critical": {
+    "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.64 | 0.39–0.84 | 0.36–0.91 | 14 |\n| Toevoeging | 0.57 | 0.33–0.79 | 0.31–0.82 | 14 |\n| Betekenisverschuiving | 0.79 | 0.52–0.92 | 0.55–1.00 | 14 |\n| Entiteitsfout | 1.00 | 0.78–1.00 | 1.00–1.00 | 14 |\n| Register en nadruk | 0.07 | 0.01–0.31 | 0.00–0.23 | 14 |\n| **Alle afwijkingen** | 0.61 | 0.50–0.72 | 0.51–0.71 | 70 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.01–0.08 | 0.00–0.06 | 90 |\n| Precision in deze set (44% afwijkend) | 0.96 | 0.85–0.99 | 0.90–1.00 | 45 |\n| Precision bij 5% afwijkende paren | 0.59 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.75 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.87 | – | – | berekend |",
+    "numbers": {
+     "omissie": {
+      "recall": 0.6428571428571429,
+      "tp": 9,
+      "n": 14,
+      "wilson": [
+       0.38764423103907397,
+       0.8365526824644587
+      ],
+      "bootstrap": [
+       0.36363636363636365,
+       0.9090909090909091
+      ]
+     },
+     "toevoeging": {
+      "recall": 0.5714285714285714,
+      "tp": 8,
+      "n": 14,
+      "wilson": [
+       0.3259064457965074,
+       0.7861920109552588
+      ],
+      "bootstrap": [
+       0.3076923076923077,
+       0.8235294117647058
+      ]
+     },
+     "betekenisverschuiving": {
+      "recall": 0.7857142857142857,
+      "tp": 11,
+      "n": 14,
+      "wilson": [
+       0.524107694133997,
+       0.9242861328730683
+      ],
+      "bootstrap": [
+       0.5454545454545454,
+       1.0
+      ]
+     },
+     "entiteitsfout": {
+      "recall": 1.0,
+      "tp": 14,
+      "n": 14,
+      "wilson": [
+       0.7846891972623643,
+       1.0
+      ],
+      "bootstrap": [
+       1.0,
+       1.0
+      ]
+     },
+     "register_en_nadruk": {
+      "recall": 0.07142857142857142,
+      "tp": 1,
+      "n": 14,
+      "wilson": [
+       0.012722215247890939,
+       0.31468704424151117
+      ],
+      "bootstrap": [
+       0.0,
+       0.23076923076923078
+      ]
+     },
+     "all": {
+      "recall": 0.6142857142857143,
+      "fpr": 0.022222222222222223,
+      "precision": 0.9555555555555556,
+      "tp": 43,
+      "fn": 27,
+      "fp": 2,
+      "tn": 88,
+      "share_deviant": 0.4375,
+      "precision_at_prevalence": {
+       "0.05": 0.5926493108728944,
+       "0.1": 0.7543859649122807,
+       "0.2": 0.8735891647855532
+      }
+     }
+    }
+   },
+   "any_issue": {
+    "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.64 | 0.39–0.84 | 0.36–0.91 | 14 |\n| Toevoeging | 0.79 | 0.52–0.92 | 0.55–1.00 | 14 |\n| Betekenisverschuiving | 0.93 | 0.69–0.99 | 0.77–1.00 | 14 |\n| Entiteitsfout | 1.00 | 0.78–1.00 | 1.00–1.00 | 14 |\n| Register en nadruk | 0.36 | 0.16–0.61 | 0.11–0.60 | 14 |\n| **Alle afwijkingen** | 0.74 | 0.63–0.83 | 0.62–0.85 | 70 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.03 | 0.01–0.09 | 0.00–0.07 | 90 |\n| Precision in deze set (44% afwijkend) | 0.95 | 0.85–0.98 | 0.89–1.00 | 55 |\n| Precision bij 5% afwijkende paren | 0.54 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.71 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.85 | – | – | berekend |",
+    "numbers": {
+     "omissie": {
+      "recall": 0.6428571428571429,
+      "tp": 9,
+      "n": 14,
+      "wilson": [
+       0.38764423103907397,
+       0.8365526824644587
+      ],
+      "bootstrap": [
+       0.36363636363636365,
+       0.9090909090909091
+      ]
+     },
+     "toevoeging": {
+      "recall": 0.7857142857142857,
+      "tp": 11,
+      "n": 14,
+      "wilson": [
+       0.524107694133997,
+       0.9242861328730683
+      ],
+      "bootstrap": [
+       0.5454545454545454,
+       1.0
+      ]
+     },
+     "betekenisverschuiving": {
+      "recall": 0.9285714285714286,
+      "tp": 13,
+      "n": 14,
+      "wilson": [
+       0.6853129557584889,
+       0.9872777847521093
+      ],
+      "bootstrap": [
+       0.7692307692307693,
+       1.0
+      ]
+     },
+     "entiteitsfout": {
+      "recall": 1.0,
+      "tp": 14,
+      "n": 14,
+      "wilson": [
+       0.7846891972623643,
+       1.0
+      ],
+      "bootstrap": [
+       1.0,
+       1.0
+      ]
+     },
+     "register_en_nadruk": {
+      "recall": 0.35714285714285715,
+      "tp": 5,
+      "n": 14,
+      "wilson": [
+       0.1634473175355414,
+       0.612355768960926
+      ],
+      "bootstrap": [
+       0.1111111111111111,
+       0.6
+      ]
+     },
+     "all": {
+      "recall": 0.7428571428571429,
+      "fpr": 0.03333333333333333,
+      "precision": 0.9454545454545454,
+      "tp": 52,
+      "fn": 18,
+      "fp": 3,
+      "tn": 87,
+      "share_deviant": 0.4375,
+      "precision_at_prevalence": {
+       "0.05": 0.5397923875432526,
+       "0.1": 0.7123287671232876,
+       "0.2": 0.8478260869565217
+      }
+     }
+    }
+   },
+   "pairs_without_answer": 0
+  },
+  "B": {
+   "high_critical": {
+    "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.57 | 0.33–0.79 | 0.31–0.83 | 14 |\n| Toevoeging | 0.64 | 0.39–0.84 | 0.38–0.88 | 14 |\n| Betekenisverschuiving | 1.00 | 0.78–1.00 | 1.00–1.00 | 14 |\n| Entiteitsfout | 1.00 | 0.78–1.00 | 1.00–1.00 | 14 |\n| Register en nadruk | 0.14 | 0.04–0.40 | 0.00–0.36 | 14 |\n| **Alle afwijkingen** | 0.67 | 0.56–0.77 | 0.58–0.76 | 70 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.03 | 0.01–0.09 | 0.00–0.07 | 90 |\n| Precision in deze set (44% afwijkend) | 0.94 | 0.84–0.98 | 0.88–1.00 | 50 |\n| Precision bij 5% afwijkende paren | 0.51 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.69 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.83 | – | – | berekend |",
+    "numbers": {
+     "omissie": {
+      "recall": 0.5714285714285714,
+      "tp": 8,
+      "n": 14,
+      "wilson": [
+       0.3259064457965074,
+       0.7861920109552588
+      ],
+      "bootstrap": [
+       0.3076923076923077,
+       0.8333333333333334
+      ]
+     },
+     "toevoeging": {
+      "recall": 0.6428571428571429,
+      "tp": 9,
+      "n": 14,
+      "wilson": [
+       0.38764423103907397,
+       0.8365526824644587
+      ],
+      "bootstrap": [
+       0.38461538461538464,
+       0.875
+      ]
+     },
+     "betekenisverschuiving": {
+      "recall": 1.0,
+      "tp": 14,
+      "n": 14,
+      "wilson": [
+       0.7846891972623643,
+       1.0
+      ],
+      "bootstrap": [
+       1.0,
+       1.0
+      ]
+     },
+     "entiteitsfout": {
+      "recall": 1.0,
+      "tp": 14,
+      "n": 14,
+      "wilson": [
+       0.7846891972623643,
+       1.0
+      ],
+      "bootstrap": [
+       1.0,
+       1.0
+      ]
+     },
+     "register_en_nadruk": {
+      "recall": 0.14285714285714285,
+      "tp": 2,
+      "n": 14,
+      "wilson": [
+       0.040093921271464966,
+       0.39941379496970353
+      ],
+      "bootstrap": [
+       0.0,
+       0.35714285714285715
+      ]
+     },
+     "all": {
+      "recall": 0.6714285714285714,
+      "fpr": 0.03333333333333333,
+      "precision": 0.94,
+      "tp": 47,
+      "fn": 23,
+      "fp": 3,
+      "tn": 87,
+      "share_deviant": 0.4375,
+      "precision_at_prevalence": {
+       "0.05": 0.5145985401459854,
+       "0.1": 0.6911764705882353,
+       "0.2": 0.8343195266272189
+      }
+     }
+    }
+   },
+   "any_issue": {
+    "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.71 | 0.45–0.88 | 0.46–0.93 | 14 |\n| Toevoeging | 0.86 | 0.60–0.96 | 0.64–1.00 | 14 |\n| Betekenisverschuiving | 1.00 | 0.78–1.00 | 1.00–1.00 | 14 |\n| Entiteitsfout | 1.00 | 0.78–1.00 | 1.00–1.00 | 14 |\n| Register en nadruk | 0.50 | 0.27–0.73 | 0.22–0.76 | 14 |\n| **Alle afwijkingen** | 0.81 | 0.71–0.89 | 0.72–0.90 | 70 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.04 | 0.02–0.11 | 0.01–0.09 | 90 |\n| Precision in deze set (44% afwijkend) | 0.93 | 0.84–0.97 | 0.88–0.98 | 61 |\n| Precision bij 5% afwijkende paren | 0.49 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.67 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.82 | – | – | berekend |",
+    "numbers": {
+     "omissie": {
+      "recall": 0.7142857142857143,
+      "tp": 10,
+      "n": 14,
+      "wilson": [
+       0.4535091567010681,
+       0.8827862135542308
+      ],
+      "bootstrap": [
+       0.46153846153846156,
+       0.9333333333333333
+      ]
+     },
+     "toevoeging": {
+      "recall": 0.8571428571428571,
+      "tp": 12,
+      "n": 14,
+      "wilson": [
+       0.6005862050302965,
+       0.9599060787285351
+      ],
+      "bootstrap": [
+       0.6428571428571429,
+       1.0
+      ]
+     },
+     "betekenisverschuiving": {
+      "recall": 1.0,
+      "tp": 14,
+      "n": 14,
+      "wilson": [
+       0.7846891972623643,
+       1.0
+      ],
+      "bootstrap": [
+       1.0,
+       1.0
+      ]
+     },
+     "entiteitsfout": {
+      "recall": 1.0,
+      "tp": 14,
+      "n": 14,
+      "wilson": [
+       0.7846891972623643,
+       1.0
+      ],
+      "bootstrap": [
+       1.0,
+       1.0
+      ]
+     },
+     "register_en_nadruk": {
+      "recall": 0.5,
+      "tp": 7,
+      "n": 14,
+      "wilson": [
+       0.26799202452413634,
+       0.7320079754758637
+      ],
+      "bootstrap": [
+       0.2222222222222222,
+       0.7647058823529411
+      ]
+     },
+     "all": {
+      "recall": 0.8142857142857143,
+      "fpr": 0.044444444444444446,
+      "precision": 0.9344262295081968,
+      "tp": 57,
+      "fn": 13,
+      "fp": 4,
+      "tn": 86,
+      "share_deviant": 0.4375,
+      "precision_at_prevalence": {
+       "0.05": 0.49090909090909085,
+       "0.1": 0.6705882352941176,
+       "0.2": 0.8208
+      }
+     }
+    }
+   },
+   "pairs_without_answer": 0
+  }
+ },
+ "excluded_pairs": {},
+ "n_test_pairs": 160,
+ "excluded_by_reviewer": {
+  "test": {},
+  "dev": {
+   "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+  }
+ },
+ "stability": {
+  "role": "run2 alleen voor stabiliteit; alle metrics komen uit run1",
+  "same_commit": true,
+  "commit_run2": "f6d64fa7a2e14e55e8f458a675ed3224f2fae7a5",
+  "per_variant": {
+   "C": {
+    "n": 160,
+    "same": 160,
+    "share": 1.0,
+    "differ": []
+   },
+   "A:high_critical": {
+    "n": 160,
+    "same": 154,
+    "share": 0.9625,
+    "differ": [
+     "S30-P08",
+     "S33-P06",
+     "S40-P02",
+     "S43-P02",
+     "S43-P03",
+     "S46-P02"
+    ]
+   },
+   "A:any_issue": {
+    "n": 160,
+    "same": 159,
+    "share": 0.99375,
+    "differ": [
+     "S46-P03"
+    ]
+   },
+   "B:high_critical": {
+    "n": 160,
+    "same": 156,
+    "share": 0.975,
+    "differ": [
+     "S30-P08",
+     "S43-P03",
+     "S46-P02",
+     "S47-P03"
+    ]
+   },
+   "B:any_issue": {
+    "n": 160,
+    "same": 157,
+    "share": 0.98125,
+    "differ": [
+     "S35-P04",
+     "S38-P03",
+     "S44-P06"
+    ]
+   }
+  }
+ },
+ "status": "definitief",
+ "valid": true,
+ "date": "2026-11-14",
+ "sealed": "evaluation\\results\\test_sealed_2026-11-11",
+ "primary_run": "evaluation\\results\\test_sealed_2026-11-11\\run1",
+ "sealed_commit": "f6d64fa7a2e14e55e8f458a675ed3224f2fae7a5",
+ "sealed_date": "2026-11-11",
+ "scored_with_commit": "a6e4fb495c137459994e222a70fe76fdcd6e71d8",
+ "unreviewed_sessions": [],
+ "sealed_sessions_missing": [],
+ "dev_sessions": [
+  "S20",
+  "S21",
+  "S22",
+  "S23",
+  "S24",
+  "S25",
+  "S26",
+  "S27",
+  "S28",
+  "S29"
+ ]
+}

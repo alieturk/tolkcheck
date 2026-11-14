@@ -1,0 +1,102 @@
+{
+ "session_id": "S24",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier fragmenten gesignaleerd met mogelijke inhoudelijke afwijkingen.\\n\\n**Client→Ambtenaar, paar 2:** De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze zin is niet aanwezig in de originele Turkse tekst en betreft een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt zei. Dit is een inhoudelijke toevoeging die het relaas kleurt.\\n\\n**Client→Ambtenaar, paar 3:** De cliënt zegt 'polis babamı çağırdı' — de politie heeft mijn vader opgeroepen. De tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die werd opgeroepen verschilt: vader versus ikzelf (de cliënt). Dit is een inhoudelijk verschil dat juridisch relevant kan zijn voor de beoordeling van wie door de politie werd benaderd.\\n\\n**Ambtenaar→Cliënt, paar 1:** De ambtenaar vraagt: 'Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?' — een open, hypothetische vraag naar de inschatting van de cliënt. De tolk vertaalt dit als: 'Weet u of uw vader in gevaar zou komen als u terugkeert?' ('biliyor musunuz'). De vraag verschuift van een mening/inschatting ('denkt u') naar feitelijke kennis ('weet u'), wat de aard van het verwachte antwoord verandert.\\n\\nDe overige paren bevatten geen gesignaleerde inhoudelijke afwijkingen. De toelichting bij paar 0 (client→ambtenaar) over de idiomatische uitdrukking is een toegestane tolkmelding en geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt de zin 'Dat was een teken dat het gezin volkomen wanhopig was' toe. Deze zin staat niet in de originele Turkse tekst en is een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt heeft gezegd. Dit kleurt het relaas met een conclusie die de cliënt zelf niet heeft getrokken.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Dat was een teken dat het gezin volkomen wanhopig was.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'polis babamı çağırdı' — de politie heeft mijn vader opgeroepen. De tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die door de politie werd opgeroepen verschilt: in het origineel is dat de vader, in de vertaling is dat de cliënt zelf. Dit verschil is juridisch relevant voor de beoordeling van wie door de politie werd benaderd.\",\n          \"originalPhrase\": \"polis babamı çağırdı\",\n          \"translatedPhrase\": \"de politie heeft mij opgeroepen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vraagt 'Denkt u dat uw vader in gevaar zou komen...?' — een vraag naar de persoonlijke inschatting of mening van de cliënt. De tolk vertaalt dit als 'biliyor musunuz' (weet u...?), wat een vraag naar feitelijke kennis is. De verschuiving van 'denken/inschatten' naar 'weten' verandert de aard van de vraag en daarmee het verwachte antwoord van de cliënt.\",\n          \"originalPhrase\": \"Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?\",\n          \"translatedPhrase\": \"Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1079,
+    "output_tokens": 1369,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier fragmenten gesignaleerd met mogelijke inhoudelijke afwijkingen.\n\n**Client→Ambtenaar, paar 2:** De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze zin is niet aanwezig in de originele Turkse tekst en betreft een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt zei. Dit is een inhoudelijke toevoeging die het relaas kleurt.\n\n**Client→Ambtenaar, paar 3:** De cliënt zegt 'polis babamı çağırdı' — de politie heeft mijn vader opgeroepen. De tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die werd opgeroepen verschilt: vader versus ikzelf (de cliënt). Dit is een inhoudelijk verschil dat juridisch relevant kan zijn voor de beoordeling van wie door de politie werd benaderd.\n\n**Ambtenaar→Cliënt, paar 1:** De ambtenaar vraagt: 'Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?' — een open, hypothetische vraag naar de inschatting van de cliënt. De tolk vertaalt dit als: 'Weet u of uw vader in gevaar zou komen als u terugkeert?' ('biliyor musunuz'). De vraag verschuift van een mening/inschatting ('denkt u') naar feitelijke kennis ('weet u'), wat de aard van het verwachte antwoord verandert.\n\nDe overige paren bevatten geen gesignaleerde inhoudelijke afwijkingen. De toelichting bij paar 0 (client→ambtenaar) over de idiomatische uitdrukking is een toegestane tolkmelding en geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt de zin 'Dat was een teken dat het gezin volkomen wanhopig was' toe. Deze zin staat niet in de originele Turkse tekst en is een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt heeft gezegd. Dit kleurt het relaas met een conclusie die de cliënt zelf niet heeft getrokken.",
+      "originalPhrase": "",
+      "translatedPhrase": "Dat was een teken dat het gezin volkomen wanhopig was."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'polis babamı çağırdı' — de politie heeft mijn vader opgeroepen. De tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die door de politie werd opgeroepen verschilt: in het origineel is dat de vader, in de vertaling is dat de cliënt zelf. Dit verschil is juridisch relevant voor de beoordeling van wie door de politie werd benaderd.",
+      "originalPhrase": "polis babamı çağırdı",
+      "translatedPhrase": "de politie heeft mij opgeroepen"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar vraagt 'Denkt u dat uw vader in gevaar zou komen...?' — een vraag naar de persoonlijke inschatting of mening van de cliënt. De tolk vertaalt dit als 'biliyor musunuz' (weet u...?), wat een vraag naar feitelijke kennis is. De verschuiving van 'denken/inschatten' naar 'weten' verandert de aard van de vraag en daarmee het verwachte antwoord van de cliënt.",
+      "originalPhrase": "Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?",
+      "translatedPhrase": "Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S24-P01",
+   "S24-P03",
+   "S24-P05",
+   "S24-P07"
+  ],
+  "client_to_officer": [
+   "S24-P02",
+   "S24-P04",
+   "S24-P06",
+   "S24-P08"
+  ]
+ }
+}

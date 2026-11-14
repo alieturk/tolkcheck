@@ -1,0 +1,94 @@
+{
+ "session_id": "S25",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting zijn twee inhoudelijke afwijkingen gesignaleerd. Bij paar 1 ontbreekt in de tolkvertaling de vermelding dat de cliënt zelf twee nachten op het politiebureau is vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit is een feitelijk gegeven over detentie en verhoor dat relevant kan zijn voor de asielbeslissing. Bij paar 2 noemt de cliënt drie extra ontslagen collega's ('üç arkadaşım daha'), terwijl de tolk vier collega's zegt, wat het totaal van zes klopt maar het deelgetal afwijkt. Bij paar 3 meldt de tolk expliciet dat zij een deel niet goed verstond en de cliënt heeft gevraagd te herhalen; dit is een toegestane tolkmelding. De inhoud van de vertaling zelf lijkt correct. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd; alle scores liggen ruim boven 0.70.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt verklaart dat hij zelf twee nachten op het politiebureau is vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit gegeven ontbreekt volledig in de tolkvertaling. Alleen de vrijlating en het ontslag worden vermeld, maar de detentie en het verhoor — feiten die direct relevant zijn voor de beoordeling van vervolging of behandeling door autoriteiten — zijn weggevallen.\",\n          \"originalPhrase\": \"Ben de iki gece karakolda tutuldum ve sorguya çekildim, sonra serbest bırakıldım ama işten de çıkarıldım.\",\n          \"translatedPhrase\": \"Daarna ben ik vrijgelaten, maar ik ben ook ontslagen.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt zegt dat er nog drie collega's zijn ontslagen ('üç arkadaşım daha'), maar de tolk vertaalt dit als vier collega's. Het totaal van zes klopt in beide versies, maar het deelgetal wijkt af. De opname dient gecontroleerd te worden om vast te stellen of de cliënt drie of vier zei.\",\n          \"originalPhrase\": \"üç arkadaşım daha işten çıkarıldı\",\n          \"translatedPhrase\": \"zijn er nog vier collega's uit de fabriek ontslagen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1064,
+    "output_tokens": 994,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting zijn twee inhoudelijke afwijkingen gesignaleerd. Bij paar 1 ontbreekt in de tolkvertaling de vermelding dat de cliënt zelf twee nachten op het politiebureau is vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit is een feitelijk gegeven over detentie en verhoor dat relevant kan zijn voor de asielbeslissing. Bij paar 2 noemt de cliënt drie extra ontslagen collega's ('üç arkadaşım daha'), terwijl de tolk vier collega's zegt, wat het totaal van zes klopt maar het deelgetal afwijkt. Bij paar 3 meldt de tolk expliciet dat zij een deel niet goed verstond en de cliënt heeft gevraagd te herhalen; dit is een toegestane tolkmelding. De inhoud van de vertaling zelf lijkt correct. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd; alle scores liggen ruim boven 0.70.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt verklaart dat hij zelf twee nachten op het politiebureau is vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit gegeven ontbreekt volledig in de tolkvertaling. Alleen de vrijlating en het ontslag worden vermeld, maar de detentie en het verhoor — feiten die direct relevant zijn voor de beoordeling van vervolging of behandeling door autoriteiten — zijn weggevallen.",
+      "originalPhrase": "Ben de iki gece karakolda tutuldum ve sorguya çekildim, sonra serbest bırakıldım ama işten de çıkarıldım.",
+      "translatedPhrase": "Daarna ben ik vrijgelaten, maar ik ben ook ontslagen."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De cliënt zegt dat er nog drie collega's zijn ontslagen ('üç arkadaşım daha'), maar de tolk vertaalt dit als vier collega's. Het totaal van zes klopt in beide versies, maar het deelgetal wijkt af. De opname dient gecontroleerd te worden om vast te stellen of de cliënt drie of vier zei.",
+      "originalPhrase": "üç arkadaşım daha işten çıkarıldı",
+      "translatedPhrase": "zijn er nog vier collega's uit de fabriek ontslagen"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S25-P01",
+   "S25-P03",
+   "S25-P05",
+   "S25-P07"
+  ],
+  "client_to_officer": [
+   "S25-P02",
+   "S25-P04",
+   "S25-P06",
+   "S25-P08"
+  ]
+ }
+}

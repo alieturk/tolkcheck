@@ -1,0 +1,85 @@
+{
+ "session_id": "S21",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de meeste fragmenten is de vertolking inhoudelijk consistent met de brontekst. Er zijn twee punten die aandacht verdienen. Ten eerste heeft de tolk bij CLIENT→AMBTENAAR paar 2 de idiomatische uitdrukking 'gözüm döndü' omschreven en dit expliciet gemeld aan de ambtenaar — dit is toegestaan en geen afwijking. Ten tweede heeft de tolk bij AMBTENAAR→CLIËNT paar 2 een toevoeging gedaan: na de vertaling van de vraag voegde de tolk een verduidelijkende zin toe ('Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor'), die niet in de oorspronkelijke vraag van de ambtenaar stond. Dit is een eigen uitbreiding van de tolk die de vraag inhoudelijk iets anders kan inkleuren voor de cliënt. Alle overige paren laten geen inhoudelijke afwijkingen zien.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"medium\",\n          \"description\": \"De tolk heeft na de vertaling van de vraag een eigen verduidelijkende zin toegevoegd: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' (vrij vertaald: 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met een advocaat kon spreken'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. De toevoeging stuurt de cliënt richting een antwoord in uren en benadrukt het aspect 'spreken met de advocaat', terwijl de ambtenaar enkel vroeg hoe lang de cliënt vastzat vóórdat hij een advocaat zag. Dit is een eigen uitbreiding van de tolk die de vraag iets anders inkleurt.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1079,
+    "output_tokens": 841,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de meeste fragmenten is de vertolking inhoudelijk consistent met de brontekst. Er zijn twee punten die aandacht verdienen. Ten eerste heeft de tolk bij CLIENT→AMBTENAAR paar 2 de idiomatische uitdrukking 'gözüm döndü' omschreven en dit expliciet gemeld aan de ambtenaar — dit is toegestaan en geen afwijking. Ten tweede heeft de tolk bij AMBTENAAR→CLIËNT paar 2 een toevoeging gedaan: na de vertaling van de vraag voegde de tolk een verduidelijkende zin toe ('Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor'), die niet in de oorspronkelijke vraag van de ambtenaar stond. Dit is een eigen uitbreiding van de tolk die de vraag inhoudelijk iets anders kan inkleuren voor de cliënt. Alle overige paren laten geen inhoudelijke afwijkingen zien.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "medium",
+      "description": "De tolk heeft na de vertaling van de vraag een eigen verduidelijkende zin toegevoegd: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' (vrij vertaald: 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met een advocaat kon spreken'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. De toevoeging stuurt de cliënt richting een antwoord in uren en benadrukt het aspect 'spreken met de advocaat', terwijl de ambtenaar enkel vroeg hoe lang de cliënt vastzat vóórdat hij een advocaat zag. Dit is een eigen uitbreiding van de tolk die de vraag iets anders inkleurt.",
+      "originalPhrase": "",
+      "translatedPhrase": "Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S21-P01",
+   "S21-P03",
+   "S21-P05",
+   "S21-P07"
+  ],
+  "client_to_officer": [
+   "S21-P02",
+   "S21-P04",
+   "S21-P06",
+   "S21-P08"
+  ]
+ }
+}

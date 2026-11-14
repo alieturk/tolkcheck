@@ -1,0 +1,85 @@
+{
+ "session_id": "S21",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de meeste fragmenten is de vertolking inhoudelijk consistent met de brontekst. Er zijn twee punten die aandacht verdienen.\\n\\nTen eerste: bij CLIENT→AMBTENAAR paar 2 meldt de tolk expliciet dat 'gözüm döndü' een idiomatische uitdrukking is en omschrijft de betekenis. Dit is toegestaan tolkgedrag en levert geen afwijking op. De omschrijving ('het ging niet meer', 'ik kon niet helder denken') dekt de strekking van de uitdrukking (hevige spanning, desoriëntatie) redelijk, al is de nuance van fysieke duizeligheid/desoriëntatie iets minder sterk aanwezig in de vertaling. Dit is een marginale stijlkwestie zonder inhoudelijk gevolg.\\n\\nTen tweede: bij AMBTENAAR→CLIËNT paar 2 voegt de tolk een toelichting toe aan de vraag van de ambtenaar. De ambtenaar vraagt hoe lang de cliënt vastzat voordat hij een advocaat zag. De tolk vertaalt dit correct, maar voegt er vervolgens aan toe: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' (vrij vertaald: 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met de advocaat kon spreken'). Deze toevoeging herformuleert de vraag enigszins en benadrukt 'uren' als eenheid, terwijl de ambtenaar open vroeg naar de duur. Dit is een kleine inhoudelijke toevoeging die de cliënt kan sturen in zijn antwoord.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"medium\",\n          \"description\": \"De tolk voegt na de correcte vertaling een herformulering toe: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor.' Dit benadrukt 'uren' als tijdseenheid en herhaalt de vraag in iets andere bewoordingen. De ambtenaar stelde een open vraag naar de duur; de toevoeging kan de cliënt sturen om specifiek in uren te antwoorden.\",\n          \"originalPhrase\": \"Hoe lang heeft u op het bureau vastgezeten voordat u een advocaat zag?\",\n          \"translatedPhrase\": \"Avukatınızı görmeden önce karakolda ne kadar süre tutuldunuz? Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1079,
+    "output_tokens": 991,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1871
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de meeste fragmenten is de vertolking inhoudelijk consistent met de brontekst. Er zijn twee punten die aandacht verdienen.\n\nTen eerste: bij CLIENT→AMBTENAAR paar 2 meldt de tolk expliciet dat 'gözüm döndü' een idiomatische uitdrukking is en omschrijft de betekenis. Dit is toegestaan tolkgedrag en levert geen afwijking op. De omschrijving ('het ging niet meer', 'ik kon niet helder denken') dekt de strekking van de uitdrukking (hevige spanning, desoriëntatie) redelijk, al is de nuance van fysieke duizeligheid/desoriëntatie iets minder sterk aanwezig in de vertaling. Dit is een marginale stijlkwestie zonder inhoudelijk gevolg.\n\nTen tweede: bij AMBTENAAR→CLIËNT paar 2 voegt de tolk een toelichting toe aan de vraag van de ambtenaar. De ambtenaar vraagt hoe lang de cliënt vastzat voordat hij een advocaat zag. De tolk vertaalt dit correct, maar voegt er vervolgens aan toe: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' (vrij vertaald: 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met de advocaat kon spreken'). Deze toevoeging herformuleert de vraag enigszins en benadrukt 'uren' als eenheid, terwijl de ambtenaar open vroeg naar de duur. Dit is een kleine inhoudelijke toevoeging die de cliënt kan sturen in zijn antwoord.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "medium",
+      "description": "De tolk voegt na de correcte vertaling een herformulering toe: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor.' Dit benadrukt 'uren' als tijdseenheid en herhaalt de vraag in iets andere bewoordingen. De ambtenaar stelde een open vraag naar de duur; de toevoeging kan de cliënt sturen om specifiek in uren te antwoorden.",
+      "originalPhrase": "Hoe lang heeft u op het bureau vastgezeten voordat u een advocaat zag?",
+      "translatedPhrase": "Avukatınızı görmeden önce karakolda ne kadar süre tutuldunuz? Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S21-P01",
+   "S21-P03",
+   "S21-P05",
+   "S21-P07"
+  ],
+  "client_to_officer": [
+   "S21-P02",
+   "S21-P04",
+   "S21-P06",
+   "S21-P08"
+  ]
+ }
+}

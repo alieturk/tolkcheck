@@ -1,0 +1,88 @@
+{
+ "session_id": "S31",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee fragmenten waarbij inhoudelijke afwijkingen zijn gesignaleerd.\\n\\nIn CLIENT→AMBTENAAR paar 1 ontbreekt een inhoudelijk gegeven: de cliënt zegt dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten en vertaalt alleen dat hij thuiskwam, zonder te vermelden dat hij door de politie werd aangehouden. Dit is een relevante omissie voor het dossier.\\n\\nIn AMBTENAAR→CLIËNT paar 1 heeft de tolk een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). De ambtenaar vroeg alleen wat er daarna met de broer is gebeurd. Deze toevoeging kan het antwoord van de cliënt sturen en is inhoudelijk significant.\\n\\nIn AMBTENAAR→CLIËNT paar 3 is de vertaling inhoudelijk correct, maar de beleefdheidsvorm ontbreekt: de tolk gebruikt de gebiedende wijs ('anlat' = vertel) in plaats van een vraagvorm. Dit is een stijlverschil dat de toon van het gehoor kan beïnvloeden, maar raakt de inhoud niet.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen. De tolk-interventie in CLIENT→AMBTENAAR paar 3 (verzoek om herhaling) is toegestaan en geen afwijking; de inhoud van de vertaling is correct.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten en vertaalt alleen dat hij thuiskwam, zonder de arrestatie door de politie te noemen. Dit is een feitelijk gegeven dat relevant is voor het asielrelaas.\",\n          \"originalPhrase\": \"izinde eve geldiğinde polis onu gözaltına aldı\",\n          \"translatedPhrase\": \"maar toen hij met verlof thuiskwam\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk heeft een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). De ambtenaar vroeg uitsluitend wat er daarna met de broer is gebeurd. Deze toevoeging kan het antwoord van de cliënt sturen en introduceert een nieuw thema (bedreiging door anderen) dat de ambtenaar niet aan de orde heeft gesteld.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu arada başka biri de sizi tehdit etti mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk gebruikt de gebiedende wijs 'anlat' (vertel) in plaats van een vraagvorm, waardoor de toon van de vraag directer en minder beleefd overkomt dan de originele Nederlandse formulering. De inhoud van de vraag is verder correct weergegeven.\",\n          \"originalPhrase\": \"Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?\",\n          \"translatedPhrase\": \"Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1053,
+    "output_tokens": 1252,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee fragmenten waarbij inhoudelijke afwijkingen zijn gesignaleerd.\n\nIn CLIENT→AMBTENAAR paar 1 ontbreekt een inhoudelijk gegeven: de cliënt zegt dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten en vertaalt alleen dat hij thuiskwam, zonder te vermelden dat hij door de politie werd aangehouden. Dit is een relevante omissie voor het dossier.\n\nIn AMBTENAAR→CLIËNT paar 1 heeft de tolk een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). De ambtenaar vroeg alleen wat er daarna met de broer is gebeurd. Deze toevoeging kan het antwoord van de cliënt sturen en is inhoudelijk significant.\n\nIn AMBTENAAR→CLIËNT paar 3 is de vertaling inhoudelijk correct, maar de beleefdheidsvorm ontbreekt: de tolk gebruikt de gebiedende wijs ('anlat' = vertel) in plaats van een vraagvorm. Dit is een stijlverschil dat de toon van het gehoor kan beïnvloeden, maar raakt de inhoud niet.\n\nDe overige paren vertonen geen inhoudelijke afwijkingen. De tolk-interventie in CLIENT→AMBTENAAR paar 3 (verzoek om herhaling) is toegestaan en geen afwijking; de inhoud van de vertaling is correct.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten en vertaalt alleen dat hij thuiskwam, zonder de arrestatie door de politie te noemen. Dit is een feitelijk gegeven dat relevant is voor het asielrelaas.",
+      "originalPhrase": "izinde eve geldiğinde polis onu gözaltına aldı",
+      "translatedPhrase": "maar toen hij met verlof thuiskwam"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk heeft een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). De ambtenaar vroeg uitsluitend wat er daarna met de broer is gebeurd. Deze toevoeging kan het antwoord van de cliënt sturen en introduceert een nieuw thema (bedreiging door anderen) dat de ambtenaar niet aan de orde heeft gesteld.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu arada başka biri de sizi tehdit etti mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "low",
+      "description": "De tolk gebruikt de gebiedende wijs 'anlat' (vertel) in plaats van een vraagvorm, waardoor de toon van de vraag directer en minder beleefd overkomt dan de originele Nederlandse formulering. De inhoud van de vraag is verder correct weergegeven.",
+      "originalPhrase": "Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?",
+      "translatedPhrase": "Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat."
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ }
+}

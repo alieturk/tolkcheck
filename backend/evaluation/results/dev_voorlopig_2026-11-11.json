@@ -1,0 +1,2662 @@
+{
+ "status": "voorlopig, labels niet gereviewd",
+ "valid": false,
+ "date": "2026-11-11",
+ "sessions": [
+  "S20",
+  "S21",
+  "S22",
+  "S23",
+  "S24",
+  "S25",
+  "S26",
+  "S27",
+  "S28",
+  "S29"
+ ],
+ "sessions_dir": "eval/data/tolkcheck_dv4/sessions_v4 (alleen S20–S29 gekopieerd naar een aparte map)",
+ "prompt_version": [
+  "tolkcheck-sessies-v4"
+ ],
+ "reviewed": [
+  false
+ ],
+ "scoring_path": "cross_lingual (LaBSE)",
+ "testset": "niet gelezen, niet gescoord",
+ "variants": {
+  "LaBSE_0.70": {
+   "threshold": 0.7,
+   "markdown": "> **DEMO — niet geldig als resultaat.** Gedraaid met --dry-run: alleen ontwikkelsessies zijn doorgerekend, met een vooraf opgegeven drempel. Er is geen drempel gekozen en er zijn geen testsessies bekeken. Niet-gecontroleerde sessies tellen mee.\n\n**Scoringsroute:** `cross_lingual`. **Drempel:** 0.700, vooraf opgegeven, niet afgesteld. Een paar wordt gesignaleerd als de score onder de drempel ligt. **Ontwikkelset:** 80 paren uit 10 sessie(s).\n\n| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Toevoeging | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Betekenisverschuiving | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Entiteitsfout | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Register en nadruk | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| **Alle afwijkingen** | 0.00 | 0.00–0.10 | 0.00–0.00 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (44% afwijkend) | 0.00 | 0.00–0.79 | 0.00–0.00 | 1 |\n| Precision bij 5% afwijkende paren | 0.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.00 | – | – | berekend |\n\nRecall per categorie; valse alarmen en precision alleen voor de hele set, omdat de detector geen categorie geeft. De bootstrap trekt hele sessies (2000×); bij weinig sessies is dat interval breed of ontbreekt het.\n\n\n**Hoeveel beweegt de score?** Score van de referentievertaling min de score van de vertolking, per categorie (alleen analyse; de tool gebruikt geen referentie). Rond 0 betekent dat de afwijking de score niet verandert.\n\n| Categorie | n | gem. verschil | min | max |\n|---|---|---|---|---|\n| Omissie | 7 | 0.029 | 0.001 | 0.098 |\n| Toevoeging | 7 | 0.069 | 0.013 | 0.214 |\n| Betekenisverschuiving | 7 | 0.023 | 0.003 | 0.058 |\n| Entiteitsfout | 7 | 0.071 | 0.015 | 0.162 |\n| Register en nadruk | 7 | 0.014 | -0.010 | 0.049 |\n\n**Per paar (ontwikkelset)**\n\n| paar | categorie | subtype | score | gesignaleerd | woorden bron |\n|---|---|---|---|---|---|\n| S20-P01 | controle |  | 0.97 | nee | 7 |\n| S20-P02 | controle |  | 0.87 | nee | 18 |\n| S20-P03 | Toevoeging | eigen_vraag_tolk | 0.85 | nee | 10 |\n| S20-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.88 | nee | 9 |\n| S20-P05 | controle |  | 0.79 | nee | 15 |\n| S20-P06 | Omissie | kernfeit | 0.89 | nee | 37 |\n| S20-P07 | controle |  | 0.95 | nee | 8 |\n| S20-P08 | Entiteitsfout | naam | 0.85 | nee | 18 |\n| S21-P01 | controle |  | 0.92 | nee | 13 |\n| S21-P02 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 9 |\n| S21-P03 | controle |  | 0.80 | nee | 8 |\n| S21-P04 | Omissie | detail | 0.90 | nee | 44 |\n| S21-P05 | Toevoeging | eigen_uitleg_tolk | 0.85 | nee | 13 |\n| S21-P06 | controle |  | 0.86 | nee | 17 |\n| S21-P07 | controle |  | 0.90 | nee | 16 |\n| S21-P08 | controle |  | 0.91 | nee | 13 |\n| S22-P01 | controle |  | 0.96 | nee | 10 |\n| S22-P02 | Entiteitsfout | datum | 0.92 | nee | 10 |\n| S22-P03 | Register en nadruk | nadruk_weg | 0.90 | nee | 10 |\n| S22-P04 | Omissie | bijzin | 0.85 | nee | 19 |\n| S22-P05 | controle |  | 0.37 | ja | 12 |\n| S22-P06 | Betekenisverschuiving | tijd_of_volgorde | 0.95 | nee | 42 |\n| S22-P07 | controle |  | 0.93 | nee | 15 |\n| S22-P08 | controle |  | 0.93 | nee | 12 |\n| S23-P01 | controle |  | 0.97 | nee | 8 |\n| S23-P02 | controle |  | 0.98 | nee | 7 |\n| S23-P03 | Entiteitsfout | plaats | 0.75 | nee | 13 |\n| S23-P04 | Betekenisverschuiving | oorzaak_gevolg | 0.91 | nee | 18 |\n| S23-P05 | controle |  | 0.79 | nee | 13 |\n| S23-P06 | Toevoeging | verzonnen_detail | 0.93 | nee | 38 |\n| S23-P07 | controle |  | 0.79 | nee | 15 |\n| S23-P08 | controle |  | 0.97 | nee | 18 |\n| S24-P01 | controle |  | 0.95 | nee | 15 |\n| S24-P02 | controle |  | 0.76 | nee | 18 |\n| S24-P03 | Register en nadruk | twijfel_weg | 0.91 | nee | 14 |\n| S24-P04 | Omissie | voorwaarde | 0.90 | nee | 39 |\n| S24-P05 | controle |  | 0.98 | nee | 12 |\n| S24-P06 | Toevoeging | eigen_oordeel | 0.92 | nee | 18 |\n| S24-P07 | controle |  | 0.86 | nee | 16 |\n| S24-P08 | Betekenisverschuiving | wie_deed_wat | 0.91 | nee | 8 |\n| S25-P01 | controle |  | 0.95 | nee | 17 |\n| S25-P02 | controle |  | 0.97 | nee | 8 |\n| S25-P03 | controle |  | 0.91 | nee | 13 |\n| S25-P04 | Omissie | kernfeit | 0.95 | nee | 43 |\n| S25-P05 | Register en nadruk | beleefdheid_of_toon | 0.94 | nee | 11 |\n| S25-P06 | Entiteitsfout | aantal | 0.85 | nee | 16 |\n| S25-P07 | controle |  | 0.93 | nee | 14 |\n| S25-P08 | controle |  | 0.81 | nee | 24 |\n| S26-P01 | controle |  | 0.96 | nee | 10 |\n| S26-P02 | controle |  | 0.95 | nee | 14 |\n| S26-P03 | Toevoeging | eigen_vraag_tolk | 0.86 | nee | 10 |\n| S26-P04 | Betekenisverschuiving | sterker_of_zwakker_gemaakt | 0.96 | nee | 24 |\n| S26-P05 | controle |  | 0.70 | nee | 10 |\n| S26-P06 | Entiteitsfout | tijdsduur | 0.78 | nee | 7 |\n| S26-P07 | controle |  | 0.91 | nee | 10 |\n| S26-P08 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 47 |\n| S27-P01 | controle |  | 0.96 | nee | 14 |\n| S27-P02 | controle |  | 0.91 | nee | 8 |\n| S27-P03 | controle |  | 0.91 | nee | 11 |\n| S27-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.89 | nee | 18 |\n| S27-P05 | controle |  | 0.95 | nee | 11 |\n| S27-P06 | Omissie | detail | 0.93 | nee | 41 |\n| S27-P07 | Toevoeging | eigen_uitleg_tolk | 0.93 | nee | 9 |\n| S27-P08 | controle |  | 0.74 | nee | 16 |\n| S28-P01 | controle |  | 0.92 | nee | 15 |\n| S28-P02 | Entiteitsfout | naam | 0.79 | nee | 6 |\n| S28-P03 | Toevoeging | verzonnen_detail | 0.70 | nee | 8 |\n| S28-P04 | Omissie | bijzin | 0.91 | nee | 39 |\n| S28-P05 | controle |  | 0.90 | nee | 16 |\n| S28-P06 | controle |  | 0.73 | nee | 19 |\n| S28-P07 | controle |  | 0.93 | nee | 12 |\n| S28-P08 | Register en nadruk | nadruk_weg | 0.92 | nee | 19 |\n| S29-P01 | controle |  | 0.91 | nee | 13 |\n| S29-P02 | controle |  | 0.95 | nee | 6 |\n| S29-P03 | controle |  | 0.86 | nee | 10 |\n| S29-P04 | Betekenisverschuiving | tijd_of_volgorde | 0.96 | nee | 20 |\n| S29-P05 | Entiteitsfout | datum | 0.93 | nee | 15 |\n| S29-P06 | Register en nadruk | twijfel_weg | 0.94 | nee | 41 |\n| S29-P07 | controle |  | 0.75 | nee | 18 |\n| S29-P08 | controle |  | 0.94 | nee | 17 |",
+   "numbers": {
+    "omissie": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "all": {
+     "recall": 0.0,
+     "fpr": 0.022222222222222223,
+     "precision": 0.0,
+     "tp": 0,
+     "fn": 35,
+     "fp": 1,
+     "tn": 44,
+     "share_deviant": 0.4375,
+     "precision_at_prevalence": {
+      "0.05": 0.0,
+      "0.1": 0.0,
+      "0.2": 0.0
+     }
+    },
+    "path": "cross_lingual",
+    "threshold": 0.7,
+    "criterion": null,
+    "valid": false,
+    "n_dev": 80,
+    "n_test": 0,
+    "notes": [],
+    "dry_run": true
+   },
+   "mean_score_drop_per_category": {
+    "omissie": {
+     "n": 7,
+     "mean": 0.029440854276929582,
+     "min": 0.0007553696632385254,
+     "max": 0.09757435321807861
+    },
+    "toevoeging": {
+     "n": 7,
+     "mean": 0.0687117236001151,
+     "min": 0.013163089752197266,
+     "max": 0.2137882113456726
+    },
+    "betekenisverschuiving": {
+     "n": 7,
+     "mean": 0.023146680423191617,
+     "min": 0.00292813777923584,
+     "max": 0.05802798271179199
+    },
+    "entiteitsfout": {
+     "n": 7,
+     "mean": 0.07086674656186785,
+     "min": 0.015026509761810303,
+     "max": 0.1623244285583496
+    },
+    "register_en_nadruk": {
+     "n": 7,
+     "mean": 0.014255906854357039,
+     "min": -0.010378539562225342,
+     "max": 0.04927259683609009
+    }
+   },
+   "note": "LaBSE met vaste drempel 0,70: de afkapgrens uit de drempelregels van variant A. Dit is NIET variant A (Claude met drempelregels); detection_check.py meet die niet.",
+   "pair_scores": {
+    "S20-P01": 0.9664883017539978,
+    "S20-P02": 0.8654881715774536,
+    "S20-P03": 0.8469581604003906,
+    "S20-P04": 0.8849928379058838,
+    "S20-P05": 0.7915174961090088,
+    "S20-P06": 0.8860912322998047,
+    "S20-P07": 0.9530721306800842,
+    "S20-P08": 0.8516979217529297,
+    "S21-P01": 0.9162992238998413,
+    "S21-P02": 0.9150896072387695,
+    "S21-P03": 0.7980515956878662,
+    "S21-P04": 0.8955413103103638,
+    "S21-P05": 0.8488055467605591,
+    "S21-P06": 0.8576785326004028,
+    "S21-P07": 0.9049011468887329,
+    "S21-P08": 0.9129854440689087,
+    "S22-P01": 0.9579517245292664,
+    "S22-P02": 0.9187673926353455,
+    "S22-P03": 0.9046789407730103,
+    "S22-P04": 0.8485502004623413,
+    "S22-P05": 0.36910757422447205,
+    "S22-P06": 0.9525452852249146,
+    "S22-P07": 0.9288429617881775,
+    "S22-P08": 0.9264488220214844,
+    "S23-P01": 0.968582272529602,
+    "S23-P02": 0.9797221422195435,
+    "S23-P03": 0.7475408315658569,
+    "S23-P04": 0.9075067043304443,
+    "S23-P05": 0.7915516495704651,
+    "S23-P06": 0.9296755790710449,
+    "S23-P07": 0.7865892648696899,
+    "S23-P08": 0.9681267738342285,
+    "S24-P01": 0.9502997398376465,
+    "S24-P02": 0.7610235214233398,
+    "S24-P03": 0.9146576523780823,
+    "S24-P04": 0.8966035842895508,
+    "S24-P05": 0.9818556308746338,
+    "S24-P06": 0.924255907535553,
+    "S24-P07": 0.8643205165863037,
+    "S24-P08": 0.9133257269859314,
+    "S25-P01": 0.9507938623428345,
+    "S25-P02": 0.9730654954910278,
+    "S25-P03": 0.9135124087333679,
+    "S25-P04": 0.9497057199478149,
+    "S25-P05": 0.938873291015625,
+    "S25-P06": 0.8527945280075073,
+    "S25-P07": 0.9262226223945618,
+    "S25-P08": 0.8051478862762451,
+    "S26-P01": 0.9555648565292358,
+    "S26-P02": 0.9540805816650391,
+    "S26-P03": 0.8562375903129578,
+    "S26-P04": 0.9605613350868225,
+    "S26-P05": 0.7011123895645142,
+    "S26-P06": 0.7788262367248535,
+    "S26-P07": 0.9117469787597656,
+    "S26-P08": 0.9241331815719604,
+    "S27-P01": 0.9626402258872986,
+    "S27-P02": 0.9076378345489502,
+    "S27-P03": 0.9148041009902954,
+    "S27-P04": 0.8920754194259644,
+    "S27-P05": 0.9466149210929871,
+    "S27-P06": 0.9267362356185913,
+    "S27-P07": 0.9301350116729736,
+    "S27-P08": 0.7366069555282593,
+    "S28-P01": 0.9167068004608154,
+    "S28-P02": 0.7930909991264343,
+    "S28-P03": 0.7043746113777161,
+    "S28-P04": 0.9095807075500488,
+    "S28-P05": 0.8998408913612366,
+    "S28-P06": 0.7333664894104004,
+    "S28-P07": 0.9303790926933289,
+    "S28-P08": 0.9246206283569336,
+    "S29-P01": 0.9069839715957642,
+    "S29-P02": 0.9464439153671265,
+    "S29-P03": 0.8643519878387451,
+    "S29-P04": 0.9566792249679565,
+    "S29-P05": 0.9330734610557556,
+    "S29-P06": 0.9418951272964478,
+    "S29-P07": 0.7450435161590576,
+    "S29-P08": 0.942147970199585
+   },
+   "reference_scores": {
+    "S20-P03": 0.8822265267372131,
+    "S20-P04": 0.9352177381515503,
+    "S20-P06": 0.8880757689476013,
+    "S20-P08": 0.9093233346939087,
+    "S21-P02": 0.9293315410614014,
+    "S21-P04": 0.9168001413345337,
+    "S21-P05": 0.9042197465896606,
+    "S22-P02": 0.9676374197006226,
+    "S22-P03": 0.9402118921279907,
+    "S22-P04": 0.9461245536804199,
+    "S22-P06": 0.9563960433006287,
+    "S23-P03": 0.9098652601242065,
+    "S23-P04": 0.9104348421096802,
+    "S23-P06": 0.9428386688232422,
+    "S24-P03": 0.9639302492141724,
+    "S24-P04": 0.9430481195449829,
+    "S24-P06": 0.962440550327301,
+    "S24-P08": 0.9713537096977234,
+    "S25-P04": 0.963399350643158,
+    "S25-P05": 0.9394906759262085,
+    "S25-P06": 0.8792319297790527,
+    "S26-P03": 0.9435315728187561,
+    "S26-P04": 0.9664468169212341,
+    "S26-P06": 0.8384071588516235,
+    "S26-P08": 0.9137546420097351,
+    "S27-P04": 0.9203642010688782,
+    "S27-P06": 0.9274916052818298,
+    "S27-P07": 0.968004584312439,
+    "S28-P02": 0.9192935228347778,
+    "S28-P03": 0.9181628227233887,
+    "S28-P04": 0.9339554309844971,
+    "S28-P08": 0.9348551034927368,
+    "S29-P04": 0.969499945640564,
+    "S29-P05": 0.9480999708175659,
+    "S29-P06": 0.9421656727790833
+   }
+  },
+  "C_f1_vervallen": {
+   "threshold": 0.9420215487480164,
+   "markdown": "> **DEMO — niet geldig als resultaat.** Gedraaid met --dry-run: alleen ontwikkelsessies zijn doorgerekend, met een drempel die op dezelfde dev-sessies is gekozen (f1). Er zijn geen testsessies bekeken. Niet-gecontroleerde sessies tellen mee.\n\n**Scoringsroute:** `cross_lingual`. **Drempel:** 0.942, gekozen op deze dev-sessies met choose_threshold (f1), in-sample gerapporteerd. Een paar wordt gesignaleerd als de score onder de drempel ligt. **Ontwikkelset:** 80 paren uit 10 sessie(s).\n\n| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Toevoeging | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Betekenisverschuiving | 0.57 | 0.25–0.84 | 0.20–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| **Alle afwijkingen** | 0.89 | 0.74–0.95 | 0.79–0.97 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.64 | 0.50–0.77 | 0.53–0.77 | 45 |\n| Precision in deze set (44% afwijkend) | 0.52 | 0.39–0.64 | 0.45–0.58 | 60 |\n| Precision bij 5% afwijkende paren | 0.07 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.13 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.26 | – | – | berekend |\n\nRecall per categorie; valse alarmen en precision alleen voor de hele set, omdat de detector geen categorie geeft. De bootstrap trekt hele sessies (2000×); bij weinig sessies is dat interval breed of ontbreekt het.\n\n\n**Hoeveel beweegt de score?** Score van de referentievertaling min de score van de vertolking, per categorie (alleen analyse; de tool gebruikt geen referentie). Rond 0 betekent dat de afwijking de score niet verandert.\n\n| Categorie | n | gem. verschil | min | max |\n|---|---|---|---|---|\n| Omissie | 7 | 0.029 | 0.001 | 0.098 |\n| Toevoeging | 7 | 0.069 | 0.013 | 0.214 |\n| Betekenisverschuiving | 7 | 0.023 | 0.003 | 0.058 |\n| Entiteitsfout | 7 | 0.071 | 0.015 | 0.162 |\n| Register en nadruk | 7 | 0.014 | -0.010 | 0.049 |\n\n**Per paar (ontwikkelset)**\n\n| paar | categorie | subtype | score | gesignaleerd | woorden bron |\n|---|---|---|---|---|---|\n| S20-P01 | controle |  | 0.97 | nee | 7 |\n| S20-P02 | controle |  | 0.87 | ja | 18 |\n| S20-P03 | Toevoeging | eigen_vraag_tolk | 0.85 | ja | 10 |\n| S20-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.88 | ja | 9 |\n| S20-P05 | controle |  | 0.79 | ja | 15 |\n| S20-P06 | Omissie | kernfeit | 0.89 | ja | 37 |\n| S20-P07 | controle |  | 0.95 | nee | 8 |\n| S20-P08 | Entiteitsfout | naam | 0.85 | ja | 18 |\n| S21-P01 | controle |  | 0.92 | ja | 13 |\n| S21-P02 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | ja | 9 |\n| S21-P03 | controle |  | 0.80 | ja | 8 |\n| S21-P04 | Omissie | detail | 0.90 | ja | 44 |\n| S21-P05 | Toevoeging | eigen_uitleg_tolk | 0.85 | ja | 13 |\n| S21-P06 | controle |  | 0.86 | ja | 17 |\n| S21-P07 | controle |  | 0.90 | ja | 16 |\n| S21-P08 | controle |  | 0.91 | ja | 13 |\n| S22-P01 | controle |  | 0.96 | nee | 10 |\n| S22-P02 | Entiteitsfout | datum | 0.92 | ja | 10 |\n| S22-P03 | Register en nadruk | nadruk_weg | 0.90 | ja | 10 |\n| S22-P04 | Omissie | bijzin | 0.85 | ja | 19 |\n| S22-P05 | controle |  | 0.37 | ja | 12 |\n| S22-P06 | Betekenisverschuiving | tijd_of_volgorde | 0.95 | nee | 42 |\n| S22-P07 | controle |  | 0.93 | ja | 15 |\n| S22-P08 | controle |  | 0.93 | ja | 12 |\n| S23-P01 | controle |  | 0.97 | nee | 8 |\n| S23-P02 | controle |  | 0.98 | nee | 7 |\n| S23-P03 | Entiteitsfout | plaats | 0.75 | ja | 13 |\n| S23-P04 | Betekenisverschuiving | oorzaak_gevolg | 0.91 | ja | 18 |\n| S23-P05 | controle |  | 0.79 | ja | 13 |\n| S23-P06 | Toevoeging | verzonnen_detail | 0.93 | ja | 38 |\n| S23-P07 | controle |  | 0.79 | ja | 15 |\n| S23-P08 | controle |  | 0.97 | nee | 18 |\n| S24-P01 | controle |  | 0.95 | nee | 15 |\n| S24-P02 | controle |  | 0.76 | ja | 18 |\n| S24-P03 | Register en nadruk | twijfel_weg | 0.91 | ja | 14 |\n| S24-P04 | Omissie | voorwaarde | 0.90 | ja | 39 |\n| S24-P05 | controle |  | 0.98 | nee | 12 |\n| S24-P06 | Toevoeging | eigen_oordeel | 0.92 | ja | 18 |\n| S24-P07 | controle |  | 0.86 | ja | 16 |\n| S24-P08 | Betekenisverschuiving | wie_deed_wat | 0.91 | ja | 8 |\n| S25-P01 | controle |  | 0.95 | nee | 17 |\n| S25-P02 | controle |  | 0.97 | nee | 8 |\n| S25-P03 | controle |  | 0.91 | ja | 13 |\n| S25-P04 | Omissie | kernfeit | 0.95 | nee | 43 |\n| S25-P05 | Register en nadruk | beleefdheid_of_toon | 0.94 | ja | 11 |\n| S25-P06 | Entiteitsfout | aantal | 0.85 | ja | 16 |\n| S25-P07 | controle |  | 0.93 | ja | 14 |\n| S25-P08 | controle |  | 0.81 | ja | 24 |\n| S26-P01 | controle |  | 0.96 | nee | 10 |\n| S26-P02 | controle |  | 0.95 | nee | 14 |\n| S26-P03 | Toevoeging | eigen_vraag_tolk | 0.86 | ja | 10 |\n| S26-P04 | Betekenisverschuiving | sterker_of_zwakker_gemaakt | 0.96 | nee | 24 |\n| S26-P05 | controle |  | 0.70 | ja | 10 |\n| S26-P06 | Entiteitsfout | tijdsduur | 0.78 | ja | 7 |\n| S26-P07 | controle |  | 0.91 | ja | 10 |\n| S26-P08 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | ja | 47 |\n| S27-P01 | controle |  | 0.96 | nee | 14 |\n| S27-P02 | controle |  | 0.91 | ja | 8 |\n| S27-P03 | controle |  | 0.91 | ja | 11 |\n| S27-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.89 | ja | 18 |\n| S27-P05 | controle |  | 0.95 | nee | 11 |\n| S27-P06 | Omissie | detail | 0.93 | ja | 41 |\n| S27-P07 | Toevoeging | eigen_uitleg_tolk | 0.93 | ja | 9 |\n| S27-P08 | controle |  | 0.74 | ja | 16 |\n| S28-P01 | controle |  | 0.92 | ja | 15 |\n| S28-P02 | Entiteitsfout | naam | 0.79 | ja | 6 |\n| S28-P03 | Toevoeging | verzonnen_detail | 0.70 | ja | 8 |\n| S28-P04 | Omissie | bijzin | 0.91 | ja | 39 |\n| S28-P05 | controle |  | 0.90 | ja | 16 |\n| S28-P06 | controle |  | 0.73 | ja | 19 |\n| S28-P07 | controle |  | 0.93 | ja | 12 |\n| S28-P08 | Register en nadruk | nadruk_weg | 0.92 | ja | 19 |\n| S29-P01 | controle |  | 0.91 | ja | 13 |\n| S29-P02 | controle |  | 0.95 | nee | 6 |\n| S29-P03 | controle |  | 0.86 | ja | 10 |\n| S29-P04 | Betekenisverschuiving | tijd_of_volgorde | 0.96 | nee | 20 |\n| S29-P05 | Entiteitsfout | datum | 0.93 | ja | 15 |\n| S29-P06 | Register en nadruk | twijfel_weg | 0.94 | ja | 41 |\n| S29-P07 | controle |  | 0.75 | ja | 18 |\n| S29-P08 | controle |  | 0.94 | nee | 17 |",
+   "numbers": {
+    "omissie": {
+     "recall": 0.8571428571428571,
+     "tp": 6,
+     "n": 7,
+     "wilson": [
+      0.4868721707256811,
+      0.9743203756552565
+     ],
+     "bootstrap": [
+      0.5555555555555556,
+      1.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 1.0,
+     "tp": 7,
+     "n": 7,
+     "wilson": [
+      0.6456695649333126,
+      1.0
+     ],
+     "bootstrap": [
+      1.0,
+      1.0
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.5714285714285714,
+     "tp": 4,
+     "n": 7,
+     "wilson": [
+      0.2504583645276572,
+      0.8417801447485302
+     ],
+     "bootstrap": [
+      0.2,
+      1.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 1.0,
+     "tp": 7,
+     "n": 7,
+     "wilson": [
+      0.6456695649333126,
+      1.0
+     ],
+     "bootstrap": [
+      1.0,
+      1.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 1.0,
+     "tp": 7,
+     "n": 7,
+     "wilson": [
+      0.6456695649333126,
+      1.0
+     ],
+     "bootstrap": [
+      1.0,
+      1.0
+     ]
+    },
+    "all": {
+     "recall": 0.8857142857142857,
+     "fpr": 0.6444444444444445,
+     "precision": 0.5166666666666667,
+     "tp": 31,
+     "fn": 4,
+     "fp": 29,
+     "tn": 16,
+     "share_deviant": 0.4375,
+     "precision_at_prevalence": {
+      "0.05": 0.06745647969052225,
+      "0.1": 0.13247863247863248,
+      "0.2": 0.25572868927589365
+     }
+    },
+    "path": "cross_lingual",
+    "threshold": 0.9420215487480164,
+    "criterion": "f1",
+    "valid": false,
+    "n_dev": 80,
+    "n_test": 0,
+    "notes": [],
+    "dry_run": true
+   },
+   "mean_score_drop_per_category": {
+    "omissie": {
+     "n": 7,
+     "mean": 0.029440854276929582,
+     "min": 0.0007553696632385254,
+     "max": 0.09757435321807861
+    },
+    "toevoeging": {
+     "n": 7,
+     "mean": 0.0687117236001151,
+     "min": 0.013163089752197266,
+     "max": 0.2137882113456726
+    },
+    "betekenisverschuiving": {
+     "n": 7,
+     "mean": 0.023146680423191617,
+     "min": 0.00292813777923584,
+     "max": 0.05802798271179199
+    },
+    "entiteitsfout": {
+     "n": 7,
+     "mean": 0.07086674656186785,
+     "min": 0.015026509761810303,
+     "max": 0.1623244285583496
+    },
+    "register_en_nadruk": {
+     "n": 7,
+     "mean": 0.014255906854357039,
+     "min": -0.010378539562225342,
+     "max": 0.04927259683609009
+    }
+   },
+   "threshold_procedure": "metrics.choose_threshold(criterion='f1') op de LaBSE-scores (cross_lingual) van alle dev-paren; dezelfde paren worden daarna met die drempel gerapporteerd (in-sample, dus optimistisch)",
+   "pair_scores": {
+    "S20-P01": 0.9664883017539978,
+    "S20-P02": 0.8654881715774536,
+    "S20-P03": 0.8469581604003906,
+    "S20-P04": 0.8849928379058838,
+    "S20-P05": 0.7915174961090088,
+    "S20-P06": 0.8860912322998047,
+    "S20-P07": 0.9530721306800842,
+    "S20-P08": 0.8516979217529297,
+    "S21-P01": 0.9162992238998413,
+    "S21-P02": 0.9150896072387695,
+    "S21-P03": 0.7980515956878662,
+    "S21-P04": 0.8955413103103638,
+    "S21-P05": 0.8488055467605591,
+    "S21-P06": 0.8576785326004028,
+    "S21-P07": 0.9049011468887329,
+    "S21-P08": 0.9129854440689087,
+    "S22-P01": 0.9579517245292664,
+    "S22-P02": 0.9187673926353455,
+    "S22-P03": 0.9046789407730103,
+    "S22-P04": 0.8485502004623413,
+    "S22-P05": 0.36910757422447205,
+    "S22-P06": 0.9525452852249146,
+    "S22-P07": 0.9288429617881775,
+    "S22-P08": 0.9264488220214844,
+    "S23-P01": 0.968582272529602,
+    "S23-P02": 0.9797221422195435,
+    "S23-P03": 0.7475408315658569,
+    "S23-P04": 0.9075067043304443,
+    "S23-P05": 0.7915516495704651,
+    "S23-P06": 0.9296755790710449,
+    "S23-P07": 0.7865892648696899,
+    "S23-P08": 0.9681267738342285,
+    "S24-P01": 0.9502997398376465,
+    "S24-P02": 0.7610235214233398,
+    "S24-P03": 0.9146576523780823,
+    "S24-P04": 0.8966035842895508,
+    "S24-P05": 0.9818556308746338,
+    "S24-P06": 0.924255907535553,
+    "S24-P07": 0.8643205165863037,
+    "S24-P08": 0.9133257269859314,
+    "S25-P01": 0.9507938623428345,
+    "S25-P02": 0.9730654954910278,
+    "S25-P03": 0.9135124087333679,
+    "S25-P04": 0.9497057199478149,
+    "S25-P05": 0.938873291015625,
+    "S25-P06": 0.8527945280075073,
+    "S25-P07": 0.9262226223945618,
+    "S25-P08": 0.8051478862762451,
+    "S26-P01": 0.9555648565292358,
+    "S26-P02": 0.9540805816650391,
+    "S26-P03": 0.8562375903129578,
+    "S26-P04": 0.9605613350868225,
+    "S26-P05": 0.7011123895645142,
+    "S26-P06": 0.7788262367248535,
+    "S26-P07": 0.9117469787597656,
+    "S26-P08": 0.9241331815719604,
+    "S27-P01": 0.9626402258872986,
+    "S27-P02": 0.9076378345489502,
+    "S27-P03": 0.9148041009902954,
+    "S27-P04": 0.8920754194259644,
+    "S27-P05": 0.9466149210929871,
+    "S27-P06": 0.9267362356185913,
+    "S27-P07": 0.9301350116729736,
+    "S27-P08": 0.7366069555282593,
+    "S28-P01": 0.9167068004608154,
+    "S28-P02": 0.7930909991264343,
+    "S28-P03": 0.7043746113777161,
+    "S28-P04": 0.9095807075500488,
+    "S28-P05": 0.8998408913612366,
+    "S28-P06": 0.7333664894104004,
+    "S28-P07": 0.9303790926933289,
+    "S28-P08": 0.9246206283569336,
+    "S29-P01": 0.9069839715957642,
+    "S29-P02": 0.9464439153671265,
+    "S29-P03": 0.8643519878387451,
+    "S29-P04": 0.9566792249679565,
+    "S29-P05": 0.9330734610557556,
+    "S29-P06": 0.9418951272964478,
+    "S29-P07": 0.7450435161590576,
+    "S29-P08": 0.942147970199585
+   },
+   "reference_scores": {
+    "S20-P03": 0.8822265267372131,
+    "S20-P04": 0.9352177381515503,
+    "S20-P06": 0.8880757689476013,
+    "S20-P08": 0.9093233346939087,
+    "S21-P02": 0.9293315410614014,
+    "S21-P04": 0.9168001413345337,
+    "S21-P05": 0.9042197465896606,
+    "S22-P02": 0.9676374197006226,
+    "S22-P03": 0.9402118921279907,
+    "S22-P04": 0.9461245536804199,
+    "S22-P06": 0.9563960433006287,
+    "S23-P03": 0.9098652601242065,
+    "S23-P04": 0.9104348421096802,
+    "S23-P06": 0.9428386688232422,
+    "S24-P03": 0.9639302492141724,
+    "S24-P04": 0.9430481195449829,
+    "S24-P06": 0.962440550327301,
+    "S24-P08": 0.9713537096977234,
+    "S25-P04": 0.963399350643158,
+    "S25-P05": 0.9394906759262085,
+    "S25-P06": 0.8792319297790527,
+    "S26-P03": 0.9435315728187561,
+    "S26-P04": 0.9664468169212341,
+    "S26-P06": 0.8384071588516235,
+    "S26-P08": 0.9137546420097351,
+    "S27-P04": 0.9203642010688782,
+    "S27-P06": 0.9274916052818298,
+    "S27-P07": 0.968004584312439,
+    "S28-P02": 0.9192935228347778,
+    "S28-P03": 0.9181628227233887,
+    "S28-P04": 0.9339554309844971,
+    "S28-P08": 0.9348551034927368,
+    "S29-P04": 0.969499945640564,
+    "S29-P05": 0.9480999708175659,
+    "S29-P06": 0.9421656727790833
+   },
+   "note": "Vervallen criterium f1 (koos 0,942 met FPR 0,64); vervangen door recall_at_fpr in TESTOPZET.md op 2026-11-11. Alleen ter vergelijking bewaard."
+  },
+  "C": {
+   "threshold": 0.7188705503940582,
+   "criterion": "recall_at_fpr",
+   "max_fpr": 0.1,
+   "threshold_procedure": "metrics.choose_threshold(criterion='recall_at_fpr', max_fpr=0.1) op de LaBSE-scores (cross_lingual) van alle dev-paren; dezelfde paren worden daarna met die drempel gerapporteerd (in-sample, dus optimistisch)",
+   "markdown": "> **DEMO — niet geldig als resultaat.** Gedraaid met --dry-run: alleen ontwikkelsessies zijn doorgerekend, met een drempel die op dezelfde dev-sessies is gekozen (recall_at_fpr). Er zijn geen testsessies bekeken. Niet-gecontroleerde sessies tellen mee.\n\n**Scoringsroute:** `cross_lingual`. **Drempel:** 0.719, gekozen op deze dev-sessies met choose_threshold (recall_at_fpr, max FPR 0.1), in-sample gerapporteerd. Een paar wordt gesignaleerd als de score onder de drempel ligt. **Ontwikkelset:** 80 paren uit 10 sessie(s).\n\n| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Toevoeging | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| Betekenisverschuiving | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Entiteitsfout | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Register en nadruk | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| **Alle afwijkingen** | 0.03 | 0.01–0.15 | 0.00–0.09 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.04 | 0.01–0.15 | 0.00–0.12 | 45 |\n| Precision in deze set (44% afwijkend) | 0.33 | 0.06–0.79 | 0.00–1.00 | 3 |\n| Precision bij 5% afwijkende paren | 0.03 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.07 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.14 | – | – | berekend |\n\nRecall per categorie; valse alarmen en precision alleen voor de hele set, omdat de detector geen categorie geeft. De bootstrap trekt hele sessies (2000×); bij weinig sessies is dat interval breed of ontbreekt het.\n\n\n**Hoeveel beweegt de score?** Score van de referentievertaling min de score van de vertolking, per categorie (alleen analyse; de tool gebruikt geen referentie). Rond 0 betekent dat de afwijking de score niet verandert.\n\n| Categorie | n | gem. verschil | min | max |\n|---|---|---|---|---|\n| Omissie | 7 | 0.029 | 0.001 | 0.098 |\n| Toevoeging | 7 | 0.069 | 0.013 | 0.214 |\n| Betekenisverschuiving | 7 | 0.023 | 0.003 | 0.058 |\n| Entiteitsfout | 7 | 0.071 | 0.015 | 0.162 |\n| Register en nadruk | 7 | 0.014 | -0.010 | 0.049 |\n\n**Per paar (ontwikkelset)**\n\n| paar | categorie | subtype | score | gesignaleerd | woorden bron |\n|---|---|---|---|---|---|\n| S20-P01 | controle |  | 0.97 | nee | 7 |\n| S20-P02 | controle |  | 0.87 | nee | 18 |\n| S20-P03 | Toevoeging | eigen_vraag_tolk | 0.85 | nee | 10 |\n| S20-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.88 | nee | 9 |\n| S20-P05 | controle |  | 0.79 | nee | 15 |\n| S20-P06 | Omissie | kernfeit | 0.89 | nee | 37 |\n| S20-P07 | controle |  | 0.95 | nee | 8 |\n| S20-P08 | Entiteitsfout | naam | 0.85 | nee | 18 |\n| S21-P01 | controle |  | 0.92 | nee | 13 |\n| S21-P02 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 9 |\n| S21-P03 | controle |  | 0.80 | nee | 8 |\n| S21-P04 | Omissie | detail | 0.90 | nee | 44 |\n| S21-P05 | Toevoeging | eigen_uitleg_tolk | 0.85 | nee | 13 |\n| S21-P06 | controle |  | 0.86 | nee | 17 |\n| S21-P07 | controle |  | 0.90 | nee | 16 |\n| S21-P08 | controle |  | 0.91 | nee | 13 |\n| S22-P01 | controle |  | 0.96 | nee | 10 |\n| S22-P02 | Entiteitsfout | datum | 0.92 | nee | 10 |\n| S22-P03 | Register en nadruk | nadruk_weg | 0.90 | nee | 10 |\n| S22-P04 | Omissie | bijzin | 0.85 | nee | 19 |\n| S22-P05 | controle |  | 0.37 | ja | 12 |\n| S22-P06 | Betekenisverschuiving | tijd_of_volgorde | 0.95 | nee | 42 |\n| S22-P07 | controle |  | 0.93 | nee | 15 |\n| S22-P08 | controle |  | 0.93 | nee | 12 |\n| S23-P01 | controle |  | 0.97 | nee | 8 |\n| S23-P02 | controle |  | 0.98 | nee | 7 |\n| S23-P03 | Entiteitsfout | plaats | 0.75 | nee | 13 |\n| S23-P04 | Betekenisverschuiving | oorzaak_gevolg | 0.91 | nee | 18 |\n| S23-P05 | controle |  | 0.79 | nee | 13 |\n| S23-P06 | Toevoeging | verzonnen_detail | 0.93 | nee | 38 |\n| S23-P07 | controle |  | 0.79 | nee | 15 |\n| S23-P08 | controle |  | 0.97 | nee | 18 |\n| S24-P01 | controle |  | 0.95 | nee | 15 |\n| S24-P02 | controle |  | 0.76 | nee | 18 |\n| S24-P03 | Register en nadruk | twijfel_weg | 0.91 | nee | 14 |\n| S24-P04 | Omissie | voorwaarde | 0.90 | nee | 39 |\n| S24-P05 | controle |  | 0.98 | nee | 12 |\n| S24-P06 | Toevoeging | eigen_oordeel | 0.92 | nee | 18 |\n| S24-P07 | controle |  | 0.86 | nee | 16 |\n| S24-P08 | Betekenisverschuiving | wie_deed_wat | 0.91 | nee | 8 |\n| S25-P01 | controle |  | 0.95 | nee | 17 |\n| S25-P02 | controle |  | 0.97 | nee | 8 |\n| S25-P03 | controle |  | 0.91 | nee | 13 |\n| S25-P04 | Omissie | kernfeit | 0.95 | nee | 43 |\n| S25-P05 | Register en nadruk | beleefdheid_of_toon | 0.94 | nee | 11 |\n| S25-P06 | Entiteitsfout | aantal | 0.85 | nee | 16 |\n| S25-P07 | controle |  | 0.93 | nee | 14 |\n| S25-P08 | controle |  | 0.81 | nee | 24 |\n| S26-P01 | controle |  | 0.96 | nee | 10 |\n| S26-P02 | controle |  | 0.95 | nee | 14 |\n| S26-P03 | Toevoeging | eigen_vraag_tolk | 0.86 | nee | 10 |\n| S26-P04 | Betekenisverschuiving | sterker_of_zwakker_gemaakt | 0.96 | nee | 24 |\n| S26-P05 | controle |  | 0.70 | ja | 10 |\n| S26-P06 | Entiteitsfout | tijdsduur | 0.78 | nee | 7 |\n| S26-P07 | controle |  | 0.91 | nee | 10 |\n| S26-P08 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 47 |\n| S27-P01 | controle |  | 0.96 | nee | 14 |\n| S27-P02 | controle |  | 0.91 | nee | 8 |\n| S27-P03 | controle |  | 0.91 | nee | 11 |\n| S27-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.89 | nee | 18 |\n| S27-P05 | controle |  | 0.95 | nee | 11 |\n| S27-P06 | Omissie | detail | 0.93 | nee | 41 |\n| S27-P07 | Toevoeging | eigen_uitleg_tolk | 0.93 | nee | 9 |\n| S27-P08 | controle |  | 0.74 | nee | 16 |\n| S28-P01 | controle |  | 0.92 | nee | 15 |\n| S28-P02 | Entiteitsfout | naam | 0.79 | nee | 6 |\n| S28-P03 | Toevoeging | verzonnen_detail | 0.70 | ja | 8 |\n| S28-P04 | Omissie | bijzin | 0.91 | nee | 39 |\n| S28-P05 | controle |  | 0.90 | nee | 16 |\n| S28-P06 | controle |  | 0.73 | nee | 19 |\n| S28-P07 | controle |  | 0.93 | nee | 12 |\n| S28-P08 | Register en nadruk | nadruk_weg | 0.92 | nee | 19 |\n| S29-P01 | controle |  | 0.91 | nee | 13 |\n| S29-P02 | controle |  | 0.95 | nee | 6 |\n| S29-P03 | controle |  | 0.86 | nee | 10 |\n| S29-P04 | Betekenisverschuiving | tijd_of_volgorde | 0.96 | nee | 20 |\n| S29-P05 | Entiteitsfout | datum | 0.93 | nee | 15 |\n| S29-P06 | Register en nadruk | twijfel_weg | 0.94 | nee | 41 |\n| S29-P07 | controle |  | 0.75 | nee | 18 |\n| S29-P08 | controle |  | 0.94 | nee | 17 |",
+   "numbers": {
+    "omissie": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.14285714285714285,
+     "tp": 1,
+     "n": 7,
+     "wilson": [
+      0.02567962434474355,
+      0.5131278292743189
+     ],
+     "bootstrap": [
+      0.0,
+      0.42857142857142855
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "all": {
+     "recall": 0.02857142857142857,
+     "fpr": 0.044444444444444446,
+     "precision": 0.3333333333333333,
+     "tp": 1,
+     "fn": 34,
+     "fp": 2,
+     "tn": 43,
+     "share_deviant": 0.4375,
+     "precision_at_prevalence": {
+      "0.05": 0.03272727272727272,
+      "0.1": 0.06666666666666667,
+      "0.2": 0.13846153846153847
+     }
+    },
+    "path": "cross_lingual",
+    "threshold": 0.7188705503940582,
+    "criterion": "recall_at_fpr",
+    "valid": false,
+    "n_dev": 80,
+    "n_test": 0,
+    "notes": [],
+    "dry_run": true
+   },
+   "pair_scores": {
+    "S20-P01": 0.9664883017539978,
+    "S20-P02": 0.8654881715774536,
+    "S20-P03": 0.8469581604003906,
+    "S20-P04": 0.8849928379058838,
+    "S20-P05": 0.7915174961090088,
+    "S20-P06": 0.8860912322998047,
+    "S20-P07": 0.9530721306800842,
+    "S20-P08": 0.8516979217529297,
+    "S21-P01": 0.9162992238998413,
+    "S21-P02": 0.9150896072387695,
+    "S21-P03": 0.7980515956878662,
+    "S21-P04": 0.8955413103103638,
+    "S21-P05": 0.8488055467605591,
+    "S21-P06": 0.8576785326004028,
+    "S21-P07": 0.9049011468887329,
+    "S21-P08": 0.9129854440689087,
+    "S22-P01": 0.9579517245292664,
+    "S22-P02": 0.9187673926353455,
+    "S22-P03": 0.9046789407730103,
+    "S22-P04": 0.8485502004623413,
+    "S22-P05": 0.36910757422447205,
+    "S22-P06": 0.9525452852249146,
+    "S22-P07": 0.9288429617881775,
+    "S22-P08": 0.9264488220214844,
+    "S23-P01": 0.968582272529602,
+    "S23-P02": 0.9797221422195435,
+    "S23-P03": 0.7475408315658569,
+    "S23-P04": 0.9075067043304443,
+    "S23-P05": 0.7915516495704651,
+    "S23-P06": 0.9296755790710449,
+    "S23-P07": 0.7865892648696899,
+    "S23-P08": 0.9681267738342285,
+    "S24-P01": 0.9502997398376465,
+    "S24-P02": 0.7610235214233398,
+    "S24-P03": 0.9146576523780823,
+    "S24-P04": 0.8966035842895508,
+    "S24-P05": 0.9818556308746338,
+    "S24-P06": 0.924255907535553,
+    "S24-P07": 0.8643205165863037,
+    "S24-P08": 0.9133257269859314,
+    "S25-P01": 0.9507938623428345,
+    "S25-P02": 0.9730654954910278,
+    "S25-P03": 0.9135124087333679,
+    "S25-P04": 0.9497057199478149,
+    "S25-P05": 0.938873291015625,
+    "S25-P06": 0.8527945280075073,
+    "S25-P07": 0.9262226223945618,
+    "S25-P08": 0.8051478862762451,
+    "S26-P01": 0.9555648565292358,
+    "S26-P02": 0.9540805816650391,
+    "S26-P03": 0.8562375903129578,
+    "S26-P04": 0.9605613350868225,
+    "S26-P05": 0.7011123895645142,
+    "S26-P06": 0.7788262367248535,
+    "S26-P07": 0.9117469787597656,
+    "S26-P08": 0.9241331815719604,
+    "S27-P01": 0.9626402258872986,
+    "S27-P02": 0.9076378345489502,
+    "S27-P03": 0.9148041009902954,
+    "S27-P04": 0.8920754194259644,
+    "S27-P05": 0.9466149210929871,
+    "S27-P06": 0.9267362356185913,
+    "S27-P07": 0.9301350116729736,
+    "S27-P08": 0.7366069555282593,
+    "S28-P01": 0.9167068004608154,
+    "S28-P02": 0.7930909991264343,
+    "S28-P03": 0.7043746113777161,
+    "S28-P04": 0.9095807075500488,
+    "S28-P05": 0.8998408913612366,
+    "S28-P06": 0.7333664894104004,
+    "S28-P07": 0.9303790926933289,
+    "S28-P08": 0.9246206283569336,
+    "S29-P01": 0.9069839715957642,
+    "S29-P02": 0.9464439153671265,
+    "S29-P03": 0.8643519878387451,
+    "S29-P04": 0.9566792249679565,
+    "S29-P05": 0.9330734610557556,
+    "S29-P06": 0.9418951272964478,
+    "S29-P07": 0.7450435161590576,
+    "S29-P08": 0.942147970199585
+   },
+   "reference_scores": {
+    "S20-P03": 0.8822265267372131,
+    "S20-P04": 0.9352177381515503,
+    "S20-P06": 0.8880757689476013,
+    "S20-P08": 0.9093233346939087,
+    "S21-P02": 0.9293315410614014,
+    "S21-P04": 0.9168001413345337,
+    "S21-P05": 0.9042197465896606,
+    "S22-P02": 0.9676374197006226,
+    "S22-P03": 0.9402118921279907,
+    "S22-P04": 0.9461245536804199,
+    "S22-P06": 0.9563960433006287,
+    "S23-P03": 0.9098652601242065,
+    "S23-P04": 0.9104348421096802,
+    "S23-P06": 0.9428386688232422,
+    "S24-P03": 0.9639302492141724,
+    "S24-P04": 0.9430481195449829,
+    "S24-P06": 0.962440550327301,
+    "S24-P08": 0.9713537096977234,
+    "S25-P04": 0.963399350643158,
+    "S25-P05": 0.9394906759262085,
+    "S25-P06": 0.8792319297790527,
+    "S26-P03": 0.9435315728187561,
+    "S26-P04": 0.9664468169212341,
+    "S26-P06": 0.8384071588516235,
+    "S26-P08": 0.9137546420097351,
+    "S27-P04": 0.9203642010688782,
+    "S27-P06": 0.9274916052818298,
+    "S27-P07": 0.968004584312439,
+    "S28-P02": 0.9192935228347778,
+    "S28-P03": 0.9181628227233887,
+    "S28-P04": 0.9339554309844971,
+    "S28-P08": 0.9348551034927368,
+    "S29-P04": 0.969499945640564,
+    "S29-P05": 0.9480999708175659,
+    "S29-P06": 0.9421656727790833
+   }
+  },
+  "A_oud": {
+   "variant": "A",
+   "description": "Claude met drempelregels (LLM_SCORE_RULES=true)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": true,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    false
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.43 | 0.16–0.75 | 0.00–0.83 | 7 |\n| Toevoeging | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.54 | 0.38–0.70 | 0.39–0.67 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (44% afwijkend) | 0.95 | 0.76–0.99 | 0.85–1.00 | 20 |\n| Precision bij 5% afwijkende paren | 0.56 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.73 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.86 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.42857142857142855,
+       "tp": 3,
+       "n": 7,
+       "wilson": [
+        0.15821985525146975,
+        0.7495416354723428
+       ],
+       "bootstrap": [
+        0.0,
+        0.8333333333333334
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.5428571428571428,
+       "fpr": 0.022222222222222223,
+       "precision": 0.95,
+       "tp": 19,
+       "fn": 16,
+       "fp": 1,
+       "tn": 44,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.5625,
+        "0.1": 0.7307692307692307,
+        "0.2": 0.8592964824120602
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Toevoeging | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.71 | 0.55–0.84 | 0.60–0.82 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.07 | 0.02–0.18 | 0.00–0.13 | 45 |\n| Precision in deze set (44% afwijkend) | 0.89 | 0.73–0.96 | 0.81–1.00 | 28 |\n| Precision bij 5% afwijkende paren | 0.36 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.54 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.73 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.7142857142857143,
+       "fpr": 0.06666666666666667,
+       "precision": 0.8928571428571429,
+       "tp": 25,
+       "fn": 10,
+       "fp": 3,
+       "tn": 42,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.36057692307692313,
+        "0.1": 0.5434782608695652,
+        "0.2": 0.7281553398058253
+       }
+      }
+     }
+    }
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1494,
+     "cache_creation_input_tokens": 1871,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.03239325,
+     "duration_s": 21.1,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 991,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0186633,
+     "duration_s": 17.1,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1279,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.022743299999999998,
+     "duration_s": 21.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1416,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0249303,
+     "duration_s": 22.4,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1474,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0259083,
+     "duration_s": 23.4,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 1039,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0193383,
+     "duration_s": 18.2,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1027,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0193803,
+     "duration_s": 16.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 940,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0176943,
+     "duration_s": 15.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1478,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0258273,
+     "duration_s": 22.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 1489,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1871,
+     "cost_usd_estimate": 0.0260373,
+     "duration_s": 24.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 12627,
+    "cache_creation_input_tokens": 1871,
+    "cache_read_input_tokens": 16839
+   },
+   "cost_usd_estimate_total": 0.23291594999999998,
+   "raw_dir": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11_oud\\raw",
+   "result_file": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11_oud\\result.json",
+   "note": "oude tool-prompt (zonder zelfcorrectie als uitzondering), vóór commit aadf743"
+  },
+  "B_oud": {
+   "variant": "B",
+   "description": "Claude zonder drempelregels (LLM_SCORE_RULES=false)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": false,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    false
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Toevoeging | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.86 | 0.49–0.97 | 0.50–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.66 | 0.49–0.79 | 0.53–0.77 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.00 | 0.00–0.08 | 0.00–0.00 | 45 |\n| Precision in deze set (44% afwijkend) | 1.00 | 0.86–1.00 | 1.00–1.00 | 23 |\n| Precision bij 5% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 1.00 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5555555555555556,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.6571428571428571,
+       "fpr": 0.0,
+       "precision": 1.0,
+       "tp": 23,
+       "fn": 12,
+       "fp": 0,
+       "tn": 45,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.2": 1.0
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Toevoeging | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| **Alle afwijkingen** | 0.80 | 0.64–0.90 | 0.66–0.94 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.04 | 0.01–0.15 | 0.00–0.11 | 45 |\n| Precision in deze set (44% afwijkend) | 0.93 | 0.79–0.98 | 0.84–1.00 | 30 |\n| Precision bij 5% afwijkende paren | 0.49 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.67 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.82 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5555555555555556,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.2857142857142857,
+       "tp": 2,
+       "n": 7,
+       "wilson": [
+        0.08221892400405678,
+        0.6410655481673808
+       ],
+       "bootstrap": [
+        0.0,
+        0.6666666666666666
+       ]
+      },
+      "all": {
+       "recall": 0.8,
+       "fpr": 0.044444444444444446,
+       "precision": 0.9333333333333333,
+       "tp": 28,
+       "fn": 7,
+       "fp": 2,
+       "tn": 43,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.48648648648648657,
+        "0.1": 0.6666666666666666,
+        "0.2": 0.8181818181818182
+       }
+      }
+     }
+    }
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1408,
+     "cache_creation_input_tokens": 1800,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.030837,
+     "duration_s": 21.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 835,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.016302,
+     "duration_s": 13.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1405,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.024612,
+     "duration_s": 24.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1584,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.027429,
+     "duration_s": 24.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1667,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.028782,
+     "duration_s": 26.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 1234,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.022242,
+     "duration_s": 19.7,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1058,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.019824,
+     "duration_s": 16.7,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 1197,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.021528,
+     "duration_s": 19.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1346,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.023826,
+     "duration_s": 20.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 1559,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1800,
+     "cost_usd_estimate": 0.027066,
+     "duration_s": 24.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 13293,
+    "cache_creation_input_tokens": 1800,
+    "cache_read_input_tokens": 16200
+   },
+   "cost_usd_estimate_total": 0.242448,
+   "raw_dir": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_B_2026-11-11_oud\\raw",
+   "result_file": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_B_2026-11-11_oud\\result.json",
+   "note": "oude tool-prompt (zonder zelfcorrectie als uitzondering), vóór commit aadf743"
+  },
+  "B": {
+   "variant": "B",
+   "description": "Claude zonder drempelregels (LLM_SCORE_RULES=false)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": false,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    false
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Toevoeging | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.86 | 0.49–0.97 | 0.50–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.63 | 0.46–0.77 | 0.42–0.79 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (44% afwijkend) | 0.96 | 0.79–0.99 | 0.88–1.00 | 23 |\n| Precision bij 5% afwijkende paren | 0.60 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.76 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.88 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.6285714285714286,
+       "fpr": 0.022222222222222223,
+       "precision": 0.9565217391304348,
+       "tp": 22,
+       "fn": 13,
+       "fp": 1,
+       "tn": 44,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.5981873111782477,
+        "0.1": 0.7586206896551724,
+        "0.2": 0.8761061946902655
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Toevoeging | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| **Alle afwijkingen** | 0.80 | 0.64–0.90 | 0.66–0.94 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.07 | 0.02–0.18 | 0.00–0.13 | 45 |\n| Precision in deze set (44% afwijkend) | 0.90 | 0.75–0.97 | 0.83–1.00 | 31 |\n| Precision bij 5% afwijkende paren | 0.39 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.57 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.75 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5555555555555556,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.2857142857142857,
+       "tp": 2,
+       "n": 7,
+       "wilson": [
+        0.08221892400405678,
+        0.6410655481673808
+       ],
+       "bootstrap": [
+        0.0,
+        0.6666666666666666
+       ]
+      },
+      "all": {
+       "recall": 0.8,
+       "fpr": 0.06666666666666667,
+       "precision": 0.9032258064516129,
+       "tp": 28,
+       "fn": 7,
+       "fp": 3,
+       "tn": 42,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.3870967741935485,
+        "0.1": 0.5714285714285715,
+        "0.2": 0.75
+       }
+      }
+     }
+    }
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1480,
+     "cache_creation_input_tokens": 1845,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.03208575,
+     "duration_s": 22.2,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1044,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0194505,
+     "duration_s": 17.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1334,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0235605,
+     "duration_s": 21.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1636,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0282225,
+     "duration_s": 25.1,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1473,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0258855,
+     "duration_s": 20.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 1255,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0225705,
+     "duration_s": 21.4,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1070,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0200175,
+     "duration_s": 16.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 1281,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0228015,
+     "duration_s": 22.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1659,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0285345,
+     "duration_s": 24.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 1107,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0202995,
+     "duration_s": 16.9,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 13339,
+    "cache_creation_input_tokens": 1845,
+    "cache_read_input_tokens": 16605
+   },
+   "cost_usd_estimate_total": 0.24342825,
+   "raw_dir": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_B_2026-11-11\\raw",
+   "result_file": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_B_2026-11-11\\result.json"
+  },
+  "A_parserfout": {
+   "variant": "A",
+   "description": "Claude met drempelregels (LLM_SCORE_RULES=true)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": true,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    false
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| Toevoeging | 0.43 | 0.16–0.75 | 0.11–0.80 | 7 |\n| Betekenisverschuiving | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Entiteitsfout | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.43 | 0.28–0.59 | 0.26–0.57 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.00 | 0.00–0.08 | 0.00–0.00 | 45 |\n| Precision in deze set (44% afwijkend) | 1.00 | 0.80–1.00 | 1.00–1.00 | 15 |\n| Precision bij 5% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 1.00 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.2857142857142857,
+       "tp": 2,
+       "n": 7,
+       "wilson": [
+        0.08221892400405678,
+        0.6410655481673808
+       ],
+       "bootstrap": [
+        0.0,
+        0.6666666666666666
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.42857142857142855,
+       "tp": 3,
+       "n": 7,
+       "wilson": [
+        0.15821985525146975,
+        0.7495416354723428
+       ],
+       "bootstrap": [
+        0.1111111111111111,
+        0.8
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.42857142857142855,
+       "fpr": 0.0,
+       "precision": 1.0,
+       "tp": 15,
+       "fn": 20,
+       "fp": 0,
+       "tn": 45,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.2": 1.0
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Toevoeging | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Register en nadruk | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| **Alle afwijkingen** | 0.69 | 0.52–0.81 | 0.46–0.86 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (44% afwijkend) | 0.96 | 0.80–0.99 | 0.88–1.00 | 25 |\n| Precision bij 5% afwijkende paren | 0.62 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.77 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.89 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5555555555555556,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.2857142857142857,
+       "tp": 2,
+       "n": 7,
+       "wilson": [
+        0.08221892400405678,
+        0.6410655481673808
+       ],
+       "bootstrap": [
+        0.0,
+        0.6666666666666666
+       ]
+      },
+      "all": {
+       "recall": 0.6857142857142857,
+       "fpr": 0.022222222222222223,
+       "precision": 0.96,
+       "tp": 24,
+       "fn": 11,
+       "fp": 1,
+       "tn": 44,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.6189111747851003,
+        "0.1": 0.7741935483870968,
+        "0.2": 0.8852459016393442
+       }
+      }
+     }
+    }
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1401,
+     "cache_creation_input_tokens": 1916,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.031167,
+     "duration_s": 21.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 841,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0164268,
+     "duration_s": 13.7,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1704,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0291318,
+     "duration_s": 28.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1448,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0254238,
+     "duration_s": 23.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1597,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.027766799999999998,
+     "duration_s": 24.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 1031,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0192318,
+     "duration_s": 17.1,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1604,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0280488,
+     "duration_s": 20.7,
+     "missing_pairs": [
+      "S26-P01",
+      "S26-P02",
+      "S26-P03",
+      "S26-P04",
+      "S26-P05",
+      "S26-P06",
+      "S26-P07",
+      "S26-P08"
+     ],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 964,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0180678,
+     "duration_s": 16.9,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1290,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0230208,
+     "duration_s": 18.9,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 1122,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0205458,
+     "duration_s": 26.1,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 13002,
+    "cache_creation_input_tokens": 1916,
+    "cache_read_input_tokens": 17244
+   },
+   "cost_usd_estimate_total": 0.2388312,
+   "raw_dir": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11_parserfout\\raw",
+   "result_file": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11_parserfout\\result.json",
+   "note": "nieuwe prompt (aadf743), oude parser: S26 onleesbaar (twee JSON-blokken), alle 8 paren ontbraken"
+  },
+  "A": {
+   "variant": "A",
+   "description": "Claude met drempelregels (LLM_SCORE_RULES=true)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": true,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    false
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| Toevoeging | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Betekenisverschuiving | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Entiteitsfout | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.49 | 0.33–0.64 | 0.34–0.61 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.00 | 0.00–0.08 | 0.00–0.00 | 45 |\n| Precision in deze set (44% afwijkend) | 1.00 | 0.82–1.00 | 1.00–1.00 | 17 |\n| Precision bij 5% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 1.00 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.2857142857142857,
+       "tp": 2,
+       "n": 7,
+       "wilson": [
+        0.08221892400405678,
+        0.6410655481673808
+       ],
+       "bootstrap": [
+        0.0,
+        0.6666666666666666
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.4857142857142857,
+       "fpr": 0.0,
+       "precision": 1.0,
+       "tp": 17,
+       "fn": 18,
+       "fp": 0,
+       "tn": 45,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.2": 1.0
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Toevoeging | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Betekenisverschuiving | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.66 | 0.49–0.79 | 0.52–0.79 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (44% afwijkend) | 0.96 | 0.80–0.99 | 0.87–1.00 | 24 |\n| Precision bij 5% afwijkende paren | 0.61 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.77 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.88 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5555555555555556,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.6571428571428571,
+       "fpr": 0.022222222222222223,
+       "precision": 0.9583333333333334,
+       "tp": 23,
+       "fn": 12,
+       "fp": 1,
+       "tn": 44,
+       "share_deviant": 0.4375,
+       "precision_at_prevalence": {
+        "0.05": 0.6088235294117647,
+        "0.1": 0.7666666666666666,
+        "0.2": 0.8808510638297872
+       }
+      }
+     }
+    }
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1457,
+     "cache_creation_input_tokens": 1916,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.032007,
+     "duration_s": 21.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 871,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0168768,
+     "duration_s": 13.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1482,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0258018,
+     "duration_s": 24.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1519,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0264888,
+     "duration_s": 24.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1369,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0243468,
+     "duration_s": 20.9,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 1015,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0189918,
+     "duration_s": 17.9,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1604,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0280488,
+     "duration_s": 20.7,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 1185,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0213828,
+     "duration_s": 20.2,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1295,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0230958,
+     "duration_s": 19.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 780,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.015415799999999999,
+     "duration_s": 13.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 12577,
+    "cache_creation_input_tokens": 1916,
+    "cache_read_input_tokens": 17244
+   },
+   "cost_usd_estimate_total": 0.2324562,
+   "raw_dir": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11\\raw",
+   "result_file": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11\\result.json"
+  }
+ },
+ "labse_analysis": {
+  "roc_auc_per_category": {
+   "omissie": {
+    "auc": 0.5746031746031746,
+    "n_dev": 7,
+    "n_controls": 45
+   },
+   "toevoeging": {
+    "auc": 0.6317460317460317,
+    "n_dev": 7,
+    "n_controls": 45
+   },
+   "betekenisverschuiving": {
+    "auc": 0.43492063492063493,
+    "n_dev": 7,
+    "n_controls": 45
+   },
+   "entiteitsfout": {
+    "auc": 0.6952380952380952,
+    "n_dev": 7,
+    "n_controls": 45
+   },
+   "register_en_nadruk": {
+    "auc": 0.4634920634920635,
+    "n_dev": 7,
+    "n_controls": 45
+   },
+   "alle_afwijkingen": {
+    "auc": 0.56,
+    "n_dev": 35,
+    "n_controls": 45
+   }
+  },
+  "roc_auc_note": "afwijkingen van één categorie tegen alle controles; laag scoren = afwijkend; 0,5 = toeval",
+  "mean_score_per_label": {
+   "afwijking (alle)": {
+    "n": 35,
+    "mean": 0.8903050780296325,
+    "min": 0.7043746113777161,
+    "max": 0.9605613350868225
+   },
+   "controle_gemelde_omschrijving": {
+    "n": 3,
+    "mean": 0.7851030031840006,
+    "min": 0.7366069555282593,
+    "max": 0.8576785326004028
+   },
+   "controle_letterlijk": {
+    "n": 21,
+    "mean": 0.9313199179513114,
+    "min": 0.8643205165863037,
+    "max": 0.9797221422195435
+   },
+   "controle_parafrase": {
+    "n": 14,
+    "mean": 0.9090598438467298,
+    "min": 0.7915174961090088,
+    "max": 0.9818556308746338
+   },
+   "controle_verzoek_herhaling": {
+    "n": 3,
+    "mean": 0.6358739833037058,
+    "min": 0.36910757422447205,
+    "max": 0.8051478862762451
+   },
+   "controle_zelfcorrectie": {
+    "n": 4,
+    "mean": 0.7745583355426788,
+    "min": 0.7011123895645142,
+    "max": 0.8654881715774536
+   }
+  }
+ }
+}

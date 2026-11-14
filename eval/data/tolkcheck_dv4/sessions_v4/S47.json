@@ -1,0 +1,189 @@
+{
+ "session_id": "S47",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "documenten en identiteit",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S47-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke identiteitsdocumenten had u bij u toen u Turkije verliet?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'den ayrıldığınızda yanınızda hangi kimlik belgeleri vardı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S47-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Pasaportumu bir kez kaybettim, nüfus cüzdanımı da yanımda değildi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb mijn paspoort vaak kwijtgeraakt, en mijn identiteitskaart had ik ook niet bij me."
+   },
+   "reference_rendering": "Ik heb mijn paspoort één keer kwijtgeraakt, en mijn identiteitskaart had ik ook niet bij me.",
+   "label": "betekenisverschuiving",
+   "subtype": "sterker_of_zwakker_gemaakt",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S47-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yeni bir pasaport için başvurdunuz mu?"
+   },
+   "reference_rendering": "Pasaportunuz bulunmadıysa, yeni bir pasaport için başvurdunuz mu?",
+   "label": "omissie",
+   "subtype": "voorwaarde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S47-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, başvurdum; ailem nüfus müdürlüğüne gitti ama belge henüz hazır değildi, bir ay sonra gelmemizi söylediler."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, ik heb een aanvraag gedaan; mijn familie ging naar de bevolkingsregister, maar het document was nog niet klaar en we moesten over een maand terugkomen. Eerlijk gezegd geloof ik hem hierin."
+   },
+   "reference_rendering": "Ja, ik heb een aanvraag gedaan; mijn familie ging naar de bevolkingsregister, maar het document was nog niet klaar en we moesten over een maand terugkomen.",
+   "label": "toevoeging",
+   "subtype": "eigen_oordeel",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S47-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe lang was het paspoort geldig voordat u het kwijtraakte?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Kaybetmeden önce pasaportunuzun geçerlilik süresi ne kadardı?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S47-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Pasaportum 2019'da çıkmıştı ve beş yıl geçerliydi. Bir gün bir kontrol noktasında pasaportumu kaybettim, polis bana bir kağıt verdi ama o kağıdı sonra hiç geri alamadım. Kağıdın hangi kuruma gittiğini de bilmiyorum, o yüzden belgelerimin ne olduğunu tam olarak anlatamam."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn paspoort was in 2019 uitgegeven en het was vijf jaar geldig. Op een dag, bij een controlepost, raakte ik het kwijt, en de politie gaf mij een briefje, maar dat heb ik daarna nooit meer teruggekregen. Ik weet ook niet waar dat papier naartoe is gegaan, dus ik kan niet precies uitleggen wat er met mijn documenten is gebeurd."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S47-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u kopieën van die documenten, bijvoorbeeld foto's of scans?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bu belgelerin kopyaları, örneğin fotoğrafları veya taramaları var mı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S47-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, telefonumda birkaç fotoğraf var; annem de bazılarını e-postayla bana gönderdi. Üç kez başvurduk, ama hepsinin kopyası bende değil."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, ik heb een paar foto's op mijn telefoon, en mijn moeder heeft er ook een paar per e-mail naar mij gestuurd. We hebben twee keer een aanvraag gedaan, de tolk corrigeert zich: het was drie keer, niet twee. Niet alle kopieën heb ik bij me."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  }
+ ]
+}

@@ -1,0 +1,88 @@
+{
+ "session_id": "S34",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting en één in de AMBTENAAR→CLIËNT-richting.\\n\\nPaar 1 (client→officer): De tolk heeft de zin 'ailem de bunu görmek zorunda kaldı' ('mijn familie was getuige van dit / werd gedwongen dit te zien') weggelaten. Dit is een inhoudelijk relevant gegeven: de cliënt benadrukt dat zijn familie de aanhouding heeft moeten aanschouwen, wat van belang kan zijn voor de beoordeling van de impact op het gezin en de geloofwaardigheid van het relaas.\\n\\nPaar 2 (client→officer): De tolk zei 'heeft iemand mij geslagen', terwijl de cliënt zei 'bana kimse vurmadı' ('heeft niemand mij geslagen'). Dit is een kritieke betekenisomkering: de ontkenning is verdwenen. De cliënt verklaart uitdrukkelijk dat hij niet geslagen is; de vertolking suggereert het tegendeel.\\n\\nPaar 3 (client→officer): De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst en is een toevoeging door de tolk.\\n\\nPaar 2 (officer→client): De tolk heeft de vraag van de ambtenaar niet doorgeleid naar de cliënt, maar in plaats daarvan aan de ambtenaar gevraagd de vraag te herhalen omdat een deel onverstaanbaar was. Dit is een toegestane tolkhandeling (de tolk meldt dat iets niet verstaan is en vraagt om herhaling). Er is geen inhoudelijke afwijking; de lage gelijkenisscore weerspiegelt dat de tolk een andere functie vervulde dan vertalen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt voegde toe dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie was gedwongen dit te zien/was getuige hiervan). De tolk heeft dit deel weggelaten. Dit gegeven kan relevant zijn voor de beoordeling van de impact op het gezin en de geloofwaardigheid van het relaas.\",\n          \"originalPhrase\": \"ailem de bunu görmek zorunda kaldı\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zei 'bana kimse vurmadı' (niemand heeft mij geslagen / ik ben niet geslagen). De tolk vertaalde dit als 'heeft iemand mij geslagen', waarmee de ontkenning volledig is omgekeerd. Dit is een kritieke betekenisomkering: de cliënt verklaart uitdrukkelijk geen fysiek geweld te hebben ondergaan, terwijl de vertolking het tegendeel suggereert.\",\n          \"originalPhrase\": \"bana kimse vurmadı\",\n          \"translatedPhrase\": \"heeft iemand mij geslagen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"medium\",\n          \"description\": \"De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst en is een toevoeging die niet door de cliënt is gezegd.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"die een dossier onder zijn arm had\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1027,
+    "output_tokens": 1242,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting en één in de AMBTENAAR→CLIËNT-richting.\n\nPaar 1 (client→officer): De tolk heeft de zin 'ailem de bunu görmek zorunda kaldı' ('mijn familie was getuige van dit / werd gedwongen dit te zien') weggelaten. Dit is een inhoudelijk relevant gegeven: de cliënt benadrukt dat zijn familie de aanhouding heeft moeten aanschouwen, wat van belang kan zijn voor de beoordeling van de impact op het gezin en de geloofwaardigheid van het relaas.\n\nPaar 2 (client→officer): De tolk zei 'heeft iemand mij geslagen', terwijl de cliënt zei 'bana kimse vurmadı' ('heeft niemand mij geslagen'). Dit is een kritieke betekenisomkering: de ontkenning is verdwenen. De cliënt verklaart uitdrukkelijk dat hij niet geslagen is; de vertolking suggereert het tegendeel.\n\nPaar 3 (client→officer): De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst en is een toevoeging door de tolk.\n\nPaar 2 (officer→client): De tolk heeft de vraag van de ambtenaar niet doorgeleid naar de cliënt, maar in plaats daarvan aan de ambtenaar gevraagd de vraag te herhalen omdat een deel onverstaanbaar was. Dit is een toegestane tolkhandeling (de tolk meldt dat iets niet verstaan is en vraagt om herhaling). Er is geen inhoudelijke afwijking; de lage gelijkenisscore weerspiegelt dat de tolk een andere functie vervulde dan vertalen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt voegde toe dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie was gedwongen dit te zien/was getuige hiervan). De tolk heeft dit deel weggelaten. Dit gegeven kan relevant zijn voor de beoordeling van de impact op het gezin en de geloofwaardigheid van het relaas.",
+      "originalPhrase": "ailem de bunu görmek zorunda kaldı",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zei 'bana kimse vurmadı' (niemand heeft mij geslagen / ik ben niet geslagen). De tolk vertaalde dit als 'heeft iemand mij geslagen', waarmee de ontkenning volledig is omgekeerd. Dit is een kritieke betekenisomkering: de cliënt verklaart uitdrukkelijk geen fysiek geweld te hebben ondergaan, terwijl de vertolking het tegendeel suggereert.",
+      "originalPhrase": "bana kimse vurmadı",
+      "translatedPhrase": "heeft iemand mij geslagen"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "medium",
+      "description": "De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst en is een toevoeging die niet door de cliënt is gezegd.",
+      "originalPhrase": "",
+      "translatedPhrase": "die een dossier onder zijn arm had"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

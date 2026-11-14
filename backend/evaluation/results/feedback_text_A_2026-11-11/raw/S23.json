@@ -1,0 +1,102 @@
+{
+ "session_id": "S23",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\\n\\n**CLIENT→AMBTENAAR, paar 1:** De cliënt zegt in het Turks dat hij/zij uit Van vertrok *omdat* zijn broer was gearresteerd ('Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı'). De tolk heeft de volgorde omgedraaid: 'Mijn broer was gearresteerd omdat ik uit Van vertrok.' Hierdoor wordt de oorzaak-gevolgrelatie omgekeerd weergegeven, wat inhoudelijk een wezenlijk verschil is voor het relaas.\\n\\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vraagt hoe de cliënt van *Van* naar Istanbul is gereisd. De tolk vertaalt dit als vertrek vanuit *Hakkâri* ('Yani Hakkâri'den ayrıldınız'). Dit is een andere stad dan Van. De cliënt kan hierdoor een vraag beantwoorden over een andere vertrekplaats dan bedoeld. De score (0.748) bevestigt een mogelijke afwijking.\\n\\n**AMBTENAAR→CLIËNT, paar 2:** De ambtenaar vraagt hoelang *voor* het vertrek de broer is opgepakt ('hoe lang voor uw vertrek'). De tolk vertaalt dit als 'hoeveel *dagen* voor uw vertrek' ('kaç gün önce'). De ambtenaar gebruikt een open tijdsaanduiding; de tolk beperkt dit tot dagen, wat de cliënt kan sturen naar een antwoord in dagen terwijl weken of maanden ook mogelijk zijn. Dit is een beperkte maar merkbare inhoudelijke inperking.\\n\\n**AMBTENAAR→CLIËNT, paar 3:** De tolk corrigeert zichzelf direct en meldt dit expliciet ('Ankara' → 'İstanbul'). Dit is een zelfcorrectie en telt niet als afwijking.\\n\\nAlle overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt dat hij/zij uit Van vertrok *omdat* zijn broer was gearresteerd. De tolk heeft de oorzaak-gevolgrelatie omgekeerd: 'Mijn broer was gearresteerd omdat ik uit Van vertrok.' In het origineel is de arrestatie van de broer de reden voor het vertrek; in de vertolking is het vertrek de reden voor de arrestatie. Dit raakt direct aan de geloofwaardigheid en de volgorde van de gebeurtenissen in het relaas.\",\n          \"originalPhrase\": \"Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı.\",\n          \"translatedPhrase\": \"Mijn broer was gearresteerd omdat ik uit Van vertrok.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vraagt hoe de cliënt van *Van* naar Istanbul is gereisd. De tolk vertaalt de vertrekplaats als *Hakkâri* ('Yani Hakkâri'den ayrıldınız'), een andere stad. De cliënt kan hierdoor denken dat gevraagd wordt naar een vertrek vanuit Hakkâri, wat de vraag inhoudelijk verandert en verwarring kan veroorzaken over de reisroute.\",\n          \"originalPhrase\": \"Dus u vertrok uit Van. Hoe bent u van daar naar Istanbul gereisd?\",\n          \"translatedPhrase\": \"Yani Hakkâri'den ayrıldınız. Oradan İstanbul'a nasıl gittiniz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De ambtenaar stelt een open tijdsvraag: 'hoe lang voor uw vertrek'. De tolk vertaalt dit als 'hoeveel *dagen* voor uw vertrek' ('kaç gün önce'), waarmee de tijdseenheid wordt beperkt tot dagen. De cliënt kan hierdoor worden gestuurd naar een antwoord in dagen, terwijl het antwoord ook in weken of maanden uitgedrukt zou kunnen worden.\",\n          \"originalPhrase\": \"Kunt u mij zeggen hoe lang voor uw vertrek uw broer is opgepakt?\",\n          \"translatedPhrase\": \"Ayrılmanızdan kaç gün önce kardeşiniz gözaltına alınmıştı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1043,
+    "output_tokens": 1519,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\n\n**CLIENT→AMBTENAAR, paar 1:** De cliënt zegt in het Turks dat hij/zij uit Van vertrok *omdat* zijn broer was gearresteerd ('Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı'). De tolk heeft de volgorde omgedraaid: 'Mijn broer was gearresteerd omdat ik uit Van vertrok.' Hierdoor wordt de oorzaak-gevolgrelatie omgekeerd weergegeven, wat inhoudelijk een wezenlijk verschil is voor het relaas.\n\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vraagt hoe de cliënt van *Van* naar Istanbul is gereisd. De tolk vertaalt dit als vertrek vanuit *Hakkâri* ('Yani Hakkâri'den ayrıldınız'). Dit is een andere stad dan Van. De cliënt kan hierdoor een vraag beantwoorden over een andere vertrekplaats dan bedoeld. De score (0.748) bevestigt een mogelijke afwijking.\n\n**AMBTENAAR→CLIËNT, paar 2:** De ambtenaar vraagt hoelang *voor* het vertrek de broer is opgepakt ('hoe lang voor uw vertrek'). De tolk vertaalt dit als 'hoeveel *dagen* voor uw vertrek' ('kaç gün önce'). De ambtenaar gebruikt een open tijdsaanduiding; de tolk beperkt dit tot dagen, wat de cliënt kan sturen naar een antwoord in dagen terwijl weken of maanden ook mogelijk zijn. Dit is een beperkte maar merkbare inhoudelijke inperking.\n\n**AMBTENAAR→CLIËNT, paar 3:** De tolk corrigeert zichzelf direct en meldt dit expliciet ('Ankara' → 'İstanbul'). Dit is een zelfcorrectie en telt niet als afwijking.\n\nAlle overige paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt dat hij/zij uit Van vertrok *omdat* zijn broer was gearresteerd. De tolk heeft de oorzaak-gevolgrelatie omgekeerd: 'Mijn broer was gearresteerd omdat ik uit Van vertrok.' In het origineel is de arrestatie van de broer de reden voor het vertrek; in de vertolking is het vertrek de reden voor de arrestatie. Dit raakt direct aan de geloofwaardigheid en de volgorde van de gebeurtenissen in het relaas.",
+      "originalPhrase": "Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı.",
+      "translatedPhrase": "Mijn broer was gearresteerd omdat ik uit Van vertrok."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vraagt hoe de cliënt van *Van* naar Istanbul is gereisd. De tolk vertaalt de vertrekplaats als *Hakkâri* ('Yani Hakkâri'den ayrıldınız'), een andere stad. De cliënt kan hierdoor denken dat gevraagd wordt naar een vertrek vanuit Hakkâri, wat de vraag inhoudelijk verandert en verwarring kan veroorzaken over de reisroute.",
+      "originalPhrase": "Dus u vertrok uit Van. Hoe bent u van daar naar Istanbul gereisd?",
+      "translatedPhrase": "Yani Hakkâri'den ayrıldınız. Oradan İstanbul'a nasıl gittiniz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De ambtenaar stelt een open tijdsvraag: 'hoe lang voor uw vertrek'. De tolk vertaalt dit als 'hoeveel *dagen* voor uw vertrek' ('kaç gün önce'), waarmee de tijdseenheid wordt beperkt tot dagen. De cliënt kan hierdoor worden gestuurd naar een antwoord in dagen, terwijl het antwoord ook in weken of maanden uitgedrukt zou kunnen worden.",
+      "originalPhrase": "Kunt u mij zeggen hoe lang voor uw vertrek uw broer is opgepakt?",
+      "translatedPhrase": "Ayrılmanızdan kaç gün önce kardeşiniz gözaltına alınmıştı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S23-P01",
+   "S23-P03",
+   "S23-P05",
+   "S23-P07"
+  ],
+  "client_to_officer": [
+   "S23-P02",
+   "S23-P04",
+   "S23-P06",
+   "S23-P08"
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "session_id": "S42",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, waarvan twee als kritiek worden beoordeeld.\\n\\nIn CLIENT→AMBTENAAR paar 1 bevat de vertolking een ernstige betekenisomkering: de cliënt zei uitdrukkelijk dat rechercheur Yılmaz hem NIET heeft geslagen ('hiç vurmadı'), maar de tolk vertaalde dit als 'heeft me WEL geslagen'. Dit is een kritieke fout die een feitelijk onjuist beeld geeft van wie de cliënt heeft mishandeld.\\n\\nIn CLIENT→AMBTENAAR paar 2 ontbreekt een belangrijk onderdeel van het relaas: de cliënt beschreef dat men hem een document liet ondertekenen dat niet aan hem was voorgelezen, en dat hij tekende zonder te begrijpen wat erin stond. Dit gehele onderdeel — het ondertekenen van een ongelezen document — is weggevallen in de vertolking. Alleen de reden (angst, gedachten aan familie) en de onzekerheid over de familie zijn overgebleven. Dit is een kritieke omissie.\\n\\nIn AMBTENAAR→CLIËNT paar 1 heeft de tolk de naam 'Yılmaz' vervangen door 'Yıldız'. Dit is een andere naam en kan verwarring veroorzaken bij de cliënt over wie er bedoeld wordt. De opname dient gecontroleerd te worden om uit te sluiten dat dit een transcriptiefout betreft.\\n\\nIn AMBTENAAR→CLIËNT paar 3 is de vraag omgezet van een beleefde verzoeksvorm ('kunt u … aangeven') naar een directe opdracht ('vertel mij'). Dit is een stijlverschil dat de toon van de vraag verandert, maar geen inhoudelijk feit raakt.\",\n\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zei uitdrukkelijk dat rechercheur Yılmaz hem NIET heeft geslagen ('hiç vurmadı' = heeft me helemaal niet geslagen). De tolk vertaalde dit als 'heeft me WEL geslagen'. Dit is een directe betekenisomkering op een feitelijk cruciaal punt: wie de cliënt al dan niet heeft mishandeld.\",\n          \"originalPhrase\": \"Dedektif Yılmaz bana hiç vurmadı\",\n          \"translatedPhrase\": \"Rechercheur Yılmaz heeft me wel geslagen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt beschreef dat men hem een document liet ondertekenen dat niet aan hem was voorgelezen ('okunmayan bir kâğıdı imzalattılar'), en dat hij tekende zonder te begrijpen wat erin stond ('ne yazdığını anlamadan imzaladım'). Dit gehele onderdeel — het gedwongen ondertekenen van een ongelezen en onbegrepen document — ontbreekt volledig in de vertolking. De tolk heeft alleen de reden (angst, gedachten aan familie) en de onzekerheid over de familie weergegeven.\",\n          \"originalPhrase\": \"sonra bana okunmayan bir kâğıdı imzalattılar, ben de ne yazdığını anlamadan imzaladım\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar noemde de naam 'Yılmaz', maar de tolk vertaalde dit als 'Yıldız'. Dit zijn twee verschillende namen. Als de cliënt een andere persoon met die naam kent, kan dit verwarring veroorzaken over wie er bedoeld wordt. De opname dient gecontroleerd te worden om uit te sluiten dat dit een transcriptiefout van de spraakherkenning betreft.\",\n          \"originalPhrase\": \"rechercheur Yılmaz\",\n          \"translatedPhrase\": \"dedektif Yıldız\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"low\",\n          \"description\": \"De ambtenaar stelde een beleefde verzoeksvraag ('kunt u … precies aangeven'). De tolk vertaalde dit als een directe opdracht ('vertel mij'). De inhoud van de vraag is correct overgebracht, maar de toon is formeler en directer geworden. Dit heeft geen inhoudelijk gevolg voor het antwoord.\",\n          \"originalPhrase\": \"Kunt u voor het verslag nog eens precies aangeven\",\n          \"translatedPhrase\": \"Tutanak için bana bir kez daha … tam olarak anlat\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 992,
+    "output_tokens": 1546,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, waarvan twee als kritiek worden beoordeeld.\n\nIn CLIENT→AMBTENAAR paar 1 bevat de vertolking een ernstige betekenisomkering: de cliënt zei uitdrukkelijk dat rechercheur Yılmaz hem NIET heeft geslagen ('hiç vurmadı'), maar de tolk vertaalde dit als 'heeft me WEL geslagen'. Dit is een kritieke fout die een feitelijk onjuist beeld geeft van wie de cliënt heeft mishandeld.\n\nIn CLIENT→AMBTENAAR paar 2 ontbreekt een belangrijk onderdeel van het relaas: de cliënt beschreef dat men hem een document liet ondertekenen dat niet aan hem was voorgelezen, en dat hij tekende zonder te begrijpen wat erin stond. Dit gehele onderdeel — het ondertekenen van een ongelezen document — is weggevallen in de vertolking. Alleen de reden (angst, gedachten aan familie) en de onzekerheid over de familie zijn overgebleven. Dit is een kritieke omissie.\n\nIn AMBTENAAR→CLIËNT paar 1 heeft de tolk de naam 'Yılmaz' vervangen door 'Yıldız'. Dit is een andere naam en kan verwarring veroorzaken bij de cliënt over wie er bedoeld wordt. De opname dient gecontroleerd te worden om uit te sluiten dat dit een transcriptiefout betreft.\n\nIn AMBTENAAR→CLIËNT paar 3 is de vraag omgezet van een beleefde verzoeksvorm ('kunt u … aangeven') naar een directe opdracht ('vertel mij'). Dit is een stijlverschil dat de toon van de vraag verandert, maar geen inhoudelijk feit raakt.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zei uitdrukkelijk dat rechercheur Yılmaz hem NIET heeft geslagen ('hiç vurmadı' = heeft me helemaal niet geslagen). De tolk vertaalde dit als 'heeft me WEL geslagen'. Dit is een directe betekenisomkering op een feitelijk cruciaal punt: wie de cliënt al dan niet heeft mishandeld.",
+      "originalPhrase": "Dedektif Yılmaz bana hiç vurmadı",
+      "translatedPhrase": "Rechercheur Yılmaz heeft me wel geslagen"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt beschreef dat men hem een document liet ondertekenen dat niet aan hem was voorgelezen ('okunmayan bir kâğıdı imzalattılar'), en dat hij tekende zonder te begrijpen wat erin stond ('ne yazdığını anlamadan imzaladım'). Dit gehele onderdeel — het gedwongen ondertekenen van een ongelezen en onbegrepen document — ontbreekt volledig in de vertolking. De tolk heeft alleen de reden (angst, gedachten aan familie) en de onzekerheid over de familie weergegeven.",
+      "originalPhrase": "sonra bana okunmayan bir kâğıdı imzalattılar, ben de ne yazdığını anlamadan imzaladım",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar noemde de naam 'Yılmaz', maar de tolk vertaalde dit als 'Yıldız'. Dit zijn twee verschillende namen. Als de cliënt een andere persoon met die naam kent, kan dit verwarring veroorzaken over wie er bedoeld wordt. De opname dient gecontroleerd te worden om uit te sluiten dat dit een transcriptiefout van de spraakherkenning betreft.",
+      "originalPhrase": "rechercheur Yılmaz",
+      "translatedPhrase": "dedektif Yıldız"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "low",
+      "description": "De ambtenaar stelde een beleefde verzoeksvraag ('kunt u … precies aangeven'). De tolk vertaalde dit als een directe opdracht ('vertel mij'). De inhoud van de vraag is correct overgebracht, maar de toon is formeler en directer geworden. Dit heeft geen inhoudelijk gevolg voor het antwoord.",
+      "originalPhrase": "Kunt u voor het verslag nog eens precies aangeven",
+      "translatedPhrase": "Tutanak için bana bir kez daha … tam olarak anlat"
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ }
+}

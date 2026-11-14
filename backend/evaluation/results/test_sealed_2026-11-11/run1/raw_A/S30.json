@@ -1,0 +1,96 @@
+{
+ "session_id": "S30",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over beide richtingen.\\n\\nClient→ambtenaar, paar 1: De cliënt voegt een voorwaardelijke zin toe — 'Als mijn vriend niet was gekomen, had ik moeten lopen' — die de tolk weglaat. Dit geeft context over de kwetsbaarheid van de reissituatie en ontbreekt in de vertaling.\\n\\nClient→ambtenaar, paar 3: De tolk vertaalt 'omdat mijn telefoon die dag uitviel' met 'ondanks dat ik met niemand kon spreken', wat de causale relatie omdraait. In het origineel is het uitvallen van de telefoon de oorzaak van het niet kunnen communiceren; in de vertaling klinkt het als een concessie. Dit is een inhoudelijke verandering in de logische structuur van de verklaring.\\n\\nAmbtenaar→cliënt, paar 1: De tolk voegt een eigen opmerking toe aan de vraag: 'Dit is erg belangrijk dat u hierover duidelijk bent.' Deze toevoeging is niet door de ambtenaar uitgesproken en kan de cliënt beïnvloeden in zijn antwoord.\\n\\nAmbtenaar→cliënt, paar 2: De ambtenaar noemt Doğubayazıt als de genoemde grensplaats en vraagt of dat klopt. De tolk vertaalt dit als Erzurum. Dit is een kritieke fout: de cliënt krijgt een andere plaatsnaam voorgelegd dan de ambtenaar bedoelde, wat de verificatie van de reisroute ernstig verstoort.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt voegt een voorwaardelijke zin toe: 'Als mijn vriend niet was gekomen, had ik moeten lopen.' Deze zin geeft relevante context over de afhankelijkheid van de cliënt van zijn reisgezel en de kwetsbaarheid van zijn situatie. De tolk laat deze zin volledig weg.\",\n          \"originalPhrase\": \"Eğer arkadaşım gelmezse yürümek zorunda kalacaktım.\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt: 'Omdat mijn telefoon die dag uitviel, kon ik met niemand spreken' — het uitvallen van de telefoon is de oorzaak. De tolk vertaalt dit als 'ondanks dat ik met niemand kon spreken', wat de causale relatie omkeert naar een concessie. De logische structuur van de verklaring verandert hierdoor inhoudelijk.\",\n          \"originalPhrase\": \"Telefonum o gün kapandığı için kimseyle konuşamadım\",\n          \"translatedPhrase\": \"Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt een eigen opmerking toe die niet door de ambtenaar is uitgesproken: 'Dit is erg belangrijk dat u hierover duidelijk bent' ('Bu konuda net olmanız çok önemli'). Deze toevoeging kan de cliënt onder druk zetten of zijn antwoord beïnvloeden, en is niet afkomstig van de ambtenaar.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu konuda net olmanız çok önemli.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar noemt expliciet Doğubayazıt als de door de cliënt genoemde grensplaats en vraagt of dat klopt. De tolk vertaalt dit als Erzurum. De cliënt krijgt hierdoor een andere plaatsnaam voorgelegd dan de ambtenaar bedoelde, wat de verificatie van de reisroute ernstig verstoort. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.\",\n          \"originalPhrase\": \"U noemde Doğubayazıt als plaats waar u de grens bent overgestoken, klopt dat?\",\n          \"translatedPhrase\": \"Sınırı geçtiğiniz yer olarak Erzurum'u söylediniz, doğru mu?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1183,
+    "output_tokens": 1489,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over beide richtingen.\n\nClient→ambtenaar, paar 1: De cliënt voegt een voorwaardelijke zin toe — 'Als mijn vriend niet was gekomen, had ik moeten lopen' — die de tolk weglaat. Dit geeft context over de kwetsbaarheid van de reissituatie en ontbreekt in de vertaling.\n\nClient→ambtenaar, paar 3: De tolk vertaalt 'omdat mijn telefoon die dag uitviel' met 'ondanks dat ik met niemand kon spreken', wat de causale relatie omdraait. In het origineel is het uitvallen van de telefoon de oorzaak van het niet kunnen communiceren; in de vertaling klinkt het als een concessie. Dit is een inhoudelijke verandering in de logische structuur van de verklaring.\n\nAmbtenaar→cliënt, paar 1: De tolk voegt een eigen opmerking toe aan de vraag: 'Dit is erg belangrijk dat u hierover duidelijk bent.' Deze toevoeging is niet door de ambtenaar uitgesproken en kan de cliënt beïnvloeden in zijn antwoord.\n\nAmbtenaar→cliënt, paar 2: De ambtenaar noemt Doğubayazıt als de genoemde grensplaats en vraagt of dat klopt. De tolk vertaalt dit als Erzurum. Dit is een kritieke fout: de cliënt krijgt een andere plaatsnaam voorgelegd dan de ambtenaar bedoelde, wat de verificatie van de reisroute ernstig verstoort.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt voegt een voorwaardelijke zin toe: 'Als mijn vriend niet was gekomen, had ik moeten lopen.' Deze zin geeft relevante context over de afhankelijkheid van de cliënt van zijn reisgezel en de kwetsbaarheid van zijn situatie. De tolk laat deze zin volledig weg.",
+      "originalPhrase": "Eğer arkadaşım gelmezse yürümek zorunda kalacaktım.",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt zegt: 'Omdat mijn telefoon die dag uitviel, kon ik met niemand spreken' — het uitvallen van de telefoon is de oorzaak. De tolk vertaalt dit als 'ondanks dat ik met niemand kon spreken', wat de causale relatie omkeert naar een concessie. De logische structuur van de verklaring verandert hierdoor inhoudelijk.",
+      "originalPhrase": "Telefonum o gün kapandığı için kimseyle konuşamadım",
+      "translatedPhrase": "Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken."
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt een eigen opmerking toe die niet door de ambtenaar is uitgesproken: 'Dit is erg belangrijk dat u hierover duidelijk bent' ('Bu konuda net olmanız çok önemli'). Deze toevoeging kan de cliënt onder druk zetten of zijn antwoord beïnvloeden, en is niet afkomstig van de ambtenaar.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu konuda net olmanız çok önemli."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar noemt expliciet Doğubayazıt als de door de cliënt genoemde grensplaats en vraagt of dat klopt. De tolk vertaalt dit als Erzurum. De cliënt krijgt hierdoor een andere plaatsnaam voorgelegd dan de ambtenaar bedoelde, wat de verificatie van de reisroute ernstig verstoort. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+      "originalPhrase": "U noemde Doğubayazıt als plaats waar u de grens bent overgestoken, klopt dat?",
+      "translatedPhrase": "Sınırı geçtiğiniz yer olarak Erzurum'u söylediniz, doğru mu?"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

@@ -1,0 +1,80 @@
+{
+ "session_id": "S33",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de geanalyseerde fragmenten zijn twee inhoudelijke afwijkingen gesignaleerd. De eerste betreft paar 2 (ambtenaar→cliënt): de ambtenaar zei 'drie dagen', maar de tolk vertaalde dit als 'vier dagen' ('dört gün'). Dit is een feitelijk verschil in een getal dat direct relevant is voor de detentieduur in het dossier. De cliënt heeft vervolgens in paar 1 (cliënt→ambtenaar) bevestigd 'drie dagen' te hebben vastgezeten, wat overeenkomt met de oorspronkelijke vraag van de ambtenaar — maar de cliënt heeft de vraag dus met een verkeerd getal ontvangen. De tweede betreft paar 2 (cliënt→ambtenaar): de cliënt zei dat de deur van het consulaat 'soms' openging ('bazen açılıyordu'), maar de tolk vertaalde dit als 'altijd open'. Dit verandert de strekking van de verklaring over de toegankelijkheid van het consulaat. De overige fragmenten bevatten geen inhoudelijke afwijkingen. De tolk heeft in paar 0 en paar 3 (cliënt→ambtenaar) transparant uitleg gegeven over Turkse begrippen en een idiomatische uitdrukking, wat conform protocol is en geen afwijking vormt.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zei dat de deur van het consulaat 'soms' openging ('bazen açılıyordu'), maar de tolk vertaalde dit als 'altijd open'. Dit verandert de betekenis wezenlijk: 'soms' impliceert beperkte toegankelijkheid, terwijl 'altijd' het tegendeel suggereert. Dit kan van invloed zijn op de beoordeling van de inspanningen van de cliënt om documenten te verkrijgen.\",\n          \"originalPhrase\": \"kapı bazen açılıyordu\",\n          \"translatedPhrase\": \"de deur ging altijd open\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar zei 'drie dagen' ('drie dagen op het politiebureau'), maar de tolk vertaalde dit als 'vier dagen' ('dört gün karakolda'). Dit is een feitelijk onjuist getal dat de cliënt een verkeerde aanname heeft voorgelegd. De cliënt heeft in zijn antwoord (paar 1, cliënt→ambtenaar) zelf 'drie dagen' bevestigd, maar heeft de vraag dus met een afwijkend getal ontvangen. De opname dient gecontroleerd te worden om vast te stellen of de ambtenaar inderdaad 'drie' zei.\",\n          \"originalPhrase\": \"drie dagen op het politiebureau\",\n          \"translatedPhrase\": \"dört gün karakolda\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1147,
+    "output_tokens": 1074,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de geanalyseerde fragmenten zijn twee inhoudelijke afwijkingen gesignaleerd. De eerste betreft paar 2 (ambtenaar→cliënt): de ambtenaar zei 'drie dagen', maar de tolk vertaalde dit als 'vier dagen' ('dört gün'). Dit is een feitelijk verschil in een getal dat direct relevant is voor de detentieduur in het dossier. De cliënt heeft vervolgens in paar 1 (cliënt→ambtenaar) bevestigd 'drie dagen' te hebben vastgezeten, wat overeenkomt met de oorspronkelijke vraag van de ambtenaar — maar de cliënt heeft de vraag dus met een verkeerd getal ontvangen. De tweede betreft paar 2 (cliënt→ambtenaar): de cliënt zei dat de deur van het consulaat 'soms' openging ('bazen açılıyordu'), maar de tolk vertaalde dit als 'altijd open'. Dit verandert de strekking van de verklaring over de toegankelijkheid van het consulaat. De overige fragmenten bevatten geen inhoudelijke afwijkingen. De tolk heeft in paar 0 en paar 3 (cliënt→ambtenaar) transparant uitleg gegeven over Turkse begrippen en een idiomatische uitdrukking, wat conform protocol is en geen afwijking vormt.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt zei dat de deur van het consulaat 'soms' openging ('bazen açılıyordu'), maar de tolk vertaalde dit als 'altijd open'. Dit verandert de betekenis wezenlijk: 'soms' impliceert beperkte toegankelijkheid, terwijl 'altijd' het tegendeel suggereert. Dit kan van invloed zijn op de beoordeling van de inspanningen van de cliënt om documenten te verkrijgen.",
+      "originalPhrase": "kapı bazen açılıyordu",
+      "translatedPhrase": "de deur ging altijd open"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar zei 'drie dagen' ('drie dagen op het politiebureau'), maar de tolk vertaalde dit als 'vier dagen' ('dört gün karakolda'). Dit is een feitelijk onjuist getal dat de cliënt een verkeerde aanname heeft voorgelegd. De cliënt heeft in zijn antwoord (paar 1, cliënt→ambtenaar) zelf 'drie dagen' bevestigd, maar heeft de vraag dus met een afwijkend getal ontvangen. De opname dient gecontroleerd te worden om vast te stellen of de ambtenaar inderdaad 'drie' zei.",
+      "originalPhrase": "drie dagen op het politiebureau",
+      "translatedPhrase": "dört gün karakolda"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

@@ -1,0 +1,190 @@
+{
+ "session_id": "S30",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "vertrek en reisroute",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S30-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer bent u voor het laatst uit Turkije vertrokken?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "En son ne zaman Türkiye'den ayrıldınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S30-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mart ayının sonlarında, yaklaşık iki buçuk ay önce ayrıldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ben eind maart weggegaan, zo'n twee en een half maand geleden."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S30-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Met welk vervoer bent u van Ankara verder gereisd?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ankara'dan sonra hangi araçla devam ettiniz? Bu konuda net olmanız çok önemli."
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_oordeel",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Ankara'dan sonra hangi araçla devam ettiniz?"
+  },
+  {
+   "pair_id": "S30-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Önce Ankara'dan Kayseri'ye otobüsle gittim, sonra bir arkadaşımın arabasıyla Doğubayazıt'a yaklaştık. Eğer arkadaşım gelmezse yürümek zorunda kalacaktım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Eerst ben ik met de bus van Ankara naar Kayseri gegaan, daarna zijn we met de auto van een vriend naar Doğubayazıt gereden."
+   },
+   "label": "omissie",
+   "subtype": "voorwaarde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Eerst ben ik met de bus van Ankara naar Kayseri gegaan, daarna zijn we met de auto van een vriend naar Doğubayazıt gereden. Als mijn vriend niet zou komen, zou ik moeten lopen."
+  },
+  {
+   "pair_id": "S30-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U noemde Doğubayazıt als plaats waar u de grens bent overgestoken, klopt dat?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sınırı geçtiğiniz yer olarak Erzurum'u söylediniz, doğru mu?"
+   },
+   "label": "entiteitsfout",
+   "subtype": "plaats",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Sınırı geçtiğiniz yer olarak Doğubayazıt'ı söylediniz, doğru mu?"
+  },
+  {
+   "pair_id": "S30-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Doğubayazıt'a vardığımızda jandarma bizi durdurdu. Canım çıktı, çünkü yanımdaki kişinin belgesi yoktu ve onu götüreceklerini sandım. Ellerim titriyordu, o an sesimi bile çıkaramadım. Neyse ki sadece kimliklerimize baktılar ve bizi geçirdiler, ama o gece hiç uyuyamadım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Toen we in Doğubayazıt aankwamen, hield de jandarma ons aan. Ik was doodsbang, want de persoon naast me had geen papieren en ik dacht dat ze die mee zouden nemen. De tolk merkt op: 'canım çıktı' is een Turkse uitdrukking die letterlijk 'mijn ziel ging eruit' betekent; ik heb die omschreven als 'ik was doodsbang'. Mijn handen trilden, en op dat moment kon ik geen geluid uitbrengen. Gelukkig keken ze alleen naar onze identiteitskaarten en lieten ons door, maar die nacht kon ik niet slapen."
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S30-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u in Doğubayazıt nog contact gehad met iemand uit uw familie?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Doğubayazıt'ta ailenizden biriyle hâlâ temas kurdunuz mu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S30-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Telefonum o gün kapandığı için kimseyle konuşamadım; bu yüzden ailemin nerede olduğunu hâlâ bilmiyorum. Şarj aletim de yanımda değildi, o yüzden birkaç gün boyunca hiç haber alamadım. Kuzenimin numarası da telefondaydı, şimdi onu da tamamen kaybettim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken. Ik weet nog steeds niet waar mijn familie is. Mijn oplader had ik ook niet bij me, dus ik kreeg een paar dagen helemaal geen nieuws. Het nummer van mijn cousin stond ook op die telefoon, en nu ben ik dat helemaal kwijt."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "oorzaak_gevolg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Mijn telefoon was die dag uitgevallen, waardoor ik met niemand kon spreken. Ik weet nog steeds niet waar mijn familie is. Mijn oplader had ik ook niet bij me, dus ik kreeg een paar dagen helemaal geen nieuws. Het nummer van mijn cousin stond ook op die telefoon, en nu ben ik dat helemaal kwijt."
+  }
+ ]
+}

@@ -1,0 +1,189 @@
+{
+ "session_id": "S39",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "werk en politieke activiteiten",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S39-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat deed u voor werk voordat u Turkije verliet?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'den ayrılmadan önce ne iş yapıyordunuz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S39-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, gerçekten altı yıl o atölyede çalıştım, sabahtan akşama kadar."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, zes jaar heb ik in die werkplaats gewerkt, van 's ochtends tot 's avonds."
+   },
+   "label": "register_en_nadruk",
+   "subtype": "nadruk_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Ja, echt zes jaar heb ik in die werkplaats gewerkt, van 's ochtends tot 's avonds."
+  },
+  {
+   "pair_id": "S39-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waren er in die werkplaats ook mensen die openlijk over politiek spraken?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Atölyede siyaset hakkında açıkça konuşan kişiler de var mıydı?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S39-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, siyasetle ilgilenmiyordum ama Serkan'ın arkadaşları sürekli gelirdi, ben de elim kolum bağlanmış gibi kalırdım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, ik had niet veel met politiek, maar de vrienden van Serkan kwamen steeds langs, en dan bleef ik zo, alsof ik niets meer kon doen. De tolk merkt op: 'elim kolum bağlanmış gibi' betekent letterlijk 'alsof mijn handen en armen gebonden zijn'; ik heb dat omschreven als 'alsof ik niets meer kon doen'."
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S39-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Bij die bijeenkomst waar de politie kwam, waren het er ongeveer veertig?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Polisin geldiği o toplantıda kişi sayısı yaklaşık otuz muydu?"
+   },
+   "label": "entiteitsfout",
+   "subtype": "aantal",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Polisin geldiği o toplantıda kişi sayısı yaklaşık kırk muydu?"
+  },
+  {
+   "pair_id": "S39-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Toplantıyı ben organize ettim, kimse benden istemedi. Salonu bulmak zor oldu, afişler asıldı, mahalledeki gençler toplandı. O akşam yaklaşık kırk kişi geldi, sonra polis geldi ve herkes dağıldı. Adım o gün listede yazılıydı, bu yüzden sonra karakola çağrıldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Die bijeenkomst heeft mijn broer georganiseerd, niemand had mij dat gevraagd. Het was moeilijk om een zaal te vinden, de posters werden opgehangen en de jongeren uit de buurt kwamen samen. Die avond kwamen er ongeveer veertig mensen, daarna kwam de politie en ging iedereen weg. Mijn naam stond die dag op de lijst, daarom werd ik later bij het politiebureau opgeroepen."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "wie_deed_wat",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Die bijeenkomst heb ik georganiseerd, niemand had mij dat gevraagd. Het was moeilijk om een zaal te vinden, de posters werden opgehangen en de jongeren uit de buurt kwamen samen. Die avond kwamen er ongeveer veertig mensen, daarna kwam de politie en ging iedereen weg. Mijn naam stond die dag op de lijst, daarom werd ik later bij het politiebureau opgeroepen."
+  },
+  {
+   "pair_id": "S39-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hebt u na die avond nog contact gehad met de partij of met Serkan?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "O akşamdan sonra partiyle veya Serkan'la temasta bulundunuz mu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S39-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, sonra partiyle bağlantımız kesildi. Serkan Almanya'ya gitti, ben Gaziantep'te bir süre kaldım, sonra ailem beni buraya göndermeye karar verdi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, daarna was onze band met de partij verbroken. Serkan vertrok naar Duitsland, ik bleef een tijdje in Gaziantep, en toen besloot mijn familie dat ik hierheen moest."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

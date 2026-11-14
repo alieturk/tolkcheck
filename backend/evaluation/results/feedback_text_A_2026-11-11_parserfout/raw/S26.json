@@ -1,0 +1,36 @@
+{
+ "session_id": "S26",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de geanalyseerde fragmenten is één inhoudelijk significante afwijking gesignaleerd in de CLIENT→AMBTENAAR richting (paar 2) en één aandachtspunt in de AMBTENAAR→CLIËNT richting (paar 1).\\n\\nPaar 2 (client→officer, score 0.779): De cliënt zegt 'yaklaşık iki hafta' (ongeveer twee weken), maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een inhoudelijk verschil in tijdsduur dat in het dossier terechtkomt en de beoordeling kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven, maar het verschil tussen twee weken en twee maanden is aanzienlijk.\\n\\nPaar 1 (officer→client, score 0.856): De ambtenaar stelt een gesloten vraag ('Heeft u uw paspoort nog, of is het u afgenomen?'). De tolk vertaalt deze vraag correct, maar voegt daar een eigen aanvullende vraag aan toe: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' ('Ik wilde ook vragen: wanneer is het paspoort u afgenomen?'). Dit is een eigen toevoeging van de tolk die niet door de ambtenaar is gesteld. De cliënt kan hierdoor een antwoord geven op een vraag die de ambtenaar niet heeft geformuleerd, wat de structuur van het gehoor verstoort.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'yaklaşık iki hafta' (ongeveer twee weken), maar de tolk vertaalt dit als 'ongeveer twee maanden'. Het verschil tussen twee weken en twee maanden is inhoudelijk significant en kan de beoordeling van het relaas beïnvloeden. De opname dient gecontroleerd te worden om een transcriptiefout door de spraakherkenning uit te sluiten.\",\n          \"originalPhrase\": \"yaklaşık iki hafta\",\n          \"translatedPhrase\": \"ongeveer twee maanden\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    }\n  ]\n}\n```\n\n**Aanvulling AMBTENAAR→CLIËNT paren:**\n\n```json\n{\n  \"overall_feedback\": \"In de geanalyseerde fragmenten is één inhoudelijk significante afwijking gesignaleerd in de CLIENT→AMBTENAAR richting (paar 2) en één aandachtspunt in de AMBTENAAR→CLIËNT richting (paar 1).\\n\\nPaar 2 (client→officer, score 0.779): De cliënt zegt 'yaklaşık iki hafta' (ongeveer twee weken), maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een inhoudelijk verschil in tijdsduur dat in het dossier terechtkomt en de beoordeling kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven, maar het verschil tussen twee weken en twee maanden is aanzienlijk.\\n\\nPaar 1 (officer→client, score 0.856): De ambtenaar stelt een gesloten vraag ('Heeft u uw paspoort nog, of is het u afgenomen?'). De tolk vertaalt deze vraag correct, maar voegt daar een eigen aanvullende vraag aan toe: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' ('Ik wilde ook vragen: wanneer is het paspoort u afgenomen?'). Dit is een eigen toevoeging van de tolk die niet door de ambtenaar is gesteld. De cliënt kan hierdoor een antwoord geven op een vraag die de ambtenaar niet heeft geformuleerd, wat de structuur van het gehoor verstoort.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt na de correcte vertaling van de vraag een eigen aanvullende vraag toe: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' ('Ik wilde ook vragen: wanneer is het paspoort u afgenomen?'). Deze vraag is niet door de ambtenaar gesteld. De cliënt kan hierdoor een antwoord formuleren op een vraag die buiten de regie van de ambtenaar valt, wat de structuur van het gehoor verstoort.\",\n          \"originalPhrase\": \"Heeft u uw paspoort nog, of is het u afgenomen?\",\n          \"translatedPhrase\": \"Ben de sormak istedim: pasaport ne zaman elinizden alındı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1138,
+    "output_tokens": 1604,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de geanalyseerde fragmenten is één inhoudelijk significante afwijking gesignaleerd in de CLIENT→AMBTENAAR richting (paar 2) en één aandachtspunt in de AMBTENAAR→CLIËNT richting (paar 1).\n\nPaar 2 (client→officer, score 0.779): De cliënt zegt 'yaklaşık iki hafta' (ongeveer twee weken), maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een inhoudelijk verschil in tijdsduur dat in het dossier terechtkomt en de beoordeling kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven, maar het verschil tussen twee weken en twee maanden is aanzienlijk.\n\nPaar 1 (officer→client, score 0.856): De ambtenaar stelt een gesloten vraag ('Heeft u uw paspoort nog, of is het u afgenomen?'). De tolk vertaalt deze vraag correct, maar voegt daar een eigen aanvullende vraag aan toe: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' ('Ik wilde ook vragen: wanneer is het paspoort u afgenomen?'). Dit is een eigen toevoeging van de tolk die niet door de ambtenaar is gesteld. De cliënt kan hierdoor een antwoord geven op een vraag die de ambtenaar niet heeft geformuleerd, wat de structuur van het gehoor verstoort.\n\nDe overige paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S26-P01",
+   "S26-P03",
+   "S26-P05",
+   "S26-P07"
+  ],
+  "client_to_officer": [
+   "S26-P02",
+   "S26-P04",
+   "S26-P06",
+   "S26-P08"
+  ]
+ }
+}

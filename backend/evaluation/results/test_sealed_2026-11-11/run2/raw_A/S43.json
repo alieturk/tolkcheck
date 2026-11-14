@@ -1,0 +1,96 @@
+{
+ "session_id": "S43",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn drie inhoudelijke afwijkingen gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 1**: De cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '4 maart'. Dit is een mogelijk kritisch verschil in datum. De opname dient gecontroleerd te worden om vast te stellen of de cliënt '14 Mart' of '4 Mart' heeft gezegd.\\n\\n**CLIENT→AMBTENAAR, paar 2**: De cliënt beschrijft de volgorde als: eerst telefonische scheldberichten, en daarna (een maand later) een dreigbrief. De tolk vertaalt 'daarna' als 'daarvoor', waardoor de chronologische volgorde wordt omgekeerd. Dit raakt de geloofwaardigheid van het relaas.\\n\\n**CLIENT→AMBTENAAR, paar 0**: De inhoud van de vertaling klopt inhoudelijk, maar de tolk voegt een eigen verzoek aan de hoorambtenaar toe — namelijk om een verduidelijkingsvraag te stellen over de aard van de corruptie. Dit is een eigen toevoeging van de tolk die buiten de vertolkingstaak valt en niet door de cliënt is gezegd.\\n\\n**AMBTENAAR→CLIËNT, paar 1**: De tolk voegt een eigen uitbreiding toe aan de vraag ('een deel direct, of via anderen?'), die niet in de oorspronkelijke vraag van de ambtenaar stond. Dit kan de richting van het antwoord van de cliënt beïnvloeden.\\n\\nDe overige paren leveren geen inhoudelijke afwijkingen op.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt een eigen verzoek toe aan de hoorambtenaar om een verduidelijkingsvraag te stellen over de aard van de corruptie. Dit is niet door de cliënt gezegd en valt buiten de vertolkingstaak. De inhoudelijke vertaling zelf is correct.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"De tolk merkt op dat het woord 'yolsuzluklar' niet eenduidig te vertalen was en vraagt de hoorambtenaar of die de vraag over de aard van de corruptie nog eens kan herhalen, zodat de cliënt kan verduidelijken welk soort corruptie hij bedoelt.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '4 maart'. Dit is een mogelijk kritisch datumverschil. De opname dient gecontroleerd te worden om vast te stellen of de cliënt '14 Mart' of '4 Mart' heeft gezegd.\",\n          \"originalPhrase\": \"14 Mart'ta\",\n          \"translatedPhrase\": \"op 4 maart\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt beschrijft de volgorde als: eerst telefonische scheldberichten, en daarna (een maand later) een dreigbrief naar zijn adres. De tolk vertaalt 'sonra da' (daarna) als 'daarvoor', waardoor de chronologische volgorde wordt omgekeerd. Dit kan de geloofwaardigheid van het relaas beïnvloeden.\",\n          \"originalPhrase\": \"sonra da bir ay kadar sonra adresime tehdit mektubu gönderildi\",\n          \"translatedPhrase\": \"daarvoor werd er een dreigbrief naar mijn adres gestuurd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vraagt alleen welke reacties de cliënt kreeg en van wie precies. De tolk voegt een eigen uitbreiding toe: 'kwamen deze reacties direct bij u terecht, of via anderen?' Deze toevoeging staat niet in de oorspronkelijke vraag en kan de richting van het antwoord van de cliënt sturen.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu tepkilerin bir kısmı size doğrudan mı ulaştı, yoksa başkaları aracılığıyla mı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1169,
+    "output_tokens": 1454,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn drie inhoudelijke afwijkingen gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 1**: De cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '4 maart'. Dit is een mogelijk kritisch verschil in datum. De opname dient gecontroleerd te worden om vast te stellen of de cliënt '14 Mart' of '4 Mart' heeft gezegd.\n\n**CLIENT→AMBTENAAR, paar 2**: De cliënt beschrijft de volgorde als: eerst telefonische scheldberichten, en daarna (een maand later) een dreigbrief. De tolk vertaalt 'daarna' als 'daarvoor', waardoor de chronologische volgorde wordt omgekeerd. Dit raakt de geloofwaardigheid van het relaas.\n\n**CLIENT→AMBTENAAR, paar 0**: De inhoud van de vertaling klopt inhoudelijk, maar de tolk voegt een eigen verzoek aan de hoorambtenaar toe — namelijk om een verduidelijkingsvraag te stellen over de aard van de corruptie. Dit is een eigen toevoeging van de tolk die buiten de vertolkingstaak valt en niet door de cliënt is gezegd.\n\n**AMBTENAAR→CLIËNT, paar 1**: De tolk voegt een eigen uitbreiding toe aan de vraag ('een deel direct, of via anderen?'), die niet in de oorspronkelijke vraag van de ambtenaar stond. Dit kan de richting van het antwoord van de cliënt beïnvloeden.\n\nDe overige paren leveren geen inhoudelijke afwijkingen op.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt een eigen verzoek toe aan de hoorambtenaar om een verduidelijkingsvraag te stellen over de aard van de corruptie. Dit is niet door de cliënt gezegd en valt buiten de vertolkingstaak. De inhoudelijke vertaling zelf is correct.",
+      "originalPhrase": "",
+      "translatedPhrase": "De tolk merkt op dat het woord 'yolsuzluklar' niet eenduidig te vertalen was en vraagt de hoorambtenaar of die de vraag over de aard van de corruptie nog eens kan herhalen, zodat de cliënt kan verduidelijken welk soort corruptie hij bedoelt."
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '4 maart'. Dit is een mogelijk kritisch datumverschil. De opname dient gecontroleerd te worden om vast te stellen of de cliënt '14 Mart' of '4 Mart' heeft gezegd.",
+      "originalPhrase": "14 Mart'ta",
+      "translatedPhrase": "op 4 maart"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt beschrijft de volgorde als: eerst telefonische scheldberichten, en daarna (een maand later) een dreigbrief naar zijn adres. De tolk vertaalt 'sonra da' (daarna) als 'daarvoor', waardoor de chronologische volgorde wordt omgekeerd. Dit kan de geloofwaardigheid van het relaas beïnvloeden.",
+      "originalPhrase": "sonra da bir ay kadar sonra adresime tehdit mektubu gönderildi",
+      "translatedPhrase": "daarvoor werd er een dreigbrief naar mijn adres gestuurd"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar vraagt alleen welke reacties de cliënt kreeg en van wie precies. De tolk voegt een eigen uitbreiding toe: 'kwamen deze reacties direct bij u terecht, of via anderen?' Deze toevoeging staat niet in de oorspronkelijke vraag en kan de richting van het antwoord van de cliënt sturen.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu tepkilerin bir kısmı size doğrudan mı ulaştı, yoksa başkaları aracılığıyla mı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

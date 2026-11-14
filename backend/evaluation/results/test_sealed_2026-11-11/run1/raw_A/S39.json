@@ -1,0 +1,80 @@
+{
+ "session_id": "S39",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\\n\\nTen eerste, in CLIENT→AMBTENAAR paar 2, vertaalt de tolk 'ben organize ettim' (ik heb de bijeenkomst georganiseerd) als 'heeft mijn broer georganiseerd'. Dit is een kritieke afwijking: de cliënt stelt zelf de organisator te zijn geweest, terwijl de tolk dit toeschrijft aan een broer. Dit raakt direct aan de vraag wie verantwoordelijk was voor de bijeenkomst en daarmee aan de geloofwaardigheid en de aard van de betrokkenheid van de cliënt.\\n\\nTen tweede, in AMBTENAAR→CLIËNT paar 2, vertaalt de tolk het getal 'veertig' (veertig personen aanwezig) als 'otuz' (dertig). De ambtenaar verwijst expliciet naar het eerder genoemde aantal van veertig, maar de cliënt krijgt dertig te horen. Dit kan de cliënt verwarren of ertoe brengen een ander getal te bevestigen dan hij eerder noemde, wat inconsistentie in het dossier kan veroorzaken.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen. De toelichting van de tolk in CLIENT→AMBTENAAR paar 1 over de idiomatische uitdrukking 'elim kolum bağlanmış gibi' is een toegestane en transparante omschrijving.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'ben organize ettim' (ik heb de bijeenkomst georganiseerd), maar de tolk vertaalt dit als 'heeft mijn broer georganiseerd'. De organisator wordt hiermee veranderd van de cliënt zelf naar een derde persoon (broer). Dit is een kritieke inhoudelijke afwijking die de betrokkenheid van de cliënt bij de bijeenkomst direct raakt.\",\n          \"originalPhrase\": \"Toplantıyı ben organize ettim\",\n          \"translatedPhrase\": \"Die bijeenkomst heeft mijn broer georganiseerd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vraagt of het er 'ongeveer veertig' waren, maar de tolk vertaalt dit als 'yaklaşık otuz' (ongeveer dertig). Het getal is veranderd van veertig naar dertig. Dit kan ertoe leiden dat de cliënt een ander aantal bevestigt dan hij eerder noemde, wat inconsistentie in het dossier kan veroorzaken. De opname dient gecontroleerd te worden om uit te sluiten dat het om een transcriptiefout gaat.\",\n          \"originalPhrase\": \"waren het er ongeveer veertig\",\n          \"translatedPhrase\": \"kişi sayısı yaklaşık otuz muydu\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1071,
+    "output_tokens": 1090,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\n\nTen eerste, in CLIENT→AMBTENAAR paar 2, vertaalt de tolk 'ben organize ettim' (ik heb de bijeenkomst georganiseerd) als 'heeft mijn broer georganiseerd'. Dit is een kritieke afwijking: de cliënt stelt zelf de organisator te zijn geweest, terwijl de tolk dit toeschrijft aan een broer. Dit raakt direct aan de vraag wie verantwoordelijk was voor de bijeenkomst en daarmee aan de geloofwaardigheid en de aard van de betrokkenheid van de cliënt.\n\nTen tweede, in AMBTENAAR→CLIËNT paar 2, vertaalt de tolk het getal 'veertig' (veertig personen aanwezig) als 'otuz' (dertig). De ambtenaar verwijst expliciet naar het eerder genoemde aantal van veertig, maar de cliënt krijgt dertig te horen. Dit kan de cliënt verwarren of ertoe brengen een ander getal te bevestigen dan hij eerder noemde, wat inconsistentie in het dossier kan veroorzaken.\n\nDe overige paren vertonen geen inhoudelijke afwijkingen. De toelichting van de tolk in CLIENT→AMBTENAAR paar 1 over de idiomatische uitdrukking 'elim kolum bağlanmış gibi' is een toegestane en transparante omschrijving.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'ben organize ettim' (ik heb de bijeenkomst georganiseerd), maar de tolk vertaalt dit als 'heeft mijn broer georganiseerd'. De organisator wordt hiermee veranderd van de cliënt zelf naar een derde persoon (broer). Dit is een kritieke inhoudelijke afwijking die de betrokkenheid van de cliënt bij de bijeenkomst direct raakt.",
+      "originalPhrase": "Toplantıyı ben organize ettim",
+      "translatedPhrase": "Die bijeenkomst heeft mijn broer georganiseerd"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar vraagt of het er 'ongeveer veertig' waren, maar de tolk vertaalt dit als 'yaklaşık otuz' (ongeveer dertig). Het getal is veranderd van veertig naar dertig. Dit kan ertoe leiden dat de cliënt een ander aantal bevestigt dan hij eerder noemde, wat inconsistentie in het dossier kan veroorzaken. De opname dient gecontroleerd te worden om uit te sluiten dat het om een transcriptiefout gaat.",
+      "originalPhrase": "waren het er ongeveer veertig",
+      "translatedPhrase": "kişi sayısı yaklaşık otuz muydu"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

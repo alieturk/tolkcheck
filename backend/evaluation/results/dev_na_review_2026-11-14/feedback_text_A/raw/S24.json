@@ -1,0 +1,110 @@
+{
+ "session_id": "S24",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier fragmenten gesignaleerd met mogelijke inhoudelijke afwijkingen.\\n\\n**Client→Ambtenaar, paar 2:** De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze zin is niet aanwezig in de originele Turkse tekst en betreft een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt zei. Dit is een inhoudelijke toevoeging die het beeld van de situatie kan kleuren.\\n\\n**Client→Ambtenaar, paar 3:** De cliënt zegt dat de politie zijn vader ('babamı') heeft opgeroepen, en dat hij zelf die dag thuis was. De tolk vertaalt dit als 'de politie heeft mij opgeroepen', waardoor de persoon die werd opgeroepen verandert van de vader naar de cliënt zelf. Dit is een inhoudelijk significante afwijking die de asielbeslissing kan raken.\\n\\n**Ambtenaar→Cliënt, paar 1:** De ambtenaar vraagt of de vader in gevaar zou komen als de cliënt terugkeert ('zou komen' — hypothetisch). De tolk vertaalt dit als 'weet u of uw vader in gevaar zal komen' ('biliyor musunuz'), wat de vraag omzet van een hypothetische inschatting naar een feitelijke kennischeck. Dit verandert de aard van de vraag en kan het antwoord van de cliënt beïnvloeden.\\n\\n**Client→Ambtenaar, paar 1:** De cliënt voegt toe dat ook de voorwaarde geldt dat er geen problemen mogen zijn met de lokale autoriteiten ('yerel makamlarla hiç sorun yaşamamamız gerekiyor'). De tolk laat deze voorwaarde weg. Dit is een inhoudelijk detail over de terugkeervoorwaarden dat ontbreekt in de vertaling.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt noemt als aanvullende voorwaarde voor terugkeer dat er geen problemen mogen zijn met de lokale autoriteiten ('yerel makamlarla hiç sorun yaşamamamız gerekiyor'). De tolk laat deze voorwaarde weg en vertaalt alleen dat de papieren in orde moeten zijn.\",\n          \"originalPhrase\": \"yerel makamlarla hiç sorun yaşamamamız gerekiyor\",\n          \"translatedPhrase\": \"daarvoor moeten onze papieren in orde zijn\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt de zin 'Dat was een teken dat het gezin volkomen wanhopig was' toe. Deze zin staat niet in de originele Turkse tekst en is een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt heeft gezegd. Dit kan het beeld van de situatie in het dossier onterecht kleuren.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Dat was een teken dat het gezin volkomen wanhopig was.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt dat de politie zijn vader heeft opgeroepen ('babamı'). De tolk vertaalt dit als 'de politie heeft mij opgeroepen', waardoor de persoon die werd opgeroepen verandert van de vader naar de cliënt zelf. Dit is een inhoudelijk cruciale afwijking die de asielbeslissing kan raken.\",\n          \"originalPhrase\": \"polis babamı çağırdı\",\n          \"translatedPhrase\": \"de politie heeft mij opgeroepen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt een hypothetische vraag: 'zou uw vader in gevaar komen als u terugkeert?' De tolk vertaalt dit als 'weet u of uw vader in gevaar zal komen' ('biliyor musunuz'), wat de vraag omzet van een hypothetische inschatting naar een feitelijke kennischeck. Dit verandert de aard van de vraag en kan het antwoord van de cliënt beïnvloeden.\",\n          \"originalPhrase\": \"Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?\",\n          \"translatedPhrase\": \"Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1079,
+    "output_tokens": 1513,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier fragmenten gesignaleerd met mogelijke inhoudelijke afwijkingen.\n\n**Client→Ambtenaar, paar 2:** De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze zin is niet aanwezig in de originele Turkse tekst en betreft een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt zei. Dit is een inhoudelijke toevoeging die het beeld van de situatie kan kleuren.\n\n**Client→Ambtenaar, paar 3:** De cliënt zegt dat de politie zijn vader ('babamı') heeft opgeroepen, en dat hij zelf die dag thuis was. De tolk vertaalt dit als 'de politie heeft mij opgeroepen', waardoor de persoon die werd opgeroepen verandert van de vader naar de cliënt zelf. Dit is een inhoudelijk significante afwijking die de asielbeslissing kan raken.\n\n**Ambtenaar→Cliënt, paar 1:** De ambtenaar vraagt of de vader in gevaar zou komen als de cliënt terugkeert ('zou komen' — hypothetisch). De tolk vertaalt dit als 'weet u of uw vader in gevaar zal komen' ('biliyor musunuz'), wat de vraag omzet van een hypothetische inschatting naar een feitelijke kennischeck. Dit verandert de aard van de vraag en kan het antwoord van de cliënt beïnvloeden.\n\n**Client→Ambtenaar, paar 1:** De cliënt voegt toe dat ook de voorwaarde geldt dat er geen problemen mogen zijn met de lokale autoriteiten ('yerel makamlarla hiç sorun yaşamamamız gerekiyor'). De tolk laat deze voorwaarde weg. Dit is een inhoudelijk detail over de terugkeervoorwaarden dat ontbreekt in de vertaling.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "medium",
+      "description": "De cliënt noemt als aanvullende voorwaarde voor terugkeer dat er geen problemen mogen zijn met de lokale autoriteiten ('yerel makamlarla hiç sorun yaşamamamız gerekiyor'). De tolk laat deze voorwaarde weg en vertaalt alleen dat de papieren in orde moeten zijn.",
+      "originalPhrase": "yerel makamlarla hiç sorun yaşamamamız gerekiyor",
+      "translatedPhrase": "daarvoor moeten onze papieren in orde zijn"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt de zin 'Dat was een teken dat het gezin volkomen wanhopig was' toe. Deze zin staat niet in de originele Turkse tekst en is een eigen interpretatie of oordeel van de tolk, geen vertaling van wat de cliënt heeft gezegd. Dit kan het beeld van de situatie in het dossier onterecht kleuren.",
+      "originalPhrase": "",
+      "translatedPhrase": "Dat was een teken dat het gezin volkomen wanhopig was."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt dat de politie zijn vader heeft opgeroepen ('babamı'). De tolk vertaalt dit als 'de politie heeft mij opgeroepen', waardoor de persoon die werd opgeroepen verandert van de vader naar de cliënt zelf. Dit is een inhoudelijk cruciale afwijking die de asielbeslissing kan raken.",
+      "originalPhrase": "polis babamı çağırdı",
+      "translatedPhrase": "de politie heeft mij opgeroepen"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar stelt een hypothetische vraag: 'zou uw vader in gevaar komen als u terugkeert?' De tolk vertaalt dit als 'weet u of uw vader in gevaar zal komen' ('biliyor musunuz'), wat de vraag omzet van een hypothetische inschatting naar een feitelijke kennischeck. Dit verandert de aard van de vraag en kan het antwoord van de cliënt beïnvloeden.",
+      "originalPhrase": "Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?",
+      "translatedPhrase": "Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S24-P01",
+   "S24-P03",
+   "S24-P05",
+   "S24-P07"
+  ],
+  "client_to_officer": [
+   "S24-P02",
+   "S24-P04",
+   "S24-P06",
+   "S24-P08"
+  ]
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "session_id": "S37",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee fragmenten met mogelijke inhoudelijke afwijkingen gesignaleerd.\\n\\nTen eerste, CLIENT→AMBTENAAR paar 1 (gelijkenis: 0.911): De cliënt vermeldde expliciet dat zij vanuit Ankara naar Istanbul zijn gegaan en daarna naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk heeft de vlucht naar Athene weggelaten in de vertaling. Dit is een omissie van een reisfeit (bestemming en vervoerswijze) dat relevant kan zijn voor het dossier.\\n\\nTen tweede, CLIENT→AMBTENAAR paar 3 (gelijkenis: 0.817): De cliënt zei dat hij de achternaam van de persoon niet goed herinnert, maar dat hij hem kent als 'Kemal' ('Soyadını tam hatırlamıyorum, Kemal diye tanıyorum'). De tolk heeft de voornaam 'Kemal' niet vertaald en in plaats daarvan een toelichting gegeven dat de voornaam niet goed verstaan was en dat de cliënt gevraagd is te herhalen. Dit is een afwijking: de naam 'Kemal' is een concreet identificerend gegeven dat in het dossier thuishoort. Of de tolk de naam daadwerkelijk niet verstond, is niet uit de transcriptie op te maken, maar de naam ontbreekt in de vertolking zoals die hier is weergegeven.\\n\\nBij AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.929) heeft de tolk een extra vraag toegevoegd ('Heeft u het ticket voor deze reis zelf gekocht?') die de ambtenaar niet heeft gesteld. Dit kan de richting van het antwoord van de cliënt beïnvloeden.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt vermeldde dat zij vanuit Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk heeft deze bestemming en vervoerswijze (vliegen) weggelaten. Dit is een reisfeit dat relevant is voor het dossier.\",\n          \"originalPhrase\": \"sonra Atina'ya uçtuk\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemde de voornaam 'Kemal' als de naam waaronder hij de persoon kent ('Kemal diye tanıyorum'). De tolk heeft deze naam niet in de vertaling opgenomen en in plaats daarvan vermeld dat de voornaam niet goed verstaan was. De naam 'Kemal' is een concreet identificerend gegeven dat in het dossier thuishoort. De hoorambtenaar dient te controleren of de naam alsnog is doorgevraagd en genoteerd.\",\n          \"originalPhrase\": \"Kemal diye tanıyorum\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk heeft een extra vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' (Heeft u het ticket voor deze reis zelf gekocht?). Dit is een inhoudelijke toevoeging die de richting van het antwoord van de cliënt kan beïnvloeden.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu yolculuğun biletini kendiniz mi aldınız?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1154,
+    "output_tokens": 1240,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee fragmenten met mogelijke inhoudelijke afwijkingen gesignaleerd.\n\nTen eerste, CLIENT→AMBTENAAR paar 1 (gelijkenis: 0.911): De cliënt vermeldde expliciet dat zij vanuit Ankara naar Istanbul zijn gegaan en daarna naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk heeft de vlucht naar Athene weggelaten in de vertaling. Dit is een omissie van een reisfeit (bestemming en vervoerswijze) dat relevant kan zijn voor het dossier.\n\nTen tweede, CLIENT→AMBTENAAR paar 3 (gelijkenis: 0.817): De cliënt zei dat hij de achternaam van de persoon niet goed herinnert, maar dat hij hem kent als 'Kemal' ('Soyadını tam hatırlamıyorum, Kemal diye tanıyorum'). De tolk heeft de voornaam 'Kemal' niet vertaald en in plaats daarvan een toelichting gegeven dat de voornaam niet goed verstaan was en dat de cliënt gevraagd is te herhalen. Dit is een afwijking: de naam 'Kemal' is een concreet identificerend gegeven dat in het dossier thuishoort. Of de tolk de naam daadwerkelijk niet verstond, is niet uit de transcriptie op te maken, maar de naam ontbreekt in de vertolking zoals die hier is weergegeven.\n\nBij AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.929) heeft de tolk een extra vraag toegevoegd ('Heeft u het ticket voor deze reis zelf gekocht?') die de ambtenaar niet heeft gesteld. Dit kan de richting van het antwoord van de cliënt beïnvloeden.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt vermeldde dat zij vanuit Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk heeft deze bestemming en vervoerswijze (vliegen) weggelaten. Dit is een reisfeit dat relevant is voor het dossier.",
+      "originalPhrase": "sonra Atina'ya uçtuk",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt noemde de voornaam 'Kemal' als de naam waaronder hij de persoon kent ('Kemal diye tanıyorum'). De tolk heeft deze naam niet in de vertaling opgenomen en in plaats daarvan vermeld dat de voornaam niet goed verstaan was. De naam 'Kemal' is een concreet identificerend gegeven dat in het dossier thuishoort. De hoorambtenaar dient te controleren of de naam alsnog is doorgevraagd en genoteerd.",
+      "originalPhrase": "Kemal diye tanıyorum",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk heeft een extra vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' (Heeft u het ticket voor deze reis zelf gekocht?). Dit is een inhoudelijke toevoeging die de richting van het antwoord van de cliënt kan beïnvloeden.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu yolculuğun biletini kendiniz mi aldınız?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

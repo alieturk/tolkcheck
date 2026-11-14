@@ -1,0 +1,88 @@
+{
+ "session_id": "S40",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier afwijkingen gesignaleerd over beide richtingen.\\n\\n**CLIENT→AMBTENAAR:**\\n- Paar 0: 'nadiren' (zelden/zelden) is vertaald als 'nooit'. Dit is een inhoudelijke verzwaring: de cliënt zei dat hij zijn paspoort zelden bij zich droeg, niet nooit. De score is 0.939, maar de semantische gelijkenis is hoog ondanks dit feitelijke verschil; het verdient toch aandacht omdat 'nooit' en 'zelden' juridisch relevant kunnen verschillen.\\n- Paar 3: De tolk meldt dat hij de cliënt heeft gevraagd een woord te herhalen en dit aan de hoorambtenaar meldt. Dit is een toegestane tolkhandeling. Inhoudelijk is de vertaling correct, maar de zin eindigt met 'mochten ze me doorlaten' in plaats van 'mochten ze mij doorlaten' — geen inhoudelijk probleem. Geen afwijking gesignaleerd.\\n\\n**AMBTENAAR→CLIËNT:**\\n- Paar 1: De ambtenaar vraagt alleen naar een nieuw document bij de gemeente in de woonplaats. De tolk voegt 'en de consulaat in Ankara' toe, wat niet in de oorspronkelijke vraag staat. Dit is een toevoeging die de cliënt kan aanzetten tot een antwoord over een andere instantie dan gevraagd.\\n- Paar 2: De ambtenaar vraagt of het twee weken of langer duurde. De tolk vertaalt dit als 'twee maanden of langer'. Dit is een inhoudelijke fout: 'weken' is vervangen door 'maanden', waardoor de cliënt een andere tijdseenheid als referentie krijgt voorgelegd.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"'Nadiren' betekent 'zelden' of 'zelden/bijna nooit', maar is vertaald als 'nooit'. De cliënt nuanceert dat hij zijn paspoort zelden bij zich droeg; 'nooit' is een absolute ontkenning die de werkelijkheid sterker weergeeft dan bedoeld.\",\n          \"originalPhrase\": \"Pasaportumu nadiren yanımda taşıyordum\",\n          \"translatedPhrase\": \"Mijn paspoort droeg ik nooit bij me\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vraagt uitsluitend naar een nieuw document bij de gemeente in de woonplaats. De tolk voegt 've Ankara'daki konsolosluktan' (en de consulaat in Ankara) toe, wat niet in de oorspronkelijke vraag staat. Dit kan de cliënt ertoe brengen ook over een consulaat te spreken, terwijl de ambtenaar daar niet naar vroeg.\",\n          \"originalPhrase\": \"Heeft u daarna nog een nieuw document aangevraagd bij de gemeente in uw woonplaats?\",\n          \"translatedPhrase\": \"Bundan sonra yerel belediyeden ve Ankara'daki konsolosluktan yeni bir belge talep ettiniz mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vraagt of het twee weken ('twee weken') of langer duurde. De tolk vertaalt dit als 'iki ay' (twee maanden). De tijdseenheid is veranderd van weken naar maanden, waardoor de cliënt een onjuiste referentie krijgt voorgelegd. Dit kan het antwoord van de cliënt over de duur van de procedure beïnvloeden.\",\n          \"originalPhrase\": \"twee weken of langer\",\n          \"translatedPhrase\": \"iki ay mı yoksa daha uzun mu\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1089,
+    "output_tokens": 1314,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier afwijkingen gesignaleerd over beide richtingen.\n\n**CLIENT→AMBTENAAR:**\n- Paar 0: 'nadiren' (zelden/zelden) is vertaald als 'nooit'. Dit is een inhoudelijke verzwaring: de cliënt zei dat hij zijn paspoort zelden bij zich droeg, niet nooit. De score is 0.939, maar de semantische gelijkenis is hoog ondanks dit feitelijke verschil; het verdient toch aandacht omdat 'nooit' en 'zelden' juridisch relevant kunnen verschillen.\n- Paar 3: De tolk meldt dat hij de cliënt heeft gevraagd een woord te herhalen en dit aan de hoorambtenaar meldt. Dit is een toegestane tolkhandeling. Inhoudelijk is de vertaling correct, maar de zin eindigt met 'mochten ze me doorlaten' in plaats van 'mochten ze mij doorlaten' — geen inhoudelijk probleem. Geen afwijking gesignaleerd.\n\n**AMBTENAAR→CLIËNT:**\n- Paar 1: De ambtenaar vraagt alleen naar een nieuw document bij de gemeente in de woonplaats. De tolk voegt 'en de consulaat in Ankara' toe, wat niet in de oorspronkelijke vraag staat. Dit is een toevoeging die de cliënt kan aanzetten tot een antwoord over een andere instantie dan gevraagd.\n- Paar 2: De ambtenaar vraagt of het twee weken of langer duurde. De tolk vertaalt dit als 'twee maanden of langer'. Dit is een inhoudelijke fout: 'weken' is vervangen door 'maanden', waardoor de cliënt een andere tijdseenheid als referentie krijgt voorgelegd.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "'Nadiren' betekent 'zelden' of 'zelden/bijna nooit', maar is vertaald als 'nooit'. De cliënt nuanceert dat hij zijn paspoort zelden bij zich droeg; 'nooit' is een absolute ontkenning die de werkelijkheid sterker weergeeft dan bedoeld.",
+      "originalPhrase": "Pasaportumu nadiren yanımda taşıyordum",
+      "translatedPhrase": "Mijn paspoort droeg ik nooit bij me"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar vraagt uitsluitend naar een nieuw document bij de gemeente in de woonplaats. De tolk voegt 've Ankara'daki konsolosluktan' (en de consulaat in Ankara) toe, wat niet in de oorspronkelijke vraag staat. Dit kan de cliënt ertoe brengen ook over een consulaat te spreken, terwijl de ambtenaar daar niet naar vroeg.",
+      "originalPhrase": "Heeft u daarna nog een nieuw document aangevraagd bij de gemeente in uw woonplaats?",
+      "translatedPhrase": "Bundan sonra yerel belediyeden ve Ankara'daki konsolosluktan yeni bir belge talep ettiniz mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vraagt of het twee weken ('twee weken') of langer duurde. De tolk vertaalt dit als 'iki ay' (twee maanden). De tijdseenheid is veranderd van weken naar maanden, waardoor de cliënt een onjuiste referentie krijgt voorgelegd. Dit kan het antwoord van de cliënt over de duur van de procedure beïnvloeden.",
+      "originalPhrase": "twee weken of langer",
+      "translatedPhrase": "iki ay mı yoksa daha uzun mu"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

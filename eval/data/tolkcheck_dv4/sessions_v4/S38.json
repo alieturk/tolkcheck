@@ -1,0 +1,190 @@
+{
+ "session_id": "S38",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "familie en terugkeer",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S38-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waar woonde uw familie toen u nog in Turkije leefde?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'de yaşadığınız dönemde ailenizin nerede oturuyordu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S38-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ailem önce Gaziantep'te yaşıyordu, ama babam işini kaybedince 2019'da Adana'ya taşındık ve orada iki yıl kaldık."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn gezin woonde eerst in Gaziantep, maar toen mijn vader zijn werk verloor, zijn we in 2019 naar Antalya verhuisd en daar hebben we twee jaar gewoond."
+   },
+   "reference_rendering": "Mijn gezin woonde eerst in Gaziantep, maar toen mijn vader zijn werk verloor, zijn we in 2019 naar Adana verhuisd en daar hebben we twee jaar gewoond.",
+   "label": "entiteitsfout",
+   "subtype": "plaats",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S38-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Woont uw familie na die verhuizing nog steeds in die stad, of zijn ze weer vertrokken?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Taşındıktan sonra ailenizin hâlâ o şehirde yaşayıp yaşamadığını, yoksa tekrar başka bir yere gidip gitmediklerini öğrenebilir miyim?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S38-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, kardeşim üç yıl önce Almanya'ya gitti."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, mijn broer is drie jaar geleden naar Duitsland vertrokken (de tolk licht toe: Almanya is de Turkse naam voor Duitsland)."
+   },
+   "reference_rendering": "Ja, mijn broer is drie jaar geleden naar Duitsland vertrokken.",
+   "label": "toevoeging",
+   "subtype": "eigen_uitleg_tolk",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S38-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Denkt u dat uw vader misschien nog steeds in Adana woont?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Babanızın hâlâ Adana'da yaşadığını düşünüyor musunuz?"
+   },
+   "reference_rendering": "Babanızın belki hâlâ Adana'da yaşadığını düşünüyor musunuz?",
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S38-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Babam son gördüğümde Adana'da yaşıyordu. Ama geçen yıl bir gece adamlar kapıya geldi, babama ev ve tarla konusunda tehdit ettiler. Komşumuz Hasan amcam bize hemen haber verdi. O günden beri babamla telefonla konuşamıyoruz, numarası da kapandı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn vader woonde de laatste keer dat ik hem zag in Adana. Vorig jaar kwamen er mannen naar de deur en dreigden ze hem over het huis en het land. Onze buurman, oom Hasan, heeft ons daarvan meteen op de hoogte gebracht. Sindsdien kunnen we niet met mijn vader telefoneren; zijn nummer is ook afgesloten."
+   },
+   "reference_rendering": "Mijn vader woonde de laatste keer dat ik hem zag in Adana. Vorig jaar, op een nacht, kwamen er mannen naar de deur en dreigden ze hem over het huis en het land. Onze buurman, oom Hasan, heeft ons daarvan meteen op de hoogte gebracht. Sindsdien kunnen we niet met mijn vader telefoneren; zijn nummer is ook afgesloten.",
+   "label": "omissie",
+   "subtype": "detail",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S38-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Als u nu terug zou moeten naar Turkije, wat denkt u dat er dan met uw gezin gebeurt?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Eğer şimdi Türkiye'ye geri dönmek zorunda kalsanız, sizce ailenizin başına ne gelir?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S38-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ben dönersem, ilk olarak polis beni karakola götürür, çünkü daha önce hakkımda şikâyet olmuştu. Annem ve kız kardeşim de kendi evlerinde yalnız kalır ve sürekli tehdit altında yaşar."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Als ik terugga, brengt de politie mij eerst naar het bureau, want er was al eerder een klacht tegen mij. Mijn moeder en mijn broer — De tolk corrigeert zich: ik zei 'broer', dat moet 'zus' zijn. Mijn moeder en mijn zus blijven dan ook alleen in hun eigen huis en leven voortdurend onder dreiging."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  }
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "session_id": "S28",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over beide richtingen.\\n\\n**CLIENT→AMBTENAAR:**\\n- Paar 0: De naam van de broer wijkt af. De cliënt zegt 'Kemal', de tolk vertaalt 'Kenan'. Dit is een naamsverschil dat in het dossier terechtkomt en gecontroleerd moet worden aan de hand van de opname.\\n- Paar 1: De cliënt voegt aan het einde expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('çünkü kimse bana açıkça bir suç söylemedi'). Deze zin ontbreekt volledig in de vertolking. Dit is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding.\\n- Paar 2: De tolk voegt een toelichting toe over een eigen interventie (de cliënt gevraagd te herhalen, bevestiging ontvangen). Dit is op zichzelf een toegestane transparante melding. De inhoud van de vertaling zelf lijkt correct. Geen afwijking in de vertaalde inhoud.\\n- Paar 3: Geen inhoudelijke afwijkingen.\\n\\n**AMBTENAAR→CLIËNT:**\\n- Paar 1: De ambtenaar stelt een open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt een suggestie toe: 'naar het bureau op Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Dit is een gesloten, sturende vraag die de cliënt in een bepaalde richting kan leiden en de openheid van de vraag opheft.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt de naam 'Kemal' voor zijn broer, maar de tolk vertaalt dit als 'Kenan'. Dit is een naamsverschil dat in het dossier terechtkomt. De opname dient gecontroleerd te worden om vast te stellen welke naam de cliënt heeft uitgesproken.\",\n          \"originalPhrase\": \"kardeşim Kemal\",\n          \"translatedPhrase\": \"mijn broer Kenan\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt sluit zijn verklaring af met de zin 'çünkü kimse bana açıkça bir suç söylemedi' (omdat niemand mij duidelijk een strafbaar feit heeft meegedeeld). Deze zin ontbreekt volledig in de vertolking. Dit gegeven is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding en de mate waarin de cliënt op de hoogte was van de reden van zijn detentie.\",\n          \"originalPhrase\": \"çünkü kimse bana açıkça bir suç söylemedi\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt een volledig open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt hieraan toe: 'naar het bureau op Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Hierdoor wordt een open vraag omgezet in een gesloten, suggestieve vraag die de cliënt in een bepaalde richting stuurt. Dit kan het antwoord van de cliënt beïnvloeden en de informatiewaarde van het gehoor verminderen.\",\n          \"originalPhrase\": \"Waar werd u na de aanhouding naartoe gebracht?\",\n          \"translatedPhrase\": \"Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1032,
+    "output_tokens": 1338,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over beide richtingen.\n\n**CLIENT→AMBTENAAR:**\n- Paar 0: De naam van de broer wijkt af. De cliënt zegt 'Kemal', de tolk vertaalt 'Kenan'. Dit is een naamsverschil dat in het dossier terechtkomt en gecontroleerd moet worden aan de hand van de opname.\n- Paar 1: De cliënt voegt aan het einde expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('çünkü kimse bana açıkça bir suç söylemedi'). Deze zin ontbreekt volledig in de vertolking. Dit is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding.\n- Paar 2: De tolk voegt een toelichting toe over een eigen interventie (de cliënt gevraagd te herhalen, bevestiging ontvangen). Dit is op zichzelf een toegestane transparante melding. De inhoud van de vertaling zelf lijkt correct. Geen afwijking in de vertaalde inhoud.\n- Paar 3: Geen inhoudelijke afwijkingen.\n\n**AMBTENAAR→CLIËNT:**\n- Paar 1: De ambtenaar stelt een open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt een suggestie toe: 'naar het bureau op Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Dit is een gesloten, sturende vraag die de cliënt in een bepaalde richting kan leiden en de openheid van de vraag opheft.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt de naam 'Kemal' voor zijn broer, maar de tolk vertaalt dit als 'Kenan'. Dit is een naamsverschil dat in het dossier terechtkomt. De opname dient gecontroleerd te worden om vast te stellen welke naam de cliënt heeft uitgesproken.",
+      "originalPhrase": "kardeşim Kemal",
+      "translatedPhrase": "mijn broer Kenan"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt sluit zijn verklaring af met de zin 'çünkü kimse bana açıkça bir suç söylemedi' (omdat niemand mij duidelijk een strafbaar feit heeft meegedeeld). Deze zin ontbreekt volledig in de vertolking. Dit gegeven is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding en de mate waarin de cliënt op de hoogte was van de reden van zijn detentie.",
+      "originalPhrase": "çünkü kimse bana açıkça bir suç söylemedi",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar stelt een volledig open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt hieraan toe: 'naar het bureau op Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Hierdoor wordt een open vraag omgezet in een gesloten, suggestieve vraag die de cliënt in een bepaalde richting stuurt. Dit kan het antwoord van de cliënt beïnvloeden en de informatiewaarde van het gehoor verminderen.",
+      "originalPhrase": "Waar werd u na de aanhouding naartoe gebracht?",
+      "translatedPhrase": "Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S28-P01",
+   "S28-P03",
+   "S28-P05",
+   "S28-P07"
+  ],
+  "client_to_officer": [
+   "S28-P02",
+   "S28-P04",
+   "S28-P06",
+   "S28-P08"
+  ]
+ }
+}

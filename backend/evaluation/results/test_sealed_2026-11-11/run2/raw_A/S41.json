@@ -1,0 +1,72 @@
+{
+ "session_id": "S41",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd. Bij CLIENT→AMBTENAAR paar 1 corrigeert de tolk zichzelf van 'zes maanden' naar 'acht maanden' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. De overige client→ambtenaar paren vertonen geen inhoudelijke afwijkingen. Bij AMBTENAAR→CLIËNT paar 2 voegt de tolk een eigen opmerking toe ('Dit is echt een moeilijk onderwerp' / 'Bu gerçekten çok zor bir konu') die niet in de oorspronkelijke vraag van de ambtenaar staat. Dit is een toevoeging van de tolk die de neutraliteit van de vraagstelling kan beïnvloeden en mogelijk de cliënt stuurt in zijn antwoord. De overige ambtenaar→cliënt paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan het einde van de vertaalde vraag de zin 'Bu gerçekten çok zor bir konu' toe ('Dit is echt een moeilijk onderwerp'), die niet in de oorspronkelijke vraag van de ambtenaar staat. Dit is een eigen commentaar van de tolk dat de neutraliteit van de vraagstelling doorbreekt en de cliënt mogelijk beïnvloedt in zijn antwoord of emotionele toon.\",\n          \"originalPhrase\": \"Kunt u beschrijven hoe de aanhouding bij de fabriekspoort verliep?\",\n          \"translatedPhrase\": \"Fabrika kapısında gözaltının nasıl gerçekleştiğini anlatabilir misiniz? Bu gerçekten çok zor bir konu.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1089,
+    "output_tokens": 769,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd. Bij CLIENT→AMBTENAAR paar 1 corrigeert de tolk zichzelf van 'zes maanden' naar 'acht maanden' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. De overige client→ambtenaar paren vertonen geen inhoudelijke afwijkingen. Bij AMBTENAAR→CLIËNT paar 2 voegt de tolk een eigen opmerking toe ('Dit is echt een moeilijk onderwerp' / 'Bu gerçekten çok zor bir konu') die niet in de oorspronkelijke vraag van de ambtenaar staat. Dit is een toevoeging van de tolk die de neutraliteit van de vraagstelling kan beïnvloeden en mogelijk de cliënt stuurt in zijn antwoord. De overige ambtenaar→cliënt paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan het einde van de vertaalde vraag de zin 'Bu gerçekten çok zor bir konu' toe ('Dit is echt een moeilijk onderwerp'), die niet in de oorspronkelijke vraag van de ambtenaar staat. Dit is een eigen commentaar van de tolk dat de neutraliteit van de vraagstelling doorbreekt en de cliënt mogelijk beïnvloedt in zijn antwoord of emotionele toon.",
+      "originalPhrase": "Kunt u beschrijven hoe de aanhouding bij de fabriekspoort verliep?",
+      "translatedPhrase": "Fabrika kapısında gözaltının nasıl gerçekleştiğini anlatabilir misiniz? Bu gerçekten çok zor bir konu."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

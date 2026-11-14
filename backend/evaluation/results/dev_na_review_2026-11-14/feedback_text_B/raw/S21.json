@@ -1,0 +1,86 @@
+{
+ "session_id": "S21",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting zijn geen inhoudelijk significante afwijkingen vastgesteld. Paar 1 is volledig en nauwkeurig vertolkt, inclusief de fysieke mishandeling (schreeuwen en slaan op de schouder) en de omstandigheid dat de bril was afgenomen. Paar 2 bevat een toelichting van de tolk over de idiomatische uitdrukking 'gözüm döndü'; dit is een toegestane en correct gemelde omschrijving. In de AMBTENAAR→CLIËNT-richting valt bij paar 2 op dat de tolk een eigen verduidelijking heeft toegevoegd ('Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' — 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met de advocaat kon spreken'). Deze toevoeging is inhoudelijk niet onjuist, maar is een eigen interpretatie/parafrase van de tolk die niet in de oorspronkelijke vraag stond. De ambtenaar vroeg enkel naar de duur van de detentie vóór het zien van een advocaat; de tolk heeft dit aangevuld met een specificering over 'met de advocaat kunnen spreken', wat een lichte betekenisverschuiving kan opleveren (zien versus spreken). Dit is gesignaleerd als een toevoeging met medium severity. Alle overige paren vertonen geen noemenswaardige afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"medium\",\n          \"description\": \"De tolk heeft een eigen verduidelijking toegevoegd die niet in de oorspronkelijke vraag stond: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' ('Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met de advocaat kon spreken'). De ambtenaar vroeg naar de duur van de detentie vóór het zien van een advocaat ('een advocaat zag'), terwijl de tolk dit heeft omgezet naar 'met de advocaat kunnen spreken'. Dit is een subtiel maar potentieel betekenisverschil (zien vs. spreken) en een eigen toevoeging van de tolk buiten de oorspronkelijke vraagstelling.\",\n          \"originalPhrase\": \"Hoe lang heeft u op het bureau vastgezeten voordat u een advocaat zag?\",\n          \"translatedPhrase\": \"Avukatınızı görmeden önce karakolda ne kadar süre tutuldunuz? Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1079,
+    "output_tokens": 1013,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting zijn geen inhoudelijk significante afwijkingen vastgesteld. Paar 1 is volledig en nauwkeurig vertolkt, inclusief de fysieke mishandeling (schreeuwen en slaan op de schouder) en de omstandigheid dat de bril was afgenomen. Paar 2 bevat een toelichting van de tolk over de idiomatische uitdrukking 'gözüm döndü'; dit is een toegestane en correct gemelde omschrijving. In de AMBTENAAR→CLIËNT-richting valt bij paar 2 op dat de tolk een eigen verduidelijking heeft toegevoegd ('Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' — 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met de advocaat kon spreken'). Deze toevoeging is inhoudelijk niet onjuist, maar is een eigen interpretatie/parafrase van de tolk die niet in de oorspronkelijke vraag stond. De ambtenaar vroeg enkel naar de duur van de detentie vóór het zien van een advocaat; de tolk heeft dit aangevuld met een specificering over 'met de advocaat kunnen spreken', wat een lichte betekenisverschuiving kan opleveren (zien versus spreken). Dit is gesignaleerd als een toevoeging met medium severity. Alle overige paren vertonen geen noemenswaardige afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "medium",
+      "description": "De tolk heeft een eigen verduidelijking toegevoegd die niet in de oorspronkelijke vraag stond: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' ('Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met de advocaat kon spreken'). De ambtenaar vroeg naar de duur van de detentie vóór het zien van een advocaat ('een advocaat zag'), terwijl de tolk dit heeft omgezet naar 'met de advocaat kunnen spreken'. Dit is een subtiel maar potentieel betekenisverschil (zien vs. spreken) en een eigen toevoeging van de tolk buiten de oorspronkelijke vraagstelling.",
+      "originalPhrase": "Hoe lang heeft u op het bureau vastgezeten voordat u een advocaat zag?",
+      "translatedPhrase": "Avukatınızı görmeden önce karakolda ne kadar süre tutuldunuz? Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S21-P01",
+   "S21-P03",
+   "S21-P05",
+   "S21-P07"
+  ],
+  "client_to_officer": [
+   "S21-P02",
+   "S21-P04",
+   "S21-P06",
+   "S21-P08"
+  ]
+ }
+}

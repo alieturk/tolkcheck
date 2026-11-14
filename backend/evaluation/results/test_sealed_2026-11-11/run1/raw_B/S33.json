@@ -1,0 +1,80 @@
+{
+ "session_id": "S33",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\\n\\nTen eerste, bij AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.726): de ambtenaar zegt 'drie dagen', maar de tolk vertaalt dit als 'vier dagen' ('dört gün'). Dit is een feitelijk verschil in een getal dat direct relevant is voor het relaas van de cliënt. De cliënt heeft in CLIENT→AMBTENAAR paar 1 zelf ook 'drie dagen' bevestigd ('üç gün'), wat overeenkomt met wat de ambtenaar zei. De tolk heeft bij het doorleiden echter 'vier' gezegd in plaats van 'drie'. De opname dient gecontroleerd te worden om vast te stellen of dit een transcriptiefout of een tolkfout betreft.\\n\\nTen tweede, bij CLIENT→AMBTENAAR paar 2 (gelijkenis: 0.967): de cliënt zegt 'kapı bazen açılıyordu' (de deur ging soms open), maar de tolk vertaalt dit als 'de deur ging altijd open'. 'Bazen' betekent 'soms', niet 'altijd'. Dit is een betekenisverschuiving die de situatie bij het consulaat anders weergeeft dan de cliënt beschreef.\\n\\nDe overige paren bevatten geen inhoudelijke afwijkingen. In CLIENT→AMBTENAAR paar 0 licht de tolk de term 'nüfus cüzdanı' toe, wat toegestaan is. In CLIENT→AMBTENAAR paar 3 meldt de tolk expliciet dat een idiomatische uitdrukking niet letterlijk vertaalbaar is en omschrijft de betekenis, wat eveneens toegestaan is.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt 'kapı bazen açılıyordu', wat 'de deur ging soms open' betekent. De tolk vertaalt dit als 'de deur ging altijd open'. 'Bazen' betekent 'soms', niet 'altijd'. Dit verandert de beschrijving van de situatie bij het consulaat: soms toegankelijk versus altijd open.\",\n          \"originalPhrase\": \"kapı bazen açılıyordu\",\n          \"translatedPhrase\": \"de deur ging altijd open\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar zegt 'drie dagen' ('drie dagen op het politiebureau vastgezeten'), maar de tolk vertaalt dit als 'vier dagen' ('dört gün karakolda'). Dit is een feitelijk verschil in een getal dat relevant is voor het relaas. De cliënt heeft zelf ook drie dagen bevestigd. De opname dient gecontroleerd te worden om vast te stellen of dit een transcriptiefout of een tolkfout betreft.\",\n          \"originalPhrase\": \"drie dagen op het politiebureau heeft vastgezeten\",\n          \"translatedPhrase\": \"dört gün karakolda kaldığınız yazıyor\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1147,
+    "output_tokens": 1130,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\n\nTen eerste, bij AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.726): de ambtenaar zegt 'drie dagen', maar de tolk vertaalt dit als 'vier dagen' ('dört gün'). Dit is een feitelijk verschil in een getal dat direct relevant is voor het relaas van de cliënt. De cliënt heeft in CLIENT→AMBTENAAR paar 1 zelf ook 'drie dagen' bevestigd ('üç gün'), wat overeenkomt met wat de ambtenaar zei. De tolk heeft bij het doorleiden echter 'vier' gezegd in plaats van 'drie'. De opname dient gecontroleerd te worden om vast te stellen of dit een transcriptiefout of een tolkfout betreft.\n\nTen tweede, bij CLIENT→AMBTENAAR paar 2 (gelijkenis: 0.967): de cliënt zegt 'kapı bazen açılıyordu' (de deur ging soms open), maar de tolk vertaalt dit als 'de deur ging altijd open'. 'Bazen' betekent 'soms', niet 'altijd'. Dit is een betekenisverschuiving die de situatie bij het consulaat anders weergeeft dan de cliënt beschreef.\n\nDe overige paren bevatten geen inhoudelijke afwijkingen. In CLIENT→AMBTENAAR paar 0 licht de tolk de term 'nüfus cüzdanı' toe, wat toegestaan is. In CLIENT→AMBTENAAR paar 3 meldt de tolk expliciet dat een idiomatische uitdrukking niet letterlijk vertaalbaar is en omschrijft de betekenis, wat eveneens toegestaan is.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt zegt 'kapı bazen açılıyordu', wat 'de deur ging soms open' betekent. De tolk vertaalt dit als 'de deur ging altijd open'. 'Bazen' betekent 'soms', niet 'altijd'. Dit verandert de beschrijving van de situatie bij het consulaat: soms toegankelijk versus altijd open.",
+      "originalPhrase": "kapı bazen açılıyordu",
+      "translatedPhrase": "de deur ging altijd open"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar zegt 'drie dagen' ('drie dagen op het politiebureau vastgezeten'), maar de tolk vertaalt dit als 'vier dagen' ('dört gün karakolda'). Dit is een feitelijk verschil in een getal dat relevant is voor het relaas. De cliënt heeft zelf ook drie dagen bevestigd. De opname dient gecontroleerd te worden om vast te stellen of dit een transcriptiefout of een tolkfout betreft.",
+      "originalPhrase": "drie dagen op het politiebureau heeft vastgezeten",
+      "translatedPhrase": "dört gün karakolda kaldığınız yazıyor"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

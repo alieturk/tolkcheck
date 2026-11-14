@@ -1,0 +1,96 @@
+{
+ "session_id": "S36",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting zijn twee afwijkingen gesignaleerd. Bij paar 1 is de volgorde van de gebeurtenissen omgedraaid: de cliënt zegt dat de dreigende telefoontjes begonnen nádat het stuk was gepubliceerd ('Yazı yayımlandıktan sonra'), maar de tolk vertaalt 'voordat het stuk verscheen'. Dit is een inhoudelijk verschil dat de chronologie van de dreiging raakt en daarmee de geloofwaardigheidsbeoordeling kan beïnvloeden. Bij paar 3 noemt de cliënt 'kasım ayının on yedisi', wat 'de zeventiende november' betekent; de tolk vertaalt dit als 'zeven november'. Dit kan een transcriptiefout zijn, maar de opname dient gecontroleerd te worden. In de AMBTENAAR→CLIËNT-richting is bij paar 1 een toevoeging gesignaleerd: de tolk voegt toe 'Bu, dosyanız açısından çok önemli bir nokta' ('Dit is een zeer belangrijk punt voor uw dossier'), wat niet in de oorspronkelijke vraag van de ambtenaar staat. Bij paar 3 is de vraag iets informeler geformuleerd ('Bunu biraz daha açıkla') dan het origineel, maar dit heeft geen inhoudelijk gevolg. Paar 2 CLIENT→AMBTENAAR bevat een toelichting van de tolk over een idiomatische uitdrukking; dit is toegestaan en geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt dat de dreigende telefoontjes begonnen nádat het stuk was gepubliceerd ('Yazı yayımlandıktan sonra … tehdit eden telefonlar gelmeye başladı'). De tolk vertaalt dit als 'voordat het stuk verscheen', wat de chronologie van de dreiging omkeert. Dit verschil kan de geloofwaardigheidsbeoordeling van het relaas beïnvloeden.\",\n          \"originalPhrase\": \"Yazı yayımlandıktan sonra da gece vakti tehdit eden telefonlar gelmeye başladı.\",\n          \"translatedPhrase\": \"Voordat het stuk verscheen, begonnen de dreigende telefoontjes 's nachts.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt 'kasım ayının on yedisi', wat 'de zeventiende november' betekent. De tolk vertaalt dit als 'zeven november'. Het verschil in datum (7 versus 17 november) kan relevant zijn voor de tijdlijn van het relaas. De opname dient gecontroleerd te worden om een transcriptiefout uit te sluiten.\",\n          \"originalPhrase\": \"Kasım ayının on yedisinde\",\n          \"translatedPhrase\": \"Op zeven november\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan het einde van de vraag toe: 'Bu, dosyanız açısından çok önemli bir nokta' ('Dit is een zeer belangrijk punt voor uw dossier'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. Een dergelijke toevoeging kan de cliënt sturen in zijn antwoord en is een eigen commentaar van de tolk.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu, dosyanız açısından çok önemli bir nokta.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk vertaalt 'Wilt u dat nog wat nader toelichten' als 'Bunu biraz daha açıkla' (informele gebiedende wijs), wat iets informeler is dan het origineel, maar geen inhoudelijk verschil oplevert.\",\n          \"originalPhrase\": \"Wilt u dat nog wat nader toelichten\",\n          \"translatedPhrase\": \"Bunu biraz daha açıkla\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1094,
+    "output_tokens": 1396,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting zijn twee afwijkingen gesignaleerd. Bij paar 1 is de volgorde van de gebeurtenissen omgedraaid: de cliënt zegt dat de dreigende telefoontjes begonnen nádat het stuk was gepubliceerd ('Yazı yayımlandıktan sonra'), maar de tolk vertaalt 'voordat het stuk verscheen'. Dit is een inhoudelijk verschil dat de chronologie van de dreiging raakt en daarmee de geloofwaardigheidsbeoordeling kan beïnvloeden. Bij paar 3 noemt de cliënt 'kasım ayının on yedisi', wat 'de zeventiende november' betekent; de tolk vertaalt dit als 'zeven november'. Dit kan een transcriptiefout zijn, maar de opname dient gecontroleerd te worden. In de AMBTENAAR→CLIËNT-richting is bij paar 1 een toevoeging gesignaleerd: de tolk voegt toe 'Bu, dosyanız açısından çok önemli bir nokta' ('Dit is een zeer belangrijk punt voor uw dossier'), wat niet in de oorspronkelijke vraag van de ambtenaar staat. Bij paar 3 is de vraag iets informeler geformuleerd ('Bunu biraz daha açıkla') dan het origineel, maar dit heeft geen inhoudelijk gevolg. Paar 2 CLIENT→AMBTENAAR bevat een toelichting van de tolk over een idiomatische uitdrukking; dit is toegestaan en geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt dat de dreigende telefoontjes begonnen nádat het stuk was gepubliceerd ('Yazı yayımlandıktan sonra … tehdit eden telefonlar gelmeye başladı'). De tolk vertaalt dit als 'voordat het stuk verscheen', wat de chronologie van de dreiging omkeert. Dit verschil kan de geloofwaardigheidsbeoordeling van het relaas beïnvloeden.",
+      "originalPhrase": "Yazı yayımlandıktan sonra da gece vakti tehdit eden telefonlar gelmeye başladı.",
+      "translatedPhrase": "Voordat het stuk verscheen, begonnen de dreigende telefoontjes 's nachts."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt 'kasım ayının on yedisi', wat 'de zeventiende november' betekent. De tolk vertaalt dit als 'zeven november'. Het verschil in datum (7 versus 17 november) kan relevant zijn voor de tijdlijn van het relaas. De opname dient gecontroleerd te worden om een transcriptiefout uit te sluiten.",
+      "originalPhrase": "Kasım ayının on yedisinde",
+      "translatedPhrase": "Op zeven november"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan het einde van de vraag toe: 'Bu, dosyanız açısından çok önemli bir nokta' ('Dit is een zeer belangrijk punt voor uw dossier'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. Een dergelijke toevoeging kan de cliënt sturen in zijn antwoord en is een eigen commentaar van de tolk.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu, dosyanız açısından çok önemli bir nokta."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "low",
+      "description": "De tolk vertaalt 'Wilt u dat nog wat nader toelichten' als 'Bunu biraz daha açıkla' (informele gebiedende wijs), wat iets informeler is dan het origineel, maar geen inhoudelijk verschil oplevert.",
+      "originalPhrase": "Wilt u dat nog wat nader toelichten",
+      "translatedPhrase": "Bunu biraz daha açıkla"
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ }
+}

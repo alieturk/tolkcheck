@@ -1,0 +1,189 @@
+{
+ "session_id": "S43",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "bedreigingen na publicaties",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S43-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer heeft u voor het eerst kritische berichten over de overheid online geplaatst?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Hükümet hakkında çevrimiçi eleştirel paylaşımları ilk ne zaman yaptınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S43-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "İlk paylaşımımı üniversiteden mezun olduktan sonra yaptım, bir Facebook grubunda, belediyedeki yolsuzluklar hakkında. O zamanlar kimseye bir şey söylemedim, sadece kendi görüşümü yazmıştım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn eerste bericht plaatste ik nadat ik was afgestudeerd, in een Facebookgroep, over corruptie bij de gemeente. Destijds heb ik niemand iets verteld; ik had alleen mijn eigen mening opgeschreven. De tolk merkt op dat het woord 'yolsuzluklar' niet eenduidig te vertalen was en vraagt de hoorambtenaar of die de vraag over de aard van de corruptie nog eens kan herhalen, zodat de cliënt kan verduidelijken welk soort corruptie hij bedoelt."
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S43-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke reacties kreeg u op die berichten, en van wie precies?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Hangi tepkileri aldınız ve bunlar kimlerden geldi? Bu tepkilerin bir kısmı size doğrudan mı ulaştı, yoksa başkaları aracılığıyla mı?"
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_vraag_tolk",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Hangi tepkileri aldınız ve bunlar kimlerden geldi?"
+  },
+  {
+   "pair_id": "S43-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Bu yazıdan sonra, 14 Mart'ta, evimin kapısına bir not bıraktılar."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Na dat bericht hebben ze op 4 maart een briefje bij mijn voordeur achtergelaten."
+   },
+   "label": "entiteitsfout",
+   "subtype": "datum",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Na dat bericht hebben ze op 14 maart een briefje bij mijn voordeur achtergelaten."
+  },
+  {
+   "pair_id": "S43-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Zet u eens op een rij wat er daarna gebeurde, in welke volgorde de dreigingen kwamen."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Paylaşımı yaptıktan sonra başınıza neler geldi, tehditler hangi sırayla geldi, bunları sıralar mısınız?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S43-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Önce telefonla birkaç kez küfürlü mesaj geldi, sonra da bir ay kadar sonra adresime tehdit mektubu gönderildi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Eerst kwamen er een paar keer scheldberichten per telefoon, en daarvoor werd er een dreigbrief naar mijn adres gestuurd."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "tijd_of_volgorde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Eerst kwamen er een paar keer scheldberichten per telefoon, en een maand later werd er een dreigbrief naar mijn adres gestuurd."
+  },
+  {
+   "pair_id": "S43-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u de dreigbrief bewaard, en kunt u die aan ons laten zien?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Tehdit mektubunu sakladınız mı, bize gösterebilir misiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S43-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, mektubu sakladım, ama polise götürdüğümde bana sadece bir tutanak verdiler ve davayı takip etmediler. Sonra iki hafta boyunca her akşam kapımın önünde biri dolaştı. Komşularım da bunu gördü, şimdi korktukları için bana uğramıyorlar. Bu yüzden ülkede kalmanın artık güvenli olmadığını düşünüyorum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, ik heb de brief bewaard, maar toen ik die bij de politie bracht, kreeg ik alleen een proces-verbaal en werd de zaak niet opgevolgd. Daarna liep er twee weken lang elke avond iemand voor mijn deur heen en weer. Mijn buren hebben dat ook gezien, en uit angst komen ze nu niet meer bij me langs. Daarom denk ik dat blijven in het land nu niet meer veilig is."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

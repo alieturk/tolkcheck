@@ -1,0 +1,86 @@
+{
+ "session_id": "S29",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-paren zijn geen inhoudelijke afwijkingen gesignaleerd; alle vier paren scoren boven 0.70 en de vertalingen komen inhoudelijk overeen met de originele Turkse tekst. In de AMBTENAAR→CLIËNT-paren is één inhoudelijk relevante afwijking gevonden: in paar 2 vertaalt de tolk de datum '14 mei' als '14 Mart' (14 maart). Dit is een feitelijk verschil in een datum die in het dossier staat en die de tijdlijn van het relaas raakt. De opname dient gecontroleerd te worden om vast te stellen of de tolk inderdaad 'maart' heeft gezegd of dat de spraakherkenning een fout heeft gemaakt. In paar 3 (AMBTENAAR→CLIËNT) heeft de tolk zichzelf gecorrigeerd en dit expliciet gemeld; de verbeterde vertolking ('tekrar') is inhoudelijk correct. Dit geldt als een toegestane zelfcorrectie en is geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar noemt de datum '14 mei', maar de tolk vertaalt dit als '14 Mart' (14 maart). Dit is een feitelijk verschil in een datum die de tijdlijn van het relaas beïnvloedt. De cliënt heeft mogelijk de vraag beantwoord op basis van een verkeerde datum. De opname dient gecontroleerd te worden om vast te stellen of de tolk inderdaad 'maart' heeft gezegd of dat de spraakherkenning een fout heeft gemaakt.\",\n          \"originalPhrase\": \"Het artikel verscheen op 14 mei\",\n          \"translatedPhrase\": \"Yazı 14 Mart'ta yayımlandı\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1047,
+    "output_tokens": 780,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-paren zijn geen inhoudelijke afwijkingen gesignaleerd; alle vier paren scoren boven 0.70 en de vertalingen komen inhoudelijk overeen met de originele Turkse tekst. In de AMBTENAAR→CLIËNT-paren is één inhoudelijk relevante afwijking gevonden: in paar 2 vertaalt de tolk de datum '14 mei' als '14 Mart' (14 maart). Dit is een feitelijk verschil in een datum die in het dossier staat en die de tijdlijn van het relaas raakt. De opname dient gecontroleerd te worden om vast te stellen of de tolk inderdaad 'maart' heeft gezegd of dat de spraakherkenning een fout heeft gemaakt. In paar 3 (AMBTENAAR→CLIËNT) heeft de tolk zichzelf gecorrigeerd en dit expliciet gemeld; de verbeterde vertolking ('tekrar') is inhoudelijk correct. Dit geldt als een toegestane zelfcorrectie en is geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar noemt de datum '14 mei', maar de tolk vertaalt dit als '14 Mart' (14 maart). Dit is een feitelijk verschil in een datum die de tijdlijn van het relaas beïnvloedt. De cliënt heeft mogelijk de vraag beantwoord op basis van een verkeerde datum. De opname dient gecontroleerd te worden om vast te stellen of de tolk inderdaad 'maart' heeft gezegd of dat de spraakherkenning een fout heeft gemaakt.",
+      "originalPhrase": "Het artikel verscheen op 14 mei",
+      "translatedPhrase": "Yazı 14 Mart'ta yayımlandı"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S29-P01",
+   "S29-P03",
+   "S29-P05",
+   "S29-P07"
+  ],
+  "client_to_officer": [
+   "S29-P02",
+   "S29-P04",
+   "S29-P06",
+   "S29-P08"
+  ]
+ }
+}

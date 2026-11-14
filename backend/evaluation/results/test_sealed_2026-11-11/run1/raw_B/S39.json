@@ -1,0 +1,80 @@
+{
+ "session_id": "S39",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijk significante afwijkingen gesignaleerd. Bij CLIENT→AMBTENAAR paar 2 is een kritieke mistranslatie vastgesteld: de cliënt zegt 'Ben organize ettim' (ik heb de bijeenkomst georganiseerd), maar de tolk vertaalt dit als 'mijn broer heeft de bijeenkomst georganiseerd'. Dit is een feitelijke verandering van wie de organisator was, wat direct relevant is voor de beoordeling van de betrokkenheid van de cliënt bij politieke activiteiten. Bij AMBTENAAR→CLIËNT paar 2 is een feitelijke afwijking in een getal vastgesteld: de ambtenaar vraagt of het er 'ongeveer veertig' waren, maar de tolk vertaalt dit als 'ongeveer dertig'. De cliënt heeft daarna in zijn antwoord (CLIENT→AMBTENAAR paar 2) zelf 'veertig' bevestigd, maar het is onduidelijk of hij reageerde op de vraag zoals hij die hoorde (dertig) of op zijn eigen herinnering. De overige paren bevatten geen inhoudelijke afwijkingen. De toelichting van de tolk bij de idiomatische uitdrukking in CLIENT→AMBTENAAR paar 1 is transparant en correct afgehandeld.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'Toplantıyı ben organize ettim' — 'Ik heb de bijeenkomst georganiseerd'. De tolk vertaalt dit als 'Die bijeenkomst heeft mijn broer georganiseerd'. De organisator is daarmee veranderd van de cliënt zelf naar een derde persoon (broer). Dit is een feitelijk onjuiste weergave die de mate van persoonlijke betrokkenheid van de cliënt bij de politieke activiteit direct beïnvloedt en daarmee de asielbeslissing kan raken.\",\n          \"originalPhrase\": \"Toplantıyı ben organize ettim\",\n          \"translatedPhrase\": \"Die bijeenkomst heeft mijn broer georganiseerd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vraagt of het er 'ongeveer veertig' waren ('ongeveer veertig?'). De tolk vertaalt dit als 'yaklaşık otuz muydu?' — 'ongeveer dertig?'. Het getal is veranderd van veertig naar dertig. Dit kan de cliënt ertoe brengen zijn eigen verklaring bij te stellen of te bevestigen op basis van een onjuist getal. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.\",\n          \"originalPhrase\": \"waren het er ongeveer veertig?\",\n          \"translatedPhrase\": \"yaklaşık otuz muydu?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1071,
+    "output_tokens": 1065,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijk significante afwijkingen gesignaleerd. Bij CLIENT→AMBTENAAR paar 2 is een kritieke mistranslatie vastgesteld: de cliënt zegt 'Ben organize ettim' (ik heb de bijeenkomst georganiseerd), maar de tolk vertaalt dit als 'mijn broer heeft de bijeenkomst georganiseerd'. Dit is een feitelijke verandering van wie de organisator was, wat direct relevant is voor de beoordeling van de betrokkenheid van de cliënt bij politieke activiteiten. Bij AMBTENAAR→CLIËNT paar 2 is een feitelijke afwijking in een getal vastgesteld: de ambtenaar vraagt of het er 'ongeveer veertig' waren, maar de tolk vertaalt dit als 'ongeveer dertig'. De cliënt heeft daarna in zijn antwoord (CLIENT→AMBTENAAR paar 2) zelf 'veertig' bevestigd, maar het is onduidelijk of hij reageerde op de vraag zoals hij die hoorde (dertig) of op zijn eigen herinnering. De overige paren bevatten geen inhoudelijke afwijkingen. De toelichting van de tolk bij de idiomatische uitdrukking in CLIENT→AMBTENAAR paar 1 is transparant en correct afgehandeld.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'Toplantıyı ben organize ettim' — 'Ik heb de bijeenkomst georganiseerd'. De tolk vertaalt dit als 'Die bijeenkomst heeft mijn broer georganiseerd'. De organisator is daarmee veranderd van de cliënt zelf naar een derde persoon (broer). Dit is een feitelijk onjuiste weergave die de mate van persoonlijke betrokkenheid van de cliënt bij de politieke activiteit direct beïnvloedt en daarmee de asielbeslissing kan raken.",
+      "originalPhrase": "Toplantıyı ben organize ettim",
+      "translatedPhrase": "Die bijeenkomst heeft mijn broer georganiseerd"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vraagt of het er 'ongeveer veertig' waren ('ongeveer veertig?'). De tolk vertaalt dit als 'yaklaşık otuz muydu?' — 'ongeveer dertig?'. Het getal is veranderd van veertig naar dertig. Dit kan de cliënt ertoe brengen zijn eigen verklaring bij te stellen of te bevestigen op basis van een onjuist getal. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+      "originalPhrase": "waren het er ongeveer veertig?",
+      "translatedPhrase": "yaklaşık otuz muydu?"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

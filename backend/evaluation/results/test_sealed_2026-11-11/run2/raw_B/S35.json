@@ -1,0 +1,96 @@
+{
+ "session_id": "S35",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting zijn drie aandachtspunten gesignaleerd. Bij paar 1 maakt de tolk een zelfcorrectie (eerste nacht → tweede nacht), wat op zichzelf toegestaan is; de gecorrigeerde inhoud klopt met de brontekst. Wel ontbreekt de kwalificatie 'ağır ağır' (zwaar/ernstig) bij de vragen: de tolk vertaalt dit als 'langzaam', terwijl het Turkse 'ağır ağır' in deze context eerder 'zwaar' of 'indringend' betekent — een mogelijk betekenisverschuiving. Bij paar 2 ontbreekt de mededeling dat de cliënt het papier niet kon begrijpen omdat hem was verteld dat hij 's ochtends vrijgelaten zou worden als hij tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'): deze voorwaarde — de belofte van vrijlating als reden om te tekenen — is weggevallen in de vertolking. Dit is inhoudelijk relevant voor de beoordeling van de vrijwilligheid van de ondertekening. Bij paar 3 voegt de tolk het woord 'alleen' toe ('stond alleen een plek voor een handtekening'), terwijl de cliënt zegt 'sanırım' (ik denk/vermoed), wat een onzekerheidsvoorbehoud uitdrukt dat in de vertolking volledig ontbreekt.\\n\\nIn de AMBTENAAR→CLIËNT-richting is bij paar 1 een naamsverwisseling gesignaleerd: de ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt dit als 'Komiser Kara'. Dit is een andere naam en kan de cliënt op het verkeerde been zetten bij het beantwoorden van de vraag.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"'Ağır ağır sorular sordu' betekent in deze context dat de vragen zwaar of indringend van aard waren. De tolk vertaalt dit als 'langzaam vragen stelde', wat de nadruk legt op tempo in plaats van op de ernst of intensiteit van de ondervraging. Dit kan de indruk van de situatie voor de ambtenaar beïnvloeden.\",\n          \"originalPhrase\": \"ağır ağır sorular sordu\",\n          \"translatedPhrase\": \"stelde me langzaam vragen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt verklaart expliciet dat hem was verteld dat hij 's ochtends vrijgelaten zou worden als hij het papier tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Deze belofte van vrijlating als voorwaarde voor de ondertekening ontbreekt volledig in de vertolking. Dit is juridisch relevant voor de beoordeling van de vrijwilligheid van de handtekening.\",\n          \"originalPhrase\": \"eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt begint met 'sanırım' (ik denk/vermoed), wat een duidelijk onzekerheidsvoorbehoud uitdrukt over de inhoud van het papier. De tolk vertaalt dit als een stellige bewering ('Op dat papier stond alleen een plek voor een handtekening'), zonder enige twijfel of voorbehoud. Bovendien voegt de tolk het woord 'alleen' toe, wat niet in de brontekst staat en de uitspraak stelliger en absoluter maakt dan de cliënt bedoelde.\",\n          \"originalPhrase\": \"Sanırım o kâğıtta sadece imza yeri vardı.\",\n          \"translatedPhrase\": \"Op dat papier stond alleen een plek voor een handtekening.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt de naam als 'Komiser Kara'. Dit is een andere naam dan die de ambtenaar noemde. De cliënt kan hierdoor de vraag beantwoorden in de veronderstelling dat naar een andere persoon wordt gevraagd. De opname dient gecontroleerd te worden om vast te stellen of het om een transcriptiefout of een tolkfout gaat.\",\n          \"originalPhrase\": \"rechercheur Kaya\",\n          \"translatedPhrase\": \"Komiser Kara\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 957,
+    "output_tokens": 1573,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting zijn drie aandachtspunten gesignaleerd. Bij paar 1 maakt de tolk een zelfcorrectie (eerste nacht → tweede nacht), wat op zichzelf toegestaan is; de gecorrigeerde inhoud klopt met de brontekst. Wel ontbreekt de kwalificatie 'ağır ağır' (zwaar/ernstig) bij de vragen: de tolk vertaalt dit als 'langzaam', terwijl het Turkse 'ağır ağır' in deze context eerder 'zwaar' of 'indringend' betekent — een mogelijk betekenisverschuiving. Bij paar 2 ontbreekt de mededeling dat de cliënt het papier niet kon begrijpen omdat hem was verteld dat hij 's ochtends vrijgelaten zou worden als hij tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'): deze voorwaarde — de belofte van vrijlating als reden om te tekenen — is weggevallen in de vertolking. Dit is inhoudelijk relevant voor de beoordeling van de vrijwilligheid van de ondertekening. Bij paar 3 voegt de tolk het woord 'alleen' toe ('stond alleen een plek voor een handtekening'), terwijl de cliënt zegt 'sanırım' (ik denk/vermoed), wat een onzekerheidsvoorbehoud uitdrukt dat in de vertolking volledig ontbreekt.\n\nIn de AMBTENAAR→CLIËNT-richting is bij paar 1 een naamsverwisseling gesignaleerd: de ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt dit als 'Komiser Kara'. Dit is een andere naam en kan de cliënt op het verkeerde been zetten bij het beantwoorden van de vraag.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "'Ağır ağır sorular sordu' betekent in deze context dat de vragen zwaar of indringend van aard waren. De tolk vertaalt dit als 'langzaam vragen stelde', wat de nadruk legt op tempo in plaats van op de ernst of intensiteit van de ondervraging. Dit kan de indruk van de situatie voor de ambtenaar beïnvloeden.",
+      "originalPhrase": "ağır ağır sorular sordu",
+      "translatedPhrase": "stelde me langzaam vragen"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt verklaart expliciet dat hem was verteld dat hij 's ochtends vrijgelaten zou worden als hij het papier tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Deze belofte van vrijlating als voorwaarde voor de ondertekening ontbreekt volledig in de vertolking. Dit is juridisch relevant voor de beoordeling van de vrijwilligheid van de handtekening.",
+      "originalPhrase": "eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt begint met 'sanırım' (ik denk/vermoed), wat een duidelijk onzekerheidsvoorbehoud uitdrukt over de inhoud van het papier. De tolk vertaalt dit als een stellige bewering ('Op dat papier stond alleen een plek voor een handtekening'), zonder enige twijfel of voorbehoud. Bovendien voegt de tolk het woord 'alleen' toe, wat niet in de brontekst staat en de uitspraak stelliger en absoluter maakt dan de cliënt bedoelde.",
+      "originalPhrase": "Sanırım o kâğıtta sadece imza yeri vardı.",
+      "translatedPhrase": "Op dat papier stond alleen een plek voor een handtekening."
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt de naam als 'Komiser Kara'. Dit is een andere naam dan die de ambtenaar noemde. De cliënt kan hierdoor de vraag beantwoorden in de veronderstelling dat naar een andere persoon wordt gevraagd. De opname dient gecontroleerd te worden om vast te stellen of het om een transcriptiefout of een tolkfout gaat.",
+      "originalPhrase": "rechercheur Kaya",
+      "translatedPhrase": "Komiser Kara"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

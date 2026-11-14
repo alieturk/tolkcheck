@@ -1,0 +1,189 @@
+{
+ "session_id": "S45",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "familie en terugkeer",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S45-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u mij iets vertellen over uw gezin en wie er in Turkije nog wonen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ailenizle ilgili ve Türkiye'de hâlâ kimlerin yaşadığı hakkında bana bir şeyler anlatır mısınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S45-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Annem ve iki erkek kardeşim Konya'da yaşıyor."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn moeder en twee broers wonen in Konya."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S45-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waar woonde uw oom voordat hij naar Istanbul verhuisde?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Amcanız Ankara'ya taşınmadan önce nerede yaşıyordu?"
+   },
+   "reference_rendering": "Amcanız İstanbul'a taşınmadan önce nerede yaşıyordu?",
+   "label": "entiteitsfout",
+   "subtype": "plaats",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S45-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Amcam Kayseri'de yaşıyordu, bunu kesinlikle unutmam, çünkü orada birkaç yıl boyunca bizimle birlikte yaşadı ve ailemize çok yardım etti."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn oom woonde in Kayseri. Dat vergeet ik niet, want daar heeft hij een paar jaar bij ons gewoond en ons veel geholpen."
+   },
+   "reference_rendering": "Mijn oom woonde in Kayseri. Dat vergeet ik absoluut niet, want daar heeft hij een paar jaar bij ons gewoond en ons veel geholpen.",
+   "label": "register_en_nadruk",
+   "subtype": "nadruk_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S45-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u na het vertrek van uw oom nog contact gehad met iemand in Turkije?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Amcanız gittikten sonra Türkiye'de birileriyle temasınız oldu mu?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S45-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Amcam Istanbul'a gittikten sonra uzun süre telefonla görüştük, çünkü o bize her ay para gönderiyordu ve biz de ona ailemizin durumunu anlatıyorduk; ama geçen yıl sonra telefon kesildi ve bir daha hiç haber alamadık, bu yüzden endişeleniyoruz."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Na het vertrek van mijn oom naar Istanbul hebben we lange tijd telefonisch contact gehad. Maar daarna, vorig jaar, viel de verbinding weg en hebben we nooit meer iets van hem gehoord, daarom maken we ons zorgen."
+   },
+   "reference_rendering": "Na het vertrek van mijn oom naar Istanbul hebben we lange tijd telefonisch contact gehad, omdat hij ons elke maand geld stuurde en wij hem over onze familie vertelden. Maar daarna, vorig jaar, viel de verbinding weg en hebben we nooit meer iets van hem gehoord, daarom maken we ons zorgen.",
+   "label": "omissie",
+   "subtype": "bijzin",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S45-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Als u nu zou terugkeren naar Turkije, wie zou u dan opvangen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'ye şimdi geri dönseydiniz, sizi kim yanında barındırırdı?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S45-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Bu konuda kılı kırk yarmayayım ama kimse bize kapısını açmaz, çünkü ailemiz çok dağıldı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De tolk merkt op: 'kılı kırk yarmayayım' betekent letterlijk 'ik ga de haren niet in veertig splitsen'; ik heb het omschreven als 'ik ga er niet moeilijk over doen'. Niemand zou ons de deur openen, want ons gezin is uit elkaar gevallen."
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}

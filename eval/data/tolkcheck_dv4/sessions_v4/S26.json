@@ -1,0 +1,190 @@
+{
+ "session_id": "S26",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "documenten en identiteit",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S26-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke identiteitsdocumenten heeft u bij uw vertrek uit Turkije meegenomen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'den ayrılırken yanınızda hangi kimlik belgelerini getirdiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S26-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Nüfus cüzdanımı ve pasaportumu yanımda getirdim. Pasaport eski, 2019'da çıkarılmıştı, ama süresi hâlâ geçerliydi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik had mijn identiteitskaart en mijn paspoort bij me. Het paspoort was oud, in 2019 uitgegeven, maar het was nog steeds geldig."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S26-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u uw paspoort nog, of is het u afgenomen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Pasaportunuz hâlâ yanınızda mı, yoksa elinizden alındı mı? Ben de sormak istedim: pasaport ne zaman elinizden alındı?"
+   },
+   "reference_rendering": "Pasaportunuz hâlâ yanınızda mı, yoksa elinizden alındı mı?",
+   "label": "toevoeging",
+   "subtype": "eigen_vraag_tolk",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S26-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, pasaportumu elimden aldılar. Polis beni üç saat gözaltında tuttu, sonra da onu bana geri vermediler. Birkaç kez gidip sordum ama hep bahane buldular."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, mijn paspoort hebben ze van mij afgenomen. De politie heeft mij drie uur vastgehouden en daarna hebben ze het niet teruggegeven. Ik ben vaak gegaan om ernaar te vragen, maar ze verzonnen steeds een excuus."
+   },
+   "reference_rendering": "Ja, mijn paspoort hebben ze van mij afgenomen. De politie heeft mij drie uur vastgehouden en daarna hebben ze het niet teruggegeven. Ik ben een paar keer gegaan om ernaar te vragen, maar ze verzonnen steeds een excuus.",
+   "label": "betekenisverschuiving",
+   "subtype": "sterker_of_zwakker_gemaakt",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S26-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe lang duurde het voordat u een nieuw identiteitsbewijs kreeg?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yeni nüfus cüzdanınızı almanız kaç gün sürdü, yani ne kadar sürdü? De tolk corrigeert zich: eerst zei ik 'kaç gün' (hoeveel dagen), dat was te specifiek; de vraag gaat naar de duur in het algemeen."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S26-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Nüfus cüzdanı için yaklaşık iki hafta bekledim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb ongeveer twee maanden gewacht op de identiteitskaart."
+   },
+   "reference_rendering": "Ik heb ongeveer twee weken gewacht op de identiteitskaart.",
+   "label": "entiteitsfout",
+   "subtype": "tijdsduur",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S26-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hebt u daarna nog iets bij de autoriteiten moeten inleveren?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sonrasında yetkililere başka bir şey teslim etmek zorunda kaldınız mı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S26-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Galiba başka bir belge teslim etmedim. Sadece pasaportu ve nüfus cüzdanını polise gösterdim, sonra da onları aldılar. Ne olduğunu tam bilmiyorum, belki bir dosyaya kaldırdılar. Daha sonra karakoldan bana bir kâğıt verdiler, üzerinde sadece bir numara yazıyordu. Kendi dosyamın bir kopyasını bir avukat üzerinden aldım, o kadar."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb geen ander document ingeleverd. Alleen mijn paspoort en mijn Turkse identiteitskaart heb ik aan de politie laten zien, daarna hebben ze die ook meegenomen. Ik weet niet precies wat ermee gebeurd is, misschien hebben ze het in een dossier gestopt. Later kreeg ik bij het politiebureau een papiertje, daar stond alleen een nummer op. Een kopie van mijn eigen dossier heb ik via een advocaat gekregen, dat was alles."
+   },
+   "reference_rendering": "Volgens mij heb ik geen ander document ingeleverd. Alleen mijn paspoort en mijn Turkse identiteitskaart heb ik aan de politie laten zien, daarna hebben ze die ook meegenomen. Ik weet niet precies wat ermee gebeurd is, misschien hebben ze het in een dossier gestopt. Later kreeg ik bij het politiebureau een papiertje, daar stond alleen een nummer op. Een kopie van mijn eigen dossier heb ik via een advocaat gekregen, dat was alles.",
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  }
+ ]
+}

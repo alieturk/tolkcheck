@@ -1,0 +1,88 @@
+{
+ "session_id": "S31",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd, één in de richting client→ambtenaar en één in de richting ambtenaar→cliënt.\\n\\nClient→ambtenaar, paar 1: De cliënt zegt dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit deel weggelaten in de vertolking — er wordt alleen gezegd dat hij thuiskwam, maar niet dat hij door de politie werd aangehouden. Dit is een inhoudelijk relevante omissie, omdat de arrestatie van de broer een feitelijk element is dat het relaas van dreiging en vlucht onderbouwt.\\n\\nClient→ambtenaar, paar 3: De score is 0.768, wat aanleiding geeft tot voorzichtigheid. De tolk meldt dat een werkwoord niet duidelijk was en vraagt om herhaling — dit is op zichzelf toegestaan. De uiteindelijke vertaling is inhoudelijk grotendeels correct. Wel is er een klein verschil: de cliënt zegt 'kardeşlerimizin' (onze broers en zussen / onze zusjes en broertjes), wat de tolk vertaalt als 'onze broers en zussen'. Dit is inhoudelijk neutraal en geen afwijking.\\n\\nAmbtenaar→cliënt, paar 1: De ambtenaar vraagt uitsluitend naar wat er daarna met de broer is gebeurd. De tolk voegt een tweede vraag toe die niet door de ambtenaar is gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Dit is een inhoudelijke toevoeging die de cliënt kan aanzetten tot een antwoord op een vraag die de ambtenaar niet heeft gesteld, wat het verloop van het gehoor kan beïnvloeden.\\n\\nAmbtenaar→cliënt, paar 3: De ambtenaar vraagt 'Hoe denkt uw familie nu over een eventuele terugkeer?', wat een open en beleefde vraagvorm is. De tolk vertaalt dit als een directe opdracht: 'Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat' ('Vertel wat uw familie denkt...'). De gebiedende wijs ('anlat') is iets directer dan de originele vraagvorm, maar de inhoud is vergelijkbaar. Dit is een lichte stilistische afwijking zonder inhoudelijk gevolg.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten: er wordt alleen gezegd dat de broer thuiskwam, maar de arrestatie door de politie ontbreekt volledig in de vertolking. Dit is een feitelijk element dat het relaas van dreiging en de beslissing om te vluchten onderbouwt.\",\n          \"originalPhrase\": \"ama izinde eve geldiğinde polis onu gözaltına aldı\",\n          \"translatedPhrase\": \"maar toen hij met verlof thuiskwam\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt uitsluitend de vraag wat er daarna met de broer is gebeurd. De tolk voegt een tweede, niet door de ambtenaar gestelde vraag toe: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Deze toevoeging kan de cliënt aanzetten tot een antwoord op een vraag die de ambtenaar niet heeft gesteld en beïnvloedt daarmee het verloop van het gehoor.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu arada başka biri de sizi tehdit etti mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"low\",\n          \"description\": \"De ambtenaar stelt een open, beleefde vraag ('Hoe denkt uw familie nu over een eventuele terugkeer?'). De tolk vertaalt dit als een directe opdracht in de gebiedende wijs ('anlat' = vertel). De inhoud is vergelijkbaar, maar de toon is iets directer dan het origineel. Geen inhoudelijk gevolg.\",\n          \"originalPhrase\": \"Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?\",\n          \"translatedPhrase\": \"Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1053,
+    "output_tokens": 1548,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd, één in de richting client→ambtenaar en één in de richting ambtenaar→cliënt.\n\nClient→ambtenaar, paar 1: De cliënt zegt dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit deel weggelaten in de vertolking — er wordt alleen gezegd dat hij thuiskwam, maar niet dat hij door de politie werd aangehouden. Dit is een inhoudelijk relevante omissie, omdat de arrestatie van de broer een feitelijk element is dat het relaas van dreiging en vlucht onderbouwt.\n\nClient→ambtenaar, paar 3: De score is 0.768, wat aanleiding geeft tot voorzichtigheid. De tolk meldt dat een werkwoord niet duidelijk was en vraagt om herhaling — dit is op zichzelf toegestaan. De uiteindelijke vertaling is inhoudelijk grotendeels correct. Wel is er een klein verschil: de cliënt zegt 'kardeşlerimizin' (onze broers en zussen / onze zusjes en broertjes), wat de tolk vertaalt als 'onze broers en zussen'. Dit is inhoudelijk neutraal en geen afwijking.\n\nAmbtenaar→cliënt, paar 1: De ambtenaar vraagt uitsluitend naar wat er daarna met de broer is gebeurd. De tolk voegt een tweede vraag toe die niet door de ambtenaar is gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Dit is een inhoudelijke toevoeging die de cliënt kan aanzetten tot een antwoord op een vraag die de ambtenaar niet heeft gesteld, wat het verloop van het gehoor kan beïnvloeden.\n\nAmbtenaar→cliënt, paar 3: De ambtenaar vraagt 'Hoe denkt uw familie nu over een eventuele terugkeer?', wat een open en beleefde vraagvorm is. De tolk vertaalt dit als een directe opdracht: 'Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat' ('Vertel wat uw familie denkt...'). De gebiedende wijs ('anlat') is iets directer dan de originele vraagvorm, maar de inhoud is vergelijkbaar. Dit is een lichte stilistische afwijking zonder inhoudelijk gevolg.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten: er wordt alleen gezegd dat de broer thuiskwam, maar de arrestatie door de politie ontbreekt volledig in de vertolking. Dit is een feitelijk element dat het relaas van dreiging en de beslissing om te vluchten onderbouwt.",
+      "originalPhrase": "ama izinde eve geldiğinde polis onu gözaltına aldı",
+      "translatedPhrase": "maar toen hij met verlof thuiskwam"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar stelt uitsluitend de vraag wat er daarna met de broer is gebeurd. De tolk voegt een tweede, niet door de ambtenaar gestelde vraag toe: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Deze toevoeging kan de cliënt aanzetten tot een antwoord op een vraag die de ambtenaar niet heeft gesteld en beïnvloedt daarmee het verloop van het gehoor.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu arada başka biri de sizi tehdit etti mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "low",
+      "description": "De ambtenaar stelt een open, beleefde vraag ('Hoe denkt uw familie nu over een eventuele terugkeer?'). De tolk vertaalt dit als een directe opdracht in de gebiedende wijs ('anlat' = vertel). De inhoud is vergelijkbaar, maar de toon is iets directer dan het origineel. Geen inhoudelijk gevolg.",
+      "originalPhrase": "Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?",
+      "translatedPhrase": "Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat."
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ }
+}

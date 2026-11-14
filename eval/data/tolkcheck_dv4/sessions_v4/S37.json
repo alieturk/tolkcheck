@@ -1,0 +1,189 @@
+{
+ "session_id": "S37",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "vertrek en reisroute",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S37-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Vertelt u mij wanneer u Konya heeft verlaten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Konya'dan ne zaman ayrıldığınızı söyler misiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S37-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Konya'dan Mart ayının üçüncü günü ayrıldım. Sabah erken saatte otobüse bindim, kardeşim Murat da yanımdaydı. Bizi Ankara'ya kadar götürdü, orada kısa bir mola verdik."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ben op de derde maart uit Konya vertrokken. 's Ochtends vroeg stapte ik in de bus, mijn broer Murat zat ook naast me. De bus bracht ons tot Ankara, daar hielden we even een pauze."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S37-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe reisde u vanuit Ankara verder, en waar ging de reis naartoe?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ankara'dan nasıl devam ettiniz ve yolculuk nereye gitti? Bu yolculuğun biletini kendiniz mi aldınız?"
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_vraag_tolk",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Ankara'dan nasıl devam ettiniz ve yolculuk nereye gitti?"
+  },
+  {
+   "pair_id": "S37-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ankara'dan İstanbul'a geçtik, orada üç gün kaldık, sonra Atina'ya uçtuk."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "We zijn vanuit Ankara naar Istanbul gegaan en daar drie dagen gebleven."
+   },
+   "label": "omissie",
+   "subtype": "kernfeit",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "We zijn vanuit Ankara naar Istanbul gegaan en daar drie dagen gebleven, daarna zijn we naar Athene gevlogen."
+  },
+  {
+   "pair_id": "S37-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waarom heeft u voor Athene gekozen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Neden Atina'yı seçtiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S37-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Atina'yı seçtik çünkü orada bir tanıdığımız vardı. Konya'da kalamadık: babam bir gece evimize gelen adamlarla tartıştı, çünkü o adamlar bizi tehdit ediyordu. Bu yüzden Ankara'ya ve sonra İstanbul'a kaçtık. Atina'da kardeşimin eski arkadaşı da bizi karşılayacaktı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "We hebben Athene gekozen omdat we daar iemand kenden. We konden niet in Konya blijven: mijn vader kreeg een nacht ruzie met mannen die bij ons thuis kwamen, waardoor die mannen ons bedreigden. Daarom zijn we naar Ankara en daarna naar Istanbul gevlucht. In Athene zou ook de oude vriend van mijn broer ons opwachten."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "oorzaak_gevolg",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "We hebben Athene gekozen omdat we daar iemand kenden. We konden niet in Konya blijven: mijn vader kreeg een nacht ruzie met mannen die bij ons thuis kwamen, omdat die mannen ons bedreigden. Daarom zijn we naar Ankara en daarna naar Istanbul gevlucht. In Athene zou ook de oude vriend van mijn broer ons opwachten."
+  },
+  {
+   "pair_id": "S37-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kende u die vriend van uw broer al langer, of was dit de eerste keer dat hij u hielp?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Kardeşinizin o arkadaşını uzun zamandır tanıyor muydunuz, yoksa bu size ilk kez mi yardım ediyordu?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S37-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Onu bir düğünde tanıdık, yaklaşık on yıl önce. Daha önce bize hiç yardım etmemişti, ama bu sefer Atina'da bir ev ve iş bulabileceğini söyledi. Soyadını tam hatırlamıyorum, Kemal diye tanıyorum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb hem ongeveer tien jaar geleden op een bruiloft leren kennen. Hij heeft ons daarvoor nooit geholpen, maar nu zei hij dat hij in Athene een huis en werk kon regelen. Zijn achternaam weet ik niet meer. Ik heb de voornaam niet goed verstaan en vraag de cliënt die nog één keer te herhalen. De tolk merkt op dat dit onduidelijk was en dat de hoorambtenaar hiervan is meegedeeld."
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "session_id": "S22",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier paren beoordeeld in de richting cliënt→ambtenaar en vier in de richting ambtenaar→cliënt. De belangrijkste bevinding betreft paar 0 (cliënt→ambtenaar): de cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een datumverschil dat het tijdlijnrelaas in het dossier beïnvloedt en als critical is aangemerkt. De opname dient op dit punt gecontroleerd te worden. In paar 1 (cliënt→ambtenaar) ontbreekt de bijzin dat de echtgenoot die ochtend de kinderen naar school had gebracht; deze context verklaart in de brontekst waarom de cliënt niet meteen de politie belde en is inhoudelijk relevant. In paar 2 (cliënt→ambtenaar) vertaalt de tolk 'Bir hafta sonra' (een week later) als 'een week eerder', wat een tegengestelde tijdsaanduiding oplevert. In paar 2 (ambtenaar→cliënt) meldt de tolk expliciet dat het tweede deel van de vraag niet verstaanbaar was en vraagt om herhaling; dit is een toegestane tolkhandeling en levert geen afwijking op. De overige paren bevatten geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een maandverschil in de datum van de eerste dreigingstelefoontje, wat de tijdlijn in het dossier beïnvloedt. De opname dient op dit punt gecontroleerd te worden.\",\n          \"originalPhrase\": \"14 Mart'ta\",\n          \"translatedPhrase\": \"14 april\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt verklaart dat zijn/haar partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'). Deze bijzin ontbreekt in de vertolking. De context is inhoudelijk relevant omdat de cliënt er in de brontekst expliciet aan koppelt waarom hij/zij eerst zelf nadacht en de politie niet meteen belde ('bu yüzden').\",\n          \"originalPhrase\": \"ama o sabah çocukları okula bırakmıştı; bu yüzden\",\n          \"translatedPhrase\": \"daarom\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'Bir hafta sonra' (een week later/daarna), maar de tolk vertaalt dit als 'een week eerder'. Dit is een tegengestelde tijdsaanduiding: de cliënt beschrijft een opeenvolging van gebeurtenissen ná de publicatie, terwijl de vertolking suggereert dat het bezoek aan de deur vóór de telefoontjes plaatsvond.\",\n          \"originalPhrase\": \"Bir hafta sonra da kapıya bir adam geldi\",\n          \"translatedPhrase\": \"Een week eerder kwam er ook een man aan de deur\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk meldt expliciet dat het tweede deel van de vraag niet goed verstaanbaar was en vraagt de hoorambtenaar om herhaling. Dit is een toegestane tolkhandeling; de vraag is daardoor niet volledig doorgegeven, maar dit is geen tolkfout.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Affedersiniz, sorunun ikinci kısmını tam duyamadım, tekrar eder misiniz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 999,
+    "output_tokens": 1334,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier paren beoordeeld in de richting cliënt→ambtenaar en vier in de richting ambtenaar→cliënt. De belangrijkste bevinding betreft paar 0 (cliënt→ambtenaar): de cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een datumverschil dat het tijdlijnrelaas in het dossier beïnvloedt en als critical is aangemerkt. De opname dient op dit punt gecontroleerd te worden. In paar 1 (cliënt→ambtenaar) ontbreekt de bijzin dat de echtgenoot die ochtend de kinderen naar school had gebracht; deze context verklaart in de brontekst waarom de cliënt niet meteen de politie belde en is inhoudelijk relevant. In paar 2 (cliënt→ambtenaar) vertaalt de tolk 'Bir hafta sonra' (een week later) als 'een week eerder', wat een tegengestelde tijdsaanduiding oplevert. In paar 2 (ambtenaar→cliënt) meldt de tolk expliciet dat het tweede deel van de vraag niet verstaanbaar was en vraagt om herhaling; dit is een toegestane tolkhandeling en levert geen afwijking op. De overige paren bevatten geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een maandverschil in de datum van de eerste dreigingstelefoontje, wat de tijdlijn in het dossier beïnvloedt. De opname dient op dit punt gecontroleerd te worden.",
+      "originalPhrase": "14 Mart'ta",
+      "translatedPhrase": "14 april"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt verklaart dat zijn/haar partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'). Deze bijzin ontbreekt in de vertolking. De context is inhoudelijk relevant omdat de cliënt er in de brontekst expliciet aan koppelt waarom hij/zij eerst zelf nadacht en de politie niet meteen belde ('bu yüzden').",
+      "originalPhrase": "ama o sabah çocukları okula bırakmıştı; bu yüzden",
+      "translatedPhrase": "daarom"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'Bir hafta sonra' (een week later/daarna), maar de tolk vertaalt dit als 'een week eerder'. Dit is een tegengestelde tijdsaanduiding: de cliënt beschrijft een opeenvolging van gebeurtenissen ná de publicatie, terwijl de vertolking suggereert dat het bezoek aan de deur vóór de telefoontjes plaatsvond.",
+      "originalPhrase": "Bir hafta sonra da kapıya bir adam geldi",
+      "translatedPhrase": "Een week eerder kwam er ook een man aan de deur"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "low",
+      "description": "De tolk meldt expliciet dat het tweede deel van de vraag niet goed verstaanbaar was en vraagt de hoorambtenaar om herhaling. Dit is een toegestane tolkhandeling; de vraag is daardoor niet volledig doorgegeven, maar dit is geen tolkfout.",
+      "originalPhrase": "",
+      "translatedPhrase": "Affedersiniz, sorunun ikinci kısmını tam duyamadım, tekrar eder misiniz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S22-P01",
+   "S22-P03",
+   "S22-P05",
+   "S22-P07"
+  ],
+  "client_to_officer": [
+   "S22-P02",
+   "S22-P04",
+   "S22-P06",
+   "S22-P08"
+  ]
+ }
+}

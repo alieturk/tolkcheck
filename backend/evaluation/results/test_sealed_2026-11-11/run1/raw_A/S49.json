@@ -1,0 +1,88 @@
+{
+ "session_id": "S49",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijk significante afwijkingen gesignaleerd.\\n\\nTen eerste, bij CLIENT→AMBTENAAR paar 2 (gelijkenis: 0.862) is er een kritieke inhoudelijke fout: de cliënt zegt in het Turks 'Hayır, o kağıdı hiçbir zaman imzalamadım' — 'Nee, dat papier heb ik nooit ondertekend.' De tolk vertaalt dit echter als 'Nee, dat papier heb ik wel ondertekend.' De ontkenning ('hiçbir zaman imzalamadım' = heb ik nooit ondertekend) is omgekeerd naar een bevestiging. Dit is een kritieke afwijking omdat het een feitelijk gegeven betreft dat direct relevant is voor het relaas: of de cliënt al dan niet een document heeft ondertekend onder druk.\\n\\nTen tweede, bij AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.763) is de naam van de agent veranderd: de ambtenaar vraagt naar 'agent Yılmaz', maar de tolk vertaalt dit als 'memur Yıldırım'. Dit zijn twee verschillende namen. De cliënt krijgt dus een andere naam voorgelegd dan de ambtenaar bedoelde. Dit kan de asielbeslissing raken als de identiteit van de verhorende agent relevant is voor het relaas. De opname dient gecontroleerd te worden om vast te stellen welke naam de ambtenaar daadwerkelijk noemde.\\n\\nBij AMBTENAAR→CLIËNT paar 2 (gelijkenis: 0.285) heeft de tolk gemeld dat de laatste woorden van de vraag niet verstaanbaar waren en heeft verzocht om herhaling. Dit is een toegestane tolkhandeling en wordt niet als afwijking aangemerkt; het fragment is inhoudelijk niet beoordeelbaar.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt expliciet dat hij het papier nooit heeft ondertekend ('hiçbir zaman imzalamadım' = heb ik nooit ondertekend). De tolk vertaalt dit als 'heb ik wel ondertekend', waarmee de ontkenning volledig wordt omgekeerd naar een bevestiging. Dit raakt een feitelijk gegeven dat direct relevant is voor het relaas over ondertekening onder druk.\",\n          \"originalPhrase\": \"Hayır, o kağıdı hiçbir zaman imzalamadım.\",\n          \"translatedPhrase\": \"Nee, dat papier heb ik wel ondertekend.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vraagt naar 'agent Yılmaz', maar de tolk vertaalt dit als 'memur Yıldırım'. Dit zijn twee verschillende namen. De cliënt krijgt een andere naam voorgelegd dan de ambtenaar bedoelde. De opname dient gecontroleerd te worden om vast te stellen welke naam de ambtenaar daadwerkelijk noemde, aangezien de identiteit van de verhorende agent relevant kan zijn voor het relaas.\",\n          \"originalPhrase\": \"agent Yılmaz\",\n          \"translatedPhrase\": \"memur Yıldırım\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"false-negative\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk heeft gemeld dat de laatste woorden van de vraag niet verstaanbaar waren en heeft de hoorambtenaar verzocht de vraag te herhalen. Dit is een toegestane tolkhandeling. Het fragment is inhoudelijk niet beoordeelbaar wegens transcriptiekwaliteit en/of onverstaanbaarheid van de bron.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1168,
+    "output_tokens": 1337,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijk significante afwijkingen gesignaleerd.\n\nTen eerste, bij CLIENT→AMBTENAAR paar 2 (gelijkenis: 0.862) is er een kritieke inhoudelijke fout: de cliënt zegt in het Turks 'Hayır, o kağıdı hiçbir zaman imzalamadım' — 'Nee, dat papier heb ik nooit ondertekend.' De tolk vertaalt dit echter als 'Nee, dat papier heb ik wel ondertekend.' De ontkenning ('hiçbir zaman imzalamadım' = heb ik nooit ondertekend) is omgekeerd naar een bevestiging. Dit is een kritieke afwijking omdat het een feitelijk gegeven betreft dat direct relevant is voor het relaas: of de cliënt al dan niet een document heeft ondertekend onder druk.\n\nTen tweede, bij AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.763) is de naam van de agent veranderd: de ambtenaar vraagt naar 'agent Yılmaz', maar de tolk vertaalt dit als 'memur Yıldırım'. Dit zijn twee verschillende namen. De cliënt krijgt dus een andere naam voorgelegd dan de ambtenaar bedoelde. Dit kan de asielbeslissing raken als de identiteit van de verhorende agent relevant is voor het relaas. De opname dient gecontroleerd te worden om vast te stellen welke naam de ambtenaar daadwerkelijk noemde.\n\nBij AMBTENAAR→CLIËNT paar 2 (gelijkenis: 0.285) heeft de tolk gemeld dat de laatste woorden van de vraag niet verstaanbaar waren en heeft verzocht om herhaling. Dit is een toegestane tolkhandeling en wordt niet als afwijking aangemerkt; het fragment is inhoudelijk niet beoordeelbaar.\n\nDe overige paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt expliciet dat hij het papier nooit heeft ondertekend ('hiçbir zaman imzalamadım' = heb ik nooit ondertekend). De tolk vertaalt dit als 'heb ik wel ondertekend', waarmee de ontkenning volledig wordt omgekeerd naar een bevestiging. Dit raakt een feitelijk gegeven dat direct relevant is voor het relaas over ondertekening onder druk.",
+      "originalPhrase": "Hayır, o kağıdı hiçbir zaman imzalamadım.",
+      "translatedPhrase": "Nee, dat papier heb ik wel ondertekend."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vraagt naar 'agent Yılmaz', maar de tolk vertaalt dit als 'memur Yıldırım'. Dit zijn twee verschillende namen. De cliënt krijgt een andere naam voorgelegd dan de ambtenaar bedoelde. De opname dient gecontroleerd te worden om vast te stellen welke naam de ambtenaar daadwerkelijk noemde, aangezien de identiteit van de verhorende agent relevant kan zijn voor het relaas.",
+      "originalPhrase": "agent Yılmaz",
+      "translatedPhrase": "memur Yıldırım"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "false-negative",
+      "severity": "low",
+      "description": "De tolk heeft gemeld dat de laatste woorden van de vraag niet verstaanbaar waren en heeft de hoorambtenaar verzocht de vraag te herhalen. Dit is een toegestane tolkhandeling. Het fragment is inhoudelijk niet beoordeelbaar wegens transcriptiekwaliteit en/of onverstaanbaarheid van de bron.",
+      "originalPhrase": "",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

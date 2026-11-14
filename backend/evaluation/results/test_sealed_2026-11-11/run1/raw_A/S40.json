@@ -1,0 +1,88 @@
+{
+ "session_id": "S40",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn drie inhoudelijke afwijkingen gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 0:** De cliënt zei 'nadiren' (zelden/zelden), maar de tolk vertaalde dit als 'nooit'. Dit is een betekenisverschil: zelden is niet hetzelfde als nooit. De semantische score is 0.939, wat normaal geen signalering rechtvaardigt, maar het verschil tussen 'zelden' en 'nooit' is inhoudelijk relevant voor een identiteitsdocumentendossier. Dit wordt hieronder als low gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 3:** De tolk meldt een verduidelijkingsvraag aan de hoorambtenaar en vraagt de cliënt het woord 'bekletildim' te herhalen. Dit is een toegestane tolkhandeling (melding van onduidelijkheid). De vertaling zelf bevat echter een kleine afwijking: 'daarna mochten ze me doorlaten' in plaats van 'daarna mochten ze mij doorlaten' — dit is slechts stijl. Verder staat 'mochten ze me doorlaten' terwijl de cliënt zei 'geçmeme izin verdiler' (ze lieten mij passeren/doorlaten). Inhoudelijk geen afwijking. De tolkmelding zelf is geen afwijking.\\n\\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vroeg uitsluitend naar een nieuw document bij de gemeente in de woonplaats. De tolk voegde 'en de consulaat in Ankara' toe, wat niet in de oorspronkelijke vraag stond. Dit is een toevoeging die de vraag inhoudelijk uitbreidt en de cliënt mogelijk op een ander spoor zet.\\n\\n**AMBTENAAR→CLIËNT, paar 2:** De ambtenaar vroeg 'twee weken of langer'. De tolk vertaalde dit als 'twee maanden of langer'. Dit is een inhoudelijke fout: weken versus maanden is een significant tijdsverschil dat de cliënt een verkeerde tijdsindicatie geeft en zijn antwoord kan beïnvloeden.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"low\",\n          \"description\": \"'Nadiren' betekent 'zelden' of 'zelden/nauwelijks', maar de tolk vertaalde dit als 'nooit'. Hoewel de semantische score hoog is (0.939), is het onderscheid tussen 'zelden' en 'nooit' inhoudelijk relevant in de context van het dragen van identiteitsdocumenten. De opname kan worden gecontroleerd om te bevestigen welk woord de cliënt gebruikte.\",\n          \"originalPhrase\": \"nadiren yanımda taşıyordum\",\n          \"translatedPhrase\": \"droeg ik nooit bij me\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vroeg alleen naar een nieuw document bij de gemeente in de woonplaats. De tolk voegde 've Ankara'daki konsolosluktan' (en de consulaat in Ankara) toe, wat niet in de oorspronkelijke vraag stond. Deze toevoeging breidt de vraag inhoudelijk uit en kan de cliënt ertoe brengen te antwoorden over een consulaat in Ankara, terwijl de ambtenaar daar niet naar vroeg.\",\n          \"originalPhrase\": \"bij de gemeente in uw woonplaats\",\n          \"translatedPhrase\": \"yerel belediyeden ve Ankara'daki konsolosluktan\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vroeg 'twee weken of langer'. De tolk vertaalde dit als 'twee maanden of langer' (iki ay). Dit is een significant tijdsverschil: weken versus maanden. De cliënt krijgt hierdoor een onjuiste tijdsindicatie voorgelegd, wat zijn antwoord over de duur van de procedure direct kan beïnvloeden.\",\n          \"originalPhrase\": \"twee weken of langer\",\n          \"translatedPhrase\": \"iki ay mı yoksa daha uzun mu\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1089,
+    "output_tokens": 1415,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn drie inhoudelijke afwijkingen gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 0:** De cliënt zei 'nadiren' (zelden/zelden), maar de tolk vertaalde dit als 'nooit'. Dit is een betekenisverschil: zelden is niet hetzelfde als nooit. De semantische score is 0.939, wat normaal geen signalering rechtvaardigt, maar het verschil tussen 'zelden' en 'nooit' is inhoudelijk relevant voor een identiteitsdocumentendossier. Dit wordt hieronder als low gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 3:** De tolk meldt een verduidelijkingsvraag aan de hoorambtenaar en vraagt de cliënt het woord 'bekletildim' te herhalen. Dit is een toegestane tolkhandeling (melding van onduidelijkheid). De vertaling zelf bevat echter een kleine afwijking: 'daarna mochten ze me doorlaten' in plaats van 'daarna mochten ze mij doorlaten' — dit is slechts stijl. Verder staat 'mochten ze me doorlaten' terwijl de cliënt zei 'geçmeme izin verdiler' (ze lieten mij passeren/doorlaten). Inhoudelijk geen afwijking. De tolkmelding zelf is geen afwijking.\n\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vroeg uitsluitend naar een nieuw document bij de gemeente in de woonplaats. De tolk voegde 'en de consulaat in Ankara' toe, wat niet in de oorspronkelijke vraag stond. Dit is een toevoeging die de vraag inhoudelijk uitbreidt en de cliënt mogelijk op een ander spoor zet.\n\n**AMBTENAAR→CLIËNT, paar 2:** De ambtenaar vroeg 'twee weken of langer'. De tolk vertaalde dit als 'twee maanden of langer'. Dit is een inhoudelijke fout: weken versus maanden is een significant tijdsverschil dat de cliënt een verkeerde tijdsindicatie geeft en zijn antwoord kan beïnvloeden.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "low",
+      "description": "'Nadiren' betekent 'zelden' of 'zelden/nauwelijks', maar de tolk vertaalde dit als 'nooit'. Hoewel de semantische score hoog is (0.939), is het onderscheid tussen 'zelden' en 'nooit' inhoudelijk relevant in de context van het dragen van identiteitsdocumenten. De opname kan worden gecontroleerd om te bevestigen welk woord de cliënt gebruikte.",
+      "originalPhrase": "nadiren yanımda taşıyordum",
+      "translatedPhrase": "droeg ik nooit bij me"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar vroeg alleen naar een nieuw document bij de gemeente in de woonplaats. De tolk voegde 've Ankara'daki konsolosluktan' (en de consulaat in Ankara) toe, wat niet in de oorspronkelijke vraag stond. Deze toevoeging breidt de vraag inhoudelijk uit en kan de cliënt ertoe brengen te antwoorden over een consulaat in Ankara, terwijl de ambtenaar daar niet naar vroeg.",
+      "originalPhrase": "bij de gemeente in uw woonplaats",
+      "translatedPhrase": "yerel belediyeden ve Ankara'daki konsolosluktan"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vroeg 'twee weken of langer'. De tolk vertaalde dit als 'twee maanden of langer' (iki ay). Dit is een significant tijdsverschil: weken versus maanden. De cliënt krijgt hierdoor een onjuiste tijdsindicatie voorgelegd, wat zijn antwoord over de duur van de procedure direct kan beïnvloeden.",
+      "originalPhrase": "twee weken of langer",
+      "translatedPhrase": "iki ay mı yoksa daha uzun mu"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

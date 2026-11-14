@@ -1,0 +1,190 @@
+{
+ "session_id": "S44",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "vertrek en reisroute",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S44-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u mij vertellen wanneer u Turkije heeft verlaten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'den ne zaman ayrıldığınızı bana anlatabilir misiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S44-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Eylül ayında, yaklaşık iki yıl önce ayrıldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ben in september vertrokken, ongeveer twee jaar geleden."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S44-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hebt u het paspoort misschien zelf aangevraagd, of hebt u dat laten regelen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Pasaportu kendiniz mi aldınız, yoksa bunu birine mi ayarlattınız?"
+   },
+   "reference_rendering": "Pasaportu muhtemelen kendiniz mi aldınız, yoksa bunu birine mi ayarlattınız?",
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S44-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Pasaportu o gün bir tanıdığım aracılığıyla aldım ve hemen ayrıldım, çünkü polis adımı bir listeye yazmıştı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb het paspoort die dag via een kennis gekregen en ben meteen vertrokken, waardoor de politie mijn naam op een lijst had gezet."
+   },
+   "reference_rendering": "Ik heb het paspoort die dag via een kennis gekregen en ben meteen vertrokken, omdat de politie mijn naam op een lijst had gezet.",
+   "label": "betekenisverschuiving",
+   "subtype": "oorzaak_gevolg",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S44-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke route hebt u daarna gevolgd, van de grens tot Nederland?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ondan sonra Hollanda'ya kadar hangi güzergâhı izlediniz?"
+   },
+   "reference_rendering": "Ondan sonra sınırdan Hollanda'ya kadar hangi güzergâhı izlediniz?",
+   "label": "omissie",
+   "subtype": "detail",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S44-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Önce otobüsle Edirne'ye gittim, orada iki gece kaldım. Sonra bir kamyonun arka kısmında, yaklaşık bir gün boyunca, Yunanistan sınırını geçtik. Yanımda sadece küçük bir çanta vardı ve telefonumu kapattım, çünkü yolda izlendiğimizi düşünüyorduk. Atina'dan sonra uçakla Brüksel'e, oradan da trenle buraya geldim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Eerst ging ik met de bus naar Edirne, een stad in het noordwesten van Turkije, dicht bij de grens, en daar bleef ik twee nachten. Daarna reisden we ongeveer een dag lang achterin een vrachtwagen en staken we de Griekse grens over. Ik had alleen een kleine tas bij me en ik zette mijn telefoon uit, omdat we dachten dat we onderweg in de gaten werden gehouden. Van Athene ging ik met het vliegtuig naar Brussel, en van daar ben ik met de trein hierheen gekomen."
+   },
+   "reference_rendering": "Eerst ging ik met de bus naar Edirne, en daar bleef ik twee nachten. Daarna reisden we ongeveer een dag lang achterin een vrachtwagen en staken we de Griekse grens over. Ik had alleen een kleine tas bij me en ik zette mijn telefoon uit, omdat we dachten dat we onderweg in de gaten werden gehouden. Van Athene ging ik met het vliegtuig naar Brussel, en van daar ben ik met de trein hierheen gekomen.",
+   "label": "toevoeging",
+   "subtype": "eigen_uitleg_tolk",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S44-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Bent u vanuit Athene rechtstreeks naar Brussel gevlogen, of via een andere stad?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Atina'dan doğrudan İstanbul'a, affedersiniz, Brüksel'e mi uçtunuz, yoksa başka bir şehir üzerinden mi? [De tolk corrigeert zich: eerst zei ik 'İstanbul', dat is een vergissing; het gaat om Brüksel.]"
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S44-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Doğrudan Brüksel'e uçtum, ara bir yerde durmadan. Orada bir tanıdığımın adresi vardı ve oradan trenle buraya geldim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik vloog direct naar Brussel, zonder ergens tussen te stoppen. Daar had ik het adres van een kennis, en van daaruit ben ik met de trein hierheen gekomen."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

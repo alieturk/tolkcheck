@@ -1,0 +1,93 @@
+{
+ "session_id": "S26",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de geanalyseerde fragmenten zijn twee inhoudelijke afwijkingen gesignaleerd.\\n\\nTen eerste, in CLIENT→AMBTENAAR paar 2 (gelijkenis: 0.779), vertaalt de tolk 'yaklaşık iki hafta' (ongeveer twee weken) als 'ongeveer twee maanden'. Dit is een feitelijke afwijking in de wachttijd voor de identiteitskaart: twee weken versus twee maanden is een aanzienlijk verschil dat relevant kan zijn voor de beoordeling van het relaas.\\n\\nTen tweede, in AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.856), voegt de tolk een eigen vraag toe aan de vertaling van de ambtenaarsvraag: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' (Ik wilde ook vragen: wanneer is het paspoort u afgenomen?). De originele vraag van de ambtenaar bevat deze toevoeging niet. De tolk stelt hier zelfstandig een aanvullende vraag, wat buiten de rol van de tolk valt en de cliënt een andere vraag voorlegt dan de ambtenaar heeft gesteld.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"'Yaklaşık iki hafta' betekent 'ongeveer twee weken', maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een feitelijk verschil in tijdsduur dat relevant kan zijn voor de beoordeling van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven.\",\n          \"originalPhrase\": \"yaklaşık iki hafta\",\n          \"translatedPhrase\": \"ongeveer twee maanden\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt een eigen aanvullende vraag toe die niet door de ambtenaar is gesteld: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' (Ik wilde ook vragen: wanneer is het paspoort u afgenomen?). De ambtenaar vroeg alleen of de cliënt het paspoort nog heeft of dat het is afgenomen. Door deze toevoeging legt de tolk zelfstandig een extra vraag voor aan de cliënt, wat buiten de tolkrol valt en de cliënt een andere vraagstelling voorlegt dan de ambtenaar bedoelde.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Ben de sormak istedim: pasaport ne zaman elinizden alındı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1138,
+    "output_tokens": 1027,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1871
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de geanalyseerde fragmenten zijn twee inhoudelijke afwijkingen gesignaleerd.\n\nTen eerste, in CLIENT→AMBTENAAR paar 2 (gelijkenis: 0.779), vertaalt de tolk 'yaklaşık iki hafta' (ongeveer twee weken) als 'ongeveer twee maanden'. Dit is een feitelijke afwijking in de wachttijd voor de identiteitskaart: twee weken versus twee maanden is een aanzienlijk verschil dat relevant kan zijn voor de beoordeling van het relaas.\n\nTen tweede, in AMBTENAAR→CLIËNT paar 1 (gelijkenis: 0.856), voegt de tolk een eigen vraag toe aan de vertaling van de ambtenaarsvraag: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' (Ik wilde ook vragen: wanneer is het paspoort u afgenomen?). De originele vraag van de ambtenaar bevat deze toevoeging niet. De tolk stelt hier zelfstandig een aanvullende vraag, wat buiten de rol van de tolk valt en de cliënt een andere vraag voorlegt dan de ambtenaar heeft gesteld.\n\nDe overige paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "'Yaklaşık iki hafta' betekent 'ongeveer twee weken', maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een feitelijk verschil in tijdsduur dat relevant kan zijn voor de beoordeling van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven.",
+      "originalPhrase": "yaklaşık iki hafta",
+      "translatedPhrase": "ongeveer twee maanden"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt een eigen aanvullende vraag toe die niet door de ambtenaar is gesteld: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' (Ik wilde ook vragen: wanneer is het paspoort u afgenomen?). De ambtenaar vroeg alleen of de cliënt het paspoort nog heeft of dat het is afgenomen. Door deze toevoeging legt de tolk zelfstandig een extra vraag voor aan de cliënt, wat buiten de tolkrol valt en de cliënt een andere vraagstelling voorlegt dan de ambtenaar bedoelde.",
+      "originalPhrase": "",
+      "translatedPhrase": "Ben de sormak istedim: pasaport ne zaman elinizden alındı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S26-P01",
+   "S26-P03",
+   "S26-P05",
+   "S26-P07"
+  ],
+  "client_to_officer": [
+   "S26-P02",
+   "S26-P04",
+   "S26-P06",
+   "S26-P08"
+  ]
+ }
+}

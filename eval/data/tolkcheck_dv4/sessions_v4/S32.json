@@ -1,0 +1,190 @@
+{
+ "session_id": "S32",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "werk en politieke activiteiten",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S32-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u mij vertellen waar u in Turkije werkte voordat u het land verliet?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'de ülkeden ayrılmadan önce nerede çalışıyordunuz, bana anlatabilir misiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S32-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Galiba üç yıl kadar bir tekstil atölyesinde çalıştım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb ongeveer drie jaar in een textielatelier gewerkt."
+   },
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Ik heb, denk ik, ongeveer drie jaar in een textielatelier gewerkt."
+  },
+  {
+   "pair_id": "S32-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat deed u precies in dat atelier, en hoe kwam u daar terecht?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Atölyede tam olarak ne iş yapıyordunuz ve oraya nasıl gir— nasıl geldiniz? [De tolk corrigeert zich: 'gir-' was een verspreking, direct verbeterd naar 'geldiniz'.]"
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S32-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Partinin afişlerini ben asmıştım, Murat ise bildiriler dağıtmıştı. Birkaç gün sonra polis geldi ve ikimizi de karakola götürdü."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik had de posters van de partij opgehangen, ik had de flyers uitgedeeld. Een paar dagen later kwam de politie en bracht ons allebei naar het bureau."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "wie_deed_wat",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Ik had de posters van de partij opgehangen, Murat had de flyers uitgedeeld. Een paar dagen later kwam de politie en bracht ons allebei naar het bureau."
+  },
+  {
+   "pair_id": "S32-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U noemde zojuist vijf collega's in het atelier. Hoeveel van hen waren ook lid van die partij?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Az önce atölyede üç arkadaş saydınız. Bunlardan kaçı da o partinin üyesiydi?"
+   },
+   "label": "entiteitsfout",
+   "subtype": "aantal",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Az önce atölyede beş arkadaş saydınız. Bunlardan kaçı da o partinin üyesiydi?"
+  },
+  {
+   "pair_id": "S32-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Partinin toplantılarına ayda bir, genellikle cumartesi günleri giderdim. Toplantılar bir kahvehanede yapılıyordu, orada bildiriler dağıtıyorduk ve gelen herkese çay ikram ediyorduk. Bir keresinde, Haziran ayında, yetkililer gelip bizi uyardı ve sonra da kayıtlarımızı aldılar. Ertesi gün işten çıkarıldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ging naar de vergaderingen van de partij. De bijeenkomsten werden in een koffiehuis gehouden; daar verspreidden we flyers en schonken we thee aan iedereen die kwam. Eén keer, in juni, kwamen de autoriteiten langs, waarschuwden ons en namen daarna onze gegevens op. De volgende dag werd ik ontslagen."
+   },
+   "label": "omissie",
+   "subtype": "detail",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Ik ging elke maand, meestal op zaterdag, naar de vergaderingen van de partij. De bijeenkomsten werden in een koffiehuis gehouden; daar verspreidden we flyers en schonken we thee aan iedereen die kwam. Eén keer, in juni, kwamen de autoriteiten langs, waarschuwden ons en namen daarna onze gegevens op. De volgende dag werd ik ontslagen."
+  },
+  {
+   "pair_id": "S32-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe is het na uw ontslag verder gegaan met u en uw gezin?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İşten çıkarıldıktan sonra sizin ve ailenizin durumu nasıl oldu?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S32-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ailem korkmaya başladı, ben de bir süre Bursa'da bir akrabamın evinde kaldım. Sonra bu yılın başında Türkiye'den ayrılmaya karar verdim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn familie begon bang te worden, en ik verbleef een tijdje bij een familielid in Bursa. Daarna besloot ik aan het begin van dit jaar Turkije te verlaten."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

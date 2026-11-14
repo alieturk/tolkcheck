@@ -1,0 +1,72 @@
+{
+ "session_id": "S38",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd in de client→ambtenaar richting. Bij paar 0 vertaalt de tolk 'Adana' als 'Antalya': dit zijn twee verschillende Turkse steden en de verwisseling is een feitelijke fout die het relaas over de verblijfplaats van de familie raakt. Bij paar 3 corrigeert de tolk zichzelf van 'broer' naar 'zus' en meldt dit expliciet; dit is een toegestane zelfcorrectie en vormt geen afwijking. De overige paren in beide richtingen vertonen geen inhoudelijke afwijkingen. Bij de ambtenaar→cliënt paren is paar 1 iets omschrijvender geformuleerd ('öğrenebilir miyim' — 'mag ik weten'), maar de inhoud van de vraag is volledig overgebracht en dit heeft geen inhoudelijk gevolg.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt 'Adana' als de stad waarnaar het gezin verhuisde, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. De verblijfplaats van de familie is een feitelijk gegeven dat relevant kan zijn voor de beoordeling van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.\",\n          \"originalPhrase\": \"2019'da Adana'ya taşındık\",\n          \"translatedPhrase\": \"zijn we in 2019 naar Antalya verhuisd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1116,
+    "output_tokens": 736,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd in de client→ambtenaar richting. Bij paar 0 vertaalt de tolk 'Adana' als 'Antalya': dit zijn twee verschillende Turkse steden en de verwisseling is een feitelijke fout die het relaas over de verblijfplaats van de familie raakt. Bij paar 3 corrigeert de tolk zichzelf van 'broer' naar 'zus' en meldt dit expliciet; dit is een toegestane zelfcorrectie en vormt geen afwijking. De overige paren in beide richtingen vertonen geen inhoudelijke afwijkingen. Bij de ambtenaar→cliënt paren is paar 1 iets omschrijvender geformuleerd ('öğrenebilir miyim' — 'mag ik weten'), maar de inhoud van de vraag is volledig overgebracht en dit heeft geen inhoudelijk gevolg.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt 'Adana' als de stad waarnaar het gezin verhuisde, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. De verblijfplaats van de familie is een feitelijk gegeven dat relevant kan zijn voor de beoordeling van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+      "originalPhrase": "2019'da Adana'ya taşındık",
+      "translatedPhrase": "zijn we in 2019 naar Antalya verhuisd"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

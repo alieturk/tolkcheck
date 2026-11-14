@@ -1,0 +1,109 @@
+{
+ "session_id": "S20",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting en één in de AMBTENAAR→CLIËNT-richting.\\n\\n**CLIENT→AMBTENAAR:**\\n\\n- Paar 1 (critical): De cliënt zegt uitdrukkelijk dat hij die dag GEEN wapen droeg ('hiç silah taşımadım'). De tolk vertaalt dit als 'droeg ik een wapen', waarmee de ontkenning volledig wegvalt. Dit is een inhoudelijke omkering van een feitelijke verklaring die direct relevant is voor de asielbeslissing.\\n\\n- Paar 2 (medium): De cliënt voegt aan het einde toe dat hij gedwongen was te tekenen ('imzalamak zorunda kaldım' — 'ik was gedwongen te tekenen'). De tolk laat dit dwangelement weg en eindigt met alleen de constatering dat het een onleesbaar papier was. Het element van dwang ontbreekt in de vertolking.\\n\\n- Paar 3 (medium): De cliënt noemt de naam 'Serkan Aydın'; de tolk vertaalt dit als 'Serkan Altun'. Dit kan een transcriptiefout zijn, maar de opname dient gecontroleerd te worden om vast te stellen welke naam correct is, aangezien namen in een dossier juridisch relevant kunnen zijn.\\n\\n**AMBTENAAR→CLIËNT:**\\n\\n- Paar 1 (high): De ambtenaar stelt één gesloten vraag: waarom de politie de cliënt destijds meenam. De tolk voegt een tweede, zelfstandige vraag toe: 'Van welke vereniging was u lid?' ('hangi derneğin üyesiydiniz?'). Dit is een eigen toevoeging van de tolk die niet in de oorspronkelijke vraag staat en de cliënt in een andere richting kan sturen dan de ambtenaar beoogde.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt expliciet dat hij die dag GEEN wapen droeg ('hiç silah taşımadım' — 'hiç' betekent 'helemaal niet/nooit'). De tolk vertaalt dit als 'droeg ik een wapen', waarmee de ontkenning volledig is omgekeerd. Dit is een inhoudelijk tegengestelde vertaling van een feitelijke verklaring.\",\n          \"originalPhrase\": \"hiç silah taşımadım\",\n          \"translatedPhrase\": \"droeg ik een wapen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt voegt aan het einde toe dat hij gedwongen was te tekenen ('imzalamak zorunda kaldım' — 'ik was gedwongen te tekenen'). De tolk laat dit dwangelement weg en eindigt met alleen de constatering dat het een onleesbaar papier was. Het element van dwang is inhoudelijk relevant voor het relaas.\",\n          \"originalPhrase\": \"yine de imzalamak zorunda kaldım\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt noemt de naam 'Serkan Aydın'; de tolk vertaalt dit als 'Serkan Altun'. Dit kan een transcriptiefout zijn in de automatische spraakherkenning. De opname dient gecontroleerd te worden om vast te stellen welke achternaam correct is, aangezien namen van betrokken functionarissen juridisch relevant kunnen zijn.\",\n          \"originalPhrase\": \"Komiser Serkan Aydın\",\n          \"translatedPhrase\": \"commissaris Serkan Altun\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt één vraag: waarom de politie de cliënt destijds meenam. De tolk voegt een tweede, zelfstandige vraag toe die niet in de oorspronkelijke vraag staat: 'Van welke vereniging was u lid?' ('hangi derneğin üyesiydiniz?'). Dit is een eigen toevoeging van de tolk die de cliënt in een andere richting kan sturen dan de ambtenaar beoogde.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu arada, hangi derneğin üyesiydiniz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 989,
+    "output_tokens": 1494,
+    "cache_creation_input_tokens": 1871,
+    "cache_read_input_tokens": 0
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting en één in de AMBTENAAR→CLIËNT-richting.\n\n**CLIENT→AMBTENAAR:**\n\n- Paar 1 (critical): De cliënt zegt uitdrukkelijk dat hij die dag GEEN wapen droeg ('hiç silah taşımadım'). De tolk vertaalt dit als 'droeg ik een wapen', waarmee de ontkenning volledig wegvalt. Dit is een inhoudelijke omkering van een feitelijke verklaring die direct relevant is voor de asielbeslissing.\n\n- Paar 2 (medium): De cliënt voegt aan het einde toe dat hij gedwongen was te tekenen ('imzalamak zorunda kaldım' — 'ik was gedwongen te tekenen'). De tolk laat dit dwangelement weg en eindigt met alleen de constatering dat het een onleesbaar papier was. Het element van dwang ontbreekt in de vertolking.\n\n- Paar 3 (medium): De cliënt noemt de naam 'Serkan Aydın'; de tolk vertaalt dit als 'Serkan Altun'. Dit kan een transcriptiefout zijn, maar de opname dient gecontroleerd te worden om vast te stellen welke naam correct is, aangezien namen in een dossier juridisch relevant kunnen zijn.\n\n**AMBTENAAR→CLIËNT:**\n\n- Paar 1 (high): De ambtenaar stelt één gesloten vraag: waarom de politie de cliënt destijds meenam. De tolk voegt een tweede, zelfstandige vraag toe: 'Van welke vereniging was u lid?' ('hangi derneğin üyesiydiniz?'). Dit is een eigen toevoeging van de tolk die niet in de oorspronkelijke vraag staat en de cliënt in een andere richting kan sturen dan de ambtenaar beoogde.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt expliciet dat hij die dag GEEN wapen droeg ('hiç silah taşımadım' — 'hiç' betekent 'helemaal niet/nooit'). De tolk vertaalt dit als 'droeg ik een wapen', waarmee de ontkenning volledig is omgekeerd. Dit is een inhoudelijk tegengestelde vertaling van een feitelijke verklaring.",
+      "originalPhrase": "hiç silah taşımadım",
+      "translatedPhrase": "droeg ik een wapen"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt voegt aan het einde toe dat hij gedwongen was te tekenen ('imzalamak zorunda kaldım' — 'ik was gedwongen te tekenen'). De tolk laat dit dwangelement weg en eindigt met alleen de constatering dat het een onleesbaar papier was. Het element van dwang is inhoudelijk relevant voor het relaas.",
+      "originalPhrase": "yine de imzalamak zorunda kaldım",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De cliënt noemt de naam 'Serkan Aydın'; de tolk vertaalt dit als 'Serkan Altun'. Dit kan een transcriptiefout zijn in de automatische spraakherkenning. De opname dient gecontroleerd te worden om vast te stellen welke achternaam correct is, aangezien namen van betrokken functionarissen juridisch relevant kunnen zijn.",
+      "originalPhrase": "Komiser Serkan Aydın",
+      "translatedPhrase": "commissaris Serkan Altun"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar stelt één vraag: waarom de politie de cliënt destijds meenam. De tolk voegt een tweede, zelfstandige vraag toe die niet in de oorspronkelijke vraag staat: 'Van welke vereniging was u lid?' ('hangi derneğin üyesiydiniz?'). Dit is een eigen toevoeging van de tolk die de cliënt in een andere richting kan sturen dan de ambtenaar beoogde.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu arada, hangi derneğin üyesiydiniz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S20-P01",
+   "S20-P03",
+   "S20-P05",
+   "S20-P07"
+  ],
+  "client_to_officer": [
+   "S20-P02",
+   "S20-P04",
+   "S20-P06",
+   "S20-P08"
+  ]
+ }
+}

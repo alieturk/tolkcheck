@@ -1,0 +1,93 @@
+{
+ "session_id": "S29",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de beoordeelde fragmenten zijn de meeste vertalingen inhoudelijk nauwkeurig. Er is één opvallende afwijking gesignaleerd in de richting ambtenaar→cliënt (paar 2): de ambtenaar noemde '14 mei' als datum van het artikel, maar de tolk vertaalde dit als '14 Mart' (14 maart). Dit is een potentieel kritisch verschil, omdat de datum van de publicatie een feitelijk ankerpunt vormt in het relaas van de cliënt. De opname dient op dit punt gecontroleerd te worden. In paar 1 (client→ambtenaar) is een kleine volgordewisseling gesignaleerd: de cliënt beschreef eerst de brief en daarna de telefonische dreiging, maar de tolk vertaalde de volgorde omgekeerd ('eerst brief, daarna dreiging' versus de originele volgorde). De semantische score is hoog (0.957), maar de chronologische volgorde van de dreigingen kan relevant zijn voor de geloofwaardigheidsbeoordeling. In paar 3 (ambtenaar→cliënt) heeft de tolk zichzelf gecorrigeerd en dit expliciet gemeld; dit is conform protocol en wordt niet als afwijking aangemerkt.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt beschrijft de volgorde als: eerst een brief bij het huis, daarna een telefonische dreiging ('Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi'). De tolk vertaalde dit als 'Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging', wat de volgorde omdraait (de telefonische dreiging lijkt nu vóór de brief te zijn gekomen). De chronologische volgorde van dreigingen kan relevant zijn voor de beoordeling van het relaas.\",\n          \"originalPhrase\": \"Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi.\",\n          \"translatedPhrase\": \"Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar noemde '14 mei' als datum van het artikel ('Het artikel verscheen op 14 mei'). De tolk vertaalde dit als '14 Mart'ta' (14 maart). Dit is een verschil van twee maanden in een feitelijk ankerpunt van het relaas. De opname dient gecontroleerd te worden om vast te stellen of de ambtenaar inderdaad 'mei' zei dan wel 'maart', en of de cliënt op basis van de verkeerde datum heeft geantwoord.\",\n          \"originalPhrase\": \"Het artikel verscheen op 14 mei, klopt dat?\",\n          \"translatedPhrase\": \"Yazı 14 Mart'ta yayımlandı, doğru mu?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1047,
+    "output_tokens": 1122,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de beoordeelde fragmenten zijn de meeste vertalingen inhoudelijk nauwkeurig. Er is één opvallende afwijking gesignaleerd in de richting ambtenaar→cliënt (paar 2): de ambtenaar noemde '14 mei' als datum van het artikel, maar de tolk vertaalde dit als '14 Mart' (14 maart). Dit is een potentieel kritisch verschil, omdat de datum van de publicatie een feitelijk ankerpunt vormt in het relaas van de cliënt. De opname dient op dit punt gecontroleerd te worden. In paar 1 (client→ambtenaar) is een kleine volgordewisseling gesignaleerd: de cliënt beschreef eerst de brief en daarna de telefonische dreiging, maar de tolk vertaalde de volgorde omgekeerd ('eerst brief, daarna dreiging' versus de originele volgorde). De semantische score is hoog (0.957), maar de chronologische volgorde van de dreigingen kan relevant zijn voor de geloofwaardigheidsbeoordeling. In paar 3 (ambtenaar→cliënt) heeft de tolk zichzelf gecorrigeerd en dit expliciet gemeld; dit is conform protocol en wordt niet als afwijking aangemerkt.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De cliënt beschrijft de volgorde als: eerst een brief bij het huis, daarna een telefonische dreiging ('Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi'). De tolk vertaalde dit als 'Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging', wat de volgorde omdraait (de telefonische dreiging lijkt nu vóór de brief te zijn gekomen). De chronologische volgorde van dreigingen kan relevant zijn voor de beoordeling van het relaas.",
+      "originalPhrase": "Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi.",
+      "translatedPhrase": "Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar noemde '14 mei' als datum van het artikel ('Het artikel verscheen op 14 mei'). De tolk vertaalde dit als '14 Mart'ta' (14 maart). Dit is een verschil van twee maanden in een feitelijk ankerpunt van het relaas. De opname dient gecontroleerd te worden om vast te stellen of de ambtenaar inderdaad 'mei' zei dan wel 'maart', en of de cliënt op basis van de verkeerde datum heeft geantwoord.",
+      "originalPhrase": "Het artikel verscheen op 14 mei, klopt dat?",
+      "translatedPhrase": "Yazı 14 Mart'ta yayımlandı, doğru mu?"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S29-P01",
+   "S29-P03",
+   "S29-P05",
+   "S29-P07"
+  ],
+  "client_to_officer": [
+   "S29-P02",
+   "S29-P04",
+   "S29-P06",
+   "S29-P08"
+  ]
+ }
+}

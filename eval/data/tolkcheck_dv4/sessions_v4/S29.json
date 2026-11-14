@@ -1,0 +1,189 @@
+{
+ "session_id": "S29",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "bedreigingen na publicaties",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S29-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer ontving u voor het eerst een bedreiging naar aanleiding van uw publicatie?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yayımladığınız yazıdan sonra ilk tehdidi ne zaman aldınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S29-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mayıs ayındaydı, yazıdan iki hafta sonra."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Dat was in mei, twee weken na het artikel."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S29-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe lang na het artikel kreeg u de eerste dreiging?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Makaleden ne kadar sonra ilk tehdidi aldınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S29-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi. Mektubu annem buldu, ben o gün evde değildim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging. De brief vond mijn moeder, ik was die dag niet thuis."
+   },
+   "reference_rendering": "Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarna kreeg ik telefonisch een dreiging. De brief vond mijn moeder, ik was die dag niet thuis.",
+   "label": "betekenisverschuiving",
+   "subtype": "tijd_of_volgorde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S29-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Het artikel verscheen op 14 mei, klopt dat? Wanneer kreeg u daarna de eerste brief?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yazı 14 Mart'ta yayımlandı, doğru mu? Ondan sonra ilk mektubu ne zaman aldınız?"
+   },
+   "reference_rendering": "Yazı 14 Mayıs'ta yayımlandı, doğru mu? Ondan sonra ilk mektubu ne zaman aldınız?",
+   "label": "entiteitsfout",
+   "subtype": "datum",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S29-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mektubu kimin bıraktığını tam olarak bilmiyorum, ama sanırım bizim sokaktan bir adamdı. Mahallede bizi sürekli izleyen biri vardı, onu daha önce de görmüştüm. Bunu polise söylediğimde pek ciddiye almadılar, sadece tutanak tuttular. Yine de korkuyorum, çünkü kapımıza tekrar bir not bırakıldı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik weet niet precies wie de brief heeft achtergelaten, maar het was een man uit onze straat. In de buurt was er iemand die ons steeds in de gaten hield, die persoon had ik al eerder gezien. Toen ik dat aan de politie vertelde, namen ze het niet serieus en maakten ze alleen een proces-verbaal op. Toch ben ik bang, want er is weer een briefje bij onze deur achtergelaten."
+   },
+   "reference_rendering": "Ik weet niet precies wie de brief heeft achtergelaten, maar het was waarschijnlijk een man uit onze straat. In de buurt was er iemand die ons steeds in de gaten hield, die persoon had ik al eerder gezien. Toen ik dat aan de politie vertelde, namen ze het niet serieus en maakten ze alleen een proces-verbaal op. Toch ben ik bang, want er is weer een briefje bij onze deur achtergelaten.",
+   "label": "register_en_nadruk",
+   "subtype": "twijfel_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S29-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Is er na die datum nog een keer contact met u geweest, of bleef het bij die berichten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bu tarihten sonra sizinle bir kez, affedersiniz, tekrar temas kuruldu mu, yoksa sadece o mesajlar mı geldi? De tolk corrigeert zich: de tolk zei eerst 'één keer' waar de officier naar herhaald contact vroeg; de juiste vertolking, 'tekrar', staat hierboven."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S29-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, o zamandan beri bir daha telefon gelmedi. Ama geçen ay sokakta arabası yavaşlayan bir adam gördüm."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, sindsdien is er geen telefoontje meer geweest. Maar vorige maand zag ik een man op straat wiens auto vertraagde toen ik langsliep."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

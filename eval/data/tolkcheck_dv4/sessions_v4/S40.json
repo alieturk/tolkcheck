@@ -1,0 +1,190 @@
+{
+ "session_id": "S40",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "documenten en identiteit",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S40-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke identiteitsdocumenten heeft u bij uw vertrek uit Turkije bij zich gehad?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'den ayrılırken yanınızda hangi kimlik belgeleri vardı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S40-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Pasaportumu nadiren yanımda taşıyordum, genelde evde bırakırdım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn paspoort droeg ik nooit bij me, meestal liet ik het thuis."
+   },
+   "reference_rendering": "Mijn paspoort droeg ik zelden bij me, meestal liet ik het thuis.",
+   "label": "betekenisverschuiving",
+   "subtype": "sterker_of_zwakker_gemaakt",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S40-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u daarna nog een nieuw document aangevraagd bij de gemeente in uw woonplaats?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bundan sonra yerel belediyeden ve Ankara'daki konsolosluktan yeni bir belge talep ettiniz mi?"
+   },
+   "reference_rendering": "Bundan sonra yerel belediyeden yeni bir belge talep ettiniz mi?",
+   "label": "toevoeging",
+   "subtype": "verzonnen_detail",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S40-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Belediyeye gittim ve yeni bir nüfus cüzdanı istedim, çünkü eskisinin fotoğrafı iyice silinmişti. Memur doğum belgesinin aslını da istedi, ama doğum belgesi annemde olduğu için o gün getiremedim. Ve bu yüzden iki hafta sonra ikinci kez gitmek zorunda kaldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ging naar de gemeente en vroeg om een nieuwe identiteitskaart, want de foto op de oude was helemaal vervaagd. De ambtenaar vroeg ook om het origineel van mijn geboorteakte, dus ik kon hem die dag niet meenemen. Daarom moest ik twee weken later opnieuw komen."
+   },
+   "reference_rendering": "Ik ging naar de gemeente en vroeg om een nieuwe identiteitskaart, want de foto op de oude was helemaal vervaagd. De ambtenaar vroeg ook om het origineel van mijn geboorteakte, die bij mijn moeder lag, dus ik kon hem die dag niet meenemen. Daarom moest ik twee weken later opnieuw komen.",
+   "label": "omissie",
+   "subtype": "bijzin",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S40-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoelang duurde het daarna voordat u de nieuwe identiteitskaart uiteindelijk kreeg, twee weken of langer?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bundan sonra yeni nüfus cüzdanını nihayet almanız ne kadar sürdü, iki ay mı yoksa daha uzun mu?"
+   },
+   "reference_rendering": "Bundan sonra yeni nüfus cüzdanını nihayet almanız ne kadar sürdü, iki hafta mı yoksa daha uzun mu?",
+   "label": "entiteitsfout",
+   "subtype": "tijdsduur",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S40-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "İkinci gidişimde yeni nüfus cüzdanımı aldım. Memur eski kartın fotoğrafının bozuk olduğunu not etti, ben de ona evdeki kartı göstermek istedim ama kabul etmedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Bij mijn tweede bezoek kreeg ik mijn nieuwe identiteitskaart. De ambtenaar noteerde dat de foto op de oude kaart beschadigd was, en ik wilde de kaart uit huis laten zien, maar de ambtenaar nam die niet aan."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S40-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Had u na het ontvangen van de kaart nog problemen met uw documenten bij de grenscontrole?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Kartı aldıktan sonra sınır kontrolünde belgelerinizle ilgili bir sorun yaşadınız mı?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S40-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, sınırda pasaportumun bir sayfasını uzun uzun kontrol ettiler, o yüzden yarım saat bekletildim ve sonra geçmeme izin verdiler."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De tolk vraagt de cliënt het woord 'bekletildim' te herhalen, omdat dat niet duidelijk was, en meldt dit aan de hoorambtenaar. Ja, aan de grens hebben ze een pagina van mijn paspoort uitgebreid gecontroleerd, daarom werd ik een half uur tegengehouden en daarna mochten ze me doorlaten."
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  }
+ ]
+}

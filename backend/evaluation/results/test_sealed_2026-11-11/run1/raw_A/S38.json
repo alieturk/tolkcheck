@@ -1,0 +1,72 @@
+{
+ "session_id": "S38",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting is één inhoudelijke afwijking gesignaleerd: in paar 0 vertaalt de tolk 'Adana' als 'Antalya'. Dit zijn twee verschillende steden in Turkije; de plaatsnaam in het dossier wijkt daarmee af van wat de cliënt heeft gezegd. Dit is relevant omdat de verblijfplaats van de familie een feitelijk gegeven is dat het relaas kan raken. In paar 1 licht de tolk de Turkse naam 'Almanya' toe als Duitsland; dit is een toegestane toelichting en geen afwijking. In paar 3 corrigeert de tolk zichzelf direct van 'broer' naar 'zus' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. De overige CLIENT→AMBTENAAR-paren (2 en 3) vertonen geen inhoudelijke afwijkingen. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd; alle vier paren scoren hoog op semantische gelijkenis en de inhoud komt overeen met de brontekst.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt 'Adana' als de stad waarnaar het gezin is verhuisd, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. De verblijfplaats van de familie is een feitelijk gegeven in het relaas; de opname dient gecontroleerd te worden om te bevestigen welke stad de cliënt heeft uitgesproken.\",\n          \"originalPhrase\": \"Adana'ya taşındık\",\n          \"translatedPhrase\": \"naar Antalya verhuisd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1116,
+    "output_tokens": 781,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting is één inhoudelijke afwijking gesignaleerd: in paar 0 vertaalt de tolk 'Adana' als 'Antalya'. Dit zijn twee verschillende steden in Turkije; de plaatsnaam in het dossier wijkt daarmee af van wat de cliënt heeft gezegd. Dit is relevant omdat de verblijfplaats van de familie een feitelijk gegeven is dat het relaas kan raken. In paar 1 licht de tolk de Turkse naam 'Almanya' toe als Duitsland; dit is een toegestane toelichting en geen afwijking. In paar 3 corrigeert de tolk zichzelf direct van 'broer' naar 'zus' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. De overige CLIENT→AMBTENAAR-paren (2 en 3) vertonen geen inhoudelijke afwijkingen. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd; alle vier paren scoren hoog op semantische gelijkenis en de inhoud komt overeen met de brontekst.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt 'Adana' als de stad waarnaar het gezin is verhuisd, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. De verblijfplaats van de familie is een feitelijk gegeven in het relaas; de opname dient gecontroleerd te worden om te bevestigen welke stad de cliënt heeft uitgesproken.",
+      "originalPhrase": "Adana'ya taşındık",
+      "translatedPhrase": "naar Antalya verhuisd"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

@@ -1,0 +1,109 @@
+{
+ "session_id": "S24",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd over de vier CLIENT→AMBTENAAR-paren en één over de AMBTENAAR→CLIËNT-paren.\\n\\nPaar 2 (client→officer): De tolk voegt aan het einde een eigen interpreterende conclusie toe — 'Dat was een teken dat het gezin volkomen wanhopig was' — die niet in de Turkse brontekst staat. Dit is een toevoeging van een oordeel door de tolk en kan de indruk wekken dat de cliënt zelf deze kwalificatie heeft gebruikt.\\n\\nPaar 3 (client→officer): De cliënt zegt 'polis babamı çağırdı' (de politie heeft mijn vader opgeroepen), maar de tolk vertaalt dit als 'de politie heeft mij opgeroepen'. Dit is een inhoudelijk kritieke fout: de persoon die door de politie werd opgeroepen verandert van de vader naar de cliënt zelf, wat directe gevolgen kan hebben voor de beoordeling van het relaas.\\n\\nPaar 1 (officer→client): De ambtenaar vraagt 'Denkt u dat uw vader in gevaar zou komen als u terugkeert?' — een open, hypothetische vraag naar de mening van de cliënt. De tolk vertaalt dit als 'weet u of uw vader in gevaar zou komen?' ('biliyor musunuz?'). Dit verandert de vraag van een mening/inschatting naar een feitelijke kennischeck, wat de aard van het verwachte antwoord beïnvloedt.\\n\\nPaar 1 (client→officer): De cliënt voegt toe dat zijn vader de belofte niet vertrouwt 'omdat vorig jaar ook zo'n belofte werd gedaan' en dat dit de reden is voor zijn wantrouwen ('çünkü geçen sene de benzer bir vaat verilmişti'). De tolk geeft dit globaal correct weer, maar de causale koppeling ('want vorig jaar kregen we ook zo'n belofte') is iets afgezwakt doordat 'benzer' (soortgelijke/vergelijkbare) niet expliciet is vertaald. Dit is een kleine nuanceverschuiving.\\n\\nPaar 0 (client→officer) bevat een toelichting van de tolk over een idiomatische uitdrukking; dit is toegestaan en geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt zegt 'benzer bir vaat' (een vergelijkbare/soortgelijke belofte), wat aangeeft dat het om een belofte van dezelfde aard ging. De tolk vertaalt dit als 'zo'n belofte', wat de vergelijkende nuance enigszins wegneemt maar de kern intact laat.\",\n          \"originalPhrase\": \"çünkü geçen sene de benzer bir vaat verilmişti\",\n          \"translatedPhrase\": \"want vorig jaar kregen we ook zo'n belofte\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze interpreterende conclusie staat niet in de Turkse brontekst en is een eigen oordeel van de tolk. Dit kan de indruk wekken dat de cliënt zelf deze kwalificatie heeft uitgesproken.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Dat was een teken dat het gezin volkomen wanhopig was.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'polis babamı çağırdı' (de politie heeft mijn vader opgeroepen), maar de tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die door de politie werd opgeroepen verandert van de vader naar de cliënt zelf. Dit is een inhoudelijk kritieke fout die de beoordeling van het relaas direct kan beïnvloeden.\",\n          \"originalPhrase\": \"polis babamı çağırdı\",\n          \"translatedPhrase\": \"de politie heeft mij opgeroepen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt een open, hypothetische vraag naar de mening van de cliënt: 'Denkt u dat uw vader in gevaar zou komen als u terugkeert?' De tolk vertaalt dit als 'weet u of uw vader in gevaar zou komen?' ('biliyor musunuz?'). Dit verandert de vraag van een peiling naar een mening/inschatting naar een vraag naar feitelijke kennis, wat de aard van het verwachte antwoord beïnvloedt.\",\n          \"originalPhrase\": \"Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?\",\n          \"translatedPhrase\": \"Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1079,
+    "output_tokens": 1667,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1800
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd over de vier CLIENT→AMBTENAAR-paren en één over de AMBTENAAR→CLIËNT-paren.\n\nPaar 2 (client→officer): De tolk voegt aan het einde een eigen interpreterende conclusie toe — 'Dat was een teken dat het gezin volkomen wanhopig was' — die niet in de Turkse brontekst staat. Dit is een toevoeging van een oordeel door de tolk en kan de indruk wekken dat de cliënt zelf deze kwalificatie heeft gebruikt.\n\nPaar 3 (client→officer): De cliënt zegt 'polis babamı çağırdı' (de politie heeft mijn vader opgeroepen), maar de tolk vertaalt dit als 'de politie heeft mij opgeroepen'. Dit is een inhoudelijk kritieke fout: de persoon die door de politie werd opgeroepen verandert van de vader naar de cliënt zelf, wat directe gevolgen kan hebben voor de beoordeling van het relaas.\n\nPaar 1 (officer→client): De ambtenaar vraagt 'Denkt u dat uw vader in gevaar zou komen als u terugkeert?' — een open, hypothetische vraag naar de mening van de cliënt. De tolk vertaalt dit als 'weet u of uw vader in gevaar zou komen?' ('biliyor musunuz?'). Dit verandert de vraag van een mening/inschatting naar een feitelijke kennischeck, wat de aard van het verwachte antwoord beïnvloedt.\n\nPaar 1 (client→officer): De cliënt voegt toe dat zijn vader de belofte niet vertrouwt 'omdat vorig jaar ook zo'n belofte werd gedaan' en dat dit de reden is voor zijn wantrouwen ('çünkü geçen sene de benzer bir vaat verilmişti'). De tolk geeft dit globaal correct weer, maar de causale koppeling ('want vorig jaar kregen we ook zo'n belofte') is iets afgezwakt doordat 'benzer' (soortgelijke/vergelijkbare) niet expliciet is vertaald. Dit is een kleine nuanceverschuiving.\n\nPaar 0 (client→officer) bevat een toelichting van de tolk over een idiomatische uitdrukking; dit is toegestaan en geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De cliënt zegt 'benzer bir vaat' (een vergelijkbare/soortgelijke belofte), wat aangeeft dat het om een belofte van dezelfde aard ging. De tolk vertaalt dit als 'zo'n belofte', wat de vergelijkende nuance enigszins wegneemt maar de kern intact laat.",
+      "originalPhrase": "çünkü geçen sene de benzer bir vaat verilmişti",
+      "translatedPhrase": "want vorig jaar kregen we ook zo'n belofte"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze interpreterende conclusie staat niet in de Turkse brontekst en is een eigen oordeel van de tolk. Dit kan de indruk wekken dat de cliënt zelf deze kwalificatie heeft uitgesproken.",
+      "originalPhrase": "",
+      "translatedPhrase": "Dat was een teken dat het gezin volkomen wanhopig was."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'polis babamı çağırdı' (de politie heeft mijn vader opgeroepen), maar de tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die door de politie werd opgeroepen verandert van de vader naar de cliënt zelf. Dit is een inhoudelijk kritieke fout die de beoordeling van het relaas direct kan beïnvloeden.",
+      "originalPhrase": "polis babamı çağırdı",
+      "translatedPhrase": "de politie heeft mij opgeroepen"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar stelt een open, hypothetische vraag naar de mening van de cliënt: 'Denkt u dat uw vader in gevaar zou komen als u terugkeert?' De tolk vertaalt dit als 'weet u of uw vader in gevaar zou komen?' ('biliyor musunuz?'). Dit verandert de vraag van een peiling naar een mening/inschatting naar een vraag naar feitelijke kennis, wat de aard van het verwachte antwoord beïnvloedt.",
+      "originalPhrase": "Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?",
+      "translatedPhrase": "Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S24-P01",
+   "S24-P03",
+   "S24-P05",
+   "S24-P07"
+  ],
+  "client_to_officer": [
+   "S24-P02",
+   "S24-P04",
+   "S24-P06",
+   "S24-P08"
+  ]
+ }
+}

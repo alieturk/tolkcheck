@@ -1,0 +1,88 @@
+{
+ "session_id": "S40",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over zowel de client→ambtenaar als de ambtenaar→cliënt richting.\\n\\nPaar 0 (client→ambtenaar): De cliënt zei 'nadiren' (zelden/zelden), maar de tolk vertaalde dit als 'nooit'. Dit is een betekenisverschuiving van enige naar geen frequentie.\\n\\nPaar 3 (client→ambtenaar): De tolk zei 'daarna mochten ze me doorlaten' in plaats van 'daarna mochten ze mij doorlaten' — inhoudelijk is dit correct, maar de tolk voegde ook een procedurele mededeling toe (het vragen om herhaling van een woord), wat toegestaan is en geen afwijking vormt. De inhoud van de vertaling zelf is correct.\\n\\nPaar 1 (ambtenaar→cliënt): De ambtenaar vroeg uitsluitend naar de gemeente in de woonplaats, maar de tolk voegde 've Ankara'daki konsolosluktan' (en het consulaat in Ankara) toe. Dit is een toevoeging die de cliënt een bredere vraag voorlegt dan de ambtenaar stelde.\\n\\nPaar 2 (ambtenaar→cliënt): De ambtenaar vroeg of het twee weken of langer duurde, maar de tolk vertaalde dit als 'twee maanden of langer' ('iki ay'). Dit is een inhoudelijk onjuiste tijdsaanduiding die de cliënt een verkeerde referentie geeft.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt gebruikte 'nadiren', wat 'zelden' of 'zelden/bijna nooit' betekent. De tolk vertaalde dit als 'nooit', wat een absolute ontkenning is. Dit verandert de stelligheid: de cliënt gaf aan het paspoort zelden bij zich te dragen, niet dat hij het nooit deed.\",\n          \"originalPhrase\": \"nadiren yanımda taşıyordum\",\n          \"translatedPhrase\": \"droeg ik nooit bij me\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vroeg uitsluitend of de cliënt een nieuw document had aangevraagd bij de gemeente in zijn woonplaats. De tolk voegde 've Ankara'daki konsolosluktan' (en het consulaat in Ankara) toe. Hierdoor werd de cliënt een bredere vraag voorgelegd dan de ambtenaar stelde, wat het antwoord van de cliënt kan hebben beïnvloed.\",\n          \"originalPhrase\": \"bij de gemeente in uw woonplaats\",\n          \"translatedPhrase\": \"yerel belediyeden ve Ankara'daki konsolosluktan\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vroeg of het twee weken ('twee weken') of langer duurde. De tolk vertaalde dit als 'iki ay' (twee maanden). Dit is een onjuiste tijdsaanduiding die de cliënt een verkeerde referentie geeft en zijn antwoord over de duur van de procedure kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het om een spraakherkenningsfout gaat.\",\n          \"originalPhrase\": \"twee weken of langer\",\n          \"translatedPhrase\": \"iki ay mı yoksa daha uzun mu\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1089,
+    "output_tokens": 1253,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over zowel de client→ambtenaar als de ambtenaar→cliënt richting.\n\nPaar 0 (client→ambtenaar): De cliënt zei 'nadiren' (zelden/zelden), maar de tolk vertaalde dit als 'nooit'. Dit is een betekenisverschuiving van enige naar geen frequentie.\n\nPaar 3 (client→ambtenaar): De tolk zei 'daarna mochten ze me doorlaten' in plaats van 'daarna mochten ze mij doorlaten' — inhoudelijk is dit correct, maar de tolk voegde ook een procedurele mededeling toe (het vragen om herhaling van een woord), wat toegestaan is en geen afwijking vormt. De inhoud van de vertaling zelf is correct.\n\nPaar 1 (ambtenaar→cliënt): De ambtenaar vroeg uitsluitend naar de gemeente in de woonplaats, maar de tolk voegde 've Ankara'daki konsolosluktan' (en het consulaat in Ankara) toe. Dit is een toevoeging die de cliënt een bredere vraag voorlegt dan de ambtenaar stelde.\n\nPaar 2 (ambtenaar→cliënt): De ambtenaar vroeg of het twee weken of langer duurde, maar de tolk vertaalde dit als 'twee maanden of langer' ('iki ay'). Dit is een inhoudelijk onjuiste tijdsaanduiding die de cliënt een verkeerde referentie geeft.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt gebruikte 'nadiren', wat 'zelden' of 'zelden/bijna nooit' betekent. De tolk vertaalde dit als 'nooit', wat een absolute ontkenning is. Dit verandert de stelligheid: de cliënt gaf aan het paspoort zelden bij zich te dragen, niet dat hij het nooit deed.",
+      "originalPhrase": "nadiren yanımda taşıyordum",
+      "translatedPhrase": "droeg ik nooit bij me"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar vroeg uitsluitend of de cliënt een nieuw document had aangevraagd bij de gemeente in zijn woonplaats. De tolk voegde 've Ankara'daki konsolosluktan' (en het consulaat in Ankara) toe. Hierdoor werd de cliënt een bredere vraag voorgelegd dan de ambtenaar stelde, wat het antwoord van de cliënt kan hebben beïnvloed.",
+      "originalPhrase": "bij de gemeente in uw woonplaats",
+      "translatedPhrase": "yerel belediyeden ve Ankara'daki konsolosluktan"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vroeg of het twee weken ('twee weken') of langer duurde. De tolk vertaalde dit als 'iki ay' (twee maanden). Dit is een onjuiste tijdsaanduiding die de cliënt een verkeerde referentie geeft en zijn antwoord over de duur van de procedure kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het om een spraakherkenningsfout gaat.",
+      "originalPhrase": "twee weken of langer",
+      "translatedPhrase": "iki ay mı yoksa daha uzun mu"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

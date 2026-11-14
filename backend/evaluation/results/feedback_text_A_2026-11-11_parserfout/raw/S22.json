@@ -1,0 +1,117 @@
+{
+ "session_id": "S22",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 0 (critical):** De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een datumverschil dat het dossier direct raakt, omdat de datum van de eerste dreigingstelefoon een feitelijk ankerpunt is in het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning hier een rol speelt, maar het Turkse woord 'Mart' (maart) en 'Nisan' (april) zijn voldoende van elkaar te onderscheiden om dit als een inhoudelijke afwijking te signaleren.\\n\\n**CLIENT→AMBTENAAR, paar 2 (medium):** De cliënt zegt 'Bir hafta sonra' (een week later/erna), maar de tolk vertaalt dit als 'een week eerder'. Dit keert de chronologie om: de cliënt beschrijft een opeenvolging van gebeurtenissen ná de publicatie, waarbij de man aan de deur een week later verscheen. 'Eerder' suggereert het tegenovergestelde. De semantische score (0.953) is hoog, wat erop wijst dat de algehele betekenis grotendeels overeenkomt, maar dit specifieke temporele detail is inhoudelijk omgekeerd. Gezien de context van een dreigingsrelaas is dit een afwijking die de tijdlijn van de gebeurtenissen beïnvloedt.\\n\\n**AMBTENAAR→CLIËNT, paar 1 (medium):** De ambtenaar vraagt of de cliënt de dreigbrief 'in uw brievenbus' heeft gevonden. De tolk vertaalt 'posta kutunuzda' (in uw brievenbus), wat inhoudelijk klopt, maar de nadruk op 'echt zelf' ('echt zelf') uit de originele vraag is niet expliciet overgebracht. Dit is een lichte nuanceverschuiving zonder groot inhoudelijk gevolg.\\n\\n**AMBTENAAR→CLIËNT, paar 2 (false-negative):** De tolk geeft aan het tweede deel van de vraag niet goed te hebben verstaan en vraagt de ambtenaar om herhaling. Dit is een toegestane tolkhandeling en geen afwijking. De lage semantische score (0.369) weerspiegelt dat de vraag niet is doorgeleid, niet een tolkfout.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een verschil in maand dat het dossier direct raakt. De opname dient gecontroleerd te worden, maar 'Mart' (maart) en 'Nisan' (april) zijn in het Turks duidelijk verschillende woorden.\",\n          \"originalPhrase\": \"14 Mart'ta\",\n          \"translatedPhrase\": \"14 april\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt vermeldt expliciet dat zijn partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'), wat de reden verklaart waarom de partner thuis was maar de cliënt toch eerst zelf nadacht. Dit detail over de kinderen en de ochtendcontext ontbreekt in de vertolking.\",\n          \"originalPhrase\": \"o sabah çocukları okula bırakmıştı\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt 'Bir hafta sonra' (een week later/erna), waarmee hij aangeeft dat de man aan de deur een week ná de telefoontjes verscheen. De tolk vertaalt dit als 'een week eerder', wat de chronologische volgorde van de dreigingen omkeert. Dit raakt de tijdlijn van het relaas.\",\n          \"originalPhrase\": \"Bir hafta sonra da kapıya bir adam geldi\",\n          \"translatedPhrase\": \"Een week eerder kwam er ook een man aan de deur\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"low\",\n          \"description\": \"De nadruk 'echt zelf' uit de vraag van de ambtenaar is niet expliciet overgebracht in de Turkse vertaling. De kern van de vraag (zelf gevonden, in de brievenbus) is wel correct weergegeven.\",\n          \"originalPhrase\": \"echt zelf in uw brievenbus gevonden\",\n          \"translatedPhrase\": \"kendiniz posta kutunuzda mı buldunuz\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"false-negative\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk geeft aan het tweede deel van de vraag niet goed te hebben verstaan en vraagt de ambtenaar om herhaling. Dit is een toegestane tolkhandeling; de lage semantische score weerspiegelt dat de vraag niet is doorgeleid, niet een tolkfout. Dit fragment is niet beoordeelbaar als vertolking.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 999,
+    "output_tokens": 1704,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 0 (critical):** De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een datumverschil dat het dossier direct raakt, omdat de datum van de eerste dreigingstelefoon een feitelijk ankerpunt is in het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning hier een rol speelt, maar het Turkse woord 'Mart' (maart) en 'Nisan' (april) zijn voldoende van elkaar te onderscheiden om dit als een inhoudelijke afwijking te signaleren.\n\n**CLIENT→AMBTENAAR, paar 2 (medium):** De cliënt zegt 'Bir hafta sonra' (een week later/erna), maar de tolk vertaalt dit als 'een week eerder'. Dit keert de chronologie om: de cliënt beschrijft een opeenvolging van gebeurtenissen ná de publicatie, waarbij de man aan de deur een week later verscheen. 'Eerder' suggereert het tegenovergestelde. De semantische score (0.953) is hoog, wat erop wijst dat de algehele betekenis grotendeels overeenkomt, maar dit specifieke temporele detail is inhoudelijk omgekeerd. Gezien de context van een dreigingsrelaas is dit een afwijking die de tijdlijn van de gebeurtenissen beïnvloedt.\n\n**AMBTENAAR→CLIËNT, paar 1 (medium):** De ambtenaar vraagt of de cliënt de dreigbrief 'in uw brievenbus' heeft gevonden. De tolk vertaalt 'posta kutunuzda' (in uw brievenbus), wat inhoudelijk klopt, maar de nadruk op 'echt zelf' ('echt zelf') uit de originele vraag is niet expliciet overgebracht. Dit is een lichte nuanceverschuiving zonder groot inhoudelijk gevolg.\n\n**AMBTENAAR→CLIËNT, paar 2 (false-negative):** De tolk geeft aan het tweede deel van de vraag niet goed te hebben verstaan en vraagt de ambtenaar om herhaling. Dit is een toegestane tolkhandeling en geen afwijking. De lage semantische score (0.369) weerspiegelt dat de vraag niet is doorgeleid, niet een tolkfout.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een verschil in maand dat het dossier direct raakt. De opname dient gecontroleerd te worden, maar 'Mart' (maart) en 'Nisan' (april) zijn in het Turks duidelijk verschillende woorden.",
+      "originalPhrase": "14 Mart'ta",
+      "translatedPhrase": "14 april"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "medium",
+      "description": "De cliënt vermeldt expliciet dat zijn partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'), wat de reden verklaart waarom de partner thuis was maar de cliënt toch eerst zelf nadacht. Dit detail over de kinderen en de ochtendcontext ontbreekt in de vertolking.",
+      "originalPhrase": "o sabah çocukları okula bırakmıştı",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt zegt 'Bir hafta sonra' (een week later/erna), waarmee hij aangeeft dat de man aan de deur een week ná de telefoontjes verscheen. De tolk vertaalt dit als 'een week eerder', wat de chronologische volgorde van de dreigingen omkeert. Dit raakt de tijdlijn van het relaas.",
+      "originalPhrase": "Bir hafta sonra da kapıya bir adam geldi",
+      "translatedPhrase": "Een week eerder kwam er ook een man aan de deur"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "low",
+      "description": "De nadruk 'echt zelf' uit de vraag van de ambtenaar is niet expliciet overgebracht in de Turkse vertaling. De kern van de vraag (zelf gevonden, in de brievenbus) is wel correct weergegeven.",
+      "originalPhrase": "echt zelf in uw brievenbus gevonden",
+      "translatedPhrase": "kendiniz posta kutunuzda mı buldunuz"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "false-negative",
+      "severity": "low",
+      "description": "De tolk geeft aan het tweede deel van de vraag niet goed te hebben verstaan en vraagt de ambtenaar om herhaling. Dit is een toegestane tolkhandeling; de lage semantische score weerspiegelt dat de vraag niet is doorgeleid, niet een tolkfout. Dit fragment is niet beoordeelbaar als vertolking.",
+      "originalPhrase": "",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S22-P01",
+   "S22-P03",
+   "S22-P05",
+   "S22-P07"
+  ],
+  "client_to_officer": [
+   "S22-P02",
+   "S22-P04",
+   "S22-P06",
+   "S22-P08"
+  ]
+ }
+}

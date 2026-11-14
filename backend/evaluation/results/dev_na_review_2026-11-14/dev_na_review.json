@@ -1,0 +1,1281 @@
+{
+ "status": "dev na review (gereviewde labels); in-sample voor C",
+ "date": "2026-11-14",
+ "sessions": [
+  "S20",
+  "S21",
+  "S22",
+  "S23",
+  "S24",
+  "S25",
+  "S26",
+  "S27",
+  "S28",
+  "S29"
+ ],
+ "reviewed_by": [
+  "Huseyin Altunbas"
+ ],
+ "excluded_by_reviewer": {
+  "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+ },
+ "variants": {
+  "C": {
+   "threshold": 0.7188705503940582,
+   "markdown": "> **DEMO — niet geldig als resultaat.** Gedraaid met --dry-run: alleen ontwikkelsessies zijn doorgerekend, met een drempel die op dezelfde dev-paren is gekozen (recall_at_fpr). Er zijn geen testsessies bekeken.\n\n**Scoringsroute:** `cross_lingual`. **Drempel:** 0.719, gekozen op deze gereviewde dev-paren (recall_at_fpr, max FPR 0.1), in-sample. Een paar wordt gesignaleerd als de score onder de drempel ligt. **Ontwikkelset:** 79 paren uit 10 sessie(s).\n\n| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.00 | 0.00–0.39 | 0.00–0.00 | 6 |\n| Toevoeging | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| Betekenisverschuiving | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Entiteitsfout | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Register en nadruk | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| **Alle afwijkingen** | 0.03 | 0.01–0.15 | 0.00–0.09 | 34 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.04 | 0.01–0.15 | 0.00–0.12 | 45 |\n| Precision in deze set (43% afwijkend) | 0.33 | 0.06–0.79 | 0.00–1.00 | 3 |\n| Precision bij 5% afwijkende paren | 0.03 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.07 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.14 | – | – | berekend |\n\nRecall per categorie; valse alarmen en precision alleen voor de hele set, omdat de detector geen categorie geeft. De bootstrap trekt hele sessies (2000×); bij weinig sessies is dat interval breed of ontbreekt het.\n\n\n**Hoeveel beweegt de score?** Score van de referentievertaling min de score van de vertolking, per categorie (alleen analyse; de tool gebruikt geen referentie). Rond 0 betekent dat de afwijking de score niet verandert.\n\n| Categorie | n | gem. verschil | min | max |\n|---|---|---|---|---|\n| Omissie | 6 | 0.034 | 0.001 | 0.098 |\n| Toevoeging | 7 | 0.069 | 0.013 | 0.214 |\n| Betekenisverschuiving | 7 | 0.023 | 0.003 | 0.058 |\n| Entiteitsfout | 7 | 0.071 | 0.015 | 0.162 |\n| Register en nadruk | 7 | 0.014 | -0.010 | 0.049 |\n\n**Per paar (ontwikkelset)**\n\n| paar | categorie | subtype | score | gesignaleerd | woorden bron |\n|---|---|---|---|---|---|\n| S20-P01 | controle |  | 0.97 | nee | 7 |\n| S20-P02 | controle |  | 0.87 | nee | 18 |\n| S20-P03 | Toevoeging | eigen_vraag_tolk | 0.85 | nee | 10 |\n| S20-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.88 | nee | 9 |\n| S20-P05 | controle |  | 0.79 | nee | 15 |\n| S20-P07 | controle |  | 0.95 | nee | 8 |\n| S20-P08 | Entiteitsfout | naam | 0.85 | nee | 18 |\n| S21-P01 | controle |  | 0.92 | nee | 13 |\n| S21-P02 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 9 |\n| S21-P03 | controle |  | 0.80 | nee | 8 |\n| S21-P04 | Omissie | detail | 0.90 | nee | 44 |\n| S21-P05 | Toevoeging | eigen_uitleg_tolk | 0.85 | nee | 13 |\n| S21-P06 | controle |  | 0.86 | nee | 17 |\n| S21-P07 | controle |  | 0.90 | nee | 16 |\n| S21-P08 | controle |  | 0.91 | nee | 13 |\n| S22-P01 | controle |  | 0.96 | nee | 10 |\n| S22-P02 | Entiteitsfout | datum | 0.92 | nee | 10 |\n| S22-P03 | Register en nadruk | nadruk_weg | 0.90 | nee | 10 |\n| S22-P04 | Omissie | bijzin | 0.85 | nee | 19 |\n| S22-P05 | controle |  | 0.37 | ja | 12 |\n| S22-P06 | Betekenisverschuiving | tijd_of_volgorde | 0.95 | nee | 42 |\n| S22-P07 | controle |  | 0.93 | nee | 15 |\n| S22-P08 | controle |  | 0.93 | nee | 12 |\n| S23-P01 | controle |  | 0.97 | nee | 8 |\n| S23-P02 | controle |  | 0.98 | nee | 7 |\n| S23-P03 | Entiteitsfout | plaats | 0.75 | nee | 13 |\n| S23-P04 | Betekenisverschuiving | oorzaak_gevolg | 0.91 | nee | 18 |\n| S23-P05 | controle |  | 0.79 | nee | 13 |\n| S23-P06 | Toevoeging | verzonnen_detail | 0.93 | nee | 38 |\n| S23-P07 | controle |  | 0.79 | nee | 15 |\n| S23-P08 | controle |  | 0.97 | nee | 18 |\n| S24-P01 | controle |  | 0.95 | nee | 15 |\n| S24-P02 | controle |  | 0.76 | nee | 18 |\n| S24-P03 | Register en nadruk | twijfel_weg | 0.91 | nee | 14 |\n| S24-P04 | Omissie | voorwaarde | 0.90 | nee | 39 |\n| S24-P05 | controle |  | 0.98 | nee | 12 |\n| S24-P06 | Toevoeging | eigen_oordeel | 0.92 | nee | 18 |\n| S24-P07 | controle |  | 0.86 | nee | 16 |\n| S24-P08 | Betekenisverschuiving | wie_deed_wat | 0.91 | nee | 8 |\n| S25-P01 | controle |  | 0.95 | nee | 17 |\n| S25-P02 | controle |  | 0.97 | nee | 8 |\n| S25-P03 | controle |  | 0.91 | nee | 13 |\n| S25-P04 | Omissie | kernfeit | 0.95 | nee | 43 |\n| S25-P05 | Register en nadruk | beleefdheid_of_toon | 0.94 | nee | 11 |\n| S25-P06 | Entiteitsfout | aantal | 0.85 | nee | 16 |\n| S25-P07 | controle |  | 0.93 | nee | 14 |\n| S25-P08 | controle |  | 0.81 | nee | 24 |\n| S26-P01 | controle |  | 0.96 | nee | 10 |\n| S26-P02 | controle |  | 0.95 | nee | 14 |\n| S26-P03 | Toevoeging | eigen_vraag_tolk | 0.86 | nee | 10 |\n| S26-P04 | Betekenisverschuiving | sterker_of_zwakker_gemaakt | 0.96 | nee | 24 |\n| S26-P05 | controle |  | 0.70 | ja | 10 |\n| S26-P06 | Entiteitsfout | tijdsduur | 0.78 | nee | 7 |\n| S26-P07 | controle |  | 0.91 | nee | 10 |\n| S26-P08 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 47 |\n| S27-P01 | controle |  | 0.96 | nee | 14 |\n| S27-P02 | controle |  | 0.91 | nee | 8 |\n| S27-P03 | controle |  | 0.91 | nee | 11 |\n| S27-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.89 | nee | 18 |\n| S27-P05 | controle |  | 0.95 | nee | 11 |\n| S27-P06 | Omissie | detail | 0.93 | nee | 41 |\n| S27-P07 | Toevoeging | eigen_uitleg_tolk | 0.93 | nee | 9 |\n| S27-P08 | controle |  | 0.74 | nee | 16 |\n| S28-P01 | controle |  | 0.92 | nee | 15 |\n| S28-P02 | Entiteitsfout | naam | 0.79 | nee | 6 |\n| S28-P03 | Toevoeging | verzonnen_detail | 0.70 | ja | 8 |\n| S28-P04 | Omissie | bijzin | 0.91 | nee | 39 |\n| S28-P05 | controle |  | 0.90 | nee | 16 |\n| S28-P06 | controle |  | 0.73 | nee | 19 |\n| S28-P07 | controle |  | 0.93 | nee | 12 |\n| S28-P08 | Register en nadruk | nadruk_weg | 0.92 | nee | 19 |\n| S29-P01 | controle |  | 0.91 | nee | 13 |\n| S29-P02 | controle |  | 0.95 | nee | 6 |\n| S29-P03 | controle |  | 0.86 | nee | 10 |\n| S29-P04 | Betekenisverschuiving | tijd_of_volgorde | 0.96 | nee | 20 |\n| S29-P05 | Entiteitsfout | datum | 0.93 | nee | 15 |\n| S29-P06 | Register en nadruk | twijfel_weg | 0.94 | nee | 41 |\n| S29-P07 | controle |  | 0.75 | nee | 18 |\n| S29-P08 | controle |  | 0.94 | nee | 17 |\n\n**Opmerkingen**\n\n- 1 paar/paren weggelaten door de reviewer: S20-P06 (Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging.)",
+   "numbers": {
+    "omissie": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 6,
+     "wilson": [
+      2.7755575615628914e-17,
+      0.3903342879021653
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.14285714285714285,
+     "tp": 1,
+     "n": 7,
+     "wilson": [
+      0.02567962434474355,
+      0.5131278292743189
+     ],
+     "bootstrap": [
+      0.0,
+      0.42857142857142855
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "all": {
+     "recall": 0.029411764705882353,
+     "fpr": 0.044444444444444446,
+     "precision": 0.3333333333333333,
+     "tp": 1,
+     "fn": 33,
+     "fp": 2,
+     "tn": 43,
+     "share_deviant": 0.43037974683544306,
+     "precision_at_prevalence": {
+      "0.05": 0.033657442034405384,
+      "0.1": 0.06849315068493152,
+      "0.2": 0.14195583596214512
+     }
+    },
+    "excluded_by_reviewer": {
+     "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+    },
+    "path": "cross_lingual",
+    "threshold": 0.7188705503940582,
+    "criterion": null,
+    "valid": false,
+    "n_dev": 79,
+    "n_test": 0,
+    "notes": [
+     "1 paar/paren weggelaten door de reviewer: S20-P06 (Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging.)"
+    ],
+    "dry_run": true
+   },
+   "pair_scores": {
+    "S20-P01": 0.9664883017539978,
+    "S20-P02": 0.8654881715774536,
+    "S20-P03": 0.8469581604003906,
+    "S20-P04": 0.8849928379058838,
+    "S20-P05": 0.7915174961090088,
+    "S20-P07": 0.9530721306800842,
+    "S20-P08": 0.8516979217529297,
+    "S21-P01": 0.9162992238998413,
+    "S21-P02": 0.9150896072387695,
+    "S21-P03": 0.7980515956878662,
+    "S21-P04": 0.8955413103103638,
+    "S21-P05": 0.8488055467605591,
+    "S21-P06": 0.8576785326004028,
+    "S21-P07": 0.9049011468887329,
+    "S21-P08": 0.9129854440689087,
+    "S22-P01": 0.9579517245292664,
+    "S22-P02": 0.9187673926353455,
+    "S22-P03": 0.9046789407730103,
+    "S22-P04": 0.8485502004623413,
+    "S22-P05": 0.36910757422447205,
+    "S22-P06": 0.9525452852249146,
+    "S22-P07": 0.9288429617881775,
+    "S22-P08": 0.9264488220214844,
+    "S23-P01": 0.968582272529602,
+    "S23-P02": 0.9797221422195435,
+    "S23-P03": 0.7475408315658569,
+    "S23-P04": 0.9075067043304443,
+    "S23-P05": 0.7915516495704651,
+    "S23-P06": 0.9296755790710449,
+    "S23-P07": 0.7865892648696899,
+    "S23-P08": 0.9681267738342285,
+    "S24-P01": 0.9502997398376465,
+    "S24-P02": 0.7610235214233398,
+    "S24-P03": 0.9146576523780823,
+    "S24-P04": 0.8966035842895508,
+    "S24-P05": 0.9818556308746338,
+    "S24-P06": 0.924255907535553,
+    "S24-P07": 0.8643205165863037,
+    "S24-P08": 0.9133257269859314,
+    "S25-P01": 0.9507938623428345,
+    "S25-P02": 0.9730654954910278,
+    "S25-P03": 0.9135124087333679,
+    "S25-P04": 0.9497057199478149,
+    "S25-P05": 0.938873291015625,
+    "S25-P06": 0.8527945280075073,
+    "S25-P07": 0.9262226223945618,
+    "S25-P08": 0.8051478862762451,
+    "S26-P01": 0.9555648565292358,
+    "S26-P02": 0.9540805816650391,
+    "S26-P03": 0.8562376499176025,
+    "S26-P04": 0.9605613350868225,
+    "S26-P05": 0.7011123895645142,
+    "S26-P06": 0.7788262367248535,
+    "S26-P07": 0.9117469787597656,
+    "S26-P08": 0.9241331815719604,
+    "S27-P01": 0.9626402258872986,
+    "S27-P02": 0.9076378345489502,
+    "S27-P03": 0.9148041009902954,
+    "S27-P04": 0.8920754194259644,
+    "S27-P05": 0.9466149210929871,
+    "S27-P06": 0.9267362356185913,
+    "S27-P07": 0.9301350116729736,
+    "S27-P08": 0.7366069555282593,
+    "S28-P01": 0.9167068004608154,
+    "S28-P02": 0.7930909991264343,
+    "S28-P03": 0.7043746113777161,
+    "S28-P04": 0.9095807075500488,
+    "S28-P05": 0.8998408913612366,
+    "S28-P06": 0.7333664894104004,
+    "S28-P07": 0.9303790926933289,
+    "S28-P08": 0.9246206283569336,
+    "S29-P01": 0.9069839715957642,
+    "S29-P02": 0.9464439153671265,
+    "S29-P03": 0.8643519878387451,
+    "S29-P04": 0.9566792249679565,
+    "S29-P05": 0.9330734610557556,
+    "S29-P06": 0.9418951272964478,
+    "S29-P07": 0.7450434565544128,
+    "S29-P08": 0.942147970199585
+   },
+   "reference_scores": {
+    "S20-P03": 0.8822265267372131,
+    "S20-P04": 0.9352177381515503,
+    "S20-P08": 0.9093233346939087,
+    "S21-P02": 0.9293315410614014,
+    "S21-P04": 0.9168001413345337,
+    "S21-P05": 0.9042197465896606,
+    "S22-P02": 0.9676374197006226,
+    "S22-P03": 0.9402118921279907,
+    "S22-P04": 0.9461245536804199,
+    "S22-P06": 0.9563960433006287,
+    "S23-P03": 0.9098652601242065,
+    "S23-P04": 0.9104348421096802,
+    "S23-P06": 0.9428386688232422,
+    "S24-P03": 0.9639302492141724,
+    "S24-P04": 0.9430481195449829,
+    "S24-P06": 0.962440550327301,
+    "S24-P08": 0.9713536500930786,
+    "S25-P04": 0.963399350643158,
+    "S25-P05": 0.9394906759262085,
+    "S25-P06": 0.8792319297790527,
+    "S26-P03": 0.9435315132141113,
+    "S26-P04": 0.9664468169212341,
+    "S26-P06": 0.8384071588516235,
+    "S26-P08": 0.9137546420097351,
+    "S27-P04": 0.9203642010688782,
+    "S27-P06": 0.9274916052818298,
+    "S27-P07": 0.968004584312439,
+    "S28-P02": 0.9192935228347778,
+    "S28-P03": 0.9181627631187439,
+    "S28-P04": 0.9339554309844971,
+    "S28-P08": 0.9348551034927368,
+    "S29-P04": 0.969499945640564,
+    "S29-P05": 0.9480999708175659,
+    "S29-P06": 0.9421656727790833
+   },
+   "criterion": "recall_at_fpr",
+   "max_fpr": 0.1
+  },
+  "LaBSE_0.70": {
+   "threshold": 0.7,
+   "markdown": "> **DEMO — niet geldig als resultaat.** Gedraaid met --dry-run: alleen ontwikkelsessies zijn doorgerekend, met een vooraf opgegeven drempel. Er is geen drempel gekozen en er zijn geen testsessies bekeken.\n\n**Scoringsroute:** `cross_lingual`. **Drempel:** 0.700, vooraf opgegeven, niet afgesteld. Een paar wordt gesignaleerd als de score onder de drempel ligt. **Ontwikkelset:** 79 paren uit 10 sessie(s).\n\n| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.00 | 0.00–0.39 | 0.00–0.00 | 6 |\n| Toevoeging | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Betekenisverschuiving | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Entiteitsfout | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| Register en nadruk | 0.00 | 0.00–0.35 | 0.00–0.00 | 7 |\n| **Alle afwijkingen** | 0.00 | 0.00–0.10 | 0.00–0.00 | 34 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (43% afwijkend) | 0.00 | 0.00–0.79 | 0.00–0.00 | 1 |\n| Precision bij 5% afwijkende paren | 0.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.00 | – | – | berekend |\n\nRecall per categorie; valse alarmen en precision alleen voor de hele set, omdat de detector geen categorie geeft. De bootstrap trekt hele sessies (2000×); bij weinig sessies is dat interval breed of ontbreekt het.\n\n\n**Hoeveel beweegt de score?** Score van de referentievertaling min de score van de vertolking, per categorie (alleen analyse; de tool gebruikt geen referentie). Rond 0 betekent dat de afwijking de score niet verandert.\n\n| Categorie | n | gem. verschil | min | max |\n|---|---|---|---|---|\n| Omissie | 6 | 0.034 | 0.001 | 0.098 |\n| Toevoeging | 7 | 0.069 | 0.013 | 0.214 |\n| Betekenisverschuiving | 7 | 0.023 | 0.003 | 0.058 |\n| Entiteitsfout | 7 | 0.071 | 0.015 | 0.162 |\n| Register en nadruk | 7 | 0.014 | -0.010 | 0.049 |\n\n**Per paar (ontwikkelset)**\n\n| paar | categorie | subtype | score | gesignaleerd | woorden bron |\n|---|---|---|---|---|---|\n| S20-P01 | controle |  | 0.97 | nee | 7 |\n| S20-P02 | controle |  | 0.87 | nee | 18 |\n| S20-P03 | Toevoeging | eigen_vraag_tolk | 0.85 | nee | 10 |\n| S20-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.88 | nee | 9 |\n| S20-P05 | controle |  | 0.79 | nee | 15 |\n| S20-P07 | controle |  | 0.95 | nee | 8 |\n| S20-P08 | Entiteitsfout | naam | 0.85 | nee | 18 |\n| S21-P01 | controle |  | 0.92 | nee | 13 |\n| S21-P02 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 9 |\n| S21-P03 | controle |  | 0.80 | nee | 8 |\n| S21-P04 | Omissie | detail | 0.90 | nee | 44 |\n| S21-P05 | Toevoeging | eigen_uitleg_tolk | 0.85 | nee | 13 |\n| S21-P06 | controle |  | 0.86 | nee | 17 |\n| S21-P07 | controle |  | 0.90 | nee | 16 |\n| S21-P08 | controle |  | 0.91 | nee | 13 |\n| S22-P01 | controle |  | 0.96 | nee | 10 |\n| S22-P02 | Entiteitsfout | datum | 0.92 | nee | 10 |\n| S22-P03 | Register en nadruk | nadruk_weg | 0.90 | nee | 10 |\n| S22-P04 | Omissie | bijzin | 0.85 | nee | 19 |\n| S22-P05 | controle |  | 0.37 | ja | 12 |\n| S22-P06 | Betekenisverschuiving | tijd_of_volgorde | 0.95 | nee | 42 |\n| S22-P07 | controle |  | 0.93 | nee | 15 |\n| S22-P08 | controle |  | 0.93 | nee | 12 |\n| S23-P01 | controle |  | 0.97 | nee | 8 |\n| S23-P02 | controle |  | 0.98 | nee | 7 |\n| S23-P03 | Entiteitsfout | plaats | 0.75 | nee | 13 |\n| S23-P04 | Betekenisverschuiving | oorzaak_gevolg | 0.91 | nee | 18 |\n| S23-P05 | controle |  | 0.79 | nee | 13 |\n| S23-P06 | Toevoeging | verzonnen_detail | 0.93 | nee | 38 |\n| S23-P07 | controle |  | 0.79 | nee | 15 |\n| S23-P08 | controle |  | 0.97 | nee | 18 |\n| S24-P01 | controle |  | 0.95 | nee | 15 |\n| S24-P02 | controle |  | 0.76 | nee | 18 |\n| S24-P03 | Register en nadruk | twijfel_weg | 0.91 | nee | 14 |\n| S24-P04 | Omissie | voorwaarde | 0.90 | nee | 39 |\n| S24-P05 | controle |  | 0.98 | nee | 12 |\n| S24-P06 | Toevoeging | eigen_oordeel | 0.92 | nee | 18 |\n| S24-P07 | controle |  | 0.86 | nee | 16 |\n| S24-P08 | Betekenisverschuiving | wie_deed_wat | 0.91 | nee | 8 |\n| S25-P01 | controle |  | 0.95 | nee | 17 |\n| S25-P02 | controle |  | 0.97 | nee | 8 |\n| S25-P03 | controle |  | 0.91 | nee | 13 |\n| S25-P04 | Omissie | kernfeit | 0.95 | nee | 43 |\n| S25-P05 | Register en nadruk | beleefdheid_of_toon | 0.94 | nee | 11 |\n| S25-P06 | Entiteitsfout | aantal | 0.85 | nee | 16 |\n| S25-P07 | controle |  | 0.93 | nee | 14 |\n| S25-P08 | controle |  | 0.81 | nee | 24 |\n| S26-P01 | controle |  | 0.96 | nee | 10 |\n| S26-P02 | controle |  | 0.95 | nee | 14 |\n| S26-P03 | Toevoeging | eigen_vraag_tolk | 0.86 | nee | 10 |\n| S26-P04 | Betekenisverschuiving | sterker_of_zwakker_gemaakt | 0.96 | nee | 24 |\n| S26-P05 | controle |  | 0.70 | nee | 10 |\n| S26-P06 | Entiteitsfout | tijdsduur | 0.78 | nee | 7 |\n| S26-P07 | controle |  | 0.91 | nee | 10 |\n| S26-P08 | Register en nadruk | voorzichtigheidswoord_weg | 0.92 | nee | 47 |\n| S27-P01 | controle |  | 0.96 | nee | 14 |\n| S27-P02 | controle |  | 0.91 | nee | 8 |\n| S27-P03 | controle |  | 0.91 | nee | 11 |\n| S27-P04 | Betekenisverschuiving | ontkenning_omgekeerd | 0.89 | nee | 18 |\n| S27-P05 | controle |  | 0.95 | nee | 11 |\n| S27-P06 | Omissie | detail | 0.93 | nee | 41 |\n| S27-P07 | Toevoeging | eigen_uitleg_tolk | 0.93 | nee | 9 |\n| S27-P08 | controle |  | 0.74 | nee | 16 |\n| S28-P01 | controle |  | 0.92 | nee | 15 |\n| S28-P02 | Entiteitsfout | naam | 0.79 | nee | 6 |\n| S28-P03 | Toevoeging | verzonnen_detail | 0.70 | nee | 8 |\n| S28-P04 | Omissie | bijzin | 0.91 | nee | 39 |\n| S28-P05 | controle |  | 0.90 | nee | 16 |\n| S28-P06 | controle |  | 0.73 | nee | 19 |\n| S28-P07 | controle |  | 0.93 | nee | 12 |\n| S28-P08 | Register en nadruk | nadruk_weg | 0.92 | nee | 19 |\n| S29-P01 | controle |  | 0.91 | nee | 13 |\n| S29-P02 | controle |  | 0.95 | nee | 6 |\n| S29-P03 | controle |  | 0.86 | nee | 10 |\n| S29-P04 | Betekenisverschuiving | tijd_of_volgorde | 0.96 | nee | 20 |\n| S29-P05 | Entiteitsfout | datum | 0.93 | nee | 15 |\n| S29-P06 | Register en nadruk | twijfel_weg | 0.94 | nee | 41 |\n| S29-P07 | controle |  | 0.75 | nee | 18 |\n| S29-P08 | controle |  | 0.94 | nee | 17 |\n\n**Opmerkingen**\n\n- 1 paar/paren weggelaten door de reviewer: S20-P06 (Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging.)",
+   "numbers": {
+    "omissie": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 6,
+     "wilson": [
+      2.7755575615628914e-17,
+      0.3903342879021653
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.0,
+     "tp": 0,
+     "n": 7,
+     "wilson": [
+      5.551115123125783e-17,
+      0.35433043506668743
+     ],
+     "bootstrap": [
+      0.0,
+      0.0
+     ]
+    },
+    "all": {
+     "recall": 0.0,
+     "fpr": 0.022222222222222223,
+     "precision": 0.0,
+     "tp": 0,
+     "fn": 34,
+     "fp": 1,
+     "tn": 44,
+     "share_deviant": 0.43037974683544306,
+     "precision_at_prevalence": {
+      "0.05": 0.0,
+      "0.1": 0.0,
+      "0.2": 0.0
+     }
+    },
+    "excluded_by_reviewer": {
+     "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+    },
+    "path": "cross_lingual",
+    "threshold": 0.7,
+    "criterion": null,
+    "valid": false,
+    "n_dev": 79,
+    "n_test": 0,
+    "notes": [
+     "1 paar/paren weggelaten door de reviewer: S20-P06 (Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging.)"
+    ],
+    "dry_run": true
+   },
+   "pair_scores": {
+    "S20-P01": 0.9664883017539978,
+    "S20-P02": 0.8654881715774536,
+    "S20-P03": 0.8469581604003906,
+    "S20-P04": 0.8849928379058838,
+    "S20-P05": 0.7915174961090088,
+    "S20-P07": 0.9530721306800842,
+    "S20-P08": 0.8516979217529297,
+    "S21-P01": 0.9162992238998413,
+    "S21-P02": 0.9150896072387695,
+    "S21-P03": 0.7980515956878662,
+    "S21-P04": 0.8955413103103638,
+    "S21-P05": 0.8488055467605591,
+    "S21-P06": 0.8576785326004028,
+    "S21-P07": 0.9049011468887329,
+    "S21-P08": 0.9129854440689087,
+    "S22-P01": 0.9579517245292664,
+    "S22-P02": 0.9187673926353455,
+    "S22-P03": 0.9046789407730103,
+    "S22-P04": 0.8485502004623413,
+    "S22-P05": 0.36910757422447205,
+    "S22-P06": 0.9525452852249146,
+    "S22-P07": 0.9288429617881775,
+    "S22-P08": 0.9264488220214844,
+    "S23-P01": 0.968582272529602,
+    "S23-P02": 0.9797221422195435,
+    "S23-P03": 0.7475408315658569,
+    "S23-P04": 0.9075067043304443,
+    "S23-P05": 0.7915516495704651,
+    "S23-P06": 0.9296755790710449,
+    "S23-P07": 0.7865892648696899,
+    "S23-P08": 0.9681267738342285,
+    "S24-P01": 0.9502997398376465,
+    "S24-P02": 0.7610235214233398,
+    "S24-P03": 0.9146576523780823,
+    "S24-P04": 0.8966035842895508,
+    "S24-P05": 0.9818556308746338,
+    "S24-P06": 0.924255907535553,
+    "S24-P07": 0.8643205165863037,
+    "S24-P08": 0.9133257269859314,
+    "S25-P01": 0.9507938623428345,
+    "S25-P02": 0.9730654954910278,
+    "S25-P03": 0.9135124087333679,
+    "S25-P04": 0.9497057199478149,
+    "S25-P05": 0.938873291015625,
+    "S25-P06": 0.8527945280075073,
+    "S25-P07": 0.9262226223945618,
+    "S25-P08": 0.8051478862762451,
+    "S26-P01": 0.9555648565292358,
+    "S26-P02": 0.9540805816650391,
+    "S26-P03": 0.8562376499176025,
+    "S26-P04": 0.9605613350868225,
+    "S26-P05": 0.7011123895645142,
+    "S26-P06": 0.7788262367248535,
+    "S26-P07": 0.9117469787597656,
+    "S26-P08": 0.9241331815719604,
+    "S27-P01": 0.9626402258872986,
+    "S27-P02": 0.9076378345489502,
+    "S27-P03": 0.9148041009902954,
+    "S27-P04": 0.8920754194259644,
+    "S27-P05": 0.9466149210929871,
+    "S27-P06": 0.9267362356185913,
+    "S27-P07": 0.9301350116729736,
+    "S27-P08": 0.7366069555282593,
+    "S28-P01": 0.9167068004608154,
+    "S28-P02": 0.7930909991264343,
+    "S28-P03": 0.7043746113777161,
+    "S28-P04": 0.9095807075500488,
+    "S28-P05": 0.8998408913612366,
+    "S28-P06": 0.7333664894104004,
+    "S28-P07": 0.9303790926933289,
+    "S28-P08": 0.9246206283569336,
+    "S29-P01": 0.9069839715957642,
+    "S29-P02": 0.9464439153671265,
+    "S29-P03": 0.8643519878387451,
+    "S29-P04": 0.9566792249679565,
+    "S29-P05": 0.9330734610557556,
+    "S29-P06": 0.9418951272964478,
+    "S29-P07": 0.7450434565544128,
+    "S29-P08": 0.942147970199585
+   },
+   "reference_scores": {
+    "S20-P03": 0.8822265267372131,
+    "S20-P04": 0.9352177381515503,
+    "S20-P08": 0.9093233346939087,
+    "S21-P02": 0.9293315410614014,
+    "S21-P04": 0.9168001413345337,
+    "S21-P05": 0.9042197465896606,
+    "S22-P02": 0.9676374197006226,
+    "S22-P03": 0.9402118921279907,
+    "S22-P04": 0.9461245536804199,
+    "S22-P06": 0.9563960433006287,
+    "S23-P03": 0.9098652601242065,
+    "S23-P04": 0.9104348421096802,
+    "S23-P06": 0.9428386688232422,
+    "S24-P03": 0.9639302492141724,
+    "S24-P04": 0.9430481195449829,
+    "S24-P06": 0.962440550327301,
+    "S24-P08": 0.9713536500930786,
+    "S25-P04": 0.963399350643158,
+    "S25-P05": 0.9394906759262085,
+    "S25-P06": 0.8792319297790527,
+    "S26-P03": 0.9435315132141113,
+    "S26-P04": 0.9664468169212341,
+    "S26-P06": 0.8384071588516235,
+    "S26-P08": 0.9137546420097351,
+    "S27-P04": 0.9203642010688782,
+    "S27-P06": 0.9274916052818298,
+    "S27-P07": 0.968004584312439,
+    "S28-P02": 0.9192935228347778,
+    "S28-P03": 0.9181627631187439,
+    "S28-P04": 0.9339554309844971,
+    "S28-P08": 0.9348551034927368,
+    "S29-P04": 0.969499945640564,
+    "S29-P05": 0.9480999708175659,
+    "S29-P06": 0.9421656727790833
+   },
+   "note": "vaste drempel 0,70 uit de drempelregels van variant A; NIET variant A zelf"
+  },
+  "A": {
+   "variant": "A",
+   "description": "Claude met drempelregels (LLM_SCORE_RULES=true)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": true,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    true
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.33 | 0.10–0.70 | 0.00–0.75 | 6 |\n| Toevoeging | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.53 | 0.37–0.69 | 0.38–0.65 | 34 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.00 | 0.00–0.08 | 0.00–0.00 | 45 |\n| Precision in deze set (43% afwijkend) | 1.00 | 0.82–1.00 | 1.00–1.00 | 18 |\n| Precision bij 5% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 1.00 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.3333333333333333,
+       "tp": 2,
+       "n": 6,
+       "wilson": [
+        0.09677141110578041,
+        0.700006684861608
+       ],
+       "bootstrap": [
+        0.0,
+        0.75
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.5714285714285714,
+       "tp": 4,
+       "n": 7,
+       "wilson": [
+        0.2504583645276572,
+        0.8417801447485302
+       ],
+       "bootstrap": [
+        0.16666666666666666,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.5294117647058824,
+       "fpr": 0.0,
+       "precision": 1.0,
+       "tp": 18,
+       "fn": 16,
+       "fp": 0,
+       "tn": 45,
+       "share_deviant": 0.43037974683544306,
+       "precision_at_prevalence": {
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.2": 1.0
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.83 | 0.44–0.97 | 0.50–1.00 | 6 |\n| Toevoeging | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.71 | 0.54–0.83 | 0.59–0.82 | 34 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (43% afwijkend) | 0.96 | 0.80–0.99 | 0.88–1.00 | 25 |\n| Precision bij 5% afwijkende paren | 0.63 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.78 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.89 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.8333333333333334,
+       "tp": 5,
+       "n": 6,
+       "wilson": [
+        0.43649717781352987,
+        0.9699466302516935
+       ],
+       "bootstrap": [
+        0.5,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.7058823529411765,
+       "fpr": 0.022222222222222223,
+       "precision": 0.96,
+       "tp": 24,
+       "fn": 10,
+       "fp": 1,
+       "tn": 44,
+       "share_deviant": 0.43037974683544306,
+       "precision_at_prevalence": {
+        "0.05": 0.6257242178447276,
+        "0.1": 0.7792207792207793,
+        "0.2": 0.8881578947368421
+       }
+      }
+     }
+    }
+   },
+   "excluded_by_reviewer": {
+    "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1519,
+     "cache_creation_input_tokens": 1916,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.032937,
+     "duration_s": 23.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 924,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.017671799999999998,
+     "duration_s": 14.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1401,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0245868,
+     "duration_s": 22.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1327,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0236088,
+     "duration_s": 19.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1513,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0265068,
+     "duration_s": 22.2,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 994,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0186768,
+     "duration_s": 17.1,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1604,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0280488,
+     "duration_s": 20.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 1056,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.019447799999999998,
+     "duration_s": 18.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1276,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0228108,
+     "duration_s": 20.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 1122,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1916,
+     "cost_usd_estimate": 0.0205458,
+     "duration_s": 18.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 12736,
+    "cache_creation_input_tokens": 1916,
+    "cache_read_input_tokens": 17244
+   },
+   "cost_usd_estimate_total": 0.2348412,
+   "raw_dir": "evaluation\\results\\dev_na_review_2026-11-14\\feedback_text_A\\raw",
+   "result_file": "evaluation\\results\\dev_na_review_2026-11-14\\feedback_text_A\\result.json"
+  },
+  "B": {
+   "variant": "B",
+   "description": "Claude zonder drempelregels (LLM_SCORE_RULES=false)",
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": false,
+   "labse_cutoffs": {
+    "correct": 0.7,
+    "likely_issue": 0.5,
+    "no_addition": 0.65
+   },
+   "split": "dev",
+   "sessions": [
+    "S20",
+    "S21",
+    "S22",
+    "S23",
+    "S24",
+    "S25",
+    "S26",
+    "S27",
+    "S28",
+    "S29"
+   ],
+   "reviewed": [
+    true
+   ],
+   "flag_rule_primary": "high_critical",
+   "flag_rules": {
+    "high_critical": [
+     "critical",
+     "high"
+    ],
+    "any_issue": [
+     "critical",
+     "high",
+     "low",
+     "medium"
+    ]
+   },
+   "differences_from_tool": [
+    "geen kennisbank (geen database)",
+    "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+   ],
+   "reports": {
+    "high_critical": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.67 | 0.30–0.90 | 0.25–1.00 | 6 |\n| Toevoeging | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.65 | 0.48–0.79 | 0.48–0.77 | 34 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.00 | 0.00–0.08 | 0.00–0.00 | 45 |\n| Precision in deze set (43% afwijkend) | 1.00 | 0.85–1.00 | 1.00–1.00 | 22 |\n| Precision bij 5% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 1.00 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.6666666666666666,
+       "tp": 4,
+       "n": 6,
+       "wilson": [
+        0.299993315138392,
+        0.9032285888942195
+       ],
+       "bootstrap": [
+        0.25,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 0.7142857142857143,
+       "tp": 5,
+       "n": 7,
+       "wilson": [
+        0.35893445183261935,
+        0.9177810759959433
+       ],
+       "bootstrap": [
+        0.3333333333333333,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.14285714285714285,
+       "tp": 1,
+       "n": 7,
+       "wilson": [
+        0.02567962434474355,
+        0.5131278292743189
+       ],
+       "bootstrap": [
+        0.0,
+        0.42857142857142855
+       ]
+      },
+      "all": {
+       "recall": 0.6470588235294118,
+       "fpr": 0.0,
+       "precision": 1.0,
+       "tp": 22,
+       "fn": 12,
+       "fp": 0,
+       "tn": 45,
+       "share_deviant": 0.43037974683544306,
+       "precision_at_prevalence": {
+        "0.05": 1.0,
+        "0.1": 1.0,
+        "0.2": 1.0
+       }
+      }
+     }
+    },
+    "any_issue": {
+     "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.83 | 0.44–0.97 | 0.50–1.00 | 6 |\n| Toevoeging | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 1.00 | 0.65–1.00 | 1.00–1.00 | 7 |\n| Register en nadruk | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| **Alle afwijkingen** | 0.79 | 0.63–0.90 | 0.66–0.94 | 34 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (43% afwijkend) | 0.96 | 0.82–0.99 | 0.90–1.00 | 28 |\n| Precision bij 5% afwijkende paren | 0.65 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.80 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.90 | – | – | berekend |",
+     "numbers": {
+      "omissie": {
+       "recall": 0.8333333333333334,
+       "tp": 5,
+       "n": 6,
+       "wilson": [
+        0.43649717781352987,
+        0.9699466302516935
+       ],
+       "bootstrap": [
+        0.5,
+        1.0
+       ]
+      },
+      "toevoeging": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "betekenisverschuiving": {
+       "recall": 0.8571428571428571,
+       "tp": 6,
+       "n": 7,
+       "wilson": [
+        0.4868721707256811,
+        0.9743203756552565
+       ],
+       "bootstrap": [
+        0.5714285714285714,
+        1.0
+       ]
+      },
+      "entiteitsfout": {
+       "recall": 1.0,
+       "tp": 7,
+       "n": 7,
+       "wilson": [
+        0.6456695649333126,
+        1.0
+       ],
+       "bootstrap": [
+        1.0,
+        1.0
+       ]
+      },
+      "register_en_nadruk": {
+       "recall": 0.2857142857142857,
+       "tp": 2,
+       "n": 7,
+       "wilson": [
+        0.08221892400405678,
+        0.6410655481673808
+       ],
+       "bootstrap": [
+        0.0,
+        0.6666666666666666
+       ]
+      },
+      "all": {
+       "recall": 0.7941176470588235,
+       "fpr": 0.022222222222222223,
+       "precision": 0.9642857142857143,
+       "tp": 27,
+       "fn": 7,
+       "fp": 1,
+       "tn": 44,
+       "share_deviant": 0.43037974683544306,
+       "precision_at_prevalence": {
+        "0.05": 0.6528747984954326,
+        "0.1": 0.7988165680473372,
+        "0.2": 0.8993338267949667
+       }
+      }
+     }
+    }
+   },
+   "excluded_by_reviewer": {
+    "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+   },
+   "per_session": [
+    {
+     "session_id": "S20",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 989,
+     "output_tokens": 1508,
+     "cache_creation_input_tokens": 1845,
+     "cache_read_input_tokens": 0,
+     "cost_usd_estimate": 0.03250575,
+     "duration_s": 22.7,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S21",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1013,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0189855,
+     "duration_s": 16.7,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S22",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 999,
+     "output_tokens": 1373,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0241455,
+     "duration_s": 22.8,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S23",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1043,
+     "output_tokens": 1625,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0280575,
+     "duration_s": 24.3,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S24",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1079,
+     "output_tokens": 1491,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0261555,
+     "duration_s": 21.0,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S25",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1064,
+     "output_tokens": 1289,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0230805,
+     "duration_s": 22.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S26",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1138,
+     "output_tokens": 1097,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0204225,
+     "duration_s": 16.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S27",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1011,
+     "output_tokens": 1216,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0218265,
+     "duration_s": 20.6,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S28",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1032,
+     "output_tokens": 1338,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0237195,
+     "duration_s": 21.5,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    },
+    {
+     "session_id": "S29",
+     "model": "claude-sonnet-4-6",
+     "input_tokens": 1047,
+     "output_tokens": 1102,
+     "cache_creation_input_tokens": 0,
+     "cache_read_input_tokens": 1845,
+     "cost_usd_estimate": 0.0202245,
+     "duration_s": 17.4,
+     "missing_pairs": [],
+     "stop_reasons": [
+      "end_turn"
+     ]
+    }
+   ],
+   "tokens_total": {
+    "input_tokens": 10481,
+    "output_tokens": 13052,
+    "cache_creation_input_tokens": 1845,
+    "cache_read_input_tokens": 16605
+   },
+   "cost_usd_estimate_total": 0.23912325,
+   "raw_dir": "evaluation\\results\\dev_na_review_2026-11-14\\feedback_text_B\\raw",
+   "result_file": "evaluation\\results\\dev_na_review_2026-11-14\\feedback_text_B\\result.json"
+  }
+ },
+ "labse_analysis": {
+  "roc_auc_per_category": {
+   "omissie": {
+    "auc": 0.5592592592592592
+   },
+   "toevoeging": {
+    "auc": 0.6317460317460317
+   },
+   "betekenisverschuiving": {
+    "auc": 0.43492063492063493
+   },
+   "entiteitsfout": {
+    "auc": 0.6952380952380952
+   },
+   "register_en_nadruk": {
+    "auc": 0.4634920634920635
+   },
+   "alle_afwijkingen": {
+    "auc": 0.5568627450980392
+   }
+  },
+  "mean_score_per_label": {
+   "afwijking (alle)": {
+    "n": 34,
+    "gemiddeld": 0.8904290164218229
+   },
+   "controle_gemelde_omschrijving": {
+    "n": 3,
+    "gemiddeld": 0.7851030031840006
+   },
+   "controle_letterlijk": {
+    "n": 21,
+    "gemiddeld": 0.9313199179513114
+   },
+   "controle_parafrase": {
+    "n": 14,
+    "gemiddeld": 0.9090598438467298
+   },
+   "controle_verzoek_herhaling": {
+    "n": 3,
+    "gemiddeld": 0.6358739833037058
+   },
+   "controle_zelfcorrectie": {
+    "n": 4,
+    "gemiddeld": 0.7745583206415176
+   }
+  },
+  "score_drop_per_category": {
+   "omissie": {
+    "n": 6,
+    "gemiddeld": 0.03401690721511841,
+    "min": 0.0007553696632385254,
+    "max": 0.09757435321807861
+   },
+   "toevoeging": {
+    "n": 7,
+    "gemiddeld": 0.06871169805526733,
+    "min": 0.013163089752197266,
+    "max": 0.21378815174102783
+   },
+   "betekenisverschuiving": {
+    "n": 7,
+    "gemiddeld": 0.02314667190824236,
+    "min": 0.00292813777923584,
+    "max": 0.05802792310714722
+   },
+   "entiteitsfout": {
+    "n": 7,
+    "gemiddeld": 0.07086674656186785,
+    "min": 0.015026509761810303,
+    "max": 0.1623244285583496
+   },
+   "register_en_nadruk": {
+    "n": 7,
+    "gemiddeld": 0.014255906854357039,
+    "min": -0.010378539562225342,
+    "max": 0.04927259683609009
+   }
+  }
+ }
+}

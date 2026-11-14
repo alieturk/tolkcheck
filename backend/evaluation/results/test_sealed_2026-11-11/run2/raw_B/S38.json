@@ -1,0 +1,80 @@
+{
+ "session_id": "S38",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd in de client→ambtenaar richting. Bij paar 0 vertaalt de tolk 'Adana' als 'Antalya': dit is een andere stad en vormt een feitelijke afwijking die het dossier raakt. Bij paar 3 corrigeert de tolk zichzelf van 'broer' naar 'zus' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. De overige client→ambtenaar paren bevatten geen inhoudelijke afwijkingen. In de ambtenaar→cliënt richting zijn geen inhoudelijke afwijkingen vastgesteld; paar 1 bevat een lichte omschrijving ('öğrenebilir miyim' — 'mag ik weten') die de vraag iets indirecter maakt maar de inhoud niet wezenlijk verandert.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt 'Adana' als de stad waarnaar het gezin verhuisde, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. Omdat de verblijfplaats van het gezin een feitelijk gegeven is dat het dossier en de geloofwaardigheidsbeoordeling kan beïnvloeden, is dit een kritieke afwijking. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning de stadsnaam verkeerd heeft weergegeven.\",\n          \"originalPhrase\": \"Adana'ya taşındık\",\n          \"translatedPhrase\": \"naar Antalya verhuisd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk voegt 'öğrenebilir miyim' (mag ik weten / kan ik vernemen) toe, waardoor de vraag iets indirecter en beleefder klinkt dan het origineel. De inhoudelijke strekking van de vraag blijft ongewijzigd.\",\n          \"originalPhrase\": \"Woont uw familie na die verhuizing nog steeds in die stad, of zijn ze weer vertrokken?\",\n          \"translatedPhrase\": \"Taşındıktan sonra ailenizin hâlâ o şehirde yaşayıp yaşamadığını, yoksa tekrar başka bir yere gidip gitmediklerini öğrenebilir miyim?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1116,
+    "output_tokens": 954,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd in de client→ambtenaar richting. Bij paar 0 vertaalt de tolk 'Adana' als 'Antalya': dit is een andere stad en vormt een feitelijke afwijking die het dossier raakt. Bij paar 3 corrigeert de tolk zichzelf van 'broer' naar 'zus' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. De overige client→ambtenaar paren bevatten geen inhoudelijke afwijkingen. In de ambtenaar→cliënt richting zijn geen inhoudelijke afwijkingen vastgesteld; paar 1 bevat een lichte omschrijving ('öğrenebilir miyim' — 'mag ik weten') die de vraag iets indirecter maakt maar de inhoud niet wezenlijk verandert.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt 'Adana' als de stad waarnaar het gezin verhuisde, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. Omdat de verblijfplaats van het gezin een feitelijk gegeven is dat het dossier en de geloofwaardigheidsbeoordeling kan beïnvloeden, is dit een kritieke afwijking. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning de stadsnaam verkeerd heeft weergegeven.",
+      "originalPhrase": "Adana'ya taşındık",
+      "translatedPhrase": "naar Antalya verhuisd"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "low",
+      "description": "De tolk voegt 'öğrenebilir miyim' (mag ik weten / kan ik vernemen) toe, waardoor de vraag iets indirecter en beleefder klinkt dan het origineel. De inhoudelijke strekking van de vraag blijft ongewijzigd.",
+      "originalPhrase": "Woont uw familie na die verhuizing nog steeds in die stad, of zijn ze weer vertrokken?",
+      "translatedPhrase": "Taşındıktan sonra ailenizin hâlâ o şehirde yaşayıp yaşamadığını, yoksa tekrar başka bir yere gidip gitmediklerini öğrenebilir miyim?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

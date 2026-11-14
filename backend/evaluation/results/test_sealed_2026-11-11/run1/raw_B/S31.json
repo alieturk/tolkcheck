@@ -1,0 +1,88 @@
+{
+ "session_id": "S31",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier fragmenten met mogelijke inhoudelijke afwijkingen gesignaleerd.\\n\\nIn CLIENT→AMBTENAAR paar 1 ontbreekt een inhoudelijk belangrijk detail: de cliënt zegt dat de broer werd gearresteerd ('polis onu gözaltına aldı') toen hij met verlof thuiskwam, maar in de vertolking is de arrestatie weggelaten. De tolk zegt alleen 'maar toen hij met verlof thuiskwam' en gaat dan direct over op de vrijlating drie weken later. Dit is een kritische omissie omdat de arrestatie door de politie een kernfeit is in het relaas.\\n\\nIn CLIENT→AMBTENAAR paar 3 is de vertolking inhoudelijk correct, maar de tolk heeft een procedurele interventie gedaan (vraag om herhaling wegens onduidelijk werkwoord). Dit is toegestaan gedrag en geen afwijking. Wel is het woord 'kardeşlerimizin' (broers en zussen) vertaald als 'broers en zussen', wat correct is; er is geen inhoudelijke afwijking in de uiteindelijke vertaling.\\n\\nIn AMBTENAAR→CLIËNT paar 1 heeft de tolk een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Dit is een inhoudelijke toevoeging die de cliënt kan sturen naar een antwoord op een vraag die de ambtenaar niet heeft gesteld.\\n\\nIn AMBTENAAR→CLIËNT paar 3 is de beleefdheidsvorm weggelaten: de ambtenaar stelt een neutrale vraag, maar de tolk gebruikt de gebiedende wijs ('anlat' = vertel), wat een andere toon heeft. Dit is een stilistische afwijking met mogelijk enig effect op de interactie.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. In de vertolking is deze arrestatie volledig weggelaten. De tolk zegt alleen 'maar toen hij met verlof thuiskwam' en gaat dan direct over op de vrijlating drie weken later. De arrestatie door de politie is een kernfeit dat het relaas van vervolging onderbouwt.\",\n          \"originalPhrase\": \"ama izinde eve geldiğinde polis onu gözaltına aldı\",\n          \"translatedPhrase\": \"maar toen hij met verlof thuiskwam\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk heeft een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' (Heeft iemand anders u ook bedreigd?). Dit is een inhoudelijke toevoeging die de cliënt kan sturen naar een antwoord op een vraag die buiten de scope van de ambtenaar valt en het gehoor kan beïnvloeden.\",\n          \"originalPhrase\": \"Wat is er daarna met uw broer gebeurd, die in dienst was?\",\n          \"translatedPhrase\": \"Bu arada başka biri de sizi tehdit etti mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"low\",\n          \"description\": \"De ambtenaar stelt een neutrale, beleefde vraag ('Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?'). De tolk gebruikt de gebiedende wijs 'anlat' (vertel), wat een directievere en minder beleefde toon heeft dan de originele vraag. Dit is een stilistische afwijking zonder inhoudelijk gevolg voor de feiten, maar het kan de toon van het gesprek beïnvloeden.\",\n          \"originalPhrase\": \"Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?\",\n          \"translatedPhrase\": \"Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat.\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1053,
+    "output_tokens": 1397,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier fragmenten met mogelijke inhoudelijke afwijkingen gesignaleerd.\n\nIn CLIENT→AMBTENAAR paar 1 ontbreekt een inhoudelijk belangrijk detail: de cliënt zegt dat de broer werd gearresteerd ('polis onu gözaltına aldı') toen hij met verlof thuiskwam, maar in de vertolking is de arrestatie weggelaten. De tolk zegt alleen 'maar toen hij met verlof thuiskwam' en gaat dan direct over op de vrijlating drie weken later. Dit is een kritische omissie omdat de arrestatie door de politie een kernfeit is in het relaas.\n\nIn CLIENT→AMBTENAAR paar 3 is de vertolking inhoudelijk correct, maar de tolk heeft een procedurele interventie gedaan (vraag om herhaling wegens onduidelijk werkwoord). Dit is toegestaan gedrag en geen afwijking. Wel is het woord 'kardeşlerimizin' (broers en zussen) vertaald als 'broers en zussen', wat correct is; er is geen inhoudelijke afwijking in de uiteindelijke vertaling.\n\nIn AMBTENAAR→CLIËNT paar 1 heeft de tolk een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Dit is een inhoudelijke toevoeging die de cliënt kan sturen naar een antwoord op een vraag die de ambtenaar niet heeft gesteld.\n\nIn AMBTENAAR→CLIËNT paar 3 is de beleefdheidsvorm weggelaten: de ambtenaar stelt een neutrale vraag, maar de tolk gebruikt de gebiedende wijs ('anlat' = vertel), wat een andere toon heeft. Dit is een stilistische afwijking met mogelijk enig effect op de interactie.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. In de vertolking is deze arrestatie volledig weggelaten. De tolk zegt alleen 'maar toen hij met verlof thuiskwam' en gaat dan direct over op de vrijlating drie weken later. De arrestatie door de politie is een kernfeit dat het relaas van vervolging onderbouwt.",
+      "originalPhrase": "ama izinde eve geldiğinde polis onu gözaltına aldı",
+      "translatedPhrase": "maar toen hij met verlof thuiskwam"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk heeft een eigen vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu arada başka biri de sizi tehdit etti mi?' (Heeft iemand anders u ook bedreigd?). Dit is een inhoudelijke toevoeging die de cliënt kan sturen naar een antwoord op een vraag die buiten de scope van de ambtenaar valt en het gehoor kan beïnvloeden.",
+      "originalPhrase": "Wat is er daarna met uw broer gebeurd, die in dienst was?",
+      "translatedPhrase": "Bu arada başka biri de sizi tehdit etti mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "low",
+      "description": "De ambtenaar stelt een neutrale, beleefde vraag ('Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?'). De tolk gebruikt de gebiedende wijs 'anlat' (vertel), wat een directievere en minder beleefde toon heeft dan de originele vraag. Dit is een stilistische afwijking zonder inhoudelijk gevolg voor de feiten, maar het kan de toon van het gesprek beïnvloeden.",
+      "originalPhrase": "Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?",
+      "translatedPhrase": "Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat."
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ }
+}

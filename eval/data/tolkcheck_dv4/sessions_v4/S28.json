@@ -1,0 +1,190 @@
+{
+ "session_id": "S28",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "verhoor en behandeling op het politiebureau",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S28-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u vertellen wat er gebeurde toen de politie u die avond op straat aanhield?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Akşam sokakta polis sizi gözaltına aldığında ne olduğunu anlatabilir misiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S28-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Yanımda kardeşim Kemal vardı, marketten dönüyorduk."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Mijn broer Kenan was bij me, we kwamen terug van de supermarkt."
+   },
+   "reference_rendering": "Mijn broer Kemal was bij me, we kwamen terug van de supermarkt.",
+   "label": "entiteitsfout",
+   "subtype": "naam",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S28-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waar werd u na de aanhouding naartoe gebracht?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?"
+   },
+   "reference_rendering": "Gözaltına alındıktan sonra sizi nereye götürdüler?",
+   "label": "toevoeging",
+   "subtype": "verzonnen_detail",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S28-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Karakola varınca yaklaşık iki saat boyunca bir odada bekletildim, sonra kimlik kartımı aldılar ve bana okuyamadığım bir kağıda imza attırdılar; ellerinde kırmızı bir dosya vardı ve ben neden orada olduğumu hâlâ anlamıyordum, çünkü kimse bana açıkça bir suç söylemedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Toen ik bij het bureau aankwam, zetten ze me ongeveer twee uur in een kamer. Daarna namen ze mijn identiteitskaart in en lieten ze me een papier tekenen dat ik niet kon lezen. Ze hadden een rood dossier bij zich en ik begreep nog steeds niet waarom ik daar was."
+   },
+   "reference_rendering": "Toen ik bij het bureau aankwam, zetten ze me ongeveer twee uur in een kamer. Daarna namen ze mijn identiteitskaart in en lieten ze me een papier tekenen dat ik niet kon lezen. Ze hadden een rood dossier bij zich en ik begreep nog steeds niet waarom ik daar was, omdat niemand me duidelijk een misdrijf had genoemd.",
+   "label": "omissie",
+   "subtype": "bijzin",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S28-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U zei net dat u een papier heeft getekend. Wat stond er ongeveer op dat papier?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Az önce bir kâğıda imza attığınızı söylediniz. Bu kâğıtta kabaca neler yazıyordu?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S28-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Kâğıdın üstünde bir sürü resmi kelime vardı, ama sanırım bir ifade gibiydi, yanlış bir şey imzalamış olabilirim diye korkuyorum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Op het papier stonden veel officiële woorden, maar het leek op een verklaring. Ik ben bang dat ik iets verkeerds heb ondertekend. De tolk merkt op dat het woord 'ifade' niet goed verstaanbaar was; de tolk heeft de cliënt gevraagd dit te herhalen, waarop de cliënt bevestigde dat het om een verklaring ging."
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S28-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft iemand van de politie u tijdens het verhoor aangeraakt of geduwd?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sorgu sırasında polislerden biri size dokundu veya itti mi?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S28-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, bana vurmadılar ama sert bir şekilde omzumu ittiler ve ben kesinlikle o odadan çıkamadım, bu gerçekten böyle oldu."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, ze hebben me niet geslagen, maar ze duwden hard tegen mijn schouder en ik kon die kamer niet uit, dit is echt zo gebeurd."
+   },
+   "reference_rendering": "Nee, ze hebben me niet geslagen, maar ze duwden hard tegen mijn schouder en ik kon die kamer absoluut niet uit, dit is echt zo gebeurd.",
+   "label": "register_en_nadruk",
+   "subtype": "nadruk_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  }
+ ]
+}

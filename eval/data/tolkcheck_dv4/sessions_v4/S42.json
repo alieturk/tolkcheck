@@ -1,0 +1,190 @@
+{
+ "session_id": "S42",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "verhoor en behandeling op het politiebureau",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S42-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat gebeurde er toen u voor het eerst op het politiebureau in Arvand aankwam?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Arvand'daki karakola ilk geldiğiniz zaman ne oldu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S42-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Beni akşam saat altıda aldılar, sonra bir odaya koydular."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze haalden me 's avonds om zes uur op en zetten me daarna in een kamer."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S42-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Was rechercheur Yılmaz de persoon die u in die kamer ondervroeg?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sizi o odada sorgulayan kişi dedektif Yıldız mıydı?"
+   },
+   "reference_rendering": "Sizi o odada sorgulayan kişi dedektif Yılmaz mıydı?",
+   "label": "entiteitsfout",
+   "subtype": "naam",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S42-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Dedektif Yılmaz bana hiç vurmadı, ama koridorda, ışıklar kapalıyken biri beni dövdü ve kimin olduğunu görmedim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Rechercheur Yılmaz heeft me wel geslagen, maar in de gang, toen het licht uit was, sloeg iemand me, en ik heb niet gezien wie het was."
+   },
+   "reference_rendering": "Rechercheur Yılmaz heeft me nooit geslagen, maar in de gang, toen het licht uit was, sloeg iemand me, en ik heb niet gezien wie het was.",
+   "label": "betekenisverschuiving",
+   "subtype": "ontkenning_omgekeerd",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S42-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe bent u daarna erdoorheen gekomen, en wie heeft u toen het meest geholpen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sonrasında bunu nasıl atlattınız ve sizi en çok kim destekledi? (De tolk merkt op: 'erdoorheen gekomen' is niet letterlijk vertaalbaar; omschreven als 'bunu nasıl atlattınız'.)"
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S42-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Beni sekiz saat boyunca o odada tuttular, bu süre içinde hiç su vermediler, sonra bana okunmayan bir kâğıdı imzalattılar, ben de ne yazdığını anlamadan imzaladım, çünkü korkuyordum ve ailemi düşünüyordum, ama hâlâ ailemin bunu öğrenip öğrenmediğini bilmiyorum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze hielden me acht uur lang in die kamer, in die tijd gaven ze me geen water, want ik was bang en dacht aan mijn familie, maar ik weet nog steeds niet of mijn familie dit ooit te horen krijgt."
+   },
+   "reference_rendering": "Ze hielden me acht uur lang in die kamer, in die tijd gaven ze me geen water, daarna lieten ze me een papier tekenen dat me niet werd voorgelezen, ik tekende zonder te begrijpen wat erin stond, want ik was bang en dacht aan mijn familie, maar ik weet nog steeds niet of mijn familie dit ooit te horen krijgt.",
+   "label": "omissie",
+   "subtype": "kernfeit",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S42-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u voor het verslag nog eens precies aangeven wie er die avond bij het verhoor aanwezig was?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Tutanak için bana bir kez daha, o akşam sorgu sırasında kimlerin orada olduğunu tam olarak anlat."
+   },
+   "reference_rendering": "Tutanak için bana bir kez daha, o akşam sorgu sırasında kimlerin orada olduğunu tam olarak anlatır mısınız?",
+   "label": "register_en_nadruk",
+   "subtype": "beleefdheid_of_toon",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S42-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Odada üç kişi vardı, birinin adını hatırlıyorum, ama diğer ikisi kim olduğunu söylemedi, yüzlerini de net göremedim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Er waren drie mensen in de kamer. Ik herinner me de naam van één van hen, maar de andere twee zeiden niet wie ze waren, en ik kon hun gezichten niet goed zien."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

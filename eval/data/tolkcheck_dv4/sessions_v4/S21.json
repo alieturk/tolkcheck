@@ -1,0 +1,189 @@
+{
+ "session_id": "S21",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "verhoor en behandeling op het politiebureau",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S21-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u beschrijven wat er gebeurde toen u na de demonstratie werd opgepakt?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Gösteriden sonra gözaltına alındığınızda ne olduğunu tarif eder misiniz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Galiba saat sekiz civarındaydı, o sırada polis arabası geldi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Het was rond acht uur, op dat moment kwam de politieauto."
+   },
+   "reference_rendering": "Ik denk dat het rond acht uur was, op dat moment kwam de politieauto.",
+   "label": "register_en_nadruk",
+   "subtype": "voorzichtigheidswoord_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S21-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat gebeurde er daarna op het bureau zelf?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Karakolun içinde bundan sonra neler yaşandı?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Beni karakola götürdüler, sonra ilk gece bir odaya koydular. Sabaha kadar kimseyle konuşmadım. Sabah saat dokuz gibi iki polis geldi, bana kağıt uzattılar ve imzalamamı istediler. Ben okuyamadım, çünkü gözlüğüm de alınmıştı. Bir tanesi bağırdı, diğeri omzuma vurdu. Sonra bir saat kadar orada bekledim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze brachten me naar het bureau en zetten me die eerste nacht in een kamer. Tot de ochtend heb ik met niemand gesproken. Die ochtend kwamen er twee agenten. Ze gaven me een papier en vroegen me het te tekenen. Ik kon het niet lezen, want mijn bril was ook afgenomen. Een van hen schreeuwde, de ander sloeg me op mijn schouder. Daarna wachtte ik nog ongeveer een uur daar."
+   },
+   "reference_rendering": "Ze brachten me naar het bureau en zetten me die eerste nacht in een kamer. Tot de ochtend heb ik met niemand gesproken. Die ochtend, rond negen uur, kwamen er twee agenten. Ze gaven me een papier en vroegen me het te tekenen. Ik kon het niet lezen, want mijn bril was ook afgenomen. Een van hen schreeuwde, de ander sloeg me op mijn schouder. Daarna wachtte ik nog ongeveer een uur daar.",
+   "label": "omissie",
+   "subtype": "detail",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S21-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe lang heeft u op het bureau vastgezeten voordat u een advocaat zag?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Avukatınızı görmeden önce karakolda ne kadar süre tutuldunuz? Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor."
+   },
+   "reference_rendering": "Avukatınızı görmeden önce karakolda ne kadar süre tutuldunuz?",
+   "label": "toevoeging",
+   "subtype": "eigen_uitleg_tolk",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S21-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Avukatı görene kadar öyle bir bekledim ki, sonunda gözüm döndü, ne yapacağımı bilemedim, kimseye bir şey söyleyemedim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik heb zo lang gewacht tot ik een advocaat zag, en uiteindelijk ging het niet meer. Ik kon niet helder denken, ik wist niet wat ik moest doen en ik kon tegen niemand iets zeggen. (De tolk merkt op: 'gözüm döndü' is letterlijk 'mijn ogen draaiden'. Dat is een uitdrukking voor hevige spanning, daarom heb ik die omschreven.)"
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S21-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft iemand zich tijdens het verhoor aan u voorgesteld, en weet u hoe die persoon heette?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sorgu sırasında biri kendini tanıttı mı, o kişinin adını biliyor musunuz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S21-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Hayır, kendini tanıtmadı, ama aynı odada bir isim söylendi, Yılmaz gibi bir şey."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Nee, niemand stelde zich voor, maar in dezelfde kamer werd een naam genoemd, iets als Yılmaz."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

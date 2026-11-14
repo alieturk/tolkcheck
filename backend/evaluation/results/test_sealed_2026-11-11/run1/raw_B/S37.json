@@ -1,0 +1,103 @@
+{
+ "session_id": "S37",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn drie inhoudelijke afwijkingen gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 1**: De cliënt vermeldt expliciet dat zij na Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk laat dit volledig weg. Het reisdeel Athene ontbreekt daardoor in de vertaling, terwijl dit een feitelijk onderdeel van de reisroute is dat relevant kan zijn voor het dossier.\\n\\n**CLIENT→AMBTENAAR, paar 2**: De cliënt zegt dat de mannen die 's nachts kwamen hen bedreigden ('o adamlar bizi tehdit ediyordu') en dat zijn vader met hen in ruzie raakte ('babam ... tartıştı'). De tolk keert de volgorde om en suggereert dat de ruzie van de vader de aanleiding was voor de dreiging ('waardoor die mannen ons bedreigden'). In het origineel is de dreiging de reden voor de ruzie, niet het gevolg. Dit is een mogelijke oorzaak-gevolgomkering die de aard van de dreiging kan beïnvloeden.\\n\\n**CLIENT→AMBTENAAR, paar 3**: De cliënt zegt dat hij de achternaam niet goed herinnert ('Soyadını tam hatırlamıyorum') en de persoon kent als 'Kemal'. De tolk geeft aan de voornaam niet goed te hebben verstaan en vraagt de cliënt die te herhalen, maar vermeldt de naam 'Kemal' niet in de vertaling. Bovendien voegt de tolk een eigen mededeling toe over de onduidelijkheid. Het is niet duidelijk of de naam 'Kemal' uiteindelijk in het dossier is terechtgekomen.\\n\\n**AMBTENAAR→CLIËNT, paar 1**: De tolk voegt een eigen vraag toe die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' ('Heeft u het ticket voor deze reis zelf gekocht?'). Dit is een inhoudelijke toevoeging die de cliënt een vraag stelt die niet door de ambtenaar is geformuleerd.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt vermeldt dat zij na Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk laat het reisdeel naar Athene volledig weg. Dit is een feitelijk onderdeel van de reisroute dat ontbreekt in het dossier.\",\n          \"originalPhrase\": \"sonra Atina'ya uçtuk\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"In het origineel bedreigden de mannen het gezin ('o adamlar bizi tehdit ediyordu') en raakte de vader met hen in ruzie ('babam ... tartıştı'). De dreiging was er dus al. De tolk formuleert het als 'waardoor die mannen ons bedreigden', wat suggereert dat de ruzie van de vader de oorzaak was van de dreiging. Dit is een mogelijke oorzaak-gevolgomkering die de aard en het moment van de dreiging kan beïnvloeden.\",\n          \"originalPhrase\": \"babam bir gece evimize gelen adamlarla tartıştı, çünkü o adamlar bizi tehdit ediyordu\",\n          \"translatedPhrase\": \"mijn vader kreeg een nacht ruzie met mannen die bij ons thuis kwamen, waardoor die mannen ons bedreigden\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt geeft aan de persoon te kennen als 'Kemal' ('Kemal diye tanıyorum'). De tolk vermeldt deze naam niet in de vertaling en geeft aan de voornaam niet goed te hebben verstaan. Het is onduidelijk of de naam 'Kemal' uiteindelijk in het dossier is opgenomen. De hoorambtenaar dient te controleren of de naam alsnog is genoteerd.\",\n          \"originalPhrase\": \"Kemal diye tanıyorum\",\n          \"translatedPhrase\": \"\"\n        },\n        {\n          \"type\": \"addition\",\n          \"severity\": \"medium\",\n          \"description\": \"De tolk voegt een eigen mededeling toe over de onduidelijkheid en het verzoek om herhaling. Dit is op zichzelf toegestaan als transparante zelfmelding, maar de naam 'Kemal' is desondanks niet in de vertaling terechtgekomen (zie vorige issue).\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Ik heb de voornaam niet goed verstaan en vraag de cliënt die nog één keer te herhalen. De tolk merkt op dat dit onduidelijk was en dat de hoorambtenaar hiervan is meegedeeld.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt een eigen vraag toe die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' ('Heeft u het ticket voor deze reis zelf gekocht?'). Dit is een inhoudelijke toevoeging waardoor de cliënt een vraag beantwoordt die niet door de ambtenaar is geformuleerd.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu yolculuğun biletini kendiniz mi aldınız?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1154,
+    "output_tokens": 1773,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn drie inhoudelijke afwijkingen gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 1**: De cliënt vermeldt expliciet dat zij na Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk laat dit volledig weg. Het reisdeel Athene ontbreekt daardoor in de vertaling, terwijl dit een feitelijk onderdeel van de reisroute is dat relevant kan zijn voor het dossier.\n\n**CLIENT→AMBTENAAR, paar 2**: De cliënt zegt dat de mannen die 's nachts kwamen hen bedreigden ('o adamlar bizi tehdit ediyordu') en dat zijn vader met hen in ruzie raakte ('babam ... tartıştı'). De tolk keert de volgorde om en suggereert dat de ruzie van de vader de aanleiding was voor de dreiging ('waardoor die mannen ons bedreigden'). In het origineel is de dreiging de reden voor de ruzie, niet het gevolg. Dit is een mogelijke oorzaak-gevolgomkering die de aard van de dreiging kan beïnvloeden.\n\n**CLIENT→AMBTENAAR, paar 3**: De cliënt zegt dat hij de achternaam niet goed herinnert ('Soyadını tam hatırlamıyorum') en de persoon kent als 'Kemal'. De tolk geeft aan de voornaam niet goed te hebben verstaan en vraagt de cliënt die te herhalen, maar vermeldt de naam 'Kemal' niet in de vertaling. Bovendien voegt de tolk een eigen mededeling toe over de onduidelijkheid. Het is niet duidelijk of de naam 'Kemal' uiteindelijk in het dossier is terechtgekomen.\n\n**AMBTENAAR→CLIËNT, paar 1**: De tolk voegt een eigen vraag toe die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' ('Heeft u het ticket voor deze reis zelf gekocht?'). Dit is een inhoudelijke toevoeging die de cliënt een vraag stelt die niet door de ambtenaar is geformuleerd.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt vermeldt dat zij na Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk laat het reisdeel naar Athene volledig weg. Dit is een feitelijk onderdeel van de reisroute dat ontbreekt in het dossier.",
+      "originalPhrase": "sonra Atina'ya uçtuk",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "In het origineel bedreigden de mannen het gezin ('o adamlar bizi tehdit ediyordu') en raakte de vader met hen in ruzie ('babam ... tartıştı'). De dreiging was er dus al. De tolk formuleert het als 'waardoor die mannen ons bedreigden', wat suggereert dat de ruzie van de vader de oorzaak was van de dreiging. Dit is een mogelijke oorzaak-gevolgomkering die de aard en het moment van de dreiging kan beïnvloeden.",
+      "originalPhrase": "babam bir gece evimize gelen adamlarla tartıştı, çünkü o adamlar bizi tehdit ediyordu",
+      "translatedPhrase": "mijn vader kreeg een nacht ruzie met mannen die bij ons thuis kwamen, waardoor die mannen ons bedreigden"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt geeft aan de persoon te kennen als 'Kemal' ('Kemal diye tanıyorum'). De tolk vermeldt deze naam niet in de vertaling en geeft aan de voornaam niet goed te hebben verstaan. Het is onduidelijk of de naam 'Kemal' uiteindelijk in het dossier is opgenomen. De hoorambtenaar dient te controleren of de naam alsnog is genoteerd.",
+      "originalPhrase": "Kemal diye tanıyorum",
+      "translatedPhrase": ""
+     },
+     {
+      "type": "addition",
+      "severity": "medium",
+      "description": "De tolk voegt een eigen mededeling toe over de onduidelijkheid en het verzoek om herhaling. Dit is op zichzelf toegestaan als transparante zelfmelding, maar de naam 'Kemal' is desondanks niet in de vertaling terechtgekomen (zie vorige issue).",
+      "originalPhrase": "",
+      "translatedPhrase": "Ik heb de voornaam niet goed verstaan en vraag de cliënt die nog één keer te herhalen. De tolk merkt op dat dit onduidelijk was en dat de hoorambtenaar hiervan is meegedeeld."
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt een eigen vraag toe die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' ('Heeft u het ticket voor deze reis zelf gekocht?'). Dit is een inhoudelijke toevoeging waardoor de cliënt een vraag beantwoordt die niet door de ambtenaar is geformuleerd.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu yolculuğun biletini kendiniz mi aldınız?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

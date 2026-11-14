@@ -1,0 +1,1466 @@
+{
+ "variant": "A",
+ "description": "Claude met drempelregels (LLM_SCORE_RULES=true)",
+ "model": "claude-sonnet-4-6",
+ "llm_temperature": 0.0,
+ "llm_score_rules": true,
+ "labse_cutoffs": {
+  "correct": 0.7,
+  "likely_issue": 0.5,
+  "no_addition": 0.65
+ },
+ "split": "dev",
+ "sessions": [
+  "S20",
+  "S21",
+  "S22",
+  "S23",
+  "S24",
+  "S25",
+  "S26",
+  "S27",
+  "S28",
+  "S29"
+ ],
+ "reviewed": [
+  false
+ ],
+ "flag_rule_primary": "high_critical",
+ "flag_rules": {
+  "high_critical": [
+   "critical",
+   "high"
+  ],
+  "any_issue": [
+   "critical",
+   "high",
+   "low",
+   "medium"
+  ]
+ },
+ "differences_from_tool": [
+  "geen kennisbank (geen database)",
+  "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+ ],
+ "reports": {
+  "high_critical": {
+   "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| Toevoeging | 0.43 | 0.16–0.75 | 0.11–0.80 | 7 |\n| Betekenisverschuiving | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Entiteitsfout | 0.57 | 0.25–0.84 | 0.17–1.00 | 7 |\n| Register en nadruk | 0.14 | 0.03–0.51 | 0.00–0.43 | 7 |\n| **Alle afwijkingen** | 0.43 | 0.28–0.59 | 0.26–0.57 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.00 | 0.00–0.08 | 0.00–0.00 | 45 |\n| Precision in deze set (44% afwijkend) | 1.00 | 0.80–1.00 | 1.00–1.00 | 15 |\n| Precision bij 5% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 1.00 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 1.00 | – | – | berekend |",
+   "numbers": {
+    "omissie": {
+     "recall": 0.2857142857142857,
+     "tp": 2,
+     "n": 7,
+     "wilson": [
+      0.08221892400405678,
+      0.6410655481673808
+     ],
+     "bootstrap": [
+      0.0,
+      0.6666666666666666
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.42857142857142855,
+     "tp": 3,
+     "n": 7,
+     "wilson": [
+      0.15821985525146975,
+      0.7495416354723428
+     ],
+     "bootstrap": [
+      0.1111111111111111,
+      0.8
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.7142857142857143,
+     "tp": 5,
+     "n": 7,
+     "wilson": [
+      0.35893445183261935,
+      0.9177810759959433
+     ],
+     "bootstrap": [
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.5714285714285714,
+     "tp": 4,
+     "n": 7,
+     "wilson": [
+      0.2504583645276572,
+      0.8417801447485302
+     ],
+     "bootstrap": [
+      0.16666666666666666,
+      1.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.14285714285714285,
+     "tp": 1,
+     "n": 7,
+     "wilson": [
+      0.02567962434474355,
+      0.5131278292743189
+     ],
+     "bootstrap": [
+      0.0,
+      0.42857142857142855
+     ]
+    },
+    "all": {
+     "recall": 0.42857142857142855,
+     "fpr": 0.0,
+     "precision": 1.0,
+     "tp": 15,
+     "fn": 20,
+     "fp": 0,
+     "tn": 45,
+     "share_deviant": 0.4375,
+     "precision_at_prevalence": {
+      "0.05": 1.0,
+      "0.1": 1.0,
+      "0.2": 1.0
+     }
+    }
+   }
+  },
+  "any_issue": {
+   "markdown": "| Foutcategorie | Recall | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Omissie | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Toevoeging | 0.71 | 0.36–0.92 | 0.33–1.00 | 7 |\n| Betekenisverschuiving | 0.86 | 0.49–0.97 | 0.57–1.00 | 7 |\n| Entiteitsfout | 0.86 | 0.49–0.97 | 0.56–1.00 | 7 |\n| Register en nadruk | 0.29 | 0.08–0.64 | 0.00–0.67 | 7 |\n| **Alle afwijkingen** | 0.69 | 0.52–0.81 | 0.46–0.86 | 35 |\n\n| Hele set | Waarde | 95% Wilson | 95% sessie-bootstrap | n |\n|---|---|---|---|---|\n| Valse alarmen (FPR) op controleparen | 0.02 | 0.00–0.12 | 0.00–0.07 | 45 |\n| Precision in deze set (44% afwijkend) | 0.96 | 0.80–0.99 | 0.88–1.00 | 25 |\n| Precision bij 5% afwijkende paren | 0.62 | – | – | berekend |\n| Precision bij 10% afwijkende paren | 0.77 | – | – | berekend |\n| Precision bij 20% afwijkende paren | 0.89 | – | – | berekend |",
+   "numbers": {
+    "omissie": {
+     "recall": 0.7142857142857143,
+     "tp": 5,
+     "n": 7,
+     "wilson": [
+      0.35893445183261935,
+      0.9177810759959433
+     ],
+     "bootstrap": [
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "toevoeging": {
+     "recall": 0.7142857142857143,
+     "tp": 5,
+     "n": 7,
+     "wilson": [
+      0.35893445183261935,
+      0.9177810759959433
+     ],
+     "bootstrap": [
+      0.3333333333333333,
+      1.0
+     ]
+    },
+    "betekenisverschuiving": {
+     "recall": 0.8571428571428571,
+     "tp": 6,
+     "n": 7,
+     "wilson": [
+      0.4868721707256811,
+      0.9743203756552565
+     ],
+     "bootstrap": [
+      0.5714285714285714,
+      1.0
+     ]
+    },
+    "entiteitsfout": {
+     "recall": 0.8571428571428571,
+     "tp": 6,
+     "n": 7,
+     "wilson": [
+      0.4868721707256811,
+      0.9743203756552565
+     ],
+     "bootstrap": [
+      0.5555555555555556,
+      1.0
+     ]
+    },
+    "register_en_nadruk": {
+     "recall": 0.2857142857142857,
+     "tp": 2,
+     "n": 7,
+     "wilson": [
+      0.08221892400405678,
+      0.6410655481673808
+     ],
+     "bootstrap": [
+      0.0,
+      0.6666666666666666
+     ]
+    },
+    "all": {
+     "recall": 0.6857142857142857,
+     "fpr": 0.022222222222222223,
+     "precision": 0.96,
+     "tp": 24,
+     "fn": 11,
+     "fp": 1,
+     "tn": 44,
+     "share_deviant": 0.4375,
+     "precision_at_prevalence": {
+      "0.05": 0.6189111747851003,
+      "0.1": 0.7741935483870968,
+      "0.2": 0.8852459016393442
+     }
+    }
+   }
+  }
+ },
+ "per_session": [
+  {
+   "session_id": "S20",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 989,
+   "output_tokens": 1401,
+   "cache_creation_input_tokens": 1916,
+   "cache_read_input_tokens": 0,
+   "cost_usd_estimate": 0.031167,
+   "duration_s": 21.3,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S21",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1079,
+   "output_tokens": 841,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0164268,
+   "duration_s": 13.7,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S22",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 999,
+   "output_tokens": 1704,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0291318,
+   "duration_s": 28.0,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S23",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1043,
+   "output_tokens": 1448,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0254238,
+   "duration_s": 23.0,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S24",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1079,
+   "output_tokens": 1597,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.027766799999999998,
+   "duration_s": 24.0,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S25",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1064,
+   "output_tokens": 1031,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0192318,
+   "duration_s": 17.1,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S26",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1138,
+   "output_tokens": 1604,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0280488,
+   "duration_s": 20.7,
+   "missing_pairs": [
+    "S26-P01",
+    "S26-P02",
+    "S26-P03",
+    "S26-P04",
+    "S26-P05",
+    "S26-P06",
+    "S26-P07",
+    "S26-P08"
+   ],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S27",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1011,
+   "output_tokens": 964,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0180678,
+   "duration_s": 16.9,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S28",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1032,
+   "output_tokens": 1290,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0230208,
+   "duration_s": 18.9,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S29",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1047,
+   "output_tokens": 1122,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0205458,
+   "duration_s": 26.1,
+   "missing_pairs": [],
+   "stop_reasons": [
+    "end_turn"
+   ]
+  }
+ ],
+ "tokens_total": {
+  "input_tokens": 10481,
+  "output_tokens": 13002,
+  "cache_creation_input_tokens": 1916,
+  "cache_read_input_tokens": 17244
+ },
+ "cost_usd_estimate_total": 0.2388312,
+ "pairs": [
+  {
+   "pair_id": "S20-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9664883017539978,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S20-P02",
+   "label": "controle_zelfcorrectie",
+   "category": null,
+   "score": 0.8654881715774536,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S20-P03",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.8469581604003906,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "addition",
+     "severity": "high",
+     "description": "De ambtenaar stelt uitsluitend de vraag waarom de politie de cliënt destijds meenam. De tolk voegt een tweede, zelfstandige vraag toe: 'Van welke vereniging was u lid?' ('hangi derneğin üyesiydiniz?'). Deze vraag is niet door de ambtenaar gesteld en stuurt de cliënt inhoudelijk in een bepaalde richting voordat de ambtenaar die vraag heeft kunnen stellen.",
+     "originalPhrase": "",
+     "translatedPhrase": "Bu arada, hangi derneğin üyesiydiniz?"
+    }
+   ]
+  },
+  {
+   "pair_id": "S20-P04",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.8849928379058838,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De cliënt zegt expliciet dat hij die dag géén wapen droeg ('hiç silah taşımadım' = ik droeg helemaal geen wapen). De tolk vertaalt dit als 'droeg ik een wapen', waarmee de ontkenning volledig verdwijnt en de betekenis omkeert. Dit raakt direct aan de beoordeling van de feiten.",
+     "originalPhrase": "hiç silah taşımadım",
+     "translatedPhrase": "droeg ik een wapen"
+    }
+   ]
+  },
+  {
+   "pair_id": "S20-P05",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.7915174961090088,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S20-P06",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.8860912322998047,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "omission",
+     "severity": "medium",
+     "description": "De cliënt sluit af met 'yine de imzalamak zorunda kaldım' — 'maar ik was toch gedwongen te tekenen'. De tolk laat dit weg. Het element van dwang bij het ondertekenen is inhoudelijk relevant voor het relaas.",
+     "originalPhrase": "yine de imzalamak zorunda kaldım",
+     "translatedPhrase": ""
+    }
+   ]
+  },
+  {
+   "pair_id": "S20-P07",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9530721306800842,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S20-P08",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.8516979217529297,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "medium",
+     "description": "De cliënt noemt de naam 'Serkan Aydın'; de tolk vertaalt dit als 'Serkan Altun'. Dit kan een transcriptiefout zijn in de automatische spraakherkenning. De opname dient gecontroleerd te worden om vast te stellen welke naam de cliënt daadwerkelijk noemde.",
+     "originalPhrase": "Komiser Serkan Aydın",
+     "translatedPhrase": "commissaris Serkan Altun"
+    }
+   ]
+  },
+  {
+   "pair_id": "S21-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9162992238998413,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S21-P02",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.9150896072387695,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S21-P03",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.7980515956878662,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S21-P04",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.8955413103103638,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S21-P05",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.8488055467605591,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "addition",
+     "severity": "medium",
+     "description": "De tolk heeft na de vertaling van de vraag een eigen verduidelijkende zin toegevoegd: 'Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor' (vrij vertaald: 'Dat wil zeggen, hoeveel uur u daar werd vastgehouden voordat u met een advocaat kon spreken'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. De toevoeging stuurt de cliënt richting een antwoord in uren en benadrukt het aspect 'spreken met de advocaat', terwijl de ambtenaar enkel vroeg hoe lang de cliënt vastzat vóórdat hij een advocaat zag. Dit is een eigen uitbreiding van de tolk die de vraag iets anders inkleurt.",
+     "originalPhrase": "",
+     "translatedPhrase": "Yani, avukatla konuşabilmeniz için kaç saat orada tutulduğunuzu soruyor."
+    }
+   ]
+  },
+  {
+   "pair_id": "S21-P06",
+   "label": "controle_gemelde_omschrijving",
+   "category": null,
+   "score": 0.8576785326004028,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S21-P07",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9049011468887329,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S21-P08",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9129854440689087,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S22-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9579517245292664,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S22-P02",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.9187673926353455,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De cliënt noemt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een verschil in maand dat het dossier direct raakt. De opname dient gecontroleerd te worden, maar 'Mart' (maart) en 'Nisan' (april) zijn in het Turks duidelijk verschillende woorden.",
+     "originalPhrase": "14 Mart'ta",
+     "translatedPhrase": "14 april"
+    }
+   ]
+  },
+  {
+   "pair_id": "S22-P03",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.9046789407730103,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "omission",
+     "severity": "low",
+     "description": "De nadruk 'echt zelf' uit de vraag van de ambtenaar is niet expliciet overgebracht in de Turkse vertaling. De kern van de vraag (zelf gevonden, in de brievenbus) is wel correct weergegeven.",
+     "originalPhrase": "echt zelf in uw brievenbus gevonden",
+     "translatedPhrase": "kendiniz posta kutunuzda mı buldunuz"
+    }
+   ]
+  },
+  {
+   "pair_id": "S22-P04",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.8485502004623413,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "omission",
+     "severity": "medium",
+     "description": "De cliënt vermeldt expliciet dat zijn partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'), wat de reden verklaart waarom de partner thuis was maar de cliënt toch eerst zelf nadacht. Dit detail over de kinderen en de ochtendcontext ontbreekt in de vertolking.",
+     "originalPhrase": "o sabah çocukları okula bırakmıştı",
+     "translatedPhrase": ""
+    }
+   ]
+  },
+  {
+   "pair_id": "S22-P05",
+   "label": "controle_verzoek_herhaling",
+   "category": null,
+   "score": 0.36910757422447205,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": [
+    {
+     "type": "false-negative",
+     "severity": "low",
+     "description": "De tolk geeft aan het tweede deel van de vraag niet goed te hebben verstaan en vraagt de ambtenaar om herhaling. Dit is een toegestane tolkhandeling; de lage semantische score weerspiegelt dat de vraag niet is doorgeleid, niet een tolkfout. Dit fragment is niet beoordeelbaar als vertolking.",
+     "originalPhrase": "",
+     "translatedPhrase": ""
+    }
+   ]
+  },
+  {
+   "pair_id": "S22-P06",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.9525452852249146,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "high",
+     "description": "De cliënt zegt 'Bir hafta sonra' (een week later/erna), waarmee hij aangeeft dat de man aan de deur een week ná de telefoontjes verscheen. De tolk vertaalt dit als 'een week eerder', wat de chronologische volgorde van de dreigingen omkeert. Dit raakt de tijdlijn van het relaas.",
+     "originalPhrase": "Bir hafta sonra da kapıya bir adam geldi",
+     "translatedPhrase": "Een week eerder kwam er ook een man aan de deur"
+    }
+   ]
+  },
+  {
+   "pair_id": "S22-P07",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9288429617881775,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S22-P08",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9264488220214844,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S23-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.968582272529602,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S23-P02",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9797221422195435,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S23-P03",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.7475408315658569,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De ambtenaar verwijst naar Van als vertrekpunt ('u vertrok uit Van'). De tolk vertaalt dit als Hakkâri, een andere stad in Turkije. De cliënt heeft eerder verklaard in Van te hebben gewoond. Door deze fout krijgt de cliënt een onjuiste locatie voorgelegd, wat zijn begrip van de vraag en zijn antwoord over de reisroute kan beïnvloeden.",
+     "originalPhrase": "Dus u vertrok uit Van.",
+     "translatedPhrase": "Yani Hakkâri'den ayrıldınız."
+    }
+   ]
+  },
+  {
+   "pair_id": "S23-P04",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.9075067043304443,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De cliënt zegt dat hij uit Van vertrok omdat zijn broer was gearresteerd (arrestatie = oorzaak, vertrek = gevolg). De tolk keert de oorzaak-gevolgrelatie om: 'Mijn broer was gearresteerd omdat ik uit Van vertrok' (vertrek = oorzaak, arrestatie = gevolg). Dit verandert de kern van het relaas.",
+     "originalPhrase": "Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı.",
+     "translatedPhrase": "Mijn broer was gearresteerd omdat ik uit Van vertrok."
+    }
+   ]
+  },
+  {
+   "pair_id": "S23-P05",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.7915516495704651,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "medium",
+     "description": "De ambtenaar vraagt 'hoe lang voor uw vertrek' (open tijdsduur). De tolk vertaalt dit als 'hoeveel dagen voor uw vertrek' (kaç gün), wat de cliënt stuurt naar een antwoord uitsluitend in dagen. De cliënt antwoordde 'twee weken', wat suggereert dat hij de vraag ruim heeft opgevat, maar de versmalling kan in andere gevallen het antwoord beperken.",
+     "originalPhrase": "Hoe lang voor uw vertrek",
+     "translatedPhrase": "kaç gün önce"
+    }
+   ]
+  },
+  {
+   "pair_id": "S23-P06",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.9296755790710449,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S23-P07",
+   "label": "controle_zelfcorrectie",
+   "category": null,
+   "score": 0.7865892648696899,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S23-P08",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9681267738342285,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S24-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9502997398376465,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S24-P02",
+   "label": "controle_gemelde_omschrijving",
+   "category": null,
+   "score": 0.7610235214233398,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S24-P03",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.9146576523780823,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "high",
+     "description": "De ambtenaar vraagt 'Denkt u dat uw vader in gevaar zou komen…' — een open vraag naar de mening/inschatting van de cliënt. De tolk vertaalt dit als 'biliyor musunuz' (weet u), wat verwijst naar feitelijke kennis in plaats van een persoonlijke inschatting. Bovendien impliceert de Turkse formulering sterker dat het gevaar een vaststaand gegeven is, wat de cliënt kan sturen in zijn antwoord.",
+     "originalPhrase": "Denkt u dat uw vader in gevaar zou komen als u terugkeert naar Turkije?",
+     "translatedPhrase": "Türkiye'ye geri dönerseniz babanızın tehlikeye gireceğini biliyor musunuz?"
+    }
+   ]
+  },
+  {
+   "pair_id": "S24-P04",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.8966035842895508,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "omission",
+     "severity": "medium",
+     "description": "De cliënt noemt als aanvullende terugkeervoorwaarde dat er geen problemen mogen zijn met lokale autoriteiten ('yerel makamlarla hiç sorun yaşamamamız gerekiyor'). Deze voorwaarde ontbreekt in de tolkvertaling.",
+     "originalPhrase": "yerel makamlarla hiç sorun yaşamamamız gerekiyor",
+     "translatedPhrase": ""
+    }
+   ]
+  },
+  {
+   "pair_id": "S24-P05",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9818556308746338,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S24-P06",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.924255907535553,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "addition",
+     "severity": "high",
+     "description": "De tolk voegt aan het einde de zin toe: 'Dat was een teken dat het gezin volkomen wanhopig was.' Deze zin is niet aanwezig in de originele Turkse uitspraak van de cliënt en betreft een eigen interpretatie of oordeel van de tolk.",
+     "originalPhrase": "",
+     "translatedPhrase": "Dat was een teken dat het gezin volkomen wanhopig was."
+    }
+   ]
+  },
+  {
+   "pair_id": "S24-P07",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.8643205165863037,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S24-P08",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.9133257269859314,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De cliënt zegt dat de politie zijn vader heeft opgeroepen ('polis babamı çağırdı'), maar de tolk vertaalt dit als 'de politie heeft mij opgeroepen'. De persoon die werd opgeroepen verschilt: de vader versus de cliënt zelf. Dit is een inhoudelijk verschil dat de asielbeslissing kan raken.",
+     "originalPhrase": "polis babamı çağırdı",
+     "translatedPhrase": "de politie heeft mij opgeroepen"
+    }
+   ]
+  },
+  {
+   "pair_id": "S25-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9507938623428345,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S25-P02",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9730654954910278,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S25-P03",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9135124087333679,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S25-P04",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.9497057199478149,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "omission",
+     "severity": "critical",
+     "description": "De cliënt verklaart dat hij zelf twee nachten op het politiebureau werd vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit gegeven — persoonlijke detentie en verhoor — ontbreekt volledig in de tolkvertaling. De tolk vertaalt alleen dat collega's werden aangehouden en dat de cliënt daarna werd vrijgelaten, zonder de detentie en het verhoor van de cliënt zelf te noemen. Dit is een feitelijk element dat de asielbeslissing kan raken.",
+     "originalPhrase": "Ben de iki gece karakolda tutuldum ve sorguya çekildim, sonra serbest bırakıldım",
+     "translatedPhrase": "Daarna ben ik vrijgelaten, maar ik ben ook ontslagen."
+    }
+   ]
+  },
+  {
+   "pair_id": "S25-P05",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.938873291015625,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S25-P06",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.8527945280075073,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "medium",
+     "description": "De cliënt zegt dat er nog drie collega's werden ontslagen ('üç arkadaşım daha'), maar de tolk vertaalt dit als vier. Het totaal van zes mensen klopt in beide versies, maar het tussenliggende getal (drie versus vier) wijkt af. De opname dient gecontroleerd te worden om vast te stellen welk getal de cliënt heeft uitgesproken.",
+     "originalPhrase": "üç arkadaşım daha işten çıkarıldı",
+     "translatedPhrase": "zijn er nog vier collega's uit de fabriek ontslagen"
+    }
+   ]
+  },
+  {
+   "pair_id": "S25-P07",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9262226223945618,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S25-P08",
+   "label": "controle_verzoek_herhaling",
+   "category": null,
+   "score": 0.8051478862762451,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S26-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9555648565292358,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P02",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9540805816650391,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P03",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.8562375903129578,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P04",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.9605613350868225,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P05",
+   "label": "controle_zelfcorrectie",
+   "category": null,
+   "score": 0.7011123895645142,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P06",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.7788262367248535,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P07",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9117469787597656,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S26-P08",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.9241331815719604,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": null
+  },
+  {
+   "pair_id": "S27-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9626402258872986,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S27-P02",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9076378345489502,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S27-P03",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9148041009902954,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S27-P04",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.8920754194259644,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De cliënt zegt 'o ifadeyi hiçbir zaman vermedim' — 'die verklaring heb ik nooit afgelegd'. De tolk vertaalt dit als 'die verklaring heb ik wel afgelegd', wat de ontkenning volledig omkeert. Dit raakt direct aan een centraal feit: of de cliënt al dan niet een verklaring heeft ondertekend of afgelegd tijdens zijn detentie.",
+     "originalPhrase": "o ifadeyi hiçbir zaman vermedim",
+     "translatedPhrase": "die verklaring heb ik wel afgelegd"
+    }
+   ]
+  },
+  {
+   "pair_id": "S27-P05",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9466149210929871,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S27-P06",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.9267362356185913,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S27-P07",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.9301350116729736,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "addition",
+     "severity": "medium",
+     "description": "De tolk voegt na de vertaling van de vraag een eigen verduidelijkende zin toe: 'Yani gözaltının bittiği tarihi kastediyor' ('hij bedoelt de datum waarop de detentie eindigde'). Dit staat niet in de oorspronkelijke vraag van de ambtenaar en is een eigen interpretatie van de tolk. De vraag zelf is inhoudelijk correct vertaald.",
+     "originalPhrase": "",
+     "translatedPhrase": "Yani gözaltının bittiği tarihi kastediyor."
+    }
+   ]
+  },
+  {
+   "pair_id": "S27-P08",
+   "label": "controle_gemelde_omschrijving",
+   "category": null,
+   "score": 0.7366069555282593,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S28-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9167068004608154,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S28-P02",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.7930909991264343,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De cliënt noemt de naam 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit is een andere naam en kan leiden tot een onjuiste vermelding in het dossier. De opname dient gecontroleerd te worden om vast te stellen welke naam de cliënt heeft uitgesproken.",
+     "originalPhrase": "kardeşim Kemal",
+     "translatedPhrase": "mijn broer Kenan"
+    }
+   ]
+  },
+  {
+   "pair_id": "S28-P03",
+   "label": "toevoeging",
+   "category": "toevoeging",
+   "score": 0.7043746113777161,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "addition",
+     "severity": "high",
+     "description": "De ambtenaar stelt een open, neutrale vraag over de bestemming na de aanhouding. De tolk voegt hieraan toe 'naar het bureau aan de Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Dit is een suggestieve toevoeging die niet in de oorspronkelijke vraag staat. Hierdoor wordt de cliënt in een bepaalde richting gestuurd, wat de betrouwbaarheid van het antwoord kan beïnvloeden.",
+     "originalPhrase": "Waar werd u na de aanhouding naartoe gebracht?",
+     "translatedPhrase": "Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?"
+    }
+   ]
+  },
+  {
+   "pair_id": "S28-P04",
+   "label": "omissie",
+   "category": "omissie",
+   "score": 0.9095807075500488,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "omission",
+     "severity": "high",
+     "description": "De cliënt voegt aan het einde van zijn verklaring expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit element ontbreekt volledig in de tolkvertaling. Deze toevoeging is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding en het ontbreken ervan verandert de betekenis van het relaas.",
+     "originalPhrase": "kimse bana açıkça bir suç söylemedi",
+     "translatedPhrase": ""
+    }
+   ]
+  },
+  {
+   "pair_id": "S28-P05",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.8998408913612366,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S28-P06",
+   "label": "controle_verzoek_herhaling",
+   "category": null,
+   "score": 0.7333664894104004,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S28-P07",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9303790926933289,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S28-P08",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.9246206283569336,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S29-P01",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.9069839715957642,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S29-P02",
+   "label": "controle_parafrase",
+   "category": null,
+   "score": 0.9464439153671265,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S29-P03",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.8643519878387451,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S29-P04",
+   "label": "betekenisverschuiving",
+   "category": "betekenisverschuiving",
+   "score": 0.9566792249679565,
+   "flags": {
+    "high_critical": false,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "medium",
+     "description": "De cliënt beschrijft de volgorde als: eerst een brief bij het huis, daarna een telefonische dreiging ('Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi'). De tolk vertaalde dit als 'Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging', wat de volgorde omdraait (de telefonische dreiging lijkt nu vóór de brief te zijn gekomen). De chronologische volgorde van dreigingen kan relevant zijn voor de beoordeling van het relaas.",
+     "originalPhrase": "Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi.",
+     "translatedPhrase": "Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging."
+    }
+   ]
+  },
+  {
+   "pair_id": "S29-P05",
+   "label": "entiteitsfout",
+   "category": "entiteitsfout",
+   "score": 0.9330734610557556,
+   "flags": {
+    "high_critical": true,
+    "any_issue": true
+   },
+   "issues": [
+    {
+     "type": "mistranslation",
+     "severity": "critical",
+     "description": "De ambtenaar noemde '14 mei' als datum van het artikel ('Het artikel verscheen op 14 mei'). De tolk vertaalde dit als '14 Mart'ta' (14 maart). Dit is een verschil van twee maanden in een feitelijk ankerpunt van het relaas. De opname dient gecontroleerd te worden om vast te stellen of de ambtenaar inderdaad 'mei' zei dan wel 'maart', en of de cliënt op basis van de verkeerde datum heeft geantwoord.",
+     "originalPhrase": "Het artikel verscheen op 14 mei, klopt dat?",
+     "translatedPhrase": "Yazı 14 Mart'ta yayımlandı, doğru mu?"
+    }
+   ]
+  },
+  {
+   "pair_id": "S29-P06",
+   "label": "register_en_nadruk",
+   "category": "register_en_nadruk",
+   "score": 0.9418951272964478,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S29-P07",
+   "label": "controle_zelfcorrectie",
+   "category": null,
+   "score": 0.7450435161590576,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  },
+  {
+   "pair_id": "S29-P08",
+   "label": "controle_letterlijk",
+   "category": null,
+   "score": 0.942147970199585,
+   "flags": {
+    "high_critical": false,
+    "any_issue": false
+   },
+   "issues": []
+  }
+ ],
+ "raw_dir": "C:\\Users\\cultro\\TolkCheck\\tolkcheck\\backend\\evaluation\\results\\feedback_text_A_2026-11-11\\raw"
+}

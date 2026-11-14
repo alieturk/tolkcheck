@@ -1,0 +1,93 @@
+{
+ "session_id": "S25",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting zijn twee inhoudelijke afwijkingen gesignaleerd. Bij paar 1 ontbreekt in de tolkvertaling dat de cliënt zelf twee nachten op het politiebureau werd vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit is een feitelijk gegeven over vrijheidsberoving en verhoor dat relevant kan zijn voor de asielbeslissing. Bij paar 2 noemt de cliënt 'drie collega's meer' (totaal zes), terwijl de tolk 'vier collega's meer' zegt; het totaal van zes klopt in beide gevallen niet intern consistent met het genoemde extra aantal, maar het verschil tussen drie en vier extra ontslagen collega's is een feitelijk verschil. Bij paar 3 meldt de tolk expliciet dat zij een deel niet goed verstond en de cliënt heeft gevraagd dit te herhalen; dit is een toegestane tolkmelding. De inhoud van de vertaling zelf lijkt volledig en correct. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd; alle vier paren hebben hoge gelijkenisscores en de inhoud komt overeen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt verklaart dat hij zelf twee nachten op het politiebureau werd vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'), voordat hij werd vrijgelaten. Dit gegeven — detentie en verhoor — ontbreekt volledig in de tolkvertaling. De tolk gaat direct naar de vrijlating en het ontslag, zonder de voorafgaande detentie te vermelden.\",\n          \"originalPhrase\": \"Ben de iki gece karakolda tutuldum ve sorguya çekildim, sonra serbest bırakıldım\",\n          \"translatedPhrase\": \"Daarna ben ik vrijgelaten, maar ik ben ook ontslagen.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt zegt dat er 'drie collega's meer' werden ontslagen ('üç arkadaşım daha'), terwijl de tolk 'vier collega's meer' zegt. Het totaal van zes wordt in beide versies genoemd, maar het aantal extra ontslagen collega's verschilt (drie vs. vier). De opname dient gecontroleerd te worden om vast te stellen welk getal correct is.\",\n          \"originalPhrase\": \"üç arkadaşım daha işten çıkarıldı, toplamda altı kişi oldu\",\n          \"translatedPhrase\": \"zijn er nog vier collega's uit de fabriek ontslagen, in totaal zes mensen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1064,
+    "output_tokens": 1039,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1871
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting zijn twee inhoudelijke afwijkingen gesignaleerd. Bij paar 1 ontbreekt in de tolkvertaling dat de cliënt zelf twee nachten op het politiebureau werd vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'). Dit is een feitelijk gegeven over vrijheidsberoving en verhoor dat relevant kan zijn voor de asielbeslissing. Bij paar 2 noemt de cliënt 'drie collega's meer' (totaal zes), terwijl de tolk 'vier collega's meer' zegt; het totaal van zes klopt in beide gevallen niet intern consistent met het genoemde extra aantal, maar het verschil tussen drie en vier extra ontslagen collega's is een feitelijk verschil. Bij paar 3 meldt de tolk expliciet dat zij een deel niet goed verstond en de cliënt heeft gevraagd dit te herhalen; dit is een toegestane tolkmelding. De inhoud van de vertaling zelf lijkt volledig en correct. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd; alle vier paren hebben hoge gelijkenisscores en de inhoud komt overeen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt verklaart dat hij zelf twee nachten op het politiebureau werd vastgehouden en verhoord ('iki gece karakolda tutuldum ve sorguya çekildim'), voordat hij werd vrijgelaten. Dit gegeven — detentie en verhoor — ontbreekt volledig in de tolkvertaling. De tolk gaat direct naar de vrijlating en het ontslag, zonder de voorafgaande detentie te vermelden.",
+      "originalPhrase": "Ben de iki gece karakolda tutuldum ve sorguya çekildim, sonra serbest bırakıldım",
+      "translatedPhrase": "Daarna ben ik vrijgelaten, maar ik ben ook ontslagen."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De cliënt zegt dat er 'drie collega's meer' werden ontslagen ('üç arkadaşım daha'), terwijl de tolk 'vier collega's meer' zegt. Het totaal van zes wordt in beide versies genoemd, maar het aantal extra ontslagen collega's verschilt (drie vs. vier). De opname dient gecontroleerd te worden om vast te stellen welk getal correct is.",
+      "originalPhrase": "üç arkadaşım daha işten çıkarıldı, toplamda altı kişi oldu",
+      "translatedPhrase": "zijn er nog vier collega's uit de fabriek ontslagen, in totaal zes mensen"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S25-P01",
+   "S25-P03",
+   "S25-P05",
+   "S25-P07"
+  ],
+  "client_to_officer": [
+   "S25-P02",
+   "S25-P04",
+   "S25-P06",
+   "S25-P08"
+  ]
+ }
+}

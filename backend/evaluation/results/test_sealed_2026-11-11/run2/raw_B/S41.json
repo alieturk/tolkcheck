@@ -1,0 +1,80 @@
+{
+ "session_id": "S41",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd. Bij CLIENT→AMBTENAAR paar 1 corrigeert de tolk zichzelf van 'zes maanden' naar 'acht maanden' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. Bij AMBTENAAR→CLIËNT paar 1 voegt de tolk een aanname toe ('Ik neem aan dat...') die in de Turkse vertaling is weggevallen; de vraag wordt als een directe bevestigingsvraag gesteld zonder de aanname. Bij AMBTENAAR→CLIËNT paar 2 voegt de tolk een eigen toevoeging toe ('Dit is echt een moeilijk onderwerp') die niet in de oorspronkelijke vraag van de ambtenaar staat. Deze toevoeging kan de cliënt beïnvloeden in zijn antwoord en is inhoudelijk niet neutraal. De overige paren vertonen geen noemenswaardige afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar formuleert zijn vraag met 'Ik neem aan dat...', wat een aanname of veronderstelling uitdrukt en de vraag een bepaalde toon geeft (suggestief of voorzichtig). In de Turkse vertaling ('O sırada polisin sizi neden götürdüğünü zaten biliyordunuz, değil mi?') is deze aanname weggevallen en wordt de vraag als een directe bevestigingsvraag gesteld. Hierdoor mist de cliënt de nuance dat de ambtenaar een veronderstelling formuleert, wat de aard van de vraag verandert.\",\n          \"originalPhrase\": \"Ik neem aan dat u toen al wist waarom de politie u meenam, of niet?\",\n          \"translatedPhrase\": \"O sırada polisin sizi neden götürdüğünü zaten biliyordunuz, değil mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan het einde van de vertaalde vraag de zin 'Bu gerçekten çok zor bir konu' ('Dit is echt een moeilijk onderwerp') toe. Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. Het is een eigen commentaar van de tolk dat de cliënt kan beïnvloeden in zijn antwoord of de sfeer van het gehoor kan kleuren. Dergelijke toevoegingen horen niet thuis in een neutrale tolkvertaling.\",\n          \"originalPhrase\": \"Kunt u beschrijven hoe de aanhouding bij de fabriekspoort verliep?\",\n          \"translatedPhrase\": \"Bu gerçekten çok zor bir konu.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1089,
+    "output_tokens": 1039,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd. Bij CLIENT→AMBTENAAR paar 1 corrigeert de tolk zichzelf van 'zes maanden' naar 'acht maanden' en meldt dit expliciet; dit is een toegestane zelfcorrectie en geen afwijking. Bij AMBTENAAR→CLIËNT paar 1 voegt de tolk een aanname toe ('Ik neem aan dat...') die in de Turkse vertaling is weggevallen; de vraag wordt als een directe bevestigingsvraag gesteld zonder de aanname. Bij AMBTENAAR→CLIËNT paar 2 voegt de tolk een eigen toevoeging toe ('Dit is echt een moeilijk onderwerp') die niet in de oorspronkelijke vraag van de ambtenaar staat. Deze toevoeging kan de cliënt beïnvloeden in zijn antwoord en is inhoudelijk niet neutraal. De overige paren vertonen geen noemenswaardige afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De ambtenaar formuleert zijn vraag met 'Ik neem aan dat...', wat een aanname of veronderstelling uitdrukt en de vraag een bepaalde toon geeft (suggestief of voorzichtig). In de Turkse vertaling ('O sırada polisin sizi neden götürdüğünü zaten biliyordunuz, değil mi?') is deze aanname weggevallen en wordt de vraag als een directe bevestigingsvraag gesteld. Hierdoor mist de cliënt de nuance dat de ambtenaar een veronderstelling formuleert, wat de aard van de vraag verandert.",
+      "originalPhrase": "Ik neem aan dat u toen al wist waarom de politie u meenam, of niet?",
+      "translatedPhrase": "O sırada polisin sizi neden götürdüğünü zaten biliyordunuz, değil mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan het einde van de vertaalde vraag de zin 'Bu gerçekten çok zor bir konu' ('Dit is echt een moeilijk onderwerp') toe. Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. Het is een eigen commentaar van de tolk dat de cliënt kan beïnvloeden in zijn antwoord of de sfeer van het gehoor kan kleuren. Dergelijke toevoegingen horen niet thuis in een neutrale tolkvertaling.",
+      "originalPhrase": "Kunt u beschrijven hoe de aanhouding bij de fabriekspoort verliep?",
+      "translatedPhrase": "Bu gerçekten çok zor bir konu."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

@@ -1,0 +1,88 @@
+{
+ "session_id": "S32",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\\n\\nTen eerste, in CLIENT→AMBTENAAR paar 1: de cliënt maakt een duidelijk onderscheid tussen zijn eigen handeling (posters ophangen) en die van Murat (flyers uitdelen). De tolk vertaalt beide handelingen als door de cliënt zelf verricht ('ik had de posters opgehangen, ik had de flyers uitgedeeld'), waardoor de rol van Murat volledig verdwijnt. Dit is een inhoudelijke afwijking die juridisch relevant kan zijn, omdat de verdeling van activiteiten tussen twee personen van belang kan zijn voor de beoordeling van het relaas.\\n\\nTen tweede, in AMBTENAAR→CLIËNT paar 2: de ambtenaar verwijst naar 'vijf collega's', maar de tolk vertaalt dit als 'drie vrienden/collega's' (üç arkadaş). Dit is een feitelijk verschil in een getal dat de cliënt mogelijk op het verkeerde been zet bij het beantwoorden van de vraag. Bovendien gebruikt de tolk 'arkadaş' (vrienden/kameraden) in plaats van een neutraler woord voor 'collega's', wat een lichte betekenisverschuiving is maar minder zwaar weegt dan het getallenverschil.\\n\\nDe overige paren bevatten geen noemenswaardige inhoudelijke afwijkingen. In CLIENT→AMBTENAAR paar 2 ontbreekt de frequentie ('ayda bir' = eens per maand, 'genellikle cumartesi günleri' = doorgaans op zaterdagen), wat een kleine weglating is. De zelfcorrectie van de tolk in AMBTENAAR→CLIËNT paar 1 is geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt maakt een expliciet onderscheid: híj had de posters opgehangen ('ben asmıştım'), en Murat had de flyers uitgedeeld ('Murat ise bildiriler dağıtmıştı'). De tolk vertaalt beide handelingen als door de cliënt zelf verricht ('ik had de posters opgehangen, ik had de flyers uitgedeeld'), waardoor de rol van Murat volledig verdwijnt uit de vertaling. Dit kan de beoordeling van de individuele betrokkenheid van de cliënt beïnvloeden.\",\n          \"originalPhrase\": \"Partinin afişlerini ben asmıştım, Murat ise bildiriler dağıtmıştı.\",\n          \"translatedPhrase\": \"Ik had de posters van de partij opgehangen, ik had de flyers uitgedeeld.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt vermeldt dat hij de vergaderingen 'eens per maand' ('ayda bir') bijwoonde en dat dit 'doorgaans op zaterdagen' ('genellikle cumartesi günleri') was. De tolk laat beide details weg en vertaalt alleen 'Ik ging naar de vergaderingen van de partij', zonder frequentie of dag te noemen.\",\n          \"originalPhrase\": \"Partinin toplantılarına ayda bir, genellikle cumartesi günleri giderdim.\",\n          \"translatedPhrase\": \"Ik ging naar de vergaderingen van de partij.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar verwijst naar 'vijf collega's' in het atelier. De tolk vertaalt dit als 'üç arkadaş' (drie vrienden/collega's). Het getal vijf is vervangen door drie, waardoor de cliënt een vraag beantwoordt over een ander aantal personen dan de ambtenaar bedoelt. De opname dient gecontroleerd te worden om te bevestigen of de ambtenaar inderdaad 'vijf' zei. Daarnaast is 'arkadaş' (vrienden/kameraden) een licht andere connotatie dan het neutrale 'collega's', maar dit weegt minder zwaar dan het getallenverschil.\",\n          \"originalPhrase\": \"vijf collega's\",\n          \"translatedPhrase\": \"üç arkadaş\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1055,
+    "output_tokens": 1450,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\n\nTen eerste, in CLIENT→AMBTENAAR paar 1: de cliënt maakt een duidelijk onderscheid tussen zijn eigen handeling (posters ophangen) en die van Murat (flyers uitdelen). De tolk vertaalt beide handelingen als door de cliënt zelf verricht ('ik had de posters opgehangen, ik had de flyers uitgedeeld'), waardoor de rol van Murat volledig verdwijnt. Dit is een inhoudelijke afwijking die juridisch relevant kan zijn, omdat de verdeling van activiteiten tussen twee personen van belang kan zijn voor de beoordeling van het relaas.\n\nTen tweede, in AMBTENAAR→CLIËNT paar 2: de ambtenaar verwijst naar 'vijf collega's', maar de tolk vertaalt dit als 'drie vrienden/collega's' (üç arkadaş). Dit is een feitelijk verschil in een getal dat de cliënt mogelijk op het verkeerde been zet bij het beantwoorden van de vraag. Bovendien gebruikt de tolk 'arkadaş' (vrienden/kameraden) in plaats van een neutraler woord voor 'collega's', wat een lichte betekenisverschuiving is maar minder zwaar weegt dan het getallenverschil.\n\nDe overige paren bevatten geen noemenswaardige inhoudelijke afwijkingen. In CLIENT→AMBTENAAR paar 2 ontbreekt de frequentie ('ayda bir' = eens per maand, 'genellikle cumartesi günleri' = doorgaans op zaterdagen), wat een kleine weglating is. De zelfcorrectie van de tolk in AMBTENAAR→CLIËNT paar 1 is geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt maakt een expliciet onderscheid: híj had de posters opgehangen ('ben asmıştım'), en Murat had de flyers uitgedeeld ('Murat ise bildiriler dağıtmıştı'). De tolk vertaalt beide handelingen als door de cliënt zelf verricht ('ik had de posters opgehangen, ik had de flyers uitgedeeld'), waardoor de rol van Murat volledig verdwijnt uit de vertaling. Dit kan de beoordeling van de individuele betrokkenheid van de cliënt beïnvloeden.",
+      "originalPhrase": "Partinin afişlerini ben asmıştım, Murat ise bildiriler dağıtmıştı.",
+      "translatedPhrase": "Ik had de posters van de partij opgehangen, ik had de flyers uitgedeeld."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "medium",
+      "description": "De cliënt vermeldt dat hij de vergaderingen 'eens per maand' ('ayda bir') bijwoonde en dat dit 'doorgaans op zaterdagen' ('genellikle cumartesi günleri') was. De tolk laat beide details weg en vertaalt alleen 'Ik ging naar de vergaderingen van de partij', zonder frequentie of dag te noemen.",
+      "originalPhrase": "Partinin toplantılarına ayda bir, genellikle cumartesi günleri giderdim.",
+      "translatedPhrase": "Ik ging naar de vergaderingen van de partij."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar verwijst naar 'vijf collega's' in het atelier. De tolk vertaalt dit als 'üç arkadaş' (drie vrienden/collega's). Het getal vijf is vervangen door drie, waardoor de cliënt een vraag beantwoordt over een ander aantal personen dan de ambtenaar bedoelt. De opname dient gecontroleerd te worden om te bevestigen of de ambtenaar inderdaad 'vijf' zei. Daarnaast is 'arkadaş' (vrienden/kameraden) een licht andere connotatie dan het neutrale 'collega's', maar dit weegt minder zwaar dan het getallenverschil.",
+      "originalPhrase": "vijf collega's",
+      "translatedPhrase": "üç arkadaş"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

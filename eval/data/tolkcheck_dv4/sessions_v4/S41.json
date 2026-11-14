@@ -1,0 +1,189 @@
+{
+ "session_id": "S41",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "aanhouding en detentie",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S41-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer bent u voor het eerst aangehouden in Turkije?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'de ilk kez ne zaman gözaltına alındınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S41-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ocak 2023'te, fabrikadan çıkarken aldılar beni."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "In januari 2023, toen ik de fabriek verliet, hebben ze me opgepakt."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S41-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Ik neem aan dat u toen al wist waarom de politie u meenam, of niet?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "O sırada polisin sizi neden götürdüğünü zaten biliyordunuz, değil mi?"
+   },
+   "reference_rendering": "Sanırım o sırada polisin sizi neden götürdüğünü zaten biliyordunuz, değil mi?",
+   "label": "register_en_nadruk",
+   "subtype": "twijfel_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S41-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Sekiz ay Yenikent'te tutuldum. Hücrede yirmi iki kişiyiz, sabahları sayım yapılıyordu, avukatımı ancak üç hafta sonra görebildim. Sorgularda hep aynı soruyu sordular, sendikanın toplantısında kimleri tanıdığımı. Ailem ayda bir kez ziyarete gelebiliyordu. Yemek de çok kötüydü, bazen hiç yemek yoktu."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik zat acht maanden vast in Yenikent. Zes maanden, pardon, acht maanden, ik corrigeer mezelf. [De tolk corrigeert zich: ik zei eerst 'zes maanden'; de bron zegt 'acht maanden'. De verdere vertolking is correct.] In de cel zaten we met tweeëntwintig mensen, 's ochtends werd er geteld en mijn advocaat kon ik pas na drie weken zien. Bij de verhoren stelden ze steeds dezelfde vraag: welke mensen ik kende van de vakbondsvergadering. Mijn familie mocht één keer per maand langskomen. Het eten was heel slecht en soms was er helemaal geen eten."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S41-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u beschrijven hoe de aanhouding bij de fabriekspoort verliep?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Fabrika kapısında gözaltının nasıl gerçekleştiğini anlatabilir misiniz? Bu gerçekten çok zor bir konu."
+   },
+   "reference_rendering": "Fabrika kapısında gözaltının nasıl gerçekleştiğini anlatabilir misiniz?",
+   "label": "toevoeging",
+   "subtype": "eigen_oordeel",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S41-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Polis geldiğinde ifadeyi imzalamamı istedi. Eğer imzalamazsam kardeşimi de götüreceklerini söylediler, ben de hiçbir şey okumadan imzaladım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De politie wilde dat ik de verklaring tekende toen ze kwamen. Ze zeiden dat ze mijn broer ook zouden meenemen, dus ik heb getekend zonder iets te lezen."
+   },
+   "reference_rendering": "De politie wilde dat ik de verklaring tekende toen ze kwamen. Ze zeiden dat als ik niet zou tekenen, ze mijn broer ook zouden meenemen, dus ik heb getekend zonder iets te lezen.",
+   "label": "omissie",
+   "subtype": "voorwaarde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S41-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe lang zat u daarna in de cel voordat u voor de rechter kwam?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ondan sonra hâkimin karşısına çıkmadan önce hücrede ne kadar kaldınız?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S41-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mahkemeye çıktığımda ellerim kelepçeliydi ve ailemi salonda göremedim, sadece bir kez bakabildim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Toen ik voor de rechter verscheen, had ik handboeien om en ik kon mijn familie in de zaal niet zien; ik kon maar één keer kijken."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

@@ -1,0 +1,94 @@
+{
+ "session_id": "S27",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting is één inhoudelijk significante afwijking gesignaleerd (paar 1). De cliënt zegt expliciet dat hij de verklaring nooit heeft afgelegd ('hiçbir zaman vermedim'), maar de tolk vertaalt dit als 'die verklaring heb ik wel afgelegd' — een directe ontkenning wordt omgekeerd naar een bevestiging. Dit is een kritieke afwijking die de kern van het relaas raakt. In paar 2 ontbreekt een klein detail ('ik zat er' is onvolledig — de originele zin beschrijft dat de cliënt met slechts een dun jasje aan zat), maar de semantische score is hoog en de overige inhoud klopt. In paar 3 meldt de tolk zelf dat 'ödüm koptu' een idiomatische uitdrukking is en omschrijft de betekenis; dit is een toegestane tolkhandeling en geen afwijking. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd. Bij paar 3 voegt de tolk een korte verduidelijking toe ('Yani gözaltının bittiği tarihi kastediyor' — 'dat wil zeggen de datum waarop de detentie eindigde'), maar de score is 0.930 en de toevoeging is een neutrale parafrase van de vraag; dit wordt niet als afwijking aangemerkt.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'o ifadeyi hiçbir zaman vermedim' — 'die verklaring heb ik nooit afgelegd'. De tolk vertaalt dit als 'die verklaring heb ik wel afgelegd', waarmee een expliciete ontkenning wordt omgekeerd naar een bevestiging. Dit raakt direct de kern van het relaas over het al dan niet ondertekenen en afleggen van een verklaring onder druk.\",\n          \"originalPhrase\": \"o ifadeyi hiçbir zaman vermedim\",\n          \"translatedPhrase\": \"die verklaring heb ik wel afgelegd\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"low\",\n          \"description\": \"De cliënt zegt 'üzerimde sadece ince bir ceketle oturdum' — 'ik zat er met alleen een dun jasje aan'. De tolk vertaalt dit als 'ik zat er', waarbij de omstandigheid (slechts een dun jasje) wegvalt. De semantische score is hoog (0.927) en de overige inhoud klopt; het betreft een klein detail over de omstandigheden in de cel.\",\n          \"originalPhrase\": \"üzerimde sadece ince bir ceketle oturdum\",\n          \"translatedPhrase\": \"ik zat er\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1011,
+    "output_tokens": 1056,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting is één inhoudelijk significante afwijking gesignaleerd (paar 1). De cliënt zegt expliciet dat hij de verklaring nooit heeft afgelegd ('hiçbir zaman vermedim'), maar de tolk vertaalt dit als 'die verklaring heb ik wel afgelegd' — een directe ontkenning wordt omgekeerd naar een bevestiging. Dit is een kritieke afwijking die de kern van het relaas raakt. In paar 2 ontbreekt een klein detail ('ik zat er' is onvolledig — de originele zin beschrijft dat de cliënt met slechts een dun jasje aan zat), maar de semantische score is hoog en de overige inhoud klopt. In paar 3 meldt de tolk zelf dat 'ödüm koptu' een idiomatische uitdrukking is en omschrijft de betekenis; dit is een toegestane tolkhandeling en geen afwijking. In de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd. Bij paar 3 voegt de tolk een korte verduidelijking toe ('Yani gözaltının bittiği tarihi kastediyor' — 'dat wil zeggen de datum waarop de detentie eindigde'), maar de score is 0.930 en de toevoeging is een neutrale parafrase van de vraag; dit wordt niet als afwijking aangemerkt.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'o ifadeyi hiçbir zaman vermedim' — 'die verklaring heb ik nooit afgelegd'. De tolk vertaalt dit als 'die verklaring heb ik wel afgelegd', waarmee een expliciete ontkenning wordt omgekeerd naar een bevestiging. Dit raakt direct de kern van het relaas over het al dan niet ondertekenen en afleggen van een verklaring onder druk.",
+      "originalPhrase": "o ifadeyi hiçbir zaman vermedim",
+      "translatedPhrase": "die verklaring heb ik wel afgelegd"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "low",
+      "description": "De cliënt zegt 'üzerimde sadece ince bir ceketle oturdum' — 'ik zat er met alleen een dun jasje aan'. De tolk vertaalt dit als 'ik zat er', waarbij de omstandigheid (slechts een dun jasje) wegvalt. De semantische score is hoog (0.927) en de overige inhoud klopt; het betreft een klein detail over de omstandigheden in de cel.",
+      "originalPhrase": "üzerimde sadece ince bir ceketle oturdum",
+      "translatedPhrase": "ik zat er"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S27-P01",
+   "S27-P03",
+   "S27-P05",
+   "S27-P07"
+  ],
+  "client_to_officer": [
+   "S27-P02",
+   "S27-P04",
+   "S27-P06",
+   "S27-P08"
+  ]
+ }
+}

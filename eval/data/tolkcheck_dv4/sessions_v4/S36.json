@@ -1,0 +1,190 @@
+{
+ "session_id": "S36",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_b",
+  "applicant": "vb_applicant_c",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "bedreigingen na publicaties",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S36-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u mij vertellen waar u als journalist of schrijver in Turkije mee bezig was?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'de gazeteci ya da yazar olarak neyle meşguldünüz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S36-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Ben Mersin'de yerel bir gazete için köşe yazıyordum. Ağırlıklı olarak belediyedeki imar işlerini yazdım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik was columnist voor een lokale krant in Mersin. Vooral over de ruimtelijke plannen van de gemeente."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S36-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "U schreef over bouwplannen van de gemeente. Wat schreef u daar precies over?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Belediyenin imar planları hakkında yazılar yazdınız. Bu yazılarda tam olarak neyi yazıyordunuz? Bu, dosyanız açısından çok önemli bir nokta."
+   },
+   "label": "toevoeging",
+   "subtype": "eigen_oordeel",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18",
+   "reference_rendering": "Belediyenin imar planları hakkında yazılar yazdınız. Bu yazılarda tam olarak neyi yazıyordunuz?"
+  },
+  {
+   "pair_id": "S36-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Önce bir yazı yazdım ve belediyenin kamuya ait bir arsayı satmasını sert bir dille eleştirdim. Yazı yayımlandıktan sonra da gece vakti tehdit eden telefonlar gelmeye başladı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Eerst schreef ik een stuk waarin ik de verkoop van een openbaar perceel door de gemeente hard bekritiseerde. Voordat het stuk verscheen, begonnen de dreigende telefoontjes 's nachts."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "tijd_of_volgorde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13",
+   "reference_rendering": "Eerst schreef ik een stuk waarin ik de verkoop van een openbaar perceel door de gemeente hard bekritiseerde. Nadat het stuk was verschenen, begonnen de dreigende telefoontjes 's nachts."
+  },
+  {
+   "pair_id": "S36-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer ontving u de eerste dreigende telefoontjes precies?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İlk tehdit telefonlarını tam olarak ne zaman aldınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S36-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Telefonlar yazının çıktığı gece başladı; iki gün sonra da sokakta iki adam yanıma geldi ve bana ağzının payını vereceklerini söylediler."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De telefoontjes begonnen de nacht dat het stuk uitkwam; twee dagen later kwamen twee mannen op straat naar me toe en zeiden dat ze me een lesje zouden leren. De tolk merkt op: de uitdrukking 'ağzının payını vermek' is niet letterlijk vertaalbaar; de tolk omschrijft haar hier als 'een lesje leren', omdat het om een dreiging gaat."
+   },
+   "label": "controle_gemelde_omschrijving",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S36-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wilt u dat nog wat nader toelichten, en wat deed u daarna?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bunu biraz daha açıkla, peki sonra ne yaptınız?"
+   },
+   "label": "register_en_nadruk",
+   "subtype": "beleefdheid_of_toon",
+   "severity": "minor",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)",
+   "reference_rendering": "Bunu biraz daha açıklar mısınız, peki sonra ne yaptınız?"
+  },
+  {
+   "pair_id": "S36-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Kasım ayının on yedisinde, yazının çıktığından iki hafta sonra, evimin kapısına bir zarf bıraktılar. İçinde bir fotoğraf ve üzerinde benim adımın yazılı olduğu bir not vardı. Bundan sonra karımı ve çocuklarımı alıp Mersin'den ayrıldım, sonunda Ankara'da yaşayan ağabeyimin yanına gittim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Op zeven november, twee weken na het verschijnen van het stuk, legden ze een envelop bij mijn voordeur. Er zat een foto in en een briefje met mijn naam erop. Daarna nam ik mijn vrouw en kinderen mee en vertrok ik uit Mersin; uiteindelijk ben ik naar mijn oudere broer in Ankara gegaan."
+   },
+   "label": "entiteitsfout",
+   "subtype": "datum",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)",
+   "reference_rendering": "Op zeventien november, twee weken na het verschijnen van het stuk, legden ze een envelop bij mijn voordeur. Er zat een foto in en een briefje met mijn naam erop. Daarna nam ik mijn vrouw en kinderen mee en vertrok ik uit Mersin; uiteindelijk ben ik naar mijn oudere broer in Ankara gegaan."
+  }
+ ]
+}

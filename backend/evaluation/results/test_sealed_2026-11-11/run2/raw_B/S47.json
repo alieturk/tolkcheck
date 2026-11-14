@@ -1,0 +1,88 @@
+{
+ "session_id": "S47",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn drie inhoudelijke afwijkingen gesignaleerd.\\n\\n**Paar 0 (client→ambtenaar):** De cliënt zegt 'bir kez kaybettim' (één keer kwijtgeraakt), maar de tolk vertaalt dit als 'vaak kwijtgeraakt'. Dit is een betekenisverschuiving die feitelijk relevant kan zijn voor de geloofwaardigheidsbeoordeling van het relaas over de documenten.\\n\\n**Paar 1 (client→ambtenaar):** De tolk voegt aan het einde van de vertaling een eigen oordeel toe: 'Eerlijk gezegd geloof ik hem hierin.' Dit staat niet in de brontekst en is een persoonlijke uitlating van de tolk die niet thuishoort in een IND-gehoor. De inhoudelijke vertaling van de cliënttekst zelf lijkt correct.\\n\\n**Paar 1 (ambtenaar→cliënt):** De ambtenaar vraagt: 'Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?' De tolk vertaalt alleen: 'Heeft u een aanvraag gedaan voor een nieuw paspoort?' De voorwaardelijke clausule ('als uw paspoort niet is teruggevonden') is weggelaten. Hierdoor ontvangt de cliënt een andere, ongeclausuleerde vraag.\\n\\n**Paar 3 (client→ambtenaar):** De tolk corrigeert zichzelf zichtbaar (eerst 'twee keer', dan 'drie keer') en meldt dit expliciet. Dit is een toegestane zelfcorrectie en vormt geen afwijking. De uiteindelijke vertaling stemt overeen met de brontekst.\\n\\nDe overige paren bevatten geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'bir kez kaybettim', wat 'één keer kwijtgeraakt' betekent. De tolk vertaalt dit als 'vaak kwijtgeraakt'. Het verschil tussen één keer en meerdere keren is feitelijk relevant voor de beoordeling van het documentenrelaas.\",\n          \"originalPhrase\": \"bir kez kaybettim\",\n          \"translatedPhrase\": \"vaak kwijtgeraakt\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan het einde van de vertaling een eigen oordeel toe: 'Eerlijk gezegd geloof ik hem hierin.' Dit staat niet in de brontekst van de cliënt en is een persoonlijke uitlating van de tolk. Dergelijke oordelen horen niet in een IND-gehoor thuis en kunnen de ambtenaar beïnvloeden.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Eerlijk gezegd geloof ik hem hierin.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt een voorwaardelijke vraag: 'Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?' De tolk vertaalt alleen het tweede deel: 'Heeft u een aanvraag gedaan voor een nieuw paspoort?' De voorwaardelijke clausule ('als uw paspoort niet is teruggevonden') ontbreekt volledig, waardoor de cliënt een andere, ongeclausuleerde vraag ontvangt.\",\n          \"originalPhrase\": \"Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?\",\n          \"translatedPhrase\": \"Yeni bir pasaport için başvurdunuz mu?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1049,
+    "output_tokens": 1290,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn drie inhoudelijke afwijkingen gesignaleerd.\n\n**Paar 0 (client→ambtenaar):** De cliënt zegt 'bir kez kaybettim' (één keer kwijtgeraakt), maar de tolk vertaalt dit als 'vaak kwijtgeraakt'. Dit is een betekenisverschuiving die feitelijk relevant kan zijn voor de geloofwaardigheidsbeoordeling van het relaas over de documenten.\n\n**Paar 1 (client→ambtenaar):** De tolk voegt aan het einde van de vertaling een eigen oordeel toe: 'Eerlijk gezegd geloof ik hem hierin.' Dit staat niet in de brontekst en is een persoonlijke uitlating van de tolk die niet thuishoort in een IND-gehoor. De inhoudelijke vertaling van de cliënttekst zelf lijkt correct.\n\n**Paar 1 (ambtenaar→cliënt):** De ambtenaar vraagt: 'Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?' De tolk vertaalt alleen: 'Heeft u een aanvraag gedaan voor een nieuw paspoort?' De voorwaardelijke clausule ('als uw paspoort niet is teruggevonden') is weggelaten. Hierdoor ontvangt de cliënt een andere, ongeclausuleerde vraag.\n\n**Paar 3 (client→ambtenaar):** De tolk corrigeert zichzelf zichtbaar (eerst 'twee keer', dan 'drie keer') en meldt dit expliciet. Dit is een toegestane zelfcorrectie en vormt geen afwijking. De uiteindelijke vertaling stemt overeen met de brontekst.\n\nDe overige paren bevatten geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'bir kez kaybettim', wat 'één keer kwijtgeraakt' betekent. De tolk vertaalt dit als 'vaak kwijtgeraakt'. Het verschil tussen één keer en meerdere keren is feitelijk relevant voor de beoordeling van het documentenrelaas.",
+      "originalPhrase": "bir kez kaybettim",
+      "translatedPhrase": "vaak kwijtgeraakt"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan het einde van de vertaling een eigen oordeel toe: 'Eerlijk gezegd geloof ik hem hierin.' Dit staat niet in de brontekst van de cliënt en is een persoonlijke uitlating van de tolk. Dergelijke oordelen horen niet in een IND-gehoor thuis en kunnen de ambtenaar beïnvloeden.",
+      "originalPhrase": "",
+      "translatedPhrase": "Eerlijk gezegd geloof ik hem hierin."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De ambtenaar stelt een voorwaardelijke vraag: 'Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?' De tolk vertaalt alleen het tweede deel: 'Heeft u een aanvraag gedaan voor een nieuw paspoort?' De voorwaardelijke clausule ('als uw paspoort niet is teruggevonden') ontbreekt volledig, waardoor de cliënt een andere, ongeclausuleerde vraag ontvangt.",
+      "originalPhrase": "Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?",
+      "translatedPhrase": "Yeni bir pasaport için başvurdunuz mu?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

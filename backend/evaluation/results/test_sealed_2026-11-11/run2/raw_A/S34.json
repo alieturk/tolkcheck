@@ -1,0 +1,96 @@
+{
+ "session_id": "S34",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting, en één niet-beoordeelbaar fragment in de AMBTENAAR→CLIËNT-richting.\\n\\nPaar 1 (client→ambtenaar): De cliënt zei expliciet dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie moest dit zien). Dit gegeven ontbreekt volledig in de tolkvertaling. Dit is een inhoudelijk feit dat relevant kan zijn voor de beoordeling van de impact op de omgeving van de cliënt.\\n\\nPaar 2 (client→ambtenaar): De cliënt zei 'bana kimse vurmadı' — niemand heeft mij geslagen. De tolk vertaalde dit als 'heeft iemand mij geslagen', wat de ontkenning omkeert naar een bevestiging. Dit is een ernstige inhoudelijke afwijking: een ontkennende zin is als bevestigend weergegeven, wat een tegengesteld beeld geeft van de behandeling tijdens detentie.\\n\\nPaar 3 (client→ambtenaar): De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst. De score is 0.898, wat boven de drempel van 0.70 ligt; dit detail is echter wel aantoonbaar aanwezig als toevoeging. Gezien de score wordt dit als laag gesignaleerd.\\n\\nPaar 2 (ambtenaar→cliënt): De tolk gaf aan een deel van de vraag niet te hebben verstaan en vroeg de ambtenaar de vraag te herhalen. Dit is een toegestane tolkhandeling. De lage semantische score (0.272) weerspiegelt dat de tolk de vraag niet heeft doorgeleid maar een procedurele opmerking maakte. Dit fragment is niet beoordeelbaar als vertaling en wordt als false-negative gemarkeerd.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt vermeldde expliciet dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie moest dit zien/meemaken). Dit gegeven ontbreekt volledig in de tolkvertaling.\",\n          \"originalPhrase\": \"ailem de bunu görmek zorunda kaldı\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zei 'bana kimse vurmadı', wat betekent 'niemand heeft mij geslagen' (ontkenning). De tolk vertaalde dit als 'heeft iemand mij geslagen', wat de ontkenning omkeert naar een bevestiging. Dit geeft een tegengesteld beeld van de behandeling tijdens detentie en kan de asielbeslissing direct beïnvloeden.\",\n          \"originalPhrase\": \"bana kimse vurmadı\",\n          \"translatedPhrase\": \"heeft iemand mij geslagen\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst. De semantische gelijkenisscore is 0.898, wat boven de drempel ligt; het detail is echter aantoonbaar niet aanwezig in de brontekst.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"die een dossier onder zijn arm had\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"false-negative\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk heeft de vraag van de ambtenaar niet doorgeleid maar aangegeven een deel niet te hebben verstaan en de ambtenaar verzocht de vraag te herhalen. Dit is een toegestane tolkhandeling. Het fragment is niet beoordeelbaar als vertaling; de lage semantische score (0.272) weerspiegelt dat er geen doorleiding heeft plaatsgevonden.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1027,
+    "output_tokens": 1390,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting, en één niet-beoordeelbaar fragment in de AMBTENAAR→CLIËNT-richting.\n\nPaar 1 (client→ambtenaar): De cliënt zei expliciet dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie moest dit zien). Dit gegeven ontbreekt volledig in de tolkvertaling. Dit is een inhoudelijk feit dat relevant kan zijn voor de beoordeling van de impact op de omgeving van de cliënt.\n\nPaar 2 (client→ambtenaar): De cliënt zei 'bana kimse vurmadı' — niemand heeft mij geslagen. De tolk vertaalde dit als 'heeft iemand mij geslagen', wat de ontkenning omkeert naar een bevestiging. Dit is een ernstige inhoudelijke afwijking: een ontkennende zin is als bevestigend weergegeven, wat een tegengesteld beeld geeft van de behandeling tijdens detentie.\n\nPaar 3 (client→ambtenaar): De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst. De score is 0.898, wat boven de drempel van 0.70 ligt; dit detail is echter wel aantoonbaar aanwezig als toevoeging. Gezien de score wordt dit als laag gesignaleerd.\n\nPaar 2 (ambtenaar→cliënt): De tolk gaf aan een deel van de vraag niet te hebben verstaan en vroeg de ambtenaar de vraag te herhalen. Dit is een toegestane tolkhandeling. De lage semantische score (0.272) weerspiegelt dat de tolk de vraag niet heeft doorgeleid maar een procedurele opmerking maakte. Dit fragment is niet beoordeelbaar als vertaling en wordt als false-negative gemarkeerd.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt vermeldde expliciet dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie moest dit zien/meemaken). Dit gegeven ontbreekt volledig in de tolkvertaling.",
+      "originalPhrase": "ailem de bunu görmek zorunda kaldı",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zei 'bana kimse vurmadı', wat betekent 'niemand heeft mij geslagen' (ontkenning). De tolk vertaalde dit als 'heeft iemand mij geslagen', wat de ontkenning omkeert naar een bevestiging. Dit geeft een tegengesteld beeld van de behandeling tijdens detentie en kan de asielbeslissing direct beïnvloeden.",
+      "originalPhrase": "bana kimse vurmadı",
+      "translatedPhrase": "heeft iemand mij geslagen"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "low",
+      "description": "De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst. De semantische gelijkenisscore is 0.898, wat boven de drempel ligt; het detail is echter aantoonbaar niet aanwezig in de brontekst.",
+      "originalPhrase": "",
+      "translatedPhrase": "die een dossier onder zijn arm had"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "false-negative",
+      "severity": "low",
+      "description": "De tolk heeft de vraag van de ambtenaar niet doorgeleid maar aangegeven een deel niet te hebben verstaan en de ambtenaar verzocht de vraag te herhalen. Dit is een toegestane tolkhandeling. Het fragment is niet beoordeelbaar als vertaling; de lage semantische score (0.272) weerspiegelt dat er geen doorleiding heeft plaatsgevonden.",
+      "originalPhrase": "",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

@@ -1,0 +1,104 @@
+{
+ "session_id": "S46",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, verspreid over beide richtingen.\\n\\nClient→Ambtenaar, paar 0: De tolk voegt 'in Bursa' toe, terwijl de cliënt geen plaatsnaam noemt. Dit is een toevoeging van een geografisch feit dat niet in de brontekst staat.\\n\\nClient→Ambtenaar, paar 1: De cliënt zegt dat Hasan de affiches verspreidde ('Afişleri genellikle Hasan dağıtırdı'), maar de tolk vertaalt dit als 'De affiches verspreidde ik meestal zelf'. Dit is een inhoudelijk kritieke fout: een andere persoon (Hasan) wordt vervangen door de cliënt zelf, wat de rol van de cliënt in de partijactiviteiten onjuist weergeeft.\\n\\nClient→Ambtenaar, paar 2: De cliënt zegt dat de politie drie keer naar de fabriek kwam ('üç kez'), maar de tolk vertaalt dit als twee keer. Dit is een feitelijk verschil in een voor de asielbeslissing relevant gegeven.\\n\\nAmbtenaar→Cliënt, paar 2: De ambtenaar stelt een inhoudelijke vraag over het verloop met de werkgever na het politiebezoek. De tolk vertaalt deze vraag niet, maar vraagt in het Turks of de ambtenaar de vraag wil herhalen omdat de tolk het deel over de politie niet goed heeft begrepen. De vraag is dus niet aan de cliënt doorgegeven. Dit heeft mogelijk invloed gehad op het antwoord van de cliënt in het volgende paar.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt 'in Bursa' toe als plaatsnaam, terwijl de cliënt geen stad noemt. Dit is een toevoeging van een geografisch gegeven dat niet in de brontekst staat.\",\n          \"originalPhrase\": \"Bir tekstil fabrikasında vardiyalı çalışıyordum, yaklaşık altı yıl.\",\n          \"translatedPhrase\": \"Ik werkte in een textielfabriek in Bursa, in ploegendienst, ongeveer zes jaar.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt dat Hasan de affiches verspreidde ('Afişleri genellikle Hasan dağıtırdı'), maar de tolk vertaalt dit als 'De affiches verspreidde ik meestal zelf'. De rol van een derde persoon (Hasan) wordt zo ten onrechte aan de cliënt toegeschreven. Dit raakt de feitelijke beschrijving van de taakverdeling binnen de partijactiviteiten.\",\n          \"originalPhrase\": \"Afişleri genellikle Hasan dağıtırdı\",\n          \"translatedPhrase\": \"De affiches verspreidde ik meestal zelf\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt dat de politie drie keer naar de fabriek kwam ('üç kez'), maar de tolk vertaalt dit als twee keer. Het aantal politiebezoeken is een feitelijk gegeven dat relevant kan zijn voor de beoordeling van de mate van intimidatie.\",\n          \"originalPhrase\": \"Polis fabrikaya üç kez geldi\",\n          \"translatedPhrase\": \"De politie kwam twee keer naar de fabriek\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"medium\",\n          \"description\": \"De ambtenaar vraagt of de cliënt lid was van een politieke partij ('misschien lid'). De tolk vertaalt dit als 'üyesi miydiniz' (was u lid), waarbij de aarzeling of voorzichtigheid ('misschien') wegvalt. Dit is een kleine nuanceverschuiving in de vraagstelling.\",\n          \"originalPhrase\": \"Was u misschien lid van een politieke partij\",\n          \"translatedPhrase\": \"bir siyasi partinin üyesi miydiniz?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar stelt een inhoudelijke vraag over het verloop met de werkgever na het politiebezoek. De tolk vertaalt deze vraag niet aan de cliënt, maar vraagt in het Turks of de ambtenaar de vraag wil herhalen omdat de tolk het deel over de politie niet goed heeft begrepen ('Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım.'). De vraag is daarmee niet aan de cliënt doorgegeven. De hoorambtenaar dient te controleren of de vraag later alsnog is gesteld en beantwoord.\",\n          \"originalPhrase\": \"Hoe is het precies afgelopen met uw werkgever, nadat de politie bij de fabriek kwam?\",\n          \"translatedPhrase\": \"Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1066,
+    "output_tokens": 1709,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, verspreid over beide richtingen.\n\nClient→Ambtenaar, paar 0: De tolk voegt 'in Bursa' toe, terwijl de cliënt geen plaatsnaam noemt. Dit is een toevoeging van een geografisch feit dat niet in de brontekst staat.\n\nClient→Ambtenaar, paar 1: De cliënt zegt dat Hasan de affiches verspreidde ('Afişleri genellikle Hasan dağıtırdı'), maar de tolk vertaalt dit als 'De affiches verspreidde ik meestal zelf'. Dit is een inhoudelijk kritieke fout: een andere persoon (Hasan) wordt vervangen door de cliënt zelf, wat de rol van de cliënt in de partijactiviteiten onjuist weergeeft.\n\nClient→Ambtenaar, paar 2: De cliënt zegt dat de politie drie keer naar de fabriek kwam ('üç kez'), maar de tolk vertaalt dit als twee keer. Dit is een feitelijk verschil in een voor de asielbeslissing relevant gegeven.\n\nAmbtenaar→Cliënt, paar 2: De ambtenaar stelt een inhoudelijke vraag over het verloop met de werkgever na het politiebezoek. De tolk vertaalt deze vraag niet, maar vraagt in het Turks of de ambtenaar de vraag wil herhalen omdat de tolk het deel over de politie niet goed heeft begrepen. De vraag is dus niet aan de cliënt doorgegeven. Dit heeft mogelijk invloed gehad op het antwoord van de cliënt in het volgende paar.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt 'in Bursa' toe als plaatsnaam, terwijl de cliënt geen stad noemt. Dit is een toevoeging van een geografisch gegeven dat niet in de brontekst staat.",
+      "originalPhrase": "Bir tekstil fabrikasında vardiyalı çalışıyordum, yaklaşık altı yıl.",
+      "translatedPhrase": "Ik werkte in een textielfabriek in Bursa, in ploegendienst, ongeveer zes jaar."
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt dat Hasan de affiches verspreidde ('Afişleri genellikle Hasan dağıtırdı'), maar de tolk vertaalt dit als 'De affiches verspreidde ik meestal zelf'. De rol van een derde persoon (Hasan) wordt zo ten onrechte aan de cliënt toegeschreven. Dit raakt de feitelijke beschrijving van de taakverdeling binnen de partijactiviteiten.",
+      "originalPhrase": "Afişleri genellikle Hasan dağıtırdı",
+      "translatedPhrase": "De affiches verspreidde ik meestal zelf"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt dat de politie drie keer naar de fabriek kwam ('üç kez'), maar de tolk vertaalt dit als twee keer. Het aantal politiebezoeken is een feitelijk gegeven dat relevant kan zijn voor de beoordeling van de mate van intimidatie.",
+      "originalPhrase": "Polis fabrikaya üç kez geldi",
+      "translatedPhrase": "De politie kwam twee keer naar de fabriek"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "medium",
+      "description": "De ambtenaar vraagt of de cliënt lid was van een politieke partij ('misschien lid'). De tolk vertaalt dit als 'üyesi miydiniz' (was u lid), waarbij de aarzeling of voorzichtigheid ('misschien') wegvalt. Dit is een kleine nuanceverschuiving in de vraagstelling.",
+      "originalPhrase": "Was u misschien lid van een politieke partij",
+      "translatedPhrase": "bir siyasi partinin üyesi miydiniz?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De ambtenaar stelt een inhoudelijke vraag over het verloop met de werkgever na het politiebezoek. De tolk vertaalt deze vraag niet aan de cliënt, maar vraagt in het Turks of de ambtenaar de vraag wil herhalen omdat de tolk het deel over de politie niet goed heeft begrepen ('Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım.'). De vraag is daarmee niet aan de cliënt doorgegeven. De hoorambtenaar dient te controleren of de vraag later alsnog is gesteld en beantwoord.",
+      "originalPhrase": "Hoe is het precies afgelopen met uw werkgever, nadat de politie bij de fabriek kwam?",
+      "translatedPhrase": "Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

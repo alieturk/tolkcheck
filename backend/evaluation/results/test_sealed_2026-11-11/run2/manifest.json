@@ -1,0 +1,330 @@
+{
+ "status": "verzegeld: alleen voorspellingen, geen metrics; labels niet gebruikt",
+ "run": "run2",
+ "role": "alleen stabiliteit",
+ "date": "2026-11-11",
+ "commit": "f6d64fa7a2e14e55e8f458a675ed3224f2fae7a5",
+ "uncommitted_tracked_changes": [],
+ "scoring_path": "cross_lingual (LaBSE)",
+ "flag_rule_for_scoring": "high_critical",
+ "sessions": {
+  "S30": {
+   "file": "S30.json",
+   "sha256": "0c1e9446a0811333f741e469857dff65c21c718611b562934f39a4992e60400e",
+   "pairs": [
+    "S30-P01",
+    "S30-P02",
+    "S30-P03",
+    "S30-P04",
+    "S30-P05",
+    "S30-P06",
+    "S30-P07",
+    "S30-P08"
+   ]
+  },
+  "S31": {
+   "file": "S31.json",
+   "sha256": "4d6fb5a3eace51f65a82230312533f7c43ffc7d841903151d7fb808a83d7e4bb",
+   "pairs": [
+    "S31-P01",
+    "S31-P02",
+    "S31-P03",
+    "S31-P04",
+    "S31-P05",
+    "S31-P06",
+    "S31-P07",
+    "S31-P08"
+   ]
+  },
+  "S32": {
+   "file": "S32.json",
+   "sha256": "a0892704d5eb0faae02ccb4b89f9e67f18573e072f408cd6791ed4c0329b041a",
+   "pairs": [
+    "S32-P01",
+    "S32-P02",
+    "S32-P03",
+    "S32-P04",
+    "S32-P05",
+    "S32-P06",
+    "S32-P07",
+    "S32-P08"
+   ]
+  },
+  "S33": {
+   "file": "S33.json",
+   "sha256": "1aea7a7c5f945b2c0bdfa13439e3b95563153a4b8081d8a505e5a4c9a8353e62",
+   "pairs": [
+    "S33-P01",
+    "S33-P02",
+    "S33-P03",
+    "S33-P04",
+    "S33-P05",
+    "S33-P06",
+    "S33-P07",
+    "S33-P08"
+   ]
+  },
+  "S34": {
+   "file": "S34.json",
+   "sha256": "03ffe0aa12a722319bbf97a8c0aefbe5b14a3cee1a2d22a667ceae1fb686dd97",
+   "pairs": [
+    "S34-P01",
+    "S34-P02",
+    "S34-P03",
+    "S34-P04",
+    "S34-P05",
+    "S34-P06",
+    "S34-P07",
+    "S34-P08"
+   ]
+  },
+  "S35": {
+   "file": "S35.json",
+   "sha256": "7b8c440fe88885ebfe4e0e369ccb140114e27de5e7b26658ab0b03c3bc86b3a0",
+   "pairs": [
+    "S35-P01",
+    "S35-P02",
+    "S35-P03",
+    "S35-P04",
+    "S35-P05",
+    "S35-P06",
+    "S35-P07",
+    "S35-P08"
+   ]
+  },
+  "S36": {
+   "file": "S36.json",
+   "sha256": "60da4db28d83ddcda4d2f4fe1a3f7d84e82cc0d60723350d3c34370133093650",
+   "pairs": [
+    "S36-P01",
+    "S36-P02",
+    "S36-P03",
+    "S36-P04",
+    "S36-P05",
+    "S36-P06",
+    "S36-P07",
+    "S36-P08"
+   ]
+  },
+  "S37": {
+   "file": "S37.json",
+   "sha256": "6fe644791fb315be9d77da1518b01bac682be5fac935dac085b47644fa46cb0e",
+   "pairs": [
+    "S37-P01",
+    "S37-P02",
+    "S37-P03",
+    "S37-P04",
+    "S37-P05",
+    "S37-P06",
+    "S37-P07",
+    "S37-P08"
+   ]
+  },
+  "S38": {
+   "file": "S38.json",
+   "sha256": "fcb126a38b90dd16ce55d9a43640f9f1defa1799c457feeb6988578ae6a34616",
+   "pairs": [
+    "S38-P01",
+    "S38-P02",
+    "S38-P03",
+    "S38-P04",
+    "S38-P05",
+    "S38-P06",
+    "S38-P07",
+    "S38-P08"
+   ]
+  },
+  "S39": {
+   "file": "S39.json",
+   "sha256": "9003ceb19601900f112f74527103bd9444377730a26a801afcdeefb7a68aefe5",
+   "pairs": [
+    "S39-P01",
+    "S39-P02",
+    "S39-P03",
+    "S39-P04",
+    "S39-P05",
+    "S39-P06",
+    "S39-P07",
+    "S39-P08"
+   ]
+  },
+  "S40": {
+   "file": "S40.json",
+   "sha256": "49fccdd94bda1e09ba1983ef4357265b23536e7f9c351b6bd7d26028db91a9ef",
+   "pairs": [
+    "S40-P01",
+    "S40-P02",
+    "S40-P03",
+    "S40-P04",
+    "S40-P05",
+    "S40-P06",
+    "S40-P07",
+    "S40-P08"
+   ]
+  },
+  "S41": {
+   "file": "S41.json",
+   "sha256": "79d1d94c004dd58b27c2eb222878795342689d2b9ead68fd75cbcf6c71545e1f",
+   "pairs": [
+    "S41-P01",
+    "S41-P02",
+    "S41-P03",
+    "S41-P04",
+    "S41-P05",
+    "S41-P06",
+    "S41-P07",
+    "S41-P08"
+   ]
+  },
+  "S42": {
+   "file": "S42.json",
+   "sha256": "4a85712d44f43886d8b2d0ef193fdbce86b95d088f346c7d3ab163f305e07e89",
+   "pairs": [
+    "S42-P01",
+    "S42-P02",
+    "S42-P03",
+    "S42-P04",
+    "S42-P05",
+    "S42-P06",
+    "S42-P07",
+    "S42-P08"
+   ]
+  },
+  "S43": {
+   "file": "S43.json",
+   "sha256": "ed526bcf5ff3d72ab183bdaf0dc865ad077df2e6133bdb1e3489358058d324c2",
+   "pairs": [
+    "S43-P01",
+    "S43-P02",
+    "S43-P03",
+    "S43-P04",
+    "S43-P05",
+    "S43-P06",
+    "S43-P07",
+    "S43-P08"
+   ]
+  },
+  "S44": {
+   "file": "S44.json",
+   "sha256": "2721c307564609194b12d3f02a2c3eb97fcdc8c5c19f9e4f609004d6bd5a4691",
+   "pairs": [
+    "S44-P01",
+    "S44-P02",
+    "S44-P03",
+    "S44-P04",
+    "S44-P05",
+    "S44-P06",
+    "S44-P07",
+    "S44-P08"
+   ]
+  },
+  "S45": {
+   "file": "S45.json",
+   "sha256": "af0390f5e8cc702b15d16b961afee71f487b2bb85740b2c693ca0d7a559388d3",
+   "pairs": [
+    "S45-P01",
+    "S45-P02",
+    "S45-P03",
+    "S45-P04",
+    "S45-P05",
+    "S45-P06",
+    "S45-P07",
+    "S45-P08"
+   ]
+  },
+  "S46": {
+   "file": "S46.json",
+   "sha256": "4fffb7afc00b1038be41cb5b331e6db31cb6c42af1cfd63708f642f1fdf33ab1",
+   "pairs": [
+    "S46-P01",
+    "S46-P02",
+    "S46-P03",
+    "S46-P04",
+    "S46-P05",
+    "S46-P06",
+    "S46-P07",
+    "S46-P08"
+   ]
+  },
+  "S47": {
+   "file": "S47.json",
+   "sha256": "69311d5eb287b64840e4edcb078a16c69dad62082d8a8e15131339634902e46c",
+   "pairs": [
+    "S47-P01",
+    "S47-P02",
+    "S47-P03",
+    "S47-P04",
+    "S47-P05",
+    "S47-P06",
+    "S47-P07",
+    "S47-P08"
+   ]
+  },
+  "S48": {
+   "file": "S48.json",
+   "sha256": "8e9c192992a9a756c97fd896bd204fd0cbb72505a2299eb9a1c205357e2541f8",
+   "pairs": [
+    "S48-P01",
+    "S48-P02",
+    "S48-P03",
+    "S48-P04",
+    "S48-P05",
+    "S48-P06",
+    "S48-P07",
+    "S48-P08"
+   ]
+  },
+  "S49": {
+   "file": "S49.json",
+   "sha256": "16d8825c6484f3c606a74afa2f1b59be8c75f2ac20b0a13e74f24f1c85163d2e",
+   "pairs": [
+    "S49-P01",
+    "S49-P02",
+    "S49-P03",
+    "S49-P04",
+    "S49-P05",
+    "S49-P06",
+    "S49-P07",
+    "S49-P08"
+   ]
+  }
+ },
+ "variants": {
+  "A": {
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": true,
+   "tokens": {
+    "input_tokens": 21650,
+    "output_tokens": 24839,
+    "cache_creation_input_tokens": 1916,
+    "cache_read_input_tokens": 36404
+   },
+   "cost_usd_estimate": 0.45564119999999997,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  "B": {
+   "model": "claude-sonnet-4-6",
+   "llm_temperature": 0.0,
+   "llm_score_rules": false,
+   "tokens": {
+    "input_tokens": 21650,
+    "output_tokens": 26840,
+    "cache_creation_input_tokens": 1845,
+    "cache_read_input_tokens": 35055
+   },
+   "cost_usd_estimate": 0.48498525,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  }
+ },
+ "differences_from_tool": [
+  "geen kennisbank (geen database)",
+  "geen Nederlandse hulpvertaling bij cliënt→ambtenaar"
+ ]
+}

@@ -1,0 +1,101 @@
+{
+ "session_id": "S23",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\\n\\n**CLIENT→AMBTENAAR, paar 1:** De cliënt zegt letterlijk: 'Ik vertrok uit Van omdat mijn broer was gearresteerd.' De tolk heeft de volgorde van de bijzin omgedraaid en vertaalt: 'Mijn broer was gearresteerd omdat ik uit Van vertrok.' Dit keert de oorzaak-gevolgrelatie om: in het origineel is de arrestatie de reden voor het vertrek, in de tolkvertaling is het vertrek de reden voor de arrestatie. Dit is een inhoudelijke afwijking die het relaas van de cliënt raakt.\\n\\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vraagt: 'Dus u vertrok uit Van.' De tolk vertaalt dit als: 'Dus u vertrok uit Hakkâri.' Van en Hakkâri zijn twee verschillende steden in Turkije. De cliënt heeft eerder verklaard in Van te hebben gewoond. Door deze fout krijgt de cliënt een onjuiste locatie voorgelegd, wat zijn antwoord over de reisroute kan beïnvloeden. De score (0.748) bevestigt een mogelijke afwijking.\\n\\n**AMBTENAAR→CLIËNT, paar 2:** De ambtenaar vraagt 'hoe lang voor uw vertrek' (tijdsduur), de tolk vertaalt 'hoeveel dagen voor uw vertrek' (kaç gün). Dit is een lichte versmalling — 'hoe lang' omvat ook weken of maanden, terwijl 'hoeveel dagen' de cliënt stuurt naar een antwoord in dagen. De cliënt antwoordde overigens 'twee weken', wat suggereert dat hij de vraag ruim heeft opgevat.\\n\\n**AMBTENAAR→CLIËNT, paar 3:** De tolk maakt een vergissing ('Ankara' in plaats van 'Istanbul'), corrigeert zichzelf direct en meldt dit expliciet. Dit is een zelfcorrectie en telt niet als afwijking.\\n\\nOverige paren bevatten geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt dat hij uit Van vertrok omdat zijn broer was gearresteerd (arrestatie = oorzaak, vertrek = gevolg). De tolk keert de oorzaak-gevolgrelatie om: 'Mijn broer was gearresteerd omdat ik uit Van vertrok' (vertrek = oorzaak, arrestatie = gevolg). Dit verandert de kern van het relaas.\",\n          \"originalPhrase\": \"Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı.\",\n          \"translatedPhrase\": \"Mijn broer was gearresteerd omdat ik uit Van vertrok.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar verwijst naar Van als vertrekpunt ('u vertrok uit Van'). De tolk vertaalt dit als Hakkâri, een andere stad in Turkije. De cliënt heeft eerder verklaard in Van te hebben gewoond. Door deze fout krijgt de cliënt een onjuiste locatie voorgelegd, wat zijn begrip van de vraag en zijn antwoord over de reisroute kan beïnvloeden.\",\n          \"originalPhrase\": \"Dus u vertrok uit Van.\",\n          \"translatedPhrase\": \"Yani Hakkâri'den ayrıldınız.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De ambtenaar vraagt 'hoe lang voor uw vertrek' (open tijdsduur). De tolk vertaalt dit als 'hoeveel dagen voor uw vertrek' (kaç gün), wat de cliënt stuurt naar een antwoord uitsluitend in dagen. De cliënt antwoordde 'twee weken', wat suggereert dat hij de vraag ruim heeft opgevat, maar de versmalling kan in andere gevallen het antwoord beperken.\",\n          \"originalPhrase\": \"Hoe lang voor uw vertrek\",\n          \"translatedPhrase\": \"kaç gün önce\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1043,
+    "output_tokens": 1448,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\n\n**CLIENT→AMBTENAAR, paar 1:** De cliënt zegt letterlijk: 'Ik vertrok uit Van omdat mijn broer was gearresteerd.' De tolk heeft de volgorde van de bijzin omgedraaid en vertaalt: 'Mijn broer was gearresteerd omdat ik uit Van vertrok.' Dit keert de oorzaak-gevolgrelatie om: in het origineel is de arrestatie de reden voor het vertrek, in de tolkvertaling is het vertrek de reden voor de arrestatie. Dit is een inhoudelijke afwijking die het relaas van de cliënt raakt.\n\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vraagt: 'Dus u vertrok uit Van.' De tolk vertaalt dit als: 'Dus u vertrok uit Hakkâri.' Van en Hakkâri zijn twee verschillende steden in Turkije. De cliënt heeft eerder verklaard in Van te hebben gewoond. Door deze fout krijgt de cliënt een onjuiste locatie voorgelegd, wat zijn antwoord over de reisroute kan beïnvloeden. De score (0.748) bevestigt een mogelijke afwijking.\n\n**AMBTENAAR→CLIËNT, paar 2:** De ambtenaar vraagt 'hoe lang voor uw vertrek' (tijdsduur), de tolk vertaalt 'hoeveel dagen voor uw vertrek' (kaç gün). Dit is een lichte versmalling — 'hoe lang' omvat ook weken of maanden, terwijl 'hoeveel dagen' de cliënt stuurt naar een antwoord in dagen. De cliënt antwoordde overigens 'twee weken', wat suggereert dat hij de vraag ruim heeft opgevat.\n\n**AMBTENAAR→CLIËNT, paar 3:** De tolk maakt een vergissing ('Ankara' in plaats van 'Istanbul'), corrigeert zichzelf direct en meldt dit expliciet. Dit is een zelfcorrectie en telt niet als afwijking.\n\nOverige paren bevatten geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt dat hij uit Van vertrok omdat zijn broer was gearresteerd (arrestatie = oorzaak, vertrek = gevolg). De tolk keert de oorzaak-gevolgrelatie om: 'Mijn broer was gearresteerd omdat ik uit Van vertrok' (vertrek = oorzaak, arrestatie = gevolg). Dit verandert de kern van het relaas.",
+      "originalPhrase": "Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı.",
+      "translatedPhrase": "Mijn broer was gearresteerd omdat ik uit Van vertrok."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar verwijst naar Van als vertrekpunt ('u vertrok uit Van'). De tolk vertaalt dit als Hakkâri, een andere stad in Turkije. De cliënt heeft eerder verklaard in Van te hebben gewoond. Door deze fout krijgt de cliënt een onjuiste locatie voorgelegd, wat zijn begrip van de vraag en zijn antwoord over de reisroute kan beïnvloeden.",
+      "originalPhrase": "Dus u vertrok uit Van.",
+      "translatedPhrase": "Yani Hakkâri'den ayrıldınız."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De ambtenaar vraagt 'hoe lang voor uw vertrek' (open tijdsduur). De tolk vertaalt dit als 'hoeveel dagen voor uw vertrek' (kaç gün), wat de cliënt stuurt naar een antwoord uitsluitend in dagen. De cliënt antwoordde 'twee weken', wat suggereert dat hij de vraag ruim heeft opgevat, maar de versmalling kan in andere gevallen het antwoord beperken.",
+      "originalPhrase": "Hoe lang voor uw vertrek",
+      "translatedPhrase": "kaç gün önce"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S23-P01",
+   "S23-P03",
+   "S23-P05",
+   "S23-P07"
+  ],
+  "client_to_officer": [
+   "S23-P02",
+   "S23-P04",
+   "S23-P06",
+   "S23-P08"
+  ]
+ }
+}

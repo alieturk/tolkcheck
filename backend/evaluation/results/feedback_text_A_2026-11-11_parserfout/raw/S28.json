@@ -1,0 +1,101 @@
+{
+ "session_id": "S28",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier fragmenten waarbij inhoudelijke afwijkingen zijn gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 0:** De naam van de broer wijkt af. De cliënt zegt 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit is een naamsverwisseling die in het dossier terechtkomt en gecontroleerd moet worden aan de hand van de opname.\\n\\n**CLIENT→AMBTENAAR, paar 1:** De cliënt voegt aan het einde expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit element ontbreekt volledig in de tolkvertaling. Dit is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding.\\n\\n**CLIENT→AMBTENAAR, paar 2:** De tolk voegt een toelichting toe over een eigen interventie tijdens het gehoor (het vragen om herhaling van het woord 'ifade'). Dit is op zichzelf een toegestane tolkmelding. De inhoud van de vertaling zelf lijkt correct. Geen afwijking gesignaleerd in de inhoud.\\n\\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vraagt neutraal waar de cliënt na de aanhouding naartoe is gebracht. De tolk voegt hieraan toe: 'naar het bureau aan de Kışla Caddesi?' Dit is een suggestieve toevoeging die niet in de oorspronkelijke vraag staat en de cliënt in een bepaalde richting kan sturen bij het beantwoorden.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt de naam 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit is een andere naam en kan leiden tot een onjuiste vermelding in het dossier. De opname dient gecontroleerd te worden om vast te stellen welke naam de cliënt heeft uitgesproken.\",\n          \"originalPhrase\": \"kardeşim Kemal\",\n          \"translatedPhrase\": \"mijn broer Kenan\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt voegt aan het einde van zijn verklaring expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit element ontbreekt volledig in de tolkvertaling. Deze toevoeging is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding en het ontbreken ervan verandert de betekenis van het relaas.\",\n          \"originalPhrase\": \"kimse bana açıkça bir suç söylemedi\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt een open, neutrale vraag over de bestemming na de aanhouding. De tolk voegt hieraan toe 'naar het bureau aan de Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Dit is een suggestieve toevoeging die niet in de oorspronkelijke vraag staat. Hierdoor wordt de cliënt in een bepaalde richting gestuurd, wat de betrouwbaarheid van het antwoord kan beïnvloeden.\",\n          \"originalPhrase\": \"Waar werd u na de aanhouding naartoe gebracht?\",\n          \"translatedPhrase\": \"Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1032,
+    "output_tokens": 1290,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier fragmenten waarbij inhoudelijke afwijkingen zijn gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 0:** De naam van de broer wijkt af. De cliënt zegt 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit is een naamsverwisseling die in het dossier terechtkomt en gecontroleerd moet worden aan de hand van de opname.\n\n**CLIENT→AMBTENAAR, paar 1:** De cliënt voegt aan het einde expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit element ontbreekt volledig in de tolkvertaling. Dit is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding.\n\n**CLIENT→AMBTENAAR, paar 2:** De tolk voegt een toelichting toe over een eigen interventie tijdens het gehoor (het vragen om herhaling van het woord 'ifade'). Dit is op zichzelf een toegestane tolkmelding. De inhoud van de vertaling zelf lijkt correct. Geen afwijking gesignaleerd in de inhoud.\n\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar vraagt neutraal waar de cliënt na de aanhouding naartoe is gebracht. De tolk voegt hieraan toe: 'naar het bureau aan de Kışla Caddesi?' Dit is een suggestieve toevoeging die niet in de oorspronkelijke vraag staat en de cliënt in een bepaalde richting kan sturen bij het beantwoorden.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt de naam 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit is een andere naam en kan leiden tot een onjuiste vermelding in het dossier. De opname dient gecontroleerd te worden om vast te stellen welke naam de cliënt heeft uitgesproken.",
+      "originalPhrase": "kardeşim Kemal",
+      "translatedPhrase": "mijn broer Kenan"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt voegt aan het einde van zijn verklaring expliciet toe dat niemand hem duidelijk een strafbaar feit heeft meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit element ontbreekt volledig in de tolkvertaling. Deze toevoeging is inhoudelijk relevant voor de beoordeling van de rechtmatigheid van de aanhouding en het ontbreken ervan verandert de betekenis van het relaas.",
+      "originalPhrase": "kimse bana açıkça bir suç söylemedi",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar stelt een open, neutrale vraag over de bestemming na de aanhouding. De tolk voegt hieraan toe 'naar het bureau aan de Kışla Caddesi?' ('Kışla Caddesi'ndeki karakola mı?'). Dit is een suggestieve toevoeging die niet in de oorspronkelijke vraag staat. Hierdoor wordt de cliënt in een bepaalde richting gestuurd, wat de betrouwbaarheid van het antwoord kan beïnvloeden.",
+      "originalPhrase": "Waar werd u na de aanhouding naartoe gebracht?",
+      "translatedPhrase": "Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S28-P01",
+   "S28-P03",
+   "S28-P05",
+   "S28-P07"
+  ],
+  "client_to_officer": [
+   "S28-P02",
+   "S28-P04",
+   "S28-P06",
+   "S28-P08"
+  ]
+ }
+}

@@ -1,0 +1,886 @@
+{
+ "variant": "A",
+ "model": "claude-sonnet-4-6",
+ "llm_temperature": 0.0,
+ "llm_score_rules": true,
+ "issues": {
+  "S30-P01": [],
+  "S30-P03": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De tolk voegt een eigen opmerking toe die niet door de ambtenaar is uitgesproken: 'Dit is erg belangrijk dat u hierover duidelijk bent' ('Bu konuda net olmanız çok önemli'). Deze toevoeging kan de cliënt onder druk zetten of zijn antwoord beïnvloeden, en is niet afkomstig van de ambtenaar.",
+    "originalPhrase": "",
+    "translatedPhrase": "Bu konuda net olmanız çok önemli."
+   }
+  ],
+  "S30-P05": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De ambtenaar noemt expliciet Doğubayazıt als de door de cliënt genoemde grensplaats en vraagt of dat klopt. De tolk vertaalt dit als Erzurum. De cliënt krijgt hierdoor een andere plaatsnaam voorgelegd dan de ambtenaar bedoelde, wat de verificatie van de reisroute ernstig verstoort. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+    "originalPhrase": "U noemde Doğubayazıt als plaats waar u de grens bent overgestoken, klopt dat?",
+    "translatedPhrase": "Sınırı geçtiğiniz yer olarak Erzurum'u söylediniz, doğru mu?"
+   }
+  ],
+  "S30-P07": [],
+  "S30-P02": [],
+  "S30-P04": [
+   {
+    "type": "omission",
+    "severity": "high",
+    "description": "De cliënt voegt een voorwaardelijke zin toe: 'Als mijn vriend niet was gekomen, had ik moeten lopen.' Deze zin geeft relevante context over de afhankelijkheid van de cliënt van zijn reisgezel en de kwetsbaarheid van zijn situatie. De tolk laat deze zin volledig weg.",
+    "originalPhrase": "Eğer arkadaşım gelmezse yürümek zorunda kalacaktım.",
+    "translatedPhrase": ""
+   }
+  ],
+  "S30-P06": [],
+  "S30-P08": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De cliënt zegt: 'Omdat mijn telefoon die dag uitviel, kon ik met niemand spreken' — het uitvallen van de telefoon is de oorzaak. De tolk vertaalt dit als 'ondanks dat ik met niemand kon spreken', wat de causale relatie omkeert naar een concessie. De logische structuur van de verklaring verandert hierdoor inhoudelijk.",
+    "originalPhrase": "Telefonum o gün kapandığı için kimseyle konuşamadım",
+    "translatedPhrase": "Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken."
+   }
+  ],
+  "S31-P01": [],
+  "S31-P03": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De ambtenaar stelt uitsluitend de vraag wat er daarna met de broer is gebeurd. De tolk voegt een tweede, niet door de ambtenaar gestelde vraag toe: 'Bu arada başka biri de sizi tehdit etti mi?' ('Heeft iemand anders u ook bedreigd?'). Deze toevoeging kan de cliënt aanzetten tot een antwoord op een vraag die de ambtenaar niet heeft gesteld en beïnvloedt daarmee het verloop van het gehoor.",
+    "originalPhrase": "",
+    "translatedPhrase": "Bu arada başka biri de sizi tehdit etti mi?"
+   }
+  ],
+  "S31-P05": [],
+  "S31-P07": [
+   {
+    "type": "mistranslation",
+    "severity": "low",
+    "description": "De ambtenaar stelt een open, beleefde vraag ('Hoe denkt uw familie nu over een eventuele terugkeer?'). De tolk vertaalt dit als een directe opdracht in de gebiedende wijs ('anlat' = vertel). De inhoud is vergelijkbaar, maar de toon is iets directer dan het origineel. Geen inhoudelijk gevolg.",
+    "originalPhrase": "Hoe denkt uw familie nu over een eventuele terugkeer naar Turkije?",
+    "translatedPhrase": "Ailenizin şimdi Türkiye'ye dönüş konusunda ne düşündüğünü anlat."
+   }
+  ],
+  "S31-P02": [],
+  "S31-P04": [
+   {
+    "type": "omission",
+    "severity": "critical",
+    "description": "De cliënt zegt expliciet dat de politie zijn broer arresteerde ('polis onu gözaltına aldı') toen hij met verlof thuiskwam. De tolk heeft dit weggelaten: er wordt alleen gezegd dat de broer thuiskwam, maar de arrestatie door de politie ontbreekt volledig in de vertolking. Dit is een feitelijk element dat het relaas van dreiging en de beslissing om te vluchten onderbouwt.",
+    "originalPhrase": "ama izinde eve geldiğinde polis onu gözaltına aldı",
+    "translatedPhrase": "maar toen hij met verlof thuiskwam"
+   }
+  ],
+  "S31-P06": [],
+  "S31-P08": [],
+  "S32-P01": [],
+  "S32-P03": [],
+  "S32-P05": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De ambtenaar spreekt over 'vijf collega's', maar de tolk vertaalt dit als 'drie' ('üç arkadaş'). De cliënt krijgt hierdoor een onjuist getal voorgelegd, wat zijn antwoord kan beïnvloeden. Daarnaast is 'arkadaş' (vrienden/kameraden) een lichte betekenisverschuiving ten opzichte van het neutrale 'collega's', maar het getalsverschil (vijf vs. drie) is het meest inhoudelijk relevant. De opname dient gecontroleerd te worden om te bevestigen of de ambtenaar inderdaad 'vijf' zei.",
+    "originalPhrase": "U noemde zojuist vijf collega's in het atelier.",
+    "translatedPhrase": "Az önce atölyede üç arkadaş saydınız."
+   }
+  ],
+  "S32-P07": [],
+  "S32-P02": [],
+  "S32-P04": [
+   {
+    "type": "omission",
+    "severity": "critical",
+    "description": "De cliënt maakt een expliciet onderscheid: híj hing de posters op, en Murat deelde de flyers uit ('Murat ise bildiriler dağıtmıştı'). De tolk laat Murat volledig weg en schrijft beide activiteiten toe aan de cliënt zelf ('ik had de posters opgehangen, ik had de flyers uitgedeeld'). Hierdoor verdwijnt de rol van een derde persoon (Murat) en de taakverdeling tussen beiden uit het dossier.",
+    "originalPhrase": "Partinin afişlerini ben asmıştım, Murat ise bildiriler dağıtmıştı.",
+    "translatedPhrase": "Ik had de posters van de partij opgehangen, ik had de flyers uitgedeeld."
+   }
+  ],
+  "S32-P06": [],
+  "S32-P08": [],
+  "S33-P01": [],
+  "S33-P03": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De ambtenaar zei 'drie dagen' ('drie dagen op het politiebureau'), maar de tolk vertaalde dit als 'vier dagen' ('dört gün karakolda'). Dit is een feitelijk onjuist getal dat de cliënt een verkeerde aanname geeft over wat er in het dossier staat, en kan leiden tot een onjuist antwoord van de cliënt. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+    "originalPhrase": "drie dagen op het politiebureau",
+    "translatedPhrase": "dört gün karakolda kaldığınız yazıyor"
+   }
+  ],
+  "S33-P05": [],
+  "S33-P07": [],
+  "S33-P02": [],
+  "S33-P04": [],
+  "S33-P06": [
+   {
+    "type": "mistranslation",
+    "severity": "medium",
+    "description": "De cliënt zei 'kapı bazen açılıyordu' (de deur ging soms open), maar de tolk vertaalde dit als 'de deur ging altijd open'. 'Bazen' betekent 'soms', niet 'altijd'. Dit verandert de beschrijving van de toegankelijkheid van het consulaat tijdens het tweede bezoek.",
+    "originalPhrase": "kapı bazen açılıyordu",
+    "translatedPhrase": "de deur ging altijd open"
+   }
+  ],
+  "S33-P08": [],
+  "S34-P01": [],
+  "S34-P03": [],
+  "S34-P05": [
+   {
+    "type": "false-negative",
+    "severity": "low",
+    "description": "De semantische score is 0.272. De tolk heeft de vraag van de ambtenaar niet doorgeleid naar de cliënt, maar heeft aangegeven een deel van de vraag niet te hebben gehoord en de ambtenaar verzocht de vraag te herhalen. Dit is een toegestane tolkhandeling. De hoorambtenaar dient te controleren of de vraag daarna alsnog is herhaald en aan de cliënt is doorgeleid. Het fragment is inhoudelijk niet beoordeelbaar als tolkvertaling.",
+    "originalPhrase": "",
+    "translatedPhrase": ""
+   }
+  ],
+  "S34-P07": [],
+  "S34-P02": [],
+  "S34-P04": [
+   {
+    "type": "omission",
+    "severity": "high",
+    "description": "De cliënt vermeldde expliciet dat zijn familie getuige was van de aanhouding ('ailem de bunu görmek zorunda kaldı' — mijn familie moest dit zien/meemaken). Dit gegeven ontbreekt volledig in de tolkvertaling en kan relevant zijn voor de beoordeling van de impact op de familie en de omstandigheden van de aanhouding.",
+    "originalPhrase": "ailem de bunu görmek zorunda kaldı",
+    "translatedPhrase": ""
+   }
+  ],
+  "S34-P06": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zei 'bana kimse vurmadı', wat betekent 'niemand heeft mij geslagen' — een expliciete ontkenning van fysiek geweld. De tolk vertaalde dit als 'heeft iemand mij geslagen', waarmee de ontkenning wordt omgekeerd naar een bevestiging. Dit raakt direct aan een feitelijke verklaring over de behandeling tijdens detentie en kan de asielbeslissing beïnvloeden.",
+    "originalPhrase": "bana kimse vurmadı",
+    "translatedPhrase": "heeft iemand mij geslagen"
+   }
+  ],
+  "S34-P08": [
+   {
+    "type": "addition",
+    "severity": "medium",
+    "description": "De tolk voegde toe dat de advocaat 'een dossier onder zijn arm had'. Dit detail staat niet in de originele Turkse tekst van de cliënt. Hoewel de semantische score (0.898) boven de drempel ligt, betreft het een concreet feitelijk detail dat niet door de cliënt is uitgesproken.",
+    "originalPhrase": "",
+    "translatedPhrase": "die een dossier onder zijn arm had"
+   }
+  ],
+  "S35-P01": [],
+  "S35-P03": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt de naam als 'Komiser Kara'. Dit is een andere naam dan de naam die de cliënt eerder zelf noemde ('Komiser Kaya'). De cliënt kan hierdoor denken dat er naar een andere persoon wordt gevraagd, wat zijn antwoord kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+    "originalPhrase": "Was het rechercheur Kaya die u daarna heeft ondervraagd, of iemand anders?",
+    "translatedPhrase": "Sizi daha sonra sorgulayan Komiser Kara mıydı, yoksa başka biri mi?"
+   }
+  ],
+  "S35-P05": [],
+  "S35-P07": [],
+  "S35-P02": [],
+  "S35-P04": [],
+  "S35-P06": [
+   {
+    "type": "omission",
+    "severity": "critical",
+    "description": "De cliënt zegt expliciet dat men hem vertelde dat hij 's ochtends vrijgelaten zou worden als hij het papier tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Deze belofte van vrijlating als directe aanleiding voor de ondertekening ontbreekt volledig in de tolkvertaling. Dit is een inhoudelijk feit dat de context van de ondertekening — en daarmee de mate van dwang — raakt.",
+    "originalPhrase": "eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler",
+    "translatedPhrase": ""
+   }
+  ],
+  "S35-P08": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De cliënt begint met 'Sanırım' (= 'Ik denk' / 'Ik vermoed'), wat twijfel of onzekerheid uitdrukt over de inhoud van het papier. De tolk vertaalt dit als een stellige bewering zonder enig voorbehoud. Hierdoor lijkt de cliënt zeker te zijn van wat er op het papier stond, terwijl hij dat zelf in twijfel trekt.",
+    "originalPhrase": "Sanırım o kâğıtta sadece imza yeri vardı.",
+    "translatedPhrase": "Op dat papier stond alleen een plek voor een handtekening."
+   }
+  ],
+  "S36-P01": [],
+  "S36-P03": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De tolk voegt aan het einde van de vraag toe: 'Bu, dosyanız açısından çok önemli bir nokta' ('Dit is een zeer belangrijk punt voor uw dossier'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. Een dergelijke toevoeging kan de cliënt sturen in zijn antwoord en is een eigen commentaar van de tolk.",
+    "originalPhrase": "",
+    "translatedPhrase": "Bu, dosyanız açısından çok önemli bir nokta."
+   }
+  ],
+  "S36-P05": [],
+  "S36-P07": [
+   {
+    "type": "mistranslation",
+    "severity": "low",
+    "description": "De tolk vertaalt 'Wilt u dat nog wat nader toelichten' als 'Bunu biraz daha açıkla' (informele gebiedende wijs), wat iets informeler is dan het origineel, maar geen inhoudelijk verschil oplevert.",
+    "originalPhrase": "Wilt u dat nog wat nader toelichten",
+    "translatedPhrase": "Bunu biraz daha açıkla"
+   }
+  ],
+  "S36-P02": [],
+  "S36-P04": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt dat de dreigende telefoontjes begonnen nádat het stuk was gepubliceerd ('Yazı yayımlandıktan sonra … tehdit eden telefonlar gelmeye başladı'). De tolk vertaalt dit als 'voordat het stuk verscheen', wat de chronologie van de dreiging omkeert. Dit verschil kan de geloofwaardigheidsbeoordeling van het relaas beïnvloeden.",
+    "originalPhrase": "Yazı yayımlandıktan sonra da gece vakti tehdit eden telefonlar gelmeye başladı.",
+    "translatedPhrase": "Voordat het stuk verscheen, begonnen de dreigende telefoontjes 's nachts."
+   }
+  ],
+  "S36-P06": [],
+  "S36-P08": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt noemt 'kasım ayının on yedisi', wat 'de zeventiende november' betekent. De tolk vertaalt dit als 'zeven november'. Het verschil in datum (7 versus 17 november) kan relevant zijn voor de tijdlijn van het relaas. De opname dient gecontroleerd te worden om een transcriptiefout uit te sluiten.",
+    "originalPhrase": "Kasım ayının on yedisinde",
+    "translatedPhrase": "Op zeven november"
+   }
+  ],
+  "S37-P01": [],
+  "S37-P03": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De tolk heeft een extra vraag toegevoegd die de ambtenaar niet heeft gesteld: 'Bu yolculuğun biletini kendiniz mi aldınız?' (Heeft u het ticket voor deze reis zelf gekocht?). Dit is een inhoudelijke toevoeging die de richting van het antwoord van de cliënt kan beïnvloeden.",
+    "originalPhrase": "",
+    "translatedPhrase": "Bu yolculuğun biletini kendiniz mi aldınız?"
+   }
+  ],
+  "S37-P05": [],
+  "S37-P07": [],
+  "S37-P02": [],
+  "S37-P04": [
+   {
+    "type": "omission",
+    "severity": "critical",
+    "description": "De cliënt vermeldde dat zij vanuit Istanbul naar Athene zijn gevlogen ('sonra Atina'ya uçtuk'). De tolk heeft deze bestemming en vervoerswijze (vliegen) weggelaten. Dit is een reisfeit dat relevant is voor het dossier.",
+    "originalPhrase": "sonra Atina'ya uçtuk",
+    "translatedPhrase": ""
+   }
+  ],
+  "S37-P06": [],
+  "S37-P08": [
+   {
+    "type": "omission",
+    "severity": "critical",
+    "description": "De cliënt noemde de voornaam 'Kemal' als de naam waaronder hij de persoon kent ('Kemal diye tanıyorum'). De tolk heeft deze naam niet in de vertaling opgenomen en in plaats daarvan vermeld dat de voornaam niet goed verstaan was. De naam 'Kemal' is een concreet identificerend gegeven dat in het dossier thuishoort. De hoorambtenaar dient te controleren of de naam alsnog is doorgevraagd en genoteerd.",
+    "originalPhrase": "Kemal diye tanıyorum",
+    "translatedPhrase": ""
+   }
+  ],
+  "S38-P01": [],
+  "S38-P03": [],
+  "S38-P05": [],
+  "S38-P07": [],
+  "S38-P02": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt noemt 'Adana' als de stad waarnaar het gezin is verhuisd, maar de tolk vertaalt dit als 'Antalya'. Dit zijn twee verschillende steden in Turkije. De verblijfplaats van de familie is een feitelijk gegeven in het relaas; de opname dient gecontroleerd te worden om te bevestigen welke stad de cliënt heeft uitgesproken.",
+    "originalPhrase": "Adana'ya taşındık",
+    "translatedPhrase": "naar Antalya verhuisd"
+   }
+  ],
+  "S38-P04": [],
+  "S38-P06": [],
+  "S38-P08": [],
+  "S39-P01": [],
+  "S39-P03": [],
+  "S39-P05": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De ambtenaar vraagt of het er 'ongeveer veertig' waren, maar de tolk vertaalt dit als 'yaklaşık otuz' (ongeveer dertig). Het getal is veranderd van veertig naar dertig. Dit kan ertoe leiden dat de cliënt een ander aantal bevestigt dan hij eerder noemde, wat inconsistentie in het dossier kan veroorzaken. De opname dient gecontroleerd te worden om uit te sluiten dat het om een transcriptiefout gaat.",
+    "originalPhrase": "waren het er ongeveer veertig",
+    "translatedPhrase": "kişi sayısı yaklaşık otuz muydu"
+   }
+  ],
+  "S39-P07": [],
+  "S39-P02": [],
+  "S39-P04": [],
+  "S39-P06": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt 'ben organize ettim' (ik heb de bijeenkomst georganiseerd), maar de tolk vertaalt dit als 'heeft mijn broer georganiseerd'. De organisator wordt hiermee veranderd van de cliënt zelf naar een derde persoon (broer). Dit is een kritieke inhoudelijke afwijking die de betrokkenheid van de cliënt bij de bijeenkomst direct raakt.",
+    "originalPhrase": "Toplantıyı ben organize ettim",
+    "translatedPhrase": "Die bijeenkomst heeft mijn broer georganiseerd"
+   }
+  ],
+  "S39-P08": [],
+  "S40-P01": [],
+  "S40-P03": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De ambtenaar vroeg alleen naar een nieuw document bij de gemeente in de woonplaats. De tolk voegde 've Ankara'daki konsolosluktan' (en de consulaat in Ankara) toe, wat niet in de oorspronkelijke vraag stond. Deze toevoeging breidt de vraag inhoudelijk uit en kan de cliënt ertoe brengen te antwoorden over een consulaat in Ankara, terwijl de ambtenaar daar niet naar vroeg.",
+    "originalPhrase": "bij de gemeente in uw woonplaats",
+    "translatedPhrase": "yerel belediyeden ve Ankara'daki konsolosluktan"
+   }
+  ],
+  "S40-P05": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De ambtenaar vroeg 'twee weken of langer'. De tolk vertaalde dit als 'twee maanden of langer' (iki ay). Dit is een significant tijdsverschil: weken versus maanden. De cliënt krijgt hierdoor een onjuiste tijdsindicatie voorgelegd, wat zijn antwoord over de duur van de procedure direct kan beïnvloeden.",
+    "originalPhrase": "twee weken of langer",
+    "translatedPhrase": "iki ay mı yoksa daha uzun mu"
+   }
+  ],
+  "S40-P07": [],
+  "S40-P02": [
+   {
+    "type": "mistranslation",
+    "severity": "low",
+    "description": "'Nadiren' betekent 'zelden' of 'zelden/nauwelijks', maar de tolk vertaalde dit als 'nooit'. Hoewel de semantische score hoog is (0.939), is het onderscheid tussen 'zelden' en 'nooit' inhoudelijk relevant in de context van het dragen van identiteitsdocumenten. De opname kan worden gecontroleerd om te bevestigen welk woord de cliënt gebruikte.",
+    "originalPhrase": "nadiren yanımda taşıyordum",
+    "translatedPhrase": "droeg ik nooit bij me"
+   }
+  ],
+  "S40-P04": [],
+  "S40-P06": [],
+  "S40-P08": [],
+  "S41-P01": [],
+  "S41-P03": [],
+  "S41-P05": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De tolk voegt aan het einde van de vertaalde vraag een eigen opmerking toe: 'Bu gerçekten çok zor bir konu' ('Dit is echt een moeilijk onderwerp'). Deze zin staat niet in de oorspronkelijke vraag van de ambtenaar. Een dergelijke toevoeging kan de cliënt emotioneel beïnvloeden of de neutraliteit van het gehoor ondermijnen.",
+    "originalPhrase": "Kunt u beschrijven hoe de aanhouding bij de fabriekspoort verliep?",
+    "translatedPhrase": "Fabrika kapısında gözaltının nasıl gerçekleştiğini anlatabilir misiniz? Bu gerçekten çok zor bir konu."
+   }
+  ],
+  "S41-P07": [],
+  "S41-P02": [],
+  "S41-P04": [],
+  "S41-P06": [],
+  "S41-P08": [],
+  "S42-P01": [],
+  "S42-P03": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De ambtenaar vraagt naar 'rechercheur Yılmaz'. De tolk vertaalt dit als 'dedektif Yıldız' — een andere naam. Als dit geen transcriptiefout is, kan de cliënt de vraag koppelen aan een andere persoon dan bedoeld. De opname dient gecontroleerd te worden om vast te stellen of de tolk 'Yıldız' of 'Yılmaz' heeft gezegd.",
+    "originalPhrase": "rechercheur Yılmaz",
+    "translatedPhrase": "dedektif Yıldız"
+   }
+  ],
+  "S42-P05": [],
+  "S42-P07": [
+   {
+    "type": "mistranslation",
+    "severity": "low",
+    "description": "De ambtenaar stelt een beleefde vraag ('Kunt u voor het verslag nog eens precies aangeven...'). De tolk gebruikt de gebiedende wijs ('anlat' = vertel). De toon is daarmee directer dan de originele vraag, maar de inhoudelijke strekking blijft gelijk.",
+    "originalPhrase": "Kunt u voor het verslag nog eens precies aangeven wie er die avond bij het verhoor aanwezig was?",
+    "translatedPhrase": "Tutanak için bana bir kez daha, o akşam sorgu sırasında kimlerin orada olduğunu tam olarak anlat."
+   }
+  ],
+  "S42-P02": [],
+  "S42-P04": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt expliciet dat rechercheur Yılmaz hem NIET heeft geslagen ('hiç vurmadı' = heeft me helemaal niet geslagen). De tolk vertaalt dit als 'heeft me WEL geslagen'. Dit is een directe inhoudelijke omkering van een feit dat cruciaal is voor het relaas over mishandeling door de politie.",
+    "originalPhrase": "Dedektif Yılmaz bana hiç vurmadı",
+    "translatedPhrase": "Rechercheur Yılmaz heeft me wel geslagen"
+   }
+  ],
+  "S42-P06": [
+   {
+    "type": "omission",
+    "severity": "critical",
+    "description": "De cliënt beschrijft dat hij gedwongen werd een document te ondertekenen dat niet aan hem was voorgelezen ('okunmayan bir kâğıdı imzalattılar'), en dat hij tekende zonder te begrijpen wat erin stond ('ne yazdığını anlamadan imzaladım'). Dit gehele onderdeel — het ondertekenen van een ongelezen document zonder begrip van de inhoud — ontbreekt volledig in de tolkvertaling. Dit is een juridisch relevant feit dat het dossier kan beïnvloeden.",
+    "originalPhrase": "sonra bana okunmayan bir kâğıdı imzalattılar, ben de ne yazdığını anlamadan imzaladım",
+    "translatedPhrase": ""
+   }
+  ],
+  "S42-P08": [],
+  "S43-P01": [],
+  "S43-P03": [
+   {
+    "type": "addition",
+    "severity": "medium",
+    "description": "De ambtenaar vraagt alleen welke reacties de cliënt ontving en van wie precies. De tolk voegt een eigen deelvraag toe: of de reacties de cliënt direct bereikten of via anderen. Deze toevoeging staat niet in de oorspronkelijke vraag en kan de richting van het antwoord van de cliënt sturen.",
+    "originalPhrase": "",
+    "translatedPhrase": "Bu tepkilerin bir kısmı size doğrudan mı ulaştı, yoksa başkaları aracılığıyla mı?"
+   }
+  ],
+  "S43-P05": [],
+  "S43-P07": [],
+  "S43-P02": [
+   {
+    "type": "addition",
+    "severity": "medium",
+    "description": "De inhoudelijke vertaling van de cliënt is correct. De tolk voegt echter een eigen verzoek toe aan de hoorambtenaar om de vraag over de aard van de corruptie te herhalen. Dit is niet door de cliënt uitgesproken en valt buiten de vertolkingstaak. De hoorambtenaar dient zelf te beslissen of zij die vraag stelt.",
+    "originalPhrase": "",
+    "translatedPhrase": "De tolk merkt op dat het woord 'yolsuzluklar' niet eenduidig te vertalen was en vraagt de hoorambtenaar of die de vraag over de aard van de corruptie nog eens kan herhalen, zodat de cliënt kan verduidelijken welk soort corruptie hij bedoelt."
+   }
+  ],
+  "S43-P04": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt noemt '14 Mart' (14 maart) als datum waarop het briefje bij zijn voordeur werd achtergelaten. De tolk vertaalt dit als '4 maart'. Dit is een concreet datumverschil dat de chronologie van het relaas raakt. De opname dient gecontroleerd te worden om vast te stellen welke datum de cliënt heeft uitgesproken.",
+    "originalPhrase": "14 Mart'ta",
+    "translatedPhrase": "op 4 maart"
+   }
+  ],
+  "S43-P06": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De cliënt beschrijft de volgorde als: eerst telefonische scheldberichten, en daarna (ongeveer een maand later) een dreigbrief naar zijn adres. De tolk vertaalt 'sonra da' (daarna) als 'daarvoor', waardoor de chronologische volgorde wordt omgekeerd. Dit verandert de opbouw van het dreigingsrelaas en kan de beoordeling van de geloofwaardigheid beïnvloeden.",
+    "originalPhrase": "sonra da bir ay kadar sonra adresime tehdit mektubu gönderildi",
+    "translatedPhrase": "daarvoor werd er een dreigbrief naar mijn adres gestuurd"
+   }
+  ],
+  "S43-P08": [],
+  "S44-P01": [],
+  "S44-P03": [],
+  "S44-P05": [],
+  "S44-P07": [],
+  "S44-P02": [],
+  "S44-P04": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De cliënt zegt 'çünkü polis adımı bir listeye yazmıştı' — letterlijk: 'omdat de politie mijn naam op een lijst had gezet'. Dit is de reden waarom hij meteen vertrok. De tolk vertaalt dit als 'waardoor de politie mijn naam op een lijst had gezet', wat de causaliteit omkeert: het lijkt nu alsof het vertrek de oorzaak is van de lijstplaatsing, in plaats van andersom. Dit kan de betekenis van het relaas veranderen, omdat de dreiging (lijstplaatsing door politie) als vluchtmotief wordt gepresenteerd.",
+    "originalPhrase": "çünkü polis adımı bir listeye yazmıştı",
+    "translatedPhrase": "waardoor de politie mijn naam op een lijst had gezet"
+   }
+  ],
+  "S44-P06": [],
+  "S44-P08": [],
+  "S45-P01": [],
+  "S45-P03": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De ambtenaar vraagt naar de verblijfplaats van de oom vóór zijn verhuizing naar Istanbul. De tolk vertaalt 'Istanbul' als 'Ankara' ('Ankara'ya taşınmadan önce'). Dit is een andere stad en kan de cliënt verwarren bij het beantwoorden van de vraag, omdat de context van het gehoor de verhuizing naar Istanbul betreft. De opname dient gecontroleerd te worden om uit te sluiten dat het een spraakherkenningsfout betreft.",
+    "originalPhrase": "voordat hij naar Istanbul verhuisde",
+    "translatedPhrase": "Ankara'ya taşınmadan önce"
+   }
+  ],
+  "S45-P05": [],
+  "S45-P07": [],
+  "S45-P02": [],
+  "S45-P04": [],
+  "S45-P06": [
+   {
+    "type": "omission",
+    "severity": "high",
+    "description": "De cliënt zegt dat de oom elke maand geld stuurde ('haar ay para gönderiyordu') en dat de familie hem op de hoogte hield van de gezinssituatie ('biz de ona ailemizin durumunu anlatıyorduk'). Beide details ontbreken in de tolkvertaling. Het maandelijkse geld sturen is een concreet gegeven over financiële afhankelijkheid dat relevant kan zijn voor het relaas.",
+    "originalPhrase": "çünkü o bize her ay para gönderiyordu ve biz de ona ailemizin durumunu anlatıyorduk",
+    "translatedPhrase": ""
+   }
+  ],
+  "S45-P08": [],
+  "S46-P01": [],
+  "S46-P03": [
+   {
+    "type": "omission",
+    "severity": "medium",
+    "description": "De ambtenaar vraagt of de cliënt lid was van een politieke partij ('misschien lid'). De tolk vertaalt dit als 'üyesi miydiniz' (was u lid), waarbij de voorzichtige formulering 'misschien' wegvalt. Dit is een kleine nuanceverschuiving maar raakt niet aan een feitelijk gegeven.",
+    "originalPhrase": "Was u misschien lid van een politieke partij",
+    "translatedPhrase": "bir siyasi partinin üyesi miydiniz?"
+   }
+  ],
+  "S46-P05": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De ambtenaar stelde een inhoudelijke vraag over hoe het precies is afgelopen met de werkgever na het politiebezoek. De tolk heeft deze vraag niet doorgegeven aan de cliënt, maar vroeg in plaats daarvan aan de cliënt om de vraag te herhalen omdat hij het deel over de politie niet goed had begrepen ('Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım.'). De vraag van de ambtenaar is daarmee niet gesteld aan de cliënt, wat het antwoord van de cliënt kan hebben beïnvloed.",
+    "originalPhrase": "Hoe is het precies afgelopen met uw werkgever, nadat de politie bij de fabriek kwam?",
+    "translatedPhrase": "Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım."
+   }
+  ],
+  "S46-P07": [],
+  "S46-P02": [
+   {
+    "type": "addition",
+    "severity": "medium",
+    "description": "De cliënt noemt geen plaatsnaam (Bursa). De tolk voegt 'in Bursa' toe, wat niet in de originele uitspraak staat. De hoorambtenaar dient te controleren of Bursa eerder in het gehoor is vastgesteld of dat dit een toevoeging is.",
+    "originalPhrase": "Bir tekstil fabrikasında vardiyalı çalışıyordum, yaklaşık altı yıl.",
+    "translatedPhrase": "Ik werkte in een textielfabriek in Bursa, in ploegendienst, ongeveer zes jaar."
+   }
+  ],
+  "S46-P04": [
+   {
+    "type": "mistranslation",
+    "severity": "high",
+    "description": "De cliënt zegt dat Hasan de affiches verspreidde ('Afişleri genellikle Hasan dağıtırdı'), maar de tolk vertaalt dit als 'De affiches verspreidde ik meestal zelf'. Hierdoor wordt de rol van de cliënt bij de partijactiviteiten anders voorgesteld dan hij heeft verklaard.",
+    "originalPhrase": "Afişleri genellikle Hasan dağıtırdı",
+    "translatedPhrase": "De affiches verspreidde ik meestal zelf"
+   }
+  ],
+  "S46-P06": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt dat de politie drie keer naar de fabriek kwam ('üç kez'), maar de tolk vertaalt dit als twee keer. Dit is een feitelijk verschil in een voor het relaas relevant gegeven (frequentie van politiebezoeken).",
+    "originalPhrase": "Polis fabrikaya üç kez geldi",
+    "translatedPhrase": "De politie kwam twee keer naar de fabriek"
+   }
+  ],
+  "S46-P08": [],
+  "S47-P01": [],
+  "S47-P03": [
+   {
+    "type": "omission",
+    "severity": "high",
+    "description": "De ambtenaar stelt een voorwaardelijke vraag: 'Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?' De tolk vertaalt alleen 'Heeft u een nieuw paspoort aangevraagd?' De voorwaardelijke inleiding ('als het niet is teruggevonden') ontbreekt, waardoor de cliënt de vraag mogelijk anders begrijpt en zijn antwoord niet op de juiste premisse baseert.",
+    "originalPhrase": "Als uw paspoort niet is teruggevonden, hebt u dan een nieuw aangevraagd?",
+    "translatedPhrase": "Yeni bir pasaport için başvurdunuz mu?"
+   }
+  ],
+  "S47-P05": [],
+  "S47-P07": [],
+  "S47-P02": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt 'bir kez' (één keer) dat hij zijn paspoort kwijt is geraakt. De tolk vertaalt dit als 'vaak', wat een feitelijk onjuiste weergave is van de frequentie en het dossier op dit punt onjuist kan beïnvloeden.",
+    "originalPhrase": "Pasaportumu bir kez kaybettim",
+    "translatedPhrase": "Ik heb mijn paspoort vaak kwijtgeraakt"
+   }
+  ],
+  "S47-P04": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De tolk voegt aan het einde van de vertaling een eigen oordeel toe: 'Eerlijk gezegd geloof ik hem hierin.' Dit staat niet in de brontekst en is een persoonlijk standpunt van de tolk dat niet thuishoort in de vertolking en het dossier kan beïnvloeden.",
+    "originalPhrase": "",
+    "translatedPhrase": "Eerlijk gezegd geloof ik hem hierin."
+   }
+  ],
+  "S47-P06": [],
+  "S47-P08": [],
+  "S48-P01": [],
+  "S48-P03": [],
+  "S48-P05": [],
+  "S48-P07": [],
+  "S48-P02": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt 'üç gün' (drie dagen), maar de tolk vertaalt dit als 'twee dagen'. De duur van de detentie is een feitelijk gegeven dat het dossier direct beïnvloedt. De opname dient gecontroleerd te worden, maar de Turkse transcriptie is eenduidig.",
+    "originalPhrase": "Üç gün gözaltında tutuldum.",
+    "translatedPhrase": "Ik werd twee dagen vastgehouden."
+   }
+  ],
+  "S48-P04": [
+   {
+    "type": "omission",
+    "severity": "high",
+    "description": "De cliënt zegt expliciet dat men hem nooit duidelijk heeft verteld waarom hij werd vastgehouden ('Bana hiçbir zaman neden tutulduğumu açıkça söylemediler'). Deze zin ontbreekt volledig in de tolkvertaling. Dit gegeven is inhoudelijk relevant omdat het de onduidelijkheid over de reden van detentie weergeeft.",
+    "originalPhrase": "Bana hiçbir zaman neden tutulduğumu açıkça söylemediler, sadece imzalamam için bir kâğıt verdiler.",
+    "translatedPhrase": "Ze gaven me alleen een papier om te tekenen."
+   }
+  ],
+  "S48-P06": [
+   {
+    "type": "addition",
+    "severity": "high",
+    "description": "De tolk voegt aan het einde van de vertaling een eigen vraag toe: 'Bedoelt u dat hij u heeft geslagen?' Deze vraag is niet door de cliënt uitgesproken en niet door de ambtenaar gesteld. Het betreft een suggestieve tussenkomst van de tolk buiten het bidirectionele protocol om, die de verdere verklaringen van de cliënt kan beïnvloeden.",
+    "originalPhrase": "",
+    "translatedPhrase": "Bedoelt u dat hij u heeft geslagen?"
+   }
+  ],
+  "S48-P08": [],
+  "S49-P01": [],
+  "S49-P03": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De ambtenaar vraagt naar 'agent Yılmaz', maar de tolk vertaalt dit als 'memur Yıldırım'. Dit zijn twee verschillende namen. De cliënt krijgt een andere naam voorgelegd dan de ambtenaar bedoelde. De opname dient gecontroleerd te worden om vast te stellen welke naam de ambtenaar daadwerkelijk noemde, aangezien de identiteit van de verhorende agent relevant kan zijn voor het relaas.",
+    "originalPhrase": "agent Yılmaz",
+    "translatedPhrase": "memur Yıldırım"
+   }
+  ],
+  "S49-P05": [
+   {
+    "type": "false-negative",
+    "severity": "low",
+    "description": "De tolk heeft gemeld dat de laatste woorden van de vraag niet verstaanbaar waren en heeft de hoorambtenaar verzocht de vraag te herhalen. Dit is een toegestane tolkhandeling. Het fragment is inhoudelijk niet beoordeelbaar wegens transcriptiekwaliteit en/of onverstaanbaarheid van de bron.",
+    "originalPhrase": "",
+    "translatedPhrase": ""
+   }
+  ],
+  "S49-P07": [],
+  "S49-P02": [],
+  "S49-P04": [],
+  "S49-P06": [
+   {
+    "type": "mistranslation",
+    "severity": "critical",
+    "description": "De cliënt zegt expliciet dat hij het papier nooit heeft ondertekend ('hiçbir zaman imzalamadım' = heb ik nooit ondertekend). De tolk vertaalt dit als 'heb ik wel ondertekend', waarmee de ontkenning volledig wordt omgekeerd naar een bevestiging. Dit raakt een feitelijk gegeven dat direct relevant is voor het relaas over ondertekening onder druk.",
+    "originalPhrase": "Hayır, o kağıdı hiçbir zaman imzalamadım.",
+    "translatedPhrase": "Nee, dat papier heb ik wel ondertekend."
+   }
+  ],
+  "S49-P08": []
+ },
+ "per_session": [
+  {
+   "session_id": "S30",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1183,
+   "output_tokens": 1489,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.026458799999999998,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S31",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1053,
+   "output_tokens": 1548,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0269538,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S32",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1055,
+   "output_tokens": 1240,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0223398,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S33",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1147,
+   "output_tokens": 908,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0176358,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S34",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1027,
+   "output_tokens": 1487,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0259608,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S35",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 957,
+   "output_tokens": 1307,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0230508,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S36",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1094,
+   "output_tokens": 1396,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0247968,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S37",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1154,
+   "output_tokens": 1240,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0226368,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S38",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1116,
+   "output_tokens": 781,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0156378,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S39",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1071,
+   "output_tokens": 1090,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0201378,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S40",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1089,
+   "output_tokens": 1415,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0250668,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S41",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1089,
+   "output_tokens": 745,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.015016799999999999,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S42",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 992,
+   "output_tokens": 1596,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0274908,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S43",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1169,
+   "output_tokens": 1628,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0285018,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S44",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1084,
+   "output_tokens": 783,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.015571799999999998,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S45",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 967,
+   "output_tokens": 1110,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0201258,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S46",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1066,
+   "output_tokens": 1610,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.027922799999999998,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S47",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1049,
+   "output_tokens": 1071,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0197868,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S48",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1120,
+   "output_tokens": 1383,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0246798,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  },
+  {
+   "session_id": "S49",
+   "model": "claude-sonnet-4-6",
+   "input_tokens": 1168,
+   "output_tokens": 1337,
+   "cache_creation_input_tokens": 0,
+   "cache_read_input_tokens": 1916,
+   "cost_usd_estimate": 0.0241338,
+   "pairs_without_answer": 0,
+   "stop_reasons": [
+    "end_turn"
+   ]
+  }
+ ]
+}

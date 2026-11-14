@@ -1,0 +1,93 @@
+{
+ "session_id": "S26",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier paren beoordeeld in de richting cliënt→ambtenaar en vier in de richting ambtenaar→cliënt. De meest inhoudelijk relevante afwijking betreft paar 2 (cliënt→ambtenaar): de cliënt zegt 'ongeveer twee weken' gewacht te hebben op de identiteitskaart, maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een feitelijk verschil in tijdsduur dat het dossier kan beïnvloeden en verdient verificatie. In paar 1 (ambtenaar→cliënt) voegt de tolk een eigen vraag toe aan de vertaling van de ambtenarenvraag: naast de gestelde vraag of het paspoort nog aanwezig is of afgenomen werd, stelt de tolk ook 'wanneer is het paspoort u afgenomen?' — een vraag die de ambtenaar niet heeft gesteld. Dit kan de richting van het antwoord van de cliënt beïnvloeden. In paar 2 (ambtenaar→cliënt) corrigeert de tolk zichzelf van 'kaç gün' (hoeveel dagen) naar een algemenere formulering; de zelfcorrectie is gemeld en vormt geen afwijking. De overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'yaklaşık iki hafta' (ongeveer twee weken), maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een feitelijk verschil in tijdsduur dat relevant kan zijn voor de beoordeling van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven.\",\n          \"originalPhrase\": \"yaklaşık iki hafta\",\n          \"translatedPhrase\": \"ongeveer twee maanden\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt uitsluitend de vraag of het paspoort nog aanwezig is of afgenomen werd. De tolk voegt daar een eigen, niet door de ambtenaar gestelde vraag aan toe: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' (Ik wilde ook vragen: wanneer is het paspoort u afgenomen?). Dit is een inhoudelijke toevoeging die de cliënt in een bepaalde richting kan sturen en die de ambtenaar niet heeft geautoriseerd.\",\n          \"originalPhrase\": \"Heeft u uw paspoort nog, of is het u afgenomen?\",\n          \"translatedPhrase\": \"Pasaportunuz hâlâ yanınızda mı, yoksa elinizden alındı mı? Ben de sormak istedim: pasaport ne zaman elinizden alındı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1138,
+    "output_tokens": 1070,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier paren beoordeeld in de richting cliënt→ambtenaar en vier in de richting ambtenaar→cliënt. De meest inhoudelijk relevante afwijking betreft paar 2 (cliënt→ambtenaar): de cliënt zegt 'ongeveer twee weken' gewacht te hebben op de identiteitskaart, maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een feitelijk verschil in tijdsduur dat het dossier kan beïnvloeden en verdient verificatie. In paar 1 (ambtenaar→cliënt) voegt de tolk een eigen vraag toe aan de vertaling van de ambtenarenvraag: naast de gestelde vraag of het paspoort nog aanwezig is of afgenomen werd, stelt de tolk ook 'wanneer is het paspoort u afgenomen?' — een vraag die de ambtenaar niet heeft gesteld. Dit kan de richting van het antwoord van de cliënt beïnvloeden. In paar 2 (ambtenaar→cliënt) corrigeert de tolk zichzelf van 'kaç gün' (hoeveel dagen) naar een algemenere formulering; de zelfcorrectie is gemeld en vormt geen afwijking. De overige paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'yaklaşık iki hafta' (ongeveer twee weken), maar de tolk vertaalt dit als 'ongeveer twee maanden'. Dit is een feitelijk verschil in tijdsduur dat relevant kan zijn voor de beoordeling van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat de spraakherkenning 'hafta' (week) verkeerd heeft weergegeven.",
+      "originalPhrase": "yaklaşık iki hafta",
+      "translatedPhrase": "ongeveer twee maanden"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar stelt uitsluitend de vraag of het paspoort nog aanwezig is of afgenomen werd. De tolk voegt daar een eigen, niet door de ambtenaar gestelde vraag aan toe: 'Ben de sormak istedim: pasaport ne zaman elinizden alındı?' (Ik wilde ook vragen: wanneer is het paspoort u afgenomen?). Dit is een inhoudelijke toevoeging die de cliënt in een bepaalde richting kan sturen en die de ambtenaar niet heeft geautoriseerd.",
+      "originalPhrase": "Heeft u uw paspoort nog, of is het u afgenomen?",
+      "translatedPhrase": "Pasaportunuz hâlâ yanınızda mı, yoksa elinizden alındı mı? Ben de sormak istedim: pasaport ne zaman elinizden alındı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S26-P01",
+   "S26-P03",
+   "S26-P05",
+   "S26-P07"
+  ],
+  "client_to_officer": [
+   "S26-P02",
+   "S26-P04",
+   "S26-P06",
+   "S26-P08"
+  ]
+ }
+}

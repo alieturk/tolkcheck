@@ -1,0 +1,88 @@
+{
+ "session_id": "S40",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over zowel de client→ambtenaar als de ambtenaar→cliënt richting.\\n\\nPaar 0 (client→ambtenaar): De cliënt zei 'nadiren' (zelden/zelden), maar de tolk vertaalde dit als 'nooit'. Dit is een betekenisverschuiving van enige frequentie naar absolute ontkenning, wat relevant kan zijn voor de beoordeling van documentbezit.\\n\\nPaar 3 (client→ambtenaar): De tolk meldt een verduidelijkingsvraag aan de cliënt en aan de hoorambtenaar, wat op zichzelf toegestaan is. In de uiteindelijke vertaling staat echter 'daarna mochten ze me doorlaten' in plaats van 'daarna mochten ze mij doorlaten' — dit is een kleine stijlkwestie zonder inhoudelijk gevolg. Belangrijker is dat de tolk 'mochten ze me doorlaten' gebruikt (meervoud subject), terwijl de cliënt zei 'geçmeme izin verdiler' (zij lieten mij passeren) — dit is inhoudelijk gelijkwaardig. De zelfcorrectie/verduidelijking is correct gemeld en vormt geen afwijking.\\n\\nPaar 1 (ambtenaar→cliënt): De ambtenaar vroeg uitsluitend naar een document aanvragen bij de gemeente in de woonplaats. De tolk voegde 'en bij het consulaat in Ankara' toe, wat een inhoudelijke toevoeging is die niet in de oorspronkelijke vraag stond. Dit kan de cliënt ertoe brengen ook over een consulaat te spreken, terwijl de ambtenaar daar niet naar vroeg.\\n\\nPaar 2 (ambtenaar→cliënt): De ambtenaar vroeg of het 'twee weken of langer' duurde. De tolk vertaalde dit als 'twee maanden of langer'. Dit is een inhoudelijke fout die de tijdsindicatie in de vraag significant verandert en de cliënt een onjuist referentiepunt geeft voor zijn antwoord.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"'Nadiren' betekent 'zelden' of 'zelden/nauwelijks', maar de tolk vertaalde dit als 'nooit'. Dit verandert een relatieve frequentie (zelden) in een absolute ontkenning (nooit), wat inhoudelijk relevant kan zijn voor de beoordeling van hoe vaak de cliënt zijn paspoort bij zich droeg.\",\n          \"originalPhrase\": \"Pasaportumu nadiren yanımda taşıyordum\",\n          \"translatedPhrase\": \"Mijn paspoort droeg ik nooit bij me\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vroeg alleen naar een document aanvragen bij 'de gemeente in uw woonplaats'. De tolk voegde 'en bij het consulaat in Ankara' toe, wat niet in de oorspronkelijke vraag stond. Deze toevoeging kan de cliënt ertoe brengen ook over een consulaat te verklaren, terwijl de ambtenaar daar niet naar vroeg.\",\n          \"originalPhrase\": \"Heeft u daarna nog een nieuw document aangevraagd bij de gemeente in uw woonplaats?\",\n          \"translatedPhrase\": \"Bundan sonra yerel belediyeden ve Ankara'daki konsolosluktan yeni bir belge talep ettiniz mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vroeg of het 'twee weken of langer' duurde. De tolk vertaalde dit als 'twee maanden of langer' ('iki ay'). Dit is een aanzienlijke inhoudelijke fout: de cliënt krijgt een onjuist tijdsreferentiepunt voorgelegd, wat zijn antwoord over de duur van de procedure direct kan beïnvloeden. De opname dient gecontroleerd te worden om te bevestigen of de tolk inderdaad 'iki ay' (twee maanden) zei.\",\n          \"originalPhrase\": \"twee weken of langer\",\n          \"translatedPhrase\": \"iki ay mı yoksa daha uzun mu\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1089,
+    "output_tokens": 1447,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over zowel de client→ambtenaar als de ambtenaar→cliënt richting.\n\nPaar 0 (client→ambtenaar): De cliënt zei 'nadiren' (zelden/zelden), maar de tolk vertaalde dit als 'nooit'. Dit is een betekenisverschuiving van enige frequentie naar absolute ontkenning, wat relevant kan zijn voor de beoordeling van documentbezit.\n\nPaar 3 (client→ambtenaar): De tolk meldt een verduidelijkingsvraag aan de cliënt en aan de hoorambtenaar, wat op zichzelf toegestaan is. In de uiteindelijke vertaling staat echter 'daarna mochten ze me doorlaten' in plaats van 'daarna mochten ze mij doorlaten' — dit is een kleine stijlkwestie zonder inhoudelijk gevolg. Belangrijker is dat de tolk 'mochten ze me doorlaten' gebruikt (meervoud subject), terwijl de cliënt zei 'geçmeme izin verdiler' (zij lieten mij passeren) — dit is inhoudelijk gelijkwaardig. De zelfcorrectie/verduidelijking is correct gemeld en vormt geen afwijking.\n\nPaar 1 (ambtenaar→cliënt): De ambtenaar vroeg uitsluitend naar een document aanvragen bij de gemeente in de woonplaats. De tolk voegde 'en bij het consulaat in Ankara' toe, wat een inhoudelijke toevoeging is die niet in de oorspronkelijke vraag stond. Dit kan de cliënt ertoe brengen ook over een consulaat te spreken, terwijl de ambtenaar daar niet naar vroeg.\n\nPaar 2 (ambtenaar→cliënt): De ambtenaar vroeg of het 'twee weken of langer' duurde. De tolk vertaalde dit als 'twee maanden of langer'. Dit is een inhoudelijke fout die de tijdsindicatie in de vraag significant verandert en de cliënt een onjuist referentiepunt geeft voor zijn antwoord.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "'Nadiren' betekent 'zelden' of 'zelden/nauwelijks', maar de tolk vertaalde dit als 'nooit'. Dit verandert een relatieve frequentie (zelden) in een absolute ontkenning (nooit), wat inhoudelijk relevant kan zijn voor de beoordeling van hoe vaak de cliënt zijn paspoort bij zich droeg.",
+      "originalPhrase": "Pasaportumu nadiren yanımda taşıyordum",
+      "translatedPhrase": "Mijn paspoort droeg ik nooit bij me"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar vroeg alleen naar een document aanvragen bij 'de gemeente in uw woonplaats'. De tolk voegde 'en bij het consulaat in Ankara' toe, wat niet in de oorspronkelijke vraag stond. Deze toevoeging kan de cliënt ertoe brengen ook over een consulaat te verklaren, terwijl de ambtenaar daar niet naar vroeg.",
+      "originalPhrase": "Heeft u daarna nog een nieuw document aangevraagd bij de gemeente in uw woonplaats?",
+      "translatedPhrase": "Bundan sonra yerel belediyeden ve Ankara'daki konsolosluktan yeni bir belge talep ettiniz mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vroeg of het 'twee weken of langer' duurde. De tolk vertaalde dit als 'twee maanden of langer' ('iki ay'). Dit is een aanzienlijke inhoudelijke fout: de cliënt krijgt een onjuist tijdsreferentiepunt voorgelegd, wat zijn antwoord over de duur van de procedure direct kan beïnvloeden. De opname dient gecontroleerd te worden om te bevestigen of de tolk inderdaad 'iki ay' (twee maanden) zei.",
+      "originalPhrase": "twee weken of langer",
+      "translatedPhrase": "iki ay mı yoksa daha uzun mu"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

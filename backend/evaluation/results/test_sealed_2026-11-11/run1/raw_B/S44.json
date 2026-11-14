@@ -1,0 +1,88 @@
+{
+ "session_id": "S44",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting is er één inhoudelijke afwijking gesignaleerd bij paar 1: de cliënt geeft aan dat hij meteen vertrok ómdát de politie zijn naam op een lijst had gezet (causale volgorde: politielijst → vlucht), terwijl de tolk dit omkeert tot 'waardoor de politie mijn naam op een lijst had gezet' (alsof het vertrek de aanleiding was voor de politielijst). Dit is een betekenisverschuiving in de causaliteit die relevant kan zijn voor de beoordeling van de vluchtmotieven. Bij paar 2 voegt de tolk een geografische toelichting toe ('een stad in het noordwesten van Turkije, dicht bij de grens') die de cliënt niet heeft uitgesproken; dit is een toevoeging van lage ernst. De overige CLIENT→AMBTENAAR-paren (0 en 3) vertonen geen inhoudelijke afwijkingen.\\n\\nIn de AMBTENAAR→CLIËNT-richting corrigeert de tolk bij paar 3 zichzelf direct en meldt dit expliciet ('affedersiniz' / zelfcorrectie gemeld); dit is conform protocol en geen afwijking. Bij paar 1 is de vraag van de ambtenaar iets vereenvoudigd: 'zelf aangevraagd of laten regelen' wordt 'zelf gehaald of door iemand laten regelen', wat de nuance van 'aanvragen' (een formeel proces) versus 'ophalen/regelen' enigszins verschuift, maar de kern van de vraag blijft herkenbaar. De overige AMBTENAAR→CLIËNT-paren (0 en 2) vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt dat hij meteen vertrok ómdát de politie zijn naam op een lijst had gezet ('çünkü polis adımı bir listeye yazmıştı' = 'omdat de politie mijn naam op een lijst had geschreven'). De tolk vertaalt dit als 'waardoor de politie mijn naam op een lijst had gezet', wat de causaliteit omkeert: in de tolkversie lijkt het vertrek de oorzaak te zijn van de politielijst, terwijl de cliënt bedoelt dat de politielijst de reden was voor zijn vertrek. Dit raakt de vluchtmotivering.\",\n          \"originalPhrase\": \"çünkü polis adımı bir listeye yazmıştı\",\n          \"translatedPhrase\": \"waardoor de politie mijn naam op een lijst had gezet\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"low\",\n          \"description\": \"De tolk voegt bij de vermelding van Edirne een geografische toelichting toe ('een stad in het noordwesten van Turkije, dicht bij de grens') die de cliënt niet heeft uitgesproken. Dit is een eigen toevoeging van de tolk, maar heeft geen inhoudelijk gevolg voor het relaas.\",\n          \"originalPhrase\": \"Edirne'ye\",\n          \"translatedPhrase\": \"Edirne, een stad in het noordwesten van Turkije, dicht bij de grens\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De ambtenaar vraagt of de cliënt het paspoort 'zelf heeft aangevraagd' (een formeel administratief proces) of 'heeft laten regelen'. De tolk vertaalt dit als 'zelf gehaald' ('kendiniz mi aldınız') versus 'door iemand laten regelen' ('birine mi ayarlattınız'). De nuance van 'aanvragen' (een officieel verzoek indienen) gaat verloren; de cliënt kan de vraag begrijpen als enkel over het ophalen van het paspoort, niet over het aanvraagproces.\",\n          \"originalPhrase\": \"Hebt u het paspoort misschien zelf aangevraagd, of hebt u dat laten regelen?\",\n          \"translatedPhrase\": \"Pasaportu kendiniz mi aldınız, yoksa bunu birine mi ayarlattınız?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1084,
+    "output_tokens": 1418,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1845
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting is er één inhoudelijke afwijking gesignaleerd bij paar 1: de cliënt geeft aan dat hij meteen vertrok ómdát de politie zijn naam op een lijst had gezet (causale volgorde: politielijst → vlucht), terwijl de tolk dit omkeert tot 'waardoor de politie mijn naam op een lijst had gezet' (alsof het vertrek de aanleiding was voor de politielijst). Dit is een betekenisverschuiving in de causaliteit die relevant kan zijn voor de beoordeling van de vluchtmotieven. Bij paar 2 voegt de tolk een geografische toelichting toe ('een stad in het noordwesten van Turkije, dicht bij de grens') die de cliënt niet heeft uitgesproken; dit is een toevoeging van lage ernst. De overige CLIENT→AMBTENAAR-paren (0 en 3) vertonen geen inhoudelijke afwijkingen.\n\nIn de AMBTENAAR→CLIËNT-richting corrigeert de tolk bij paar 3 zichzelf direct en meldt dit expliciet ('affedersiniz' / zelfcorrectie gemeld); dit is conform protocol en geen afwijking. Bij paar 1 is de vraag van de ambtenaar iets vereenvoudigd: 'zelf aangevraagd of laten regelen' wordt 'zelf gehaald of door iemand laten regelen', wat de nuance van 'aanvragen' (een formeel proces) versus 'ophalen/regelen' enigszins verschuift, maar de kern van de vraag blijft herkenbaar. De overige AMBTENAAR→CLIËNT-paren (0 en 2) vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt zegt dat hij meteen vertrok ómdát de politie zijn naam op een lijst had gezet ('çünkü polis adımı bir listeye yazmıştı' = 'omdat de politie mijn naam op een lijst had geschreven'). De tolk vertaalt dit als 'waardoor de politie mijn naam op een lijst had gezet', wat de causaliteit omkeert: in de tolkversie lijkt het vertrek de oorzaak te zijn van de politielijst, terwijl de cliënt bedoelt dat de politielijst de reden was voor zijn vertrek. Dit raakt de vluchtmotivering.",
+      "originalPhrase": "çünkü polis adımı bir listeye yazmıştı",
+      "translatedPhrase": "waardoor de politie mijn naam op een lijst had gezet"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "low",
+      "description": "De tolk voegt bij de vermelding van Edirne een geografische toelichting toe ('een stad in het noordwesten van Turkije, dicht bij de grens') die de cliënt niet heeft uitgesproken. Dit is een eigen toevoeging van de tolk, maar heeft geen inhoudelijk gevolg voor het relaas.",
+      "originalPhrase": "Edirne'ye",
+      "translatedPhrase": "Edirne, een stad in het noordwesten van Turkije, dicht bij de grens"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De ambtenaar vraagt of de cliënt het paspoort 'zelf heeft aangevraagd' (een formeel administratief proces) of 'heeft laten regelen'. De tolk vertaalt dit als 'zelf gehaald' ('kendiniz mi aldınız') versus 'door iemand laten regelen' ('birine mi ayarlattınız'). De nuance van 'aanvragen' (een officieel verzoek indienen) gaat verloren; de cliënt kan de vraag begrijpen als enkel over het ophalen van het paspoort, niet over het aanvraagproces.",
+      "originalPhrase": "Hebt u het paspoort misschien zelf aangevraagd, of hebt u dat laten regelen?",
+      "translatedPhrase": "Pasaportu kendiniz mi aldınız, yoksa bunu birine mi ayarlattınız?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

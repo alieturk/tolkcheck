@@ -1,0 +1,190 @@
+{
+ "session_id": "S22",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "bedreigingen na publicaties",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S22-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer ontving u de eerste dreiging na uw eerste publicatie?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İlk yazınızı yayımladıktan sonra ilk tehdidi ne zaman aldınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S22-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "İlk tehdit telefonu 14 Mart'ta geldi, gece saat on birde."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De eerste dreigingstelefoon kwam op 14 april, 's avonds om elf uur."
+   },
+   "label": "entiteitsfout",
+   "subtype": "datum",
+   "severity": "major",
+   "expected_flag": true,
+   "reference_rendering": "De eerste dreigingstelefoon kwam op 14 maart, 's avonds om elf uur.",
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S22-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Heeft u die dreigbrief echt zelf in uw brievenbus gevonden?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bu tehdit mektubunu kendiniz posta kutunuzda mı buldunuz?"
+   },
+   "label": "register_en_nadruk",
+   "subtype": "nadruk_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "reference_rendering": "Bu tehdit mektubunu gerçekten kendiniz posta kutunuzda mı buldunuz?",
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S22-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Mektubu bulduğumda eşim evdeydi, ama o sabah çocukları okula bırakmıştı; bu yüzden önce kendim düşündüm ve polisi hemen aramadım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Toen ik de brief vond was mijn partner thuis; daarom heb ik eerst zelf nagedacht en de politie niet meteen gebeld."
+   },
+   "label": "omissie",
+   "subtype": "bijzin",
+   "severity": "major",
+   "expected_flag": true,
+   "reference_rendering": "Toen ik de brief vond was mijn partner thuis, maar die ochtend waren de kinderen al naar school gebracht, daarom heb ik eerst zelf nagedacht en de politie niet meteen gebeld.",
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S22-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welke dreigingen kreeg u daarna nog, en van wie kwamen die precies?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Affedersiniz, sorunun ikinci kısmını tam duyamadım, tekrar eder misiniz? [De tolk meldt de hoorambtenaar dat het tweede deel van de vraag niet goed verstaanbaar was en vraagt om herhaling.]"
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S22-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Yazıyı yayımladıktan sonra ilk iki gün hiçbir şey olmadı. Sonra telefonlar başladı, numara gizliydi ve her gece aynı adam konuşuyordu. Bir hafta sonra da kapıya bir adam geldi, elinde kapalı bir zarf vardı. Zarfın içinde ne olduğunu hiç açıp bakmadım, çünkü korkuyordum."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Na de publicatie gebeurde er de eerste twee dagen niets. Daarna begonnen de telefoontjes; het nummer was geheim en elke avond sprak dezelfde man. Een week eerder kwam er ook een man aan de deur, met een gesloten envelop in zijn hand. Ik heb de envelop nooit opengemaakt om te kijken wat erin zat, want ik was bang."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "tijd_of_volgorde",
+   "severity": "major",
+   "expected_flag": true,
+   "reference_rendering": "Na de publicatie gebeurde er de eerste twee dagen niets. Daarna begonnen de telefoontjes; het nummer was geheim en elke avond sprak dezelfde man. Een week later kwam er ook een man aan de deur, met een gesloten envelop in zijn hand. Ik heb de envelop nooit opengemaakt om te kijken wat erin zat, want ik was bang.",
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S22-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Bent u na die dreigingen ergens melding van gaan maken, bij de politie of anderen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Bu tehditlerden sonra polise ya da başka birine bildirimde bulundunuz mu?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S22-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, Türkiye'de ayrılmadan önce bölge savcılığına dilekçe verdim ama bir cevap alamadım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, in Turkije heb ik voordat ik vertrok een verzoekschrift ingediend bij het regionale openbaar ministerie, maar ik heb geen antwoord gekregen."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

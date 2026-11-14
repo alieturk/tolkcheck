@@ -1,0 +1,102 @@
+{
+ "session_id": "S28",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier fragmenten waarbij mogelijke inhoudelijke afwijkingen zijn gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 0:** De naam van de broer wijkt af. De cliënt noemt 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit kan een spraakherkenningsfout zijn, maar ook een tolkfout; de opname dient gecontroleerd te worden.\\n\\n**CLIENT→AMBTENAAR, paar 1:** De cliënt sluit zijn verklaring af met de zin dat niemand hem expliciet een misdrijf had meegedeeld ('kimse bana açıkça bir suç söylemedi'). Deze inhoudelijk relevante toevoeging ontbreekt volledig in de tolkvertaling. Dit gegeven is juridisch van belang omdat het de rechtmatigheid van de aanhouding raakt.\\n\\n**CLIENT→AMBTENAAR, paar 2:** De tolk voegt een toelichting toe over een eigen interventie tijdens het gehoor (de cliënt gevraagd te herhalen, waarna bevestiging volgde). Dit is op zichzelf een toegestane tolkmelding. De inhoud van de vertaling zelf wijkt niet af van de brontekst.\\n\\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar stelt een open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt een specifieke locatie toe ('Kışla Caddesi'ndeki karakola mı?' — 'naar het bureau aan de Kışla Caddesi?') en maakt er een gesloten ja/nee-vraag van. Dit stuurt de cliënt in een bepaalde richting en beperkt de openheid van het antwoord.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt noemt de naam 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Een naamsverwisseling kan gevolgen hebben voor de identificatie van betrokkenen in het dossier. De opname dient gecontroleerd te worden om uit te sluiten dat dit een spraakherkenningsfout betreft.\",\n          \"originalPhrase\": \"kardeşim Kemal\",\n          \"translatedPhrase\": \"mijn broer Kenan\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt voegt aan het einde van zijn verklaring toe dat niemand hem expliciet een misdrijf had meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit gegeven ontbreekt volledig in de tolkvertaling. Het is juridisch relevant omdat het de rechtmatigheid en de grond van de aanhouding raakt.\",\n          \"originalPhrase\": \"kimse bana açıkça bir suç söylemedi\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar stelt een open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt een specifieke locatienaam toe ('Kışla Caddesi'ndeki karakola mı?') en maakt er een gesloten ja/nee-vraag van. Dit stuurt de cliënt in een bepaalde richting en beperkt de openheid van het antwoord, wat de informatiewaarde van het gehoor kan verminderen.\",\n          \"originalPhrase\": \"Waar werd u na de aanhouding naartoe gebracht?\",\n          \"translatedPhrase\": \"Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1032,
+    "output_tokens": 1276,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier fragmenten waarbij mogelijke inhoudelijke afwijkingen zijn gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 0:** De naam van de broer wijkt af. De cliënt noemt 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Dit kan een spraakherkenningsfout zijn, maar ook een tolkfout; de opname dient gecontroleerd te worden.\n\n**CLIENT→AMBTENAAR, paar 1:** De cliënt sluit zijn verklaring af met de zin dat niemand hem expliciet een misdrijf had meegedeeld ('kimse bana açıkça bir suç söylemedi'). Deze inhoudelijk relevante toevoeging ontbreekt volledig in de tolkvertaling. Dit gegeven is juridisch van belang omdat het de rechtmatigheid van de aanhouding raakt.\n\n**CLIENT→AMBTENAAR, paar 2:** De tolk voegt een toelichting toe over een eigen interventie tijdens het gehoor (de cliënt gevraagd te herhalen, waarna bevestiging volgde). Dit is op zichzelf een toegestane tolkmelding. De inhoud van de vertaling zelf wijkt niet af van de brontekst.\n\n**AMBTENAAR→CLIËNT, paar 1:** De ambtenaar stelt een open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt een specifieke locatie toe ('Kışla Caddesi'ndeki karakola mı?' — 'naar het bureau aan de Kışla Caddesi?') en maakt er een gesloten ja/nee-vraag van. Dit stuurt de cliënt in een bepaalde richting en beperkt de openheid van het antwoord.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt noemt de naam 'Kemal', maar de tolk vertaalt dit als 'Kenan'. Een naamsverwisseling kan gevolgen hebben voor de identificatie van betrokkenen in het dossier. De opname dient gecontroleerd te worden om uit te sluiten dat dit een spraakherkenningsfout betreft.",
+      "originalPhrase": "kardeşim Kemal",
+      "translatedPhrase": "mijn broer Kenan"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt voegt aan het einde van zijn verklaring toe dat niemand hem expliciet een misdrijf had meegedeeld ('kimse bana açıkça bir suç söylemedi'). Dit gegeven ontbreekt volledig in de tolkvertaling. Het is juridisch relevant omdat het de rechtmatigheid en de grond van de aanhouding raakt.",
+      "originalPhrase": "kimse bana açıkça bir suç söylemedi",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De ambtenaar stelt een open vraag ('Waar werd u naartoe gebracht?'). De tolk voegt een specifieke locatienaam toe ('Kışla Caddesi'ndeki karakola mı?') en maakt er een gesloten ja/nee-vraag van. Dit stuurt de cliënt in een bepaalde richting en beperkt de openheid van het antwoord, wat de informatiewaarde van het gehoor kan verminderen.",
+      "originalPhrase": "Waar werd u na de aanhouding naartoe gebracht?",
+      "translatedPhrase": "Gözaltına alındıktan sonra sizi nereye götürdüler, Kışla Caddesi'ndeki karakola mı?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S28-P01",
+   "S28-P03",
+   "S28-P05",
+   "S28-P07"
+  ],
+  "client_to_officer": [
+   "S28-P02",
+   "S28-P04",
+   "S28-P06",
+   "S28-P08"
+  ]
+ }
+}

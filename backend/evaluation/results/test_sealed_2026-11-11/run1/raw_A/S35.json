@@ -1,0 +1,88 @@
+{
+ "session_id": "S35",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting zijn twee aandachtspunten gesignaleerd. Bij paar 1 maakt de tolk een zelfcorrectie (eerste nacht → tweede nacht), wat conform protocol is en geen afwijking vormt; de overige inhoud klopt. Bij paar 2 ontbreekt de mededeling dat de cliënt had gezegd dat hij het papier zou tekenen omdat ze hem hadden beloofd dat hij 's ochtends vrijgelaten zou worden ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Dit is een inhoudelijk relevante voorwaarde — de belofte van vrijlating als reden voor ondertekening — die in de tolkvertaling ontbreekt. Bij paar 3 vertaalt de tolk 'Sanırım' (= 'Ik denk' / 'Ik vermoed') niet; de cliënt drukt twijfel uit over de inhoud van het papier, maar de tolk presenteert dit als een stellige bewering. In de AMBTENAAR→CLIËNT-richting is bij paar 1 een naamsverwisseling gesignaleerd: de ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt dit als 'Komiser Kara'. Dit is een andere naam en kan de cliënt op het verkeerde been zetten.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt expliciet dat men hem vertelde dat hij 's ochtends vrijgelaten zou worden als hij het papier tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Deze belofte van vrijlating als directe aanleiding voor de ondertekening ontbreekt volledig in de tolkvertaling. Dit is een inhoudelijk feit dat de context van de ondertekening — en daarmee de mate van dwang — raakt.\",\n          \"originalPhrase\": \"eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt begint met 'Sanırım' (= 'Ik denk' / 'Ik vermoed'), wat twijfel of onzekerheid uitdrukt over de inhoud van het papier. De tolk vertaalt dit als een stellige bewering zonder enig voorbehoud. Hierdoor lijkt de cliënt zeker te zijn van wat er op het papier stond, terwijl hij dat zelf in twijfel trekt.\",\n          \"originalPhrase\": \"Sanırım o kâğıtta sadece imza yeri vardı.\",\n          \"translatedPhrase\": \"Op dat papier stond alleen een plek voor een handtekening.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt de naam als 'Komiser Kara'. Dit is een andere naam dan de naam die de cliënt eerder zelf noemde ('Komiser Kaya'). De cliënt kan hierdoor denken dat er naar een andere persoon wordt gevraagd, wat zijn antwoord kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.\",\n          \"originalPhrase\": \"Was het rechercheur Kaya die u daarna heeft ondervraagd, of iemand anders?\",\n          \"translatedPhrase\": \"Sizi daha sonra sorgulayan Komiser Kara mıydı, yoksa başka biri mi?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 957,
+    "output_tokens": 1307,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting zijn twee aandachtspunten gesignaleerd. Bij paar 1 maakt de tolk een zelfcorrectie (eerste nacht → tweede nacht), wat conform protocol is en geen afwijking vormt; de overige inhoud klopt. Bij paar 2 ontbreekt de mededeling dat de cliënt had gezegd dat hij het papier zou tekenen omdat ze hem hadden beloofd dat hij 's ochtends vrijgelaten zou worden ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Dit is een inhoudelijk relevante voorwaarde — de belofte van vrijlating als reden voor ondertekening — die in de tolkvertaling ontbreekt. Bij paar 3 vertaalt de tolk 'Sanırım' (= 'Ik denk' / 'Ik vermoed') niet; de cliënt drukt twijfel uit over de inhoud van het papier, maar de tolk presenteert dit als een stellige bewering. In de AMBTENAAR→CLIËNT-richting is bij paar 1 een naamsverwisseling gesignaleerd: de ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt dit als 'Komiser Kara'. Dit is een andere naam en kan de cliënt op het verkeerde been zetten.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt zegt expliciet dat men hem vertelde dat hij 's ochtends vrijgelaten zou worden als hij het papier tekende ('eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler'). Deze belofte van vrijlating als directe aanleiding voor de ondertekening ontbreekt volledig in de tolkvertaling. Dit is een inhoudelijk feit dat de context van de ondertekening — en daarmee de mate van dwang — raakt.",
+      "originalPhrase": "eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt begint met 'Sanırım' (= 'Ik denk' / 'Ik vermoed'), wat twijfel of onzekerheid uitdrukt over de inhoud van het papier. De tolk vertaalt dit als een stellige bewering zonder enig voorbehoud. Hierdoor lijkt de cliënt zeker te zijn van wat er op het papier stond, terwijl hij dat zelf in twijfel trekt.",
+      "originalPhrase": "Sanırım o kâğıtta sadece imza yeri vardı.",
+      "translatedPhrase": "Op dat papier stond alleen een plek voor een handtekening."
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar vraagt naar 'rechercheur Kaya', maar de tolk vertaalt de naam als 'Komiser Kara'. Dit is een andere naam dan de naam die de cliënt eerder zelf noemde ('Komiser Kaya'). De cliënt kan hierdoor denken dat er naar een andere persoon wordt gevraagd, wat zijn antwoord kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+      "originalPhrase": "Was het rechercheur Kaya die u daarna heeft ondervraagd, of iemand anders?",
+      "translatedPhrase": "Sizi daha sonra sorgulayan Komiser Kara mıydı, yoksa başka biri mi?"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

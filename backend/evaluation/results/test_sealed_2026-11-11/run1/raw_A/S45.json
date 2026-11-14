@@ -1,0 +1,80 @@
+{
+ "session_id": "S45",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd.\\n\\n1. CLIENT→AMBTENAAR Paar 2 (gelijkenis 0.829): De cliënt vermeldt expliciet dat de oom elke maand geld stuurde ('haar ay para gönderiyordu') en dat de familie hem op de hoogte hield van de gezinssituatie ('biz de ona ailemizin durumunu anlatıyorduk'). Beide elementen ontbreken in de tolkvertaling. Dit zijn inhoudelijk relevante details over de aard van het contact en de financiële afhankelijkheid, die van belang kunnen zijn voor de beoordeling van het relaas.\\n\\n2. AMBTENAAR→CLIËNT Paar 1 (gelijkenis 0.891): De ambtenaar vraagt naar de verblijfplaats van de oom vóór zijn verhuizing naar Istanbul. De tolk vertaalt dit als 'vóór zijn verhuizing naar Ankara' ('Ankara'ya taşınmadan önce'). De bestemming is veranderd van Istanbul naar Ankara. Dit kan de cliënt op het verkeerde been zetten bij het beantwoorden van de vraag, omdat de context van het gehoor draait om de verhuizing naar Istanbul.\\n\\nPaar 3 CLIENT→AMBTENAAR bevat een toelichting van de tolk op een idiomatische uitdrukking ('kılı kırk yarmayayım'). Dit is een toegestane tolkhandeling; de omschrijving en de overige inhoud zijn inhoudelijk correct weergegeven. Geen afwijking gesignaleerd.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt dat de oom elke maand geld stuurde ('haar ay para gönderiyordu') en dat de familie hem op de hoogte hield van de gezinssituatie ('biz de ona ailemizin durumunu anlatıyorduk'). Beide details ontbreken in de tolkvertaling. Het maandelijkse geld sturen is een concreet gegeven over financiële afhankelijkheid dat relevant kan zijn voor het relaas.\",\n          \"originalPhrase\": \"çünkü o bize her ay para gönderiyordu ve biz de ona ailemizin durumunu anlatıyorduk\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De ambtenaar vraagt naar de verblijfplaats van de oom vóór zijn verhuizing naar Istanbul. De tolk vertaalt 'Istanbul' als 'Ankara' ('Ankara'ya taşınmadan önce'). Dit is een andere stad en kan de cliënt verwarren bij het beantwoorden van de vraag, omdat de context van het gehoor de verhuizing naar Istanbul betreft. De opname dient gecontroleerd te worden om uit te sluiten dat het een spraakherkenningsfout betreft.\",\n          \"originalPhrase\": \"voordat hij naar Istanbul verhuisde\",\n          \"translatedPhrase\": \"Ankara'ya taşınmadan önce\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 967,
+    "output_tokens": 1110,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd.\n\n1. CLIENT→AMBTENAAR Paar 2 (gelijkenis 0.829): De cliënt vermeldt expliciet dat de oom elke maand geld stuurde ('haar ay para gönderiyordu') en dat de familie hem op de hoogte hield van de gezinssituatie ('biz de ona ailemizin durumunu anlatıyorduk'). Beide elementen ontbreken in de tolkvertaling. Dit zijn inhoudelijk relevante details over de aard van het contact en de financiële afhankelijkheid, die van belang kunnen zijn voor de beoordeling van het relaas.\n\n2. AMBTENAAR→CLIËNT Paar 1 (gelijkenis 0.891): De ambtenaar vraagt naar de verblijfplaats van de oom vóór zijn verhuizing naar Istanbul. De tolk vertaalt dit als 'vóór zijn verhuizing naar Ankara' ('Ankara'ya taşınmadan önce'). De bestemming is veranderd van Istanbul naar Ankara. Dit kan de cliënt op het verkeerde been zetten bij het beantwoorden van de vraag, omdat de context van het gehoor draait om de verhuizing naar Istanbul.\n\nPaar 3 CLIENT→AMBTENAAR bevat een toelichting van de tolk op een idiomatische uitdrukking ('kılı kırk yarmayayım'). Dit is een toegestane tolkhandeling; de omschrijving en de overige inhoud zijn inhoudelijk correct weergegeven. Geen afwijking gesignaleerd.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt zegt dat de oom elke maand geld stuurde ('haar ay para gönderiyordu') en dat de familie hem op de hoogte hield van de gezinssituatie ('biz de ona ailemizin durumunu anlatıyorduk'). Beide details ontbreken in de tolkvertaling. Het maandelijkse geld sturen is een concreet gegeven over financiële afhankelijkheid dat relevant kan zijn voor het relaas.",
+      "originalPhrase": "çünkü o bize her ay para gönderiyordu ve biz de ona ailemizin durumunu anlatıyorduk",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De ambtenaar vraagt naar de verblijfplaats van de oom vóór zijn verhuizing naar Istanbul. De tolk vertaalt 'Istanbul' als 'Ankara' ('Ankara'ya taşınmadan önce'). Dit is een andere stad en kan de cliënt verwarren bij het beantwoorden van de vraag, omdat de context van het gehoor de verhuizing naar Istanbul betreft. De opname dient gecontroleerd te worden om uit te sluiten dat het een spraakherkenningsfout betreft.",
+      "originalPhrase": "voordat hij naar Istanbul verhuisde",
+      "translatedPhrase": "Ankara'ya taşınmadan önce"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

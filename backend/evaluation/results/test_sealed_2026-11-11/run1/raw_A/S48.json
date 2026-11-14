@@ -1,0 +1,88 @@
+{
+ "session_id": "S48",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\\n\\nTen eerste, in CLIENT→AMBTENAAR paar 0: de cliënt zegt in het Turks 'üç gün' (drie dagen), maar de tolk vertaalt dit als 'twee dagen'. Dit is een feitelijk verschil in de duur van de detentie — een gegeven dat direct relevant is voor het asieldossier. De opname dient gecontroleerd te worden om vast te stellen of de cliënt 'drie' of 'twee' heeft gezegd, maar de Turkse transcriptie is hier eenduidig: 'üç gün' = drie dagen.\\n\\nTen tweede, in CLIENT→AMBTENAAR paar 2: de tolk voegt aan het einde van de vertaling een eigen vraag toe — 'Bedoelt u dat hij u heeft geslagen?' — die niet door de cliënt is uitgesproken. Dit is een toevoeging van de tolk zelf, buiten het bidirectionele protocol om. De tolk stelt hiermee een suggestieve vraag die de cliënt niet heeft gesteld en die de ambtenaar niet heeft gevraagd. Dit kan de verdere beantwoording van de cliënt beïnvloeden en de integriteit van het gehoor aantasten.\\n\\nIn CLIENT→AMBTENAAR paar 1 ontbreekt in de tolkvertaling de zinsnede 'ze hebben me nooit duidelijk verteld waarom ik werd vastgehouden' ('Bana hiçbir zaman neden tutulduğumu açıkça söylemediler'). Dit is inhoudelijk relevant omdat het de onzekerheid van de cliënt over de reden van zijn detentie weergeeft. De semantische score is 0.934, wat normaal gesproken geen signalering vereist, maar de weggevallen zin is inhoudelijk niet triviaal.\\n\\nDe overige paren vertonen geen inhoudelijke afwijkingen. De toelichting van de tolk bij paar 3 (CLIENT→AMBTENAAR) over de Turkse uitdrukking 'yüreğim ağzıma geldi' is conform protocol en geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'üç gün' (drie dagen), maar de tolk vertaalt dit als 'twee dagen'. De duur van de detentie is een feitelijk gegeven dat het dossier direct beïnvloedt. De opname dient gecontroleerd te worden, maar de Turkse transcriptie is eenduidig.\",\n          \"originalPhrase\": \"Üç gün gözaltında tutuldum.\",\n          \"translatedPhrase\": \"Ik werd twee dagen vastgehouden.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt expliciet dat men hem nooit duidelijk heeft verteld waarom hij werd vastgehouden ('Bana hiçbir zaman neden tutulduğumu açıkça söylemediler'). Deze zin ontbreekt volledig in de tolkvertaling. Dit gegeven is inhoudelijk relevant omdat het de onduidelijkheid over de reden van detentie weergeeft.\",\n          \"originalPhrase\": \"Bana hiçbir zaman neden tutulduğumu açıkça söylemediler, sadece imzalamam için bir kâğıt verdiler.\",\n          \"translatedPhrase\": \"Ze gaven me alleen een papier om te tekenen.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt aan het einde van de vertaling een eigen vraag toe: 'Bedoelt u dat hij u heeft geslagen?' Deze vraag is niet door de cliënt uitgesproken en niet door de ambtenaar gesteld. Het betreft een suggestieve tussenkomst van de tolk buiten het bidirectionele protocol om, die de verdere verklaringen van de cliënt kan beïnvloeden.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bedoelt u dat hij u heeft geslagen?\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1120,
+    "output_tokens": 1383,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd die aandacht verdienen.\n\nTen eerste, in CLIENT→AMBTENAAR paar 0: de cliënt zegt in het Turks 'üç gün' (drie dagen), maar de tolk vertaalt dit als 'twee dagen'. Dit is een feitelijk verschil in de duur van de detentie — een gegeven dat direct relevant is voor het asieldossier. De opname dient gecontroleerd te worden om vast te stellen of de cliënt 'drie' of 'twee' heeft gezegd, maar de Turkse transcriptie is hier eenduidig: 'üç gün' = drie dagen.\n\nTen tweede, in CLIENT→AMBTENAAR paar 2: de tolk voegt aan het einde van de vertaling een eigen vraag toe — 'Bedoelt u dat hij u heeft geslagen?' — die niet door de cliënt is uitgesproken. Dit is een toevoeging van de tolk zelf, buiten het bidirectionele protocol om. De tolk stelt hiermee een suggestieve vraag die de cliënt niet heeft gesteld en die de ambtenaar niet heeft gevraagd. Dit kan de verdere beantwoording van de cliënt beïnvloeden en de integriteit van het gehoor aantasten.\n\nIn CLIENT→AMBTENAAR paar 1 ontbreekt in de tolkvertaling de zinsnede 'ze hebben me nooit duidelijk verteld waarom ik werd vastgehouden' ('Bana hiçbir zaman neden tutulduğumu açıkça söylemediler'). Dit is inhoudelijk relevant omdat het de onzekerheid van de cliënt over de reden van zijn detentie weergeeft. De semantische score is 0.934, wat normaal gesproken geen signalering vereist, maar de weggevallen zin is inhoudelijk niet triviaal.\n\nDe overige paren vertonen geen inhoudelijke afwijkingen. De toelichting van de tolk bij paar 3 (CLIENT→AMBTENAAR) over de Turkse uitdrukking 'yüreğim ağzıma geldi' is conform protocol en geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'üç gün' (drie dagen), maar de tolk vertaalt dit als 'twee dagen'. De duur van de detentie is een feitelijk gegeven dat het dossier direct beïnvloedt. De opname dient gecontroleerd te worden, maar de Turkse transcriptie is eenduidig.",
+      "originalPhrase": "Üç gün gözaltında tutuldum.",
+      "translatedPhrase": "Ik werd twee dagen vastgehouden."
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt zegt expliciet dat men hem nooit duidelijk heeft verteld waarom hij werd vastgehouden ('Bana hiçbir zaman neden tutulduğumu açıkça söylemediler'). Deze zin ontbreekt volledig in de tolkvertaling. Dit gegeven is inhoudelijk relevant omdat het de onduidelijkheid over de reden van detentie weergeeft.",
+      "originalPhrase": "Bana hiçbir zaman neden tutulduğumu açıkça söylemediler, sadece imzalamam için bir kâğıt verdiler.",
+      "translatedPhrase": "Ze gaven me alleen een papier om te tekenen."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt aan het einde van de vertaling een eigen vraag toe: 'Bedoelt u dat hij u heeft geslagen?' Deze vraag is niet door de cliënt uitgesproken en niet door de ambtenaar gesteld. Het betreft een suggestieve tussenkomst van de tolk buiten het bidirectionele protocol om, die de verdere verklaringen van de cliënt kan beïnvloeden.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bedoelt u dat hij u heeft geslagen?"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

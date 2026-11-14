@@ -1,0 +1,72 @@
+{
+ "session_id": "S44",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de CLIENT→AMBTENAAR-richting is één inhoudelijke afwijking gesignaleerd bij paar 1: de cliënt zegt dat hij meteen vertrok 'omdat' de politie zijn naam op een lijst had gezet (oorzaak-gevolgrelatie), maar de tolk vertaalt dit als 'waardoor', wat de volgorde en causaliteit omkeert. Dit is inhoudelijk relevant voor het relaas. De overige drie paren in deze richting vertonen geen noemenswaardige afwijkingen.\\n\\nIn de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd. Bij paar 3 corrigeerde de tolk zichzelf direct en meldde dit expliciet ('İstanbul' → 'Brüksel'); dit is een zelfcorrectie en telt niet als afwijking. De overige paren zijn inhoudelijk correct doorgegeven.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt zegt 'çünkü polis adımı bir listeye yazmıştı' — letterlijk: 'omdat de politie mijn naam op een lijst had gezet'. Dit is de reden waarom hij meteen vertrok. De tolk vertaalt dit als 'waardoor de politie mijn naam op een lijst had gezet', wat de causaliteit omkeert: het lijkt nu alsof het vertrek de oorzaak is van de lijstplaatsing, in plaats van andersom. Dit kan de betekenis van het relaas veranderen, omdat de dreiging (lijstplaatsing door politie) als vluchtmotief wordt gepresenteerd.\",\n          \"originalPhrase\": \"çünkü polis adımı bir listeye yazmıştı\",\n          \"translatedPhrase\": \"waardoor de politie mijn naam op een lijst had gezet\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1084,
+    "output_tokens": 783,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de CLIENT→AMBTENAAR-richting is één inhoudelijke afwijking gesignaleerd bij paar 1: de cliënt zegt dat hij meteen vertrok 'omdat' de politie zijn naam op een lijst had gezet (oorzaak-gevolgrelatie), maar de tolk vertaalt dit als 'waardoor', wat de volgorde en causaliteit omkeert. Dit is inhoudelijk relevant voor het relaas. De overige drie paren in deze richting vertonen geen noemenswaardige afwijkingen.\n\nIn de AMBTENAAR→CLIËNT-richting zijn geen inhoudelijke afwijkingen gesignaleerd. Bij paar 3 corrigeerde de tolk zichzelf direct en meldde dit expliciet ('İstanbul' → 'Brüksel'); dit is een zelfcorrectie en telt niet als afwijking. De overige paren zijn inhoudelijk correct doorgegeven.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De cliënt zegt 'çünkü polis adımı bir listeye yazmıştı' — letterlijk: 'omdat de politie mijn naam op een lijst had gezet'. Dit is de reden waarom hij meteen vertrok. De tolk vertaalt dit als 'waardoor de politie mijn naam op een lijst had gezet', wat de causaliteit omkeert: het lijkt nu alsof het vertrek de oorzaak is van de lijstplaatsing, in plaats van andersom. Dit kan de betekenis van het relaas veranderen, omdat de dreiging (lijstplaatsing door politie) als vluchtmotief wordt gepresenteerd.",
+      "originalPhrase": "çünkü polis adımı bir listeye yazmıştı",
+      "translatedPhrase": "waardoor de politie mijn naam op een lijst had gezet"
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

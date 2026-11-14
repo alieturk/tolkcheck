@@ -1,0 +1,104 @@
+{
+ "session_id": "S30",
+ "variant": "B",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over beide richtingen.\\n\\nClient→ambtenaar, paar 1: De cliënt voegt een voorwaardelijke zin toe — 'Als mijn vriend niet was gekomen, had ik moeten lopen' — die de tolk weglaat. Dit geeft context over de kwetsbaarheid van de reis en ontbreekt in het dossier.\\n\\nClient→ambtenaar, paar 3: De tolk vertaalt 'Telefonum o gün kapandığı için kimseyle konuşamadım' als 'Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken.' De causale verbinding ('omdat mijn telefoon uitviel, kon ik niet bellen') wordt omgekeerd of verbroken door het gebruik van 'ondanks dat'. Dit is een betekenisverschuiving in de logische relatie.\\n\\nAmbtenaar→cliënt, paar 1: De tolk voegt een normatieve opmerking toe die niet in de vraag staat: 'Dit is erg belangrijk dat u hierover duidelijk bent' ('Bu konuda net olmanız çok önemli'). Dit is een eigen toevoeging van de tolk die de cliënt kan beïnvloeden in zijn antwoord.\\n\\nAmbtenaar→cliënt, paar 2: De ambtenaar noemt Doğubayazıt als de grensplaats, maar de tolk vertaalt dit als Erzurum. Dit is een kritieke feitelijke verwisseling van een plaatsnaam in een directe vraag aan de cliënt, waardoor de cliënt een onjuiste vraag krijgt voorgelegd en zijn antwoord mogelijk niet aansluit op wat de ambtenaar bedoelde.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"high\",\n          \"description\": \"De cliënt voegt een voorwaardelijke zin toe: 'Als mijn vriend niet was gekomen, had ik moeten lopen' ('Eğer arkadaşım gelmezse yürümek zorunda kalacaktım'). Deze zin ontbreekt volledig in de vertolking. Het geeft relevante context over de afhankelijkheid van de cliënt en de omstandigheden van de reis.\",\n          \"originalPhrase\": \"Eğer arkadaşım gelmezse yürümek zorunda kalacaktım.\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt zegt 'Telefonum o gün kapandığı için kimseyle konuşamadım', wat betekent: 'Omdat mijn telefoon die dag uitviel, kon ik met niemand spreken.' De tolk vertaalt dit als 'Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken.' Het woord 'ondanks dat' keert de causale relatie om of maakt die onlogisch, terwijl de originele zin een duidelijke oorzaak-gevolgrelatie uitdrukt.\",\n          \"originalPhrase\": \"Telefonum o gün kapandığı için kimseyle konuşamadım\",\n          \"translatedPhrase\": \"Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"addition\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk voegt de zin 'Bu konuda net olmanız çok önemli' toe ('Het is erg belangrijk dat u hierover duidelijk bent'). Dit staat niet in de vraag van de ambtenaar en is een eigen toevoeging van de tolk. Dergelijke normatieve opmerkingen kunnen de cliënt onder druk zetten of zijn antwoord beïnvloeden.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"Bu konuda net olmanız çok önemli.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar noemt expliciet 'Doğubayazıt' als de grensplaats in zijn vraag. De tolk vertaalt dit als 'Erzurum', een andere stad. Dit is een kritieke feitelijke verwisseling van een plaatsnaam. De cliënt krijgt hierdoor een onjuiste vraag voorgelegd, wat zijn antwoord en de dossiervorming kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.\",\n          \"originalPhrase\": \"Doğubayazıt\",\n          \"translatedPhrase\": \"Erzurum\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"medium\",\n          \"description\": \"De ambtenaar vraagt 'Heeft u nog contact gehad', wat verleden tijd is en een gesloten vraag. De tolk vertaalt dit als 'hâlâ temas kurdunuz mu' ('heeft u nog steeds contact gehad'), waarbij 'hâlâ' (nog steeds) een nuance toevoegt die niet in de originele vraag staat. Dit kan de cliënt sturen naar een antwoord over voortdurend contact in plaats van eenmalig contact.\",\n          \"originalPhrase\": \"Heeft u in Doğubayazıt nog contact gehad met iemand uit uw familie?\",\n          \"translatedPhrase\": \"Doğubayazıt'ta ailenizden biriyle hâlâ temas kurdunuz mu?\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1183,
+    "output_tokens": 1774,
+    "cache_creation_input_tokens": 1845,
+    "cache_read_input_tokens": 0
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn vier inhoudelijke afwijkingen gesignaleerd, verdeeld over beide richtingen.\n\nClient→ambtenaar, paar 1: De cliënt voegt een voorwaardelijke zin toe — 'Als mijn vriend niet was gekomen, had ik moeten lopen' — die de tolk weglaat. Dit geeft context over de kwetsbaarheid van de reis en ontbreekt in het dossier.\n\nClient→ambtenaar, paar 3: De tolk vertaalt 'Telefonum o gün kapandığı için kimseyle konuşamadım' als 'Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken.' De causale verbinding ('omdat mijn telefoon uitviel, kon ik niet bellen') wordt omgekeerd of verbroken door het gebruik van 'ondanks dat'. Dit is een betekenisverschuiving in de logische relatie.\n\nAmbtenaar→cliënt, paar 1: De tolk voegt een normatieve opmerking toe die niet in de vraag staat: 'Dit is erg belangrijk dat u hierover duidelijk bent' ('Bu konuda net olmanız çok önemli'). Dit is een eigen toevoeging van de tolk die de cliënt kan beïnvloeden in zijn antwoord.\n\nAmbtenaar→cliënt, paar 2: De ambtenaar noemt Doğubayazıt als de grensplaats, maar de tolk vertaalt dit als Erzurum. Dit is een kritieke feitelijke verwisseling van een plaatsnaam in een directe vraag aan de cliënt, waardoor de cliënt een onjuiste vraag krijgt voorgelegd en zijn antwoord mogelijk niet aansluit op wat de ambtenaar bedoelde.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "high",
+      "description": "De cliënt voegt een voorwaardelijke zin toe: 'Als mijn vriend niet was gekomen, had ik moeten lopen' ('Eğer arkadaşım gelmezse yürümek zorunda kalacaktım'). Deze zin ontbreekt volledig in de vertolking. Het geeft relevante context over de afhankelijkheid van de cliënt en de omstandigheden van de reis.",
+      "originalPhrase": "Eğer arkadaşım gelmezse yürümek zorunda kalacaktım.",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De cliënt zegt 'Telefonum o gün kapandığı için kimseyle konuşamadım', wat betekent: 'Omdat mijn telefoon die dag uitviel, kon ik met niemand spreken.' De tolk vertaalt dit als 'Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken.' Het woord 'ondanks dat' keert de causale relatie om of maakt die onlogisch, terwijl de originele zin een duidelijke oorzaak-gevolgrelatie uitdrukt.",
+      "originalPhrase": "Telefonum o gün kapandığı için kimseyle konuşamadım",
+      "translatedPhrase": "Mijn telefoon was die dag uitgevallen, ondanks dat ik met niemand kon spreken"
+     }
+    ]
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "addition",
+      "severity": "high",
+      "description": "De tolk voegt de zin 'Bu konuda net olmanız çok önemli' toe ('Het is erg belangrijk dat u hierover duidelijk bent'). Dit staat niet in de vraag van de ambtenaar en is een eigen toevoeging van de tolk. Dergelijke normatieve opmerkingen kunnen de cliënt onder druk zetten of zijn antwoord beïnvloeden.",
+      "originalPhrase": "",
+      "translatedPhrase": "Bu konuda net olmanız çok önemli."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar noemt expliciet 'Doğubayazıt' als de grensplaats in zijn vraag. De tolk vertaalt dit als 'Erzurum', een andere stad. Dit is een kritieke feitelijke verwisseling van een plaatsnaam. De cliënt krijgt hierdoor een onjuiste vraag voorgelegd, wat zijn antwoord en de dossiervorming kan beïnvloeden. De opname dient gecontroleerd te worden om uit te sluiten dat het een transcriptiefout betreft.",
+      "originalPhrase": "Doğubayazıt",
+      "translatedPhrase": "Erzurum"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "medium",
+      "description": "De ambtenaar vraagt 'Heeft u nog contact gehad', wat verleden tijd is en een gesloten vraag. De tolk vertaalt dit als 'hâlâ temas kurdunuz mu' ('heeft u nog steeds contact gehad'), waarbij 'hâlâ' (nog steeds) een nuance toevoegt die niet in de originele vraag staat. Dit kan de cliënt sturen naar een antwoord over voortdurend contact in plaats van eenmalig contact.",
+      "originalPhrase": "Heeft u in Doğubayazıt nog contact gehad met iemand uit uw familie?",
+      "translatedPhrase": "Doğubayazıt'ta ailenizden biriyle hâlâ temas kurdunuz mu?"
+     }
+    ]
+   }
+  ],
+  "not_assessed": []
+ }
+}

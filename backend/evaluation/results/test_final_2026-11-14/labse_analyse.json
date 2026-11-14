@@ -1,0 +1,170 @@
+{
+ "samenstelling": {
+  "dev": {
+   "sessies": 10,
+   "paren": 80,
+   "weggelaten": {
+    "S20-P06": "Er is een stad in Turkije genoemd, Mardin. Maar die staat niet in de text van applicant. Er kan twee dingen tegelijk zijn. Omissie en toevoeging."
+   },
+   "afwijkingen_per_categorie": {
+    "toevoeging": 7,
+    "betekenisverschuiving": 7,
+    "entiteitsfout": 7,
+    "register_en_nadruk": 7,
+    "omissie": 6
+   },
+   "afwijkingen_totaal": 34,
+   "controles_per_label": {
+    "controle_letterlijk": 21,
+    "controle_zelfcorrectie": 4,
+    "controle_parafrase": 14,
+    "controle_gemelde_omschrijving": 3,
+    "controle_verzoek_herhaling": 3
+   },
+   "controles_totaal": 45,
+   "gecorrigeerd": 0
+  },
+  "test": {
+   "sessies": 20,
+   "paren": 160,
+   "weggelaten": {},
+   "afwijkingen_per_categorie": {
+    "toevoeging": 14,
+    "omissie": 14,
+    "entiteitsfout": 14,
+    "betekenisverschuiving": 14,
+    "register_en_nadruk": 14
+   },
+   "afwijkingen_totaal": 70,
+   "controles_per_label": {
+    "controle_letterlijk": 44,
+    "controle_parafrase": 26,
+    "controle_gemelde_omschrijving": 7,
+    "controle_verzoek_herhaling": 7,
+    "controle_zelfcorrectie": 6
+   },
+   "controles_totaal": 90,
+   "gecorrigeerd": 0
+  }
+ },
+ "test_roc_auc_per_categorie": {
+  "omissie": {
+   "auc": 0.6746031746031746,
+   "n_dev": 14,
+   "n_controls": 90
+  },
+  "toevoeging": {
+   "auc": 0.7277777777777777,
+   "n_dev": 14,
+   "n_controls": 90
+  },
+  "betekenisverschuiving": {
+   "auc": 0.5865079365079365,
+   "n_dev": 14,
+   "n_controls": 90
+  },
+  "entiteitsfout": {
+   "auc": 0.7293650793650793,
+   "n_dev": 14,
+   "n_controls": 90
+  },
+  "register_en_nadruk": {
+   "auc": 0.5944444444444444,
+   "n_dev": 14,
+   "n_controls": 90
+  },
+  "alle_afwijkingen": {
+   "auc": 0.6625396825396825,
+   "n_dev": 70,
+   "n_controls": 90
+  }
+ },
+ "test_scoredaling_per_categorie": {
+  "omissie": {
+   "n": 14,
+   "gemiddeld": 0.047878078051975796,
+   "min": 0.002298116683959961,
+   "max": 0.12326014041900635
+  },
+  "toevoeging": {
+   "n": 14,
+   "gemiddeld": 0.05875186835016523,
+   "min": 0.008857965469360352,
+   "max": 0.09474050998687744
+  },
+  "betekenisverschuiving": {
+   "n": 14,
+   "gemiddeld": 0.04445485983576093,
+   "min": 0.002961397171020508,
+   "max": 0.12160390615463257
+  },
+  "entiteitsfout": {
+   "n": 14,
+   "gemiddeld": 0.06806805729866028,
+   "min": 0.0038906335830688477,
+   "max": 0.24342256784439087
+  },
+  "register_en_nadruk": {
+   "n": 14,
+   "gemiddeld": 0.030203457389559065,
+   "min": 0.0038992762565612793,
+   "max": 0.0732731819152832
+  }
+ },
+ "test_gemiddelde_labse_per_label": {
+  "afwijking (alle)": {
+   "n": 70,
+   "gemiddeld": 0.8812999827521187
+  },
+  "controle_gemelde_omschrijving": {
+   "n": 7,
+   "gemiddeld": 0.7808682237352643
+  },
+  "controle_letterlijk": {
+   "n": 44,
+   "gemiddeld": 0.9437584958293221
+  },
+  "controle_parafrase": {
+   "n": 26,
+   "gemiddeld": 0.9198608811085041
+  },
+  "controle_verzoek_herhaling": {
+   "n": 7,
+   "gemiddeld": 0.5807874458176749
+  },
+  "controle_zelfcorrectie": {
+   "n": 6,
+   "gemiddeld": 0.8362600604693095
+  }
+ },
+ "parse_en_not_assessed": {
+  "run1:A": {
+   "paren_zonder_antwoord": 0,
+   "stop_reasons": [
+    "end_turn"
+   ],
+   "sessies_met_not_assessed": {}
+  },
+  "run1:B": {
+   "paren_zonder_antwoord": 0,
+   "stop_reasons": [
+    "end_turn"
+   ],
+   "sessies_met_not_assessed": {}
+  },
+  "run2:A": {
+   "paren_zonder_antwoord": 0,
+   "stop_reasons": [
+    "end_turn"
+   ],
+   "sessies_met_not_assessed": {}
+  },
+  "run2:B": {
+   "paren_zonder_antwoord": 0,
+   "stop_reasons": [
+    "end_turn"
+   ],
+   "sessies_met_not_assessed": {}
+  }
+ }
+}

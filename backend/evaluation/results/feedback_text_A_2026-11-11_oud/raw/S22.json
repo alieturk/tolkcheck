@@ -1,0 +1,109 @@
+{
+ "session_id": "S22",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting. Bij paar 0 vertaalt de tolk 'Mart' (maart) als 'april', wat een feitelijk verschil in datum oplevert dat relevant kan zijn voor de tijdlijn van het relaas. Bij paar 2 vertaalt de tolk 'Bir hafta sonra' (een week later) als 'Een week eerder', wat de chronologische volgorde van de gebeurtenissen omkeert en inhoudelijk significant is. Bij paar 1 ontbreekt de bijzin over het wegbrengen van de kinderen naar school ('o sabah çocukları okula bırakmıştı'), wat een contextueel detail is dat de reden voor het uitblijven van direct politiecontact mede verklaart. In de AMBTENAAR→CLIËNT-richting is bij paar 2 de lage gelijkenisscore (0.369) te verklaren doordat de tolk meldt dat het tweede deel van de vraag niet verstaanbaar was en om herhaling vraagt; dit is een toegestane tolkhandeling en wordt niet als afwijking aangemerkt. De overige paren vertonen geen inhoudelijke afwijkingen.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een feitelijk verschil in de datum van de eerste dreigingstelefoontje, wat relevant is voor de tijdlijn van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat het een spraakherkenningsfout betreft.\",\n          \"originalPhrase\": \"14 Mart'ta\",\n          \"translatedPhrase\": \"14 april\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"medium\",\n          \"description\": \"De cliënt vermeldt dat zijn/haar partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'). Dit detail ontbreekt in de vertolking. De bijzin verklaart mede de context van de situatie op het moment dat de brief werd gevonden, maar raakt geen kernfeit van het relaas.\",\n          \"originalPhrase\": \"o sabah çocukları okula bırakmıştı\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt zegt 'Bir hafta sonra' (een week later/daarna), maar de tolk vertaalt dit als 'Een week eerder'. Dit keert de chronologische volgorde van de gebeurtenissen om: de cliënt beschrijft dat de man aan de deur een week ná de telefoontjes verscheen, terwijl de vertolking suggereert dat dit vóór de telefoontjes plaatsvond. Dit raakt de tijdlijn van het relaas direct.\",\n          \"originalPhrase\": \"Bir hafta sonra da kapıya bir adam geldi\",\n          \"translatedPhrase\": \"Een week eerder kwam er ook een man aan de deur\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"false-negative\",\n          \"severity\": \"low\",\n          \"description\": \"De lage gelijkenisscore (0.369) is het gevolg van een toegestane tolkhandeling: de tolk meldt dat het tweede deel van de vraag niet verstaanbaar was en vraagt de hoorambtenaar om herhaling. Dit is geen inhoudelijke afwijking. Het fragment is niet beoordeelbaar als vertolking van de oorspronkelijke vraag.\",\n          \"originalPhrase\": \"\",\n          \"translatedPhrase\": \"\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 999,
+    "output_tokens": 1279,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1871
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd in de CLIENT→AMBTENAAR-richting. Bij paar 0 vertaalt de tolk 'Mart' (maart) als 'april', wat een feitelijk verschil in datum oplevert dat relevant kan zijn voor de tijdlijn van het relaas. Bij paar 2 vertaalt de tolk 'Bir hafta sonra' (een week later) als 'Een week eerder', wat de chronologische volgorde van de gebeurtenissen omkeert en inhoudelijk significant is. Bij paar 1 ontbreekt de bijzin over het wegbrengen van de kinderen naar school ('o sabah çocukları okula bırakmıştı'), wat een contextueel detail is dat de reden voor het uitblijven van direct politiecontact mede verklaart. In de AMBTENAAR→CLIËNT-richting is bij paar 2 de lage gelijkenisscore (0.369) te verklaren doordat de tolk meldt dat het tweede deel van de vraag niet verstaanbaar was en om herhaling vraagt; dit is een toegestane tolkhandeling en wordt niet als afwijking aangemerkt. De overige paren vertonen geen inhoudelijke afwijkingen.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt '14 Mart' (14 maart), maar de tolk vertaalt dit als '14 april'. Dit is een feitelijk verschil in de datum van de eerste dreigingstelefoontje, wat relevant is voor de tijdlijn van het relaas. De opname dient gecontroleerd te worden om uit te sluiten dat het een spraakherkenningsfout betreft.",
+      "originalPhrase": "14 Mart'ta",
+      "translatedPhrase": "14 april"
+     }
+    ]
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "medium",
+      "description": "De cliënt vermeldt dat zijn/haar partner die ochtend de kinderen naar school had gebracht ('o sabah çocukları okula bırakmıştı'). Dit detail ontbreekt in de vertolking. De bijzin verklaart mede de context van de situatie op het moment dat de brief werd gevonden, maar raakt geen kernfeit van het relaas.",
+      "originalPhrase": "o sabah çocukları okula bırakmıştı",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De cliënt zegt 'Bir hafta sonra' (een week later/daarna), maar de tolk vertaalt dit als 'Een week eerder'. Dit keert de chronologische volgorde van de gebeurtenissen om: de cliënt beschrijft dat de man aan de deur een week ná de telefoontjes verscheen, terwijl de vertolking suggereert dat dit vóór de telefoontjes plaatsvond. Dit raakt de tijdlijn van het relaas direct.",
+      "originalPhrase": "Bir hafta sonra da kapıya bir adam geldi",
+      "translatedPhrase": "Een week eerder kwam er ook een man aan de deur"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "false-negative",
+      "severity": "low",
+      "description": "De lage gelijkenisscore (0.369) is het gevolg van een toegestane tolkhandeling: de tolk meldt dat het tweede deel van de vraag niet verstaanbaar was en vraagt de hoorambtenaar om herhaling. Dit is geen inhoudelijke afwijking. Het fragment is niet beoordeelbaar als vertolking van de oorspronkelijke vraag.",
+      "originalPhrase": "",
+      "translatedPhrase": ""
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S22-P01",
+   "S22-P03",
+   "S22-P05",
+   "S22-P07"
+  ],
+  "client_to_officer": [
+   "S22-P02",
+   "S22-P04",
+   "S22-P06",
+   "S22-P08"
+  ]
+ }
+}

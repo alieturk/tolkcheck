@@ -1,0 +1,80 @@
+{
+ "session_id": "S32",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"Er zijn twee inhoudelijke afwijkingen gesignaleerd.\\n\\n**CLIENT→AMBTENAAR, paar 1 (gelijkenis 0.832):** De cliënt maakt een duidelijk onderscheid tussen zijn eigen activiteit (posters ophangen) en die van Murat (flyers uitdelen). De tolk vertaalt beide activiteiten als uitgevoerd door de cliënt zelf ('ik had de posters opgehangen, ik had de flyers uitgedeeld'), waardoor Murat als aparte persoon en zijn specifieke rol volledig wegvallen. Dit is een inhoudelijke afwijking die de feitelijke rolverdeling en de betrokkenheid van een derde persoon raakt.\\n\\n**AMBTENAAR→CLIËNT, paar 2 (gelijkenis 0.799):** De ambtenaar spreekt over 'vijf collega's', maar de tolk vertaalt dit als 'drie vrienden/collega's' ('üç arkadaş'). Dit is een concreet getalsverschil dat de cliënt een onjuiste premisse voorlegt. Bovendien gebruikt de tolk 'arkadaş' (vrienden/kameraden) in plaats van een neutraler woord voor collega's, wat een lichte betekenisverschuiving geeft. Het getalsverschil is het meest relevant: de cliënt krijgt een vraag over drie personen terwijl de ambtenaar vijf bedoelt, wat het antwoord van de cliënt kan beïnvloeden.\\n\\nDe overige paren bevatten geen inhoudelijke afwijkingen. De zelfcorrectie van de tolk in AMBTENAAR→CLIËNT paar 1 is geen afwijking.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"omission\",\n          \"severity\": \"critical\",\n          \"description\": \"De cliënt maakt een expliciet onderscheid: híj hing de posters op, en Murat deelde de flyers uit ('Murat ise bildiriler dağıtmıştı'). De tolk laat Murat volledig weg en schrijft beide activiteiten toe aan de cliënt zelf ('ik had de posters opgehangen, ik had de flyers uitgedeeld'). Hierdoor verdwijnt de rol van een derde persoon (Murat) en de taakverdeling tussen beiden uit het dossier.\",\n          \"originalPhrase\": \"Partinin afişlerini ben asmıştım, Murat ise bildiriler dağıtmıştı.\",\n          \"translatedPhrase\": \"Ik had de posters van de partij opgehangen, ik had de flyers uitgedeeld.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar spreekt over 'vijf collega's', maar de tolk vertaalt dit als 'drie' ('üç arkadaş'). De cliënt krijgt hierdoor een onjuist getal voorgelegd, wat zijn antwoord kan beïnvloeden. Daarnaast is 'arkadaş' (vrienden/kameraden) een lichte betekenisverschuiving ten opzichte van het neutrale 'collega's', maar het getalsverschil (vijf vs. drie) is het meest inhoudelijk relevant. De opname dient gecontroleerd te worden om te bevestigen of de ambtenaar inderdaad 'vijf' zei.\",\n          \"originalPhrase\": \"U noemde zojuist vijf collega's in het atelier.\",\n          \"translatedPhrase\": \"Az önce atölyede üç arkadaş saydınız.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1055,
+    "output_tokens": 1240,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1916
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "Er zijn twee inhoudelijke afwijkingen gesignaleerd.\n\n**CLIENT→AMBTENAAR, paar 1 (gelijkenis 0.832):** De cliënt maakt een duidelijk onderscheid tussen zijn eigen activiteit (posters ophangen) en die van Murat (flyers uitdelen). De tolk vertaalt beide activiteiten als uitgevoerd door de cliënt zelf ('ik had de posters opgehangen, ik had de flyers uitgedeeld'), waardoor Murat als aparte persoon en zijn specifieke rol volledig wegvallen. Dit is een inhoudelijke afwijking die de feitelijke rolverdeling en de betrokkenheid van een derde persoon raakt.\n\n**AMBTENAAR→CLIËNT, paar 2 (gelijkenis 0.799):** De ambtenaar spreekt over 'vijf collega's', maar de tolk vertaalt dit als 'drie vrienden/collega's' ('üç arkadaş'). Dit is een concreet getalsverschil dat de cliënt een onjuiste premisse voorlegt. Bovendien gebruikt de tolk 'arkadaş' (vrienden/kameraden) in plaats van een neutraler woord voor collega's, wat een lichte betekenisverschuiving geeft. Het getalsverschil is het meest relevant: de cliënt krijgt een vraag over drie personen terwijl de ambtenaar vijf bedoelt, wat het antwoord van de cliënt kan beïnvloeden.\n\nDe overige paren bevatten geen inhoudelijke afwijkingen. De zelfcorrectie van de tolk in AMBTENAAR→CLIËNT paar 1 is geen afwijking.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "omission",
+      "severity": "critical",
+      "description": "De cliënt maakt een expliciet onderscheid: híj hing de posters op, en Murat deelde de flyers uit ('Murat ise bildiriler dağıtmıştı'). De tolk laat Murat volledig weg en schrijft beide activiteiten toe aan de cliënt zelf ('ik had de posters opgehangen, ik had de flyers uitgedeeld'). Hierdoor verdwijnt de rol van een derde persoon (Murat) en de taakverdeling tussen beiden uit het dossier.",
+      "originalPhrase": "Partinin afişlerini ben asmıştım, Murat ise bildiriler dağıtmıştı.",
+      "translatedPhrase": "Ik had de posters van de partij opgehangen, ik had de flyers uitgedeeld."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar spreekt over 'vijf collega's', maar de tolk vertaalt dit als 'drie' ('üç arkadaş'). De cliënt krijgt hierdoor een onjuist getal voorgelegd, wat zijn antwoord kan beïnvloeden. Daarnaast is 'arkadaş' (vrienden/kameraden) een lichte betekenisverschuiving ten opzichte van het neutrale 'collega's', maar het getalsverschil (vijf vs. drie) is het meest inhoudelijk relevant. De opname dient gecontroleerd te worden om te bevestigen of de ambtenaar inderdaad 'vijf' zei.",
+      "originalPhrase": "U noemde zojuist vijf collega's in het atelier.",
+      "translatedPhrase": "Az önce atölyede üç arkadaş saydınız."
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": []
+   }
+  ],
+  "not_assessed": []
+ }
+}

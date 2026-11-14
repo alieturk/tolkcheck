@@ -1,0 +1,189 @@
+{
+ "session_id": "S35",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "verhoor en behandeling op het politiebureau",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S35-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wanneer bent u voor het eerst op het politiebureau in Adana aangehouden?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Adana'da polis karakoluna ilk kez ne zaman gözaltına alındınız?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S35-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "3 Mart sabahı evimden aldılar, saat altı civarıydı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Op 3 maart in de ochtend haalden ze me uit mijn huis, rond zes uur."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S35-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Was het rechercheur Kaya die u daarna heeft ondervraagd, of iemand anders?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Sizi daha sonra sorgulayan Komiser Kara mıydı, yoksa başka biri mi?"
+   },
+   "reference_rendering": "Sizi daha sonra sorgulayan Komiser Kaya mıydı, yoksa başka biri mi?",
+   "label": "entiteitsfout",
+   "subtype": "naam",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S35-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Beni karakolda iki gece tuttular, ikinci gece Komiser Kaya'nın odasına götürdüler, orada ağır ağır sorular sordu ve su vermedi."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ze hielden me twee nachten vast op het bureau. In de eerste nacht — de tolk corrigeert zich: nee, in de tweede nacht — brachten ze me naar de kamer van Kaya. Hij stelde me langzaam vragen en gaf me geen water."
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S35-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Wat gebeurde er daarna, op de tweede dag, voordat u iets moest tekenen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "İkinci günde, bir şey imzalamanızdan önce neler oldu?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S35-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "İkinci gün sabaha doğru bir kâğıt getirdiler, Hukuk diliyle yazılmıştı ve tam anlayamadım, eğer o kâğıdı imzalarsam sabah serbest bırakılacağımı söylediler, ben de çok korktuğum için, çünkü kapıda polis vardı, imzaladım, sonra da beni ailemin yanına bıraktılar, ama ailem o günden beri çok korkuyor."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Op de tweede dag, rond de ochtend, brachten ze een papier. Het was in juridische taal geschreven en ik kon het niet helemaal volgen. Ik heb het getekend omdat ik zo bang was, want er stond politie bij de deur. Daarna brachten ze me naar mijn familie, maar mijn familie is sindsdien erg bang."
+   },
+   "reference_rendering": "Op de tweede dag, rond de ochtend, brachten ze een papier. Het was in juridische taal geschreven en ik kon het niet helemaal volgen. Ze zeiden dat ik in de ochtend vrijgelaten zou worden als ik het tekende. Ik heb het getekend omdat ik zo bang was, want er stond politie bij de deur. Daarna brachten ze me naar mijn familie, maar mijn familie is sindsdien erg bang.",
+   "label": "omissie",
+   "subtype": "voorwaarde",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S35-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u zeggen wat er op dat papier stond, voor zover u het kon zien?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Görebildiğiniz kadarıyla o belgede neler yazılıydı, söyleyebilir misiniz?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S35-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Sanırım o kâğıtta sadece imza yeri vardı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Op dat papier stond alleen een plek voor een handtekening."
+   },
+   "reference_rendering": "Op dat papier stond volgens mij alleen een plek voor een handtekening.",
+   "label": "register_en_nadruk",
+   "subtype": "twijfel_weg",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  }
+ ]
+}

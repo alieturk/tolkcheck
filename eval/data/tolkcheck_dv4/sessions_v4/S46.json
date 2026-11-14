@@ -1,0 +1,190 @@
+{
+ "session_id": "S46",
+ "language_pair": "tr-nl",
+ "split": "test",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_c",
+  "applicant": "vb_applicant_a",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "werk en politieke activiteiten",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S46-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Welk werk deed u in Turkije voordat u het land verliet?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ülkeden ayrılmadan önce Türkiye'de hangi işte çalışıyordunuz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S46-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Bir tekstil fabrikasında vardiyalı çalışıyordum, yaklaşık altı yıl."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik werkte in een textielfabriek in Bursa, in ploegendienst, ongeveer zes jaar."
+   },
+   "label": "toevoeging",
+   "subtype": "verzonnen_detail",
+   "severity": "major",
+   "expected_flag": true,
+   "reference_rendering": "Ik werkte in een textielfabriek, in ploegendienst, ongeveer zes jaar.",
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S46-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Was u misschien lid van een politieke partij toen u nog in die fabriek werkte?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Çalıştığınız fabrikadayken bir siyasi partinin üyesi miydiniz?"
+   },
+   "label": "register_en_nadruk",
+   "subtype": "twijfel_weg",
+   "severity": "minor",
+   "expected_flag": true,
+   "reference_rendering": "Çalıştığınız fabrikadayken belki bir siyasi partinin üyesi miydiniz?",
+   "normbron": "Wbtv regel 14; Bannink & Kramp (2023)"
+  },
+  {
+   "pair_id": "S46-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Evet, partinin yerel şubesinde gönüllü çalışıyordum. Afişleri genellikle Hasan dağıtırdı, ben toplantılarda not tutuyordum ve sandık gözlemcisi olarak da çalıştım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ja, ik werkte als vrijwilliger bij de plaatselijke afdeling van de partij. De affiches verspreidde ik meestal zelf, ik maakte aantekeningen tijdens de bijeenkomsten en ik werkte ook als stembureaugetuige."
+   },
+   "label": "betekenisverschuiving",
+   "subtype": "wie_deed_wat",
+   "severity": "critical",
+   "expected_flag": true,
+   "reference_rendering": "Ja, ik werkte als vrijwilliger bij de plaatselijke afdeling van de partij. De affiches werden meestal door Hasan verspreid, ik maakte aantekeningen tijdens de bijeenkomsten en ik werkte ook als stembureaugetuige.",
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S46-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe is het precies afgelopen met uw werkgever, nadat de politie bij de fabriek kwam?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Affedersiniz, bu soruyu tekrar eder misiniz? Polisin fabrikaya geldiği kısmı tam anlayamadım."
+   },
+   "label": "controle_verzoek_herhaling",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 17"
+  },
+  {
+   "pair_id": "S46-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Polis fabrikaya üç kez geldi, son seferinde müdürümle konuştular. Ondan sonra bana bir hafta içinde işten çıkarılacağımı söyledi. Bir gece karakolda yaklaşık on iki saat tutuldum, sonra bırakıldım. Ertesi hafta kâğıtlarımı aldım ve işten ayrıldım. Ailem de çok korkmuştu."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De politie kwam twee keer naar de fabriek, de laatste keer sprak ze met mijn baas. Daarna zei hij dat ik binnen een week ontslagen zou worden. Op een nacht werd ik ongeveer twaalf uur op het politiebureau vastgehouden, daarna liet men me gaan. De week erna haalde ik mijn papieren op en ging weg. Mijn familie was ook erg bang."
+   },
+   "label": "entiteitsfout",
+   "subtype": "aantal",
+   "severity": "major",
+   "expected_flag": true,
+   "reference_rendering": "De politie kwam drie keer naar de fabriek, de laatste keer sprak ze met mijn baas. Daarna zei hij dat ik binnen een week ontslagen zou worden. Op een nacht werd ik ongeveer twaalf uur op het politiebureau vastgehouden, daarna liet men me gaan. De week erna haalde ik mijn papieren op en ging weg. Mijn familie was ook erg bang.",
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S46-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waarom besloot u na die gebeurtenissen Turkije te verlaten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Olayların ardından neden Türkiye'yi terk etmeye karar verdiniz?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S46-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Çünkü ailemin de güvenliği tehlikedeydi. Kardeşim de aynı partide çalışıyordu ve polis onun peşindeydi. Bu yüzden gitmek zorunda kaldım."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Omdat ook de veiligheid van mijn familie in gevaar was. Mijn broer werkte ook in dezelfde partij en de politie zat achter hem aan. Daarom moest ik vertrekken."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}

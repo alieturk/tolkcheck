@@ -1,0 +1,101 @@
+{
+ "session_id": "S29",
+ "variant": "A",
+ "calls": [
+  {
+   "model": "claude-sonnet-4-6",
+   "stop_reason": "end_turn",
+   "text": "```json\n{\n  \"overall_feedback\": \"In de geanalyseerde fragmenten zijn de meeste vertalingen inhoudelijk nauwkeurig. Er is één opvallende afwijking gesignaleerd in de richting ambtenaar→cliënt (paar 2): de ambtenaar noemde '14 mei' als datum van het artikel, maar de tolk vertaalde dit als '14 maart' (14 Mart). Dit is een feitelijk verschil in een datum die relevant kan zijn voor de tijdlijn van het relaas. De opname dient op dit punt gecontroleerd te worden. In paar 3 (ambtenaar→cliënt) corrigeert de tolk zichzelf expliciet en geeft aan dat hij aanvankelijk 'één keer' zei in plaats van het correcte 'tekrar' (opnieuw/herhaald); de uiteindelijke vertolking lijkt inhoudelijk te kloppen, maar de zelfcorrectie is genoteerd. In de client→ambtenaar richting zijn geen inhoudelijke afwijkingen gesignaleerd. Paar 1 (client→ambtenaar) bevat een kleine volgordewisseling ('eerst brief, dan telefonische dreiging' versus de originele volgorde 'eerst brief, dan telefonische dreiging'), maar bij nader inzien is de volgorde in de tolktekst omgedraaid ten opzichte van het origineel: het origineel stelt 'eerst een brief, daarna een telefonische dreiging', terwijl de tolk zegt 'eerst een brief, en daarvoor een telefonische dreiging'. Dit is een mogelijke inhoudelijke afwijking in de chronologie.\",\n  \"pairs\": [\n    {\n      \"pair_index\": 0,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"client_to_officer\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"Het origineel stelt dat eerst een brief werd achtergelaten en daarna een telefonische dreiging volgde ('Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi'). De tolk vertaalde dit als 'Eerst werd er een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging', waarmee de volgorde wordt omgedraaid: 'daarvoor' suggereert dat de telefonische dreiging vóór de brief kwam, terwijl het origineel 'daarna' (sonra) aangeeft. Dit raakt de chronologie van de bedreigingen.\",\n          \"originalPhrase\": \"Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi.\",\n          \"translatedPhrase\": \"Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging.\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"client_to_officer\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 0,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 1,\n      \"direction\": \"officer_to_client\",\n      \"issues\": []\n    },\n    {\n      \"pair_index\": 2,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"critical\",\n          \"description\": \"De ambtenaar noemde '14 mei' als datum van het artikel. De tolk vertaalde dit als '14 Mart' (14 maart). Dit is een verschil van twee maanden in een datum die direct relevant is voor de tijdlijn van het relaas. De opname dient op dit punt gecontroleerd te worden om vast te stellen of de tolk '14 Mart' heeft gezegd of dat de spraakherkenning dit verkeerd heeft weergegeven.\",\n          \"originalPhrase\": \"Het artikel verscheen op 14 mei\",\n          \"translatedPhrase\": \"Yazı 14 Mart'ta yayımlandı\"\n        }\n      ]\n    },\n    {\n      \"pair_index\": 3,\n      \"direction\": \"officer_to_client\",\n      \"issues\": [\n        {\n          \"type\": \"mistranslation\",\n          \"severity\": \"high\",\n          \"description\": \"De tolk corrigeert zichzelf expliciet: hij zei aanvankelijk 'bir kez' (één keer) waar de ambtenaar vroeg naar herhaald contact ('nog een keer contact', wat in context 'opnieuw/herhaald contact' betekent). De tolk herstelt dit naar 'tekrar' (opnieuw). De uiteindelijke vertolking lijkt inhoudelijk correct, maar de initiële fout — waarbij 'herhaald contact' werd vertaald als 'één keer contact' — kan de cliënt tijdelijk op het verkeerde been hebben gezet. De zelfcorrectie is positief, maar het is aan de hoorambtenaar om te beoordelen of de cliënt de vraag uiteindelijk correct heeft begrepen.\",\n          \"originalPhrase\": \"Is er na die datum nog een keer contact met u geweest, of bleef het bij die berichten?\",\n          \"translatedPhrase\": \"Bu tarihten sonra sizinle bir kez, affedersiniz, tekrar temas kuruldu mu, yoksa sadece o mesajlar mı geldi?\"\n        }\n      ]\n    }\n  ]\n}\n```",
+   "usage": {
+    "input_tokens": 1047,
+    "output_tokens": 1489,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 1871
+   },
+   "temperature": 0.0
+  }
+ ],
+ "parsed": {
+  "overall_feedback": "In de geanalyseerde fragmenten zijn de meeste vertalingen inhoudelijk nauwkeurig. Er is één opvallende afwijking gesignaleerd in de richting ambtenaar→cliënt (paar 2): de ambtenaar noemde '14 mei' als datum van het artikel, maar de tolk vertaalde dit als '14 maart' (14 Mart). Dit is een feitelijk verschil in een datum die relevant kan zijn voor de tijdlijn van het relaas. De opname dient op dit punt gecontroleerd te worden. In paar 3 (ambtenaar→cliënt) corrigeert de tolk zichzelf expliciet en geeft aan dat hij aanvankelijk 'één keer' zei in plaats van het correcte 'tekrar' (opnieuw/herhaald); de uiteindelijke vertolking lijkt inhoudelijk te kloppen, maar de zelfcorrectie is genoteerd. In de client→ambtenaar richting zijn geen inhoudelijke afwijkingen gesignaleerd. Paar 1 (client→ambtenaar) bevat een kleine volgordewisseling ('eerst brief, dan telefonische dreiging' versus de originele volgorde 'eerst brief, dan telefonische dreiging'), maar bij nader inzien is de volgorde in de tolktekst omgedraaid ten opzichte van het origineel: het origineel stelt 'eerst een brief, daarna een telefonische dreiging', terwijl de tolk zegt 'eerst een brief, en daarvoor een telefonische dreiging'. Dit is een mogelijke inhoudelijke afwijking in de chronologie.",
+  "structured_issues": [
+   {
+    "pair_index": 0,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "client_to_officer",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "Het origineel stelt dat eerst een brief werd achtergelaten en daarna een telefonische dreiging volgde ('Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi'). De tolk vertaalde dit als 'Eerst werd er een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging', waarmee de volgorde wordt omgedraaid: 'daarvoor' suggereert dat de telefonische dreiging vóór de brief kwam, terwijl het origineel 'daarna' (sonra) aangeeft. Dit raakt de chronologie van de bedreigingen.",
+      "originalPhrase": "Önce ailemin evine bir mektup bırakıldı, sonra bana telefonla bir tehdit geldi.",
+      "translatedPhrase": "Eerst werd er bij het huis van mijn familie een brief achtergelaten, en daarvoor kreeg ik telefonisch een dreiging."
+     }
+    ]
+   },
+   {
+    "pair_index": 2,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 3,
+    "direction": "client_to_officer",
+    "issues": []
+   },
+   {
+    "pair_index": 0,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 1,
+    "direction": "officer_to_client",
+    "issues": []
+   },
+   {
+    "pair_index": 2,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "critical",
+      "description": "De ambtenaar noemde '14 mei' als datum van het artikel. De tolk vertaalde dit als '14 Mart' (14 maart). Dit is een verschil van twee maanden in een datum die direct relevant is voor de tijdlijn van het relaas. De opname dient op dit punt gecontroleerd te worden om vast te stellen of de tolk '14 Mart' heeft gezegd of dat de spraakherkenning dit verkeerd heeft weergegeven.",
+      "originalPhrase": "Het artikel verscheen op 14 mei",
+      "translatedPhrase": "Yazı 14 Mart'ta yayımlandı"
+     }
+    ]
+   },
+   {
+    "pair_index": 3,
+    "direction": "officer_to_client",
+    "issues": [
+     {
+      "type": "mistranslation",
+      "severity": "high",
+      "description": "De tolk corrigeert zichzelf expliciet: hij zei aanvankelijk 'bir kez' (één keer) waar de ambtenaar vroeg naar herhaald contact ('nog een keer contact', wat in context 'opnieuw/herhaald contact' betekent). De tolk herstelt dit naar 'tekrar' (opnieuw). De uiteindelijke vertolking lijkt inhoudelijk correct, maar de initiële fout — waarbij 'herhaald contact' werd vertaald als 'één keer contact' — kan de cliënt tijdelijk op het verkeerde been hebben gezet. De zelfcorrectie is positief, maar het is aan de hoorambtenaar om te beoordelen of de cliënt de vraag uiteindelijk correct heeft begrepen.",
+      "originalPhrase": "Is er na die datum nog een keer contact met u geweest, of bleef het bij die berichten?",
+      "translatedPhrase": "Bu tarihten sonra sizinle bir kez, affedersiniz, tekrar temas kuruldu mu, yoksa sadece o mesajlar mı geldi?"
+     }
+    ]
+   }
+  ]
+ },
+ "pair_order": {
+  "officer_to_client": [
+   "S29-P01",
+   "S29-P03",
+   "S29-P05",
+   "S29-P07"
+  ],
+  "client_to_officer": [
+   "S29-P02",
+   "S29-P04",
+   "S29-P06",
+   "S29-P08"
+  ]
+ }
+}

@@ -1,0 +1,189 @@
+{
+ "session_id": "S23",
+ "language_pair": "tr-nl",
+ "split": "dev",
+ "tts_engine": "voicebox",
+ "voices": {
+  "officer": "vb_officer_a",
+  "applicant": "vb_applicant_b",
+  "interpreter": "vb_interp_a"
+ },
+ "topic": "vertrek en reisroute",
+ "generator": "claude-haiku-5-5",
+ "prompt_version": "tolkcheck-sessies-v4",
+ "reviewed": true,
+ "reviewed_by": "Huseyin Altunbas",
+ "pairs": [
+  {
+   "pair_id": "S23-P01",
+   "order": 1,
+   "round": 1,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Waar woonde u voordat u Turkije heeft verlaten?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Türkiye'den ayrılmadan önce nerede yaşıyordunuz?"
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P02",
+   "order": 2,
+   "round": 1,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Van'da annemle birlikte yaşıyordum, Mart ayına kadar."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik woonde in Van, samen met mijn moeder, tot maart."
+   },
+   "label": "controle_letterlijk",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P03",
+   "order": 3,
+   "round": 2,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Dus u vertrok uit Van. Hoe bent u van daar naar Istanbul gereisd?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Yani Hakkâri'den ayrıldınız. Oradan İstanbul'a nasıl gittiniz?"
+   },
+   "reference_rendering": "Yani Van'dan ayrıldınız. Oradan İstanbul'a nasıl gittiniz?",
+   "label": "entiteitsfout",
+   "subtype": "plaats",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13; IND (2026a)"
+  },
+  {
+   "pair_id": "S23-P04",
+   "order": 4,
+   "round": 2,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Polis evimize sık sık gelmeye başladı, her seferinde kapıyı çalıp kardeşimi sordular. Van'dan ayrıldım çünkü kardeşim gözaltına alınmıştı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "De politie kwam steeds vaker bij ons thuis en klopte elke keer aan om naar mijn broer te vragen. Mijn broer was gearresteerd omdat ik uit Van vertrok."
+   },
+   "reference_rendering": "De politie kwam steeds vaker bij ons thuis en klopte elke keer aan om naar mijn broer te vragen. Ik ben uit Van vertrokken omdat mijn broer was gearresteerd.",
+   "label": "betekenisverschuiving",
+   "subtype": "oorzaak_gevolg",
+   "severity": "critical",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13"
+  },
+  {
+   "pair_id": "S23-P05",
+   "order": 5,
+   "round": 3,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Kunt u mij zeggen hoe lang voor uw vertrek uw broer is opgepakt?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ayrılmanızdan kaç gün önce kardeşiniz gözaltına alınmıştı?"
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  },
+  {
+   "pair_id": "S23-P06",
+   "order": 6,
+   "round": 3,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Gözaltından iki hafta sonra bir akşam, komşumuz bana haber verdi, polis tekrar gelebilir diye. O gece annemin kardeşinin yanına gittim, sonra ertesi sabah bir otobüse binip İstanbul'a gittim. Orada iki gün kaldım, bir arkadaşım pasaportumu ve bileti ayarladı."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Twee weken na zijn arrestatie waarschuwde onze buurman mij op een avond, omdat de politie misschien weer zou komen. Die nacht ging ik naar het huis van mijn oom, en de volgende ochtend om zes uur stapte ik in een bus naar Istanbul. Daar bleef ik twee dagen, en een vriend regelde mijn paspoort en mijn ticket."
+   },
+   "reference_rendering": "Twee weken na zijn arrestatie waarschuwde onze buurman mij op een avond, omdat de politie misschien weer zou komen. Die nacht ging ik naar het huis van mijn oom, en de volgende ochtend stapte ik in een bus naar Istanbul. Daar bleef ik twee dagen, en een vriend regelde mijn paspoort en mijn ticket.",
+   "label": "toevoeging",
+   "subtype": "verzonnen_detail",
+   "severity": "major",
+   "expected_flag": true,
+   "normbron": "Wbtv regel 13 en 18"
+  },
+  {
+   "pair_id": "S23-P07",
+   "order": 7,
+   "round": 4,
+   "direction": "nl->tr",
+   "source": {
+    "speaker": "officer",
+    "lang": "nl",
+    "text": "Hoe bent u van Istanbul naar Nederland gekomen? Met welk vervoer en via welke landen?"
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "tr",
+    "text": "Ankara'dan — [De tolk corrigeert zich: ik zei 'Ankara', dat moet 'İstanbul' zijn.] — İstanbul'dan Hollanda'ya nasıl geldiniz? Hangi taşıtla ve hangi ülkelerden geçerek?"
+   },
+   "label": "controle_zelfcorrectie",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": "Wbtv regel 18"
+  },
+  {
+   "pair_id": "S23-P08",
+   "order": 8,
+   "round": 4,
+   "direction": "tr->nl",
+   "source": {
+    "speaker": "applicant",
+    "lang": "tr",
+    "text": "Uçakla İstanbul'dan Belgrad'a gittim, sonra bir arkadaşın arabasıyla Hollanda'ya geldim. Yolda çok korktum ama kimseye bir şey söylemedim."
+   },
+   "rendering": {
+    "speaker": "interpreter",
+    "lang": "nl",
+    "text": "Ik ben vanuit Istanbul met het vliegtuig naar Belgrado gegaan, en daarna met de auto van een vriend naar Nederland gereisd. Onderweg was ik erg bang, maar ik heb tegen niemand iets gezegd."
+   },
+   "label": "controle_parafrase",
+   "subtype": null,
+   "severity": "none",
+   "expected_flag": false,
+   "normbron": null
+  }
+ ]
+}
